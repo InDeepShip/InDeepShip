@@ -1,3 +1,28 @@
+# Bow
+client code utilizing React.js
+
+# Software Structure
+```
+├── README.md
+├── package-lock.json
+├── package.json
+├── public
+│   ├── index.html
+│   └── robots.txt
+└── src
+    ├── App.js
+    ├── App.test.js
+    ├── css
+    │   ├── App.css
+    │   └── index.css
+    ├── index.js
+    ├── serviceWorker.js
+    └── setupTests.js
+
+3 directories, 12 files
+```
+
+# Create React App Appendix
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
