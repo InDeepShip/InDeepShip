@@ -126,6 +126,36 @@ Build Info: {
 }
 ```
 
+### Start MongoDB
+If you have a Mac with OS version older than **Catalina** the following instructions would work to setup and start
+you database. However if you have OS **Catalina** or greater.. see below.
+```
+$ sudo mkdir -p /data/db
+$ sudo chown -R `id -un` /data/db
+$ mongod
+```
+
+### Start MongoDB (Mac OS Catalina or newer)
+If you have Mac OS **Catalina** or greater, you are no longer able to store files or data in
+read-only system volume, nor can you write to the 'root' directory (/) from the command line.
+So instead you need to create a directory data path in your personal home directory
+```
+$ cd ~/
+$ mkdir MongoData
+$ sudo chown -R `id -un` MongoData
+```
+
+Next, you need to pass the complete datapath to the **MongoData** directory you created to mongod. For example,
+my data path was **/Users/michael/MongoData**
+```
+$ pwd
+/Users/michael/MongoData
+
+$ mongod --dbpath=/Users/michael/MongoData
+```
+This should result in your mongo database to be up and running.
+
+
 # Run Software
 So above we showed how to start the client code only. Or to start the server code. However for
 development, you will want to watch modifications mades to your react client code so you can then
