@@ -49,5 +49,5 @@ contains the python, pip and packages for your virtual environment
 
 ## Start Software
 Following commands should be executed where **Setup Virtual Enviornemnt** left off.
-1. `InDeepShip/aft` run command `python manage.py runserver`
+1. `cd InDeepShip/aft` run command `python manage.py runserver`
 2. Visit `http://127.0.0.1:8000` in your browser.
