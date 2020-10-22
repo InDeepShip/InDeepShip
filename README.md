@@ -96,6 +96,36 @@ Following commands should be executed where **Setup Virtual Enviornemnt** left o
 2. Visit `http://127.0.0.1:8000` in your browser.
 
 
+## Database Software
+```
+mongodb >= v4.4.1
+```
+
+### MongoDB Install
+Run the following commands to install mongoDB via command line
+```
+brew update
+brew tap mongo/brew
+brew install mongodb-community
+```
+
+
+You should be able to check the version of mongodb installed now
+```
+$ mongod --version
+b version v4.4.1
+Build Info: {
+    "version": "4.4.1",
+    "gitVersion": "ad91a93a5a31e175f5cbf8c69561e788bbc55ce1",
+    "modules": [],
+    "allocator": "system",
+    "environment": {
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
+```
+
 # Run Software
 So above we showed how to start the client code only. Or to start the server code. However for
 development, you will want to watch modifications mades to your react client code so you can then
