@@ -155,6 +155,10 @@ $ mongod --dbpath=/Users/michael/MongoData
 ```
 This should result in your mongo database to be up and running.
 
+#### References
+* https://www.robinwieruch.de/mongodb-macos-setup
+* https://medium.com/@bryantjiminson/fixing-data-db-not-found-error-in-macos-x-when-starting-mongodb-d7b82abb2479
+
 
 # Run Software
 So above we showed how to start the client code only. Or to start the server code. However for
