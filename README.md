@@ -45,7 +45,7 @@ v12.19.0
 You're on your own bud.
 
 
-## Run Software
+## Run Client Software
 1. `cd InDeepShip/bow`
 2. `npm install`
 3. `npm start`
@@ -75,7 +75,7 @@ $ pip3 --version
 pip 19.2.3 from /Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/pip (python 3.8)
 ```
 
-## Run Software
+## Run Server Software
 It is good practice to set up a virtual enviornment on your system for your `python` environment. What does that mean?
 That basically means to create an environment that will keep track of your prefered version of **python** and **pip**.
 And also an enviornment that will keep track of your python packages you will install (e.g. Django)
@@ -94,3 +94,22 @@ contains the python, pip and packages for your virtual environment
 Following commands should be executed where **Setup Virtual Enviornemnt** left off.
 1. `cd InDeepShip/aft` run command `python manage.py runserver`
 2. Visit `http://127.0.0.1:8000` in your browser.
+
+
+# Run Software
+So above we showed how to start the client code only. Or to start the server code. However for
+development, you will want to watch modifications mades to your react client code so you can then
+build the software and have Django backend render the built static assets and **index.html**.
+Follow the instructions below to set this up.
+
+1. Open up a terminal session
+2. `cd InDeepShip/bow`
+3. Run `npm run watch` this will watch your js and css files in case there are changes
+in order to rebundle the client code.
+
+4. Open another terminal session
+5. Note: Make sure this terminal session has your **python virtaul enviornment** activated.
+6. `cd InDeepShip/aft`
+7. Run `python manage.py runserver` The Django Server should now render the react frontend code.
+8. Visit `http://127.0.01:8000` to view application.
+
