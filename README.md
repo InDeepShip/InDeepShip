@@ -1,6 +1,11 @@
 # InDeepShip
 Digital Register of Shipping (DRS) for the Island of Navis Album
 
+# Grab Repository
+1. Open Terminal
+2. `cd` into whatever folder you want to put this repo in ex: `~/Projects`
+3. `git clone git@github.com:InDeepShip/InDeepShip.git`
+
 # Software Requirements
 ## Bow (Client/Frontend Software)
 ```
