@@ -41,12 +41,12 @@ v12.19.0
 You're on your own bud.
 
 # Run Software
-1. `cd InDeepShip/client`
+1. `cd InDeepShip/bow`
 2. `npm install`
 3. `npm start`
 
 # Build Software
-1. `cd InDeepShip/client`
+1. `cd InDeepShip/bow`
 2. `npm install`
 3. `npm run build` this builds a deployable software located at directory `./build`
 
