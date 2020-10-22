@@ -37,6 +37,9 @@ $ node --version
 v12.19.0
 ```
 
+## Installation (Windows)
+You're on your own bud.
+
 # Run Software
 1. `cd InDeepShip/client`
 2. `npm install`
