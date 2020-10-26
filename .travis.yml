@@ -1,0 +1,7 @@
+langauge: node_js
+node_js:
+    - "12"
+script:
+    - cd bow
+    - npm install
+    - npm run build
