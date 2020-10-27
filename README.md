@@ -1,4 +1,6 @@
 # InDeepShip
+[![Build Status](https://travis-ci.com/InDeepShip/InDeepShip.svg?token=PWR6dqwEGCxtCp45x6eX&branch=main)](https://travis-ci.com/InDeepShip/InDeepShip)
+
 Digital Register of Shipping (DRS) for the Island of Navis Album
 
 # Grab Repository
