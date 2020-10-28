@@ -1,4 +1,6 @@
 # InDeepShip
+[![Build Status](https://travis-ci.com/InDeepShip/InDeepShip.svg?token=PWR6dqwEGCxtCp45x6eX&branch=main)](https://travis-ci.com/InDeepShip/InDeepShip)
+
 Digital Register of Shipping (DRS) for the Island of Navis Album
 
 # Grab Repository
@@ -50,7 +52,7 @@ You're on your own bud.
 2. `npm install`
 3. `npm start`
 
-## Build Software
+## Build Client Software
 1. `cd InDeepShip/bow`
 2. `npm install`
 3. `npm run build` this builds a deployable software located at directory `./build`
@@ -90,13 +92,12 @@ contains the python, pip and packages for your virtual environment
 #### Note: Exit Virtual Environment
 1. You can exit your python virtual environment with command `deactivate` (Don't do this if you are trying to run software).
 
-### Start Software
+### Start Server Software
 Following commands should be executed where **Setup Virtual Enviornemnt** left off.
 1. `cd InDeepShip/aft` run command `python manage.py runserver`
 2. Visit `http://127.0.0.1:8000` in your browser.
 
-
-# Run Software
+# Run Software (Both Client + Server)
 So above we showed how to start the client code only. Or to start the server code. However for
 development, you will want to watch modifications mades to your react client code so you can then
 build the software and have Django backend render the built static assets and **index.html**.
@@ -112,4 +113,3 @@ in order to rebundle the client code.
 6. `cd InDeepShip/aft`
 7. Run `python manage.py runserver` The Django Server should now render the react frontend code.
 8. Visit `http://127.0.01:8000` to view application.
-
