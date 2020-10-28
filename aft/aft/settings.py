@@ -77,9 +77,13 @@ WSGI_APPLICATION = 'aft.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'InDeepShipData',
-        'host': 'localhost',
-        'port': '27017',
+        'CLIENT': {
+            'name': 'NavisAlbumData',
+            'host': 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.7rnt2.mongodb.net/NavisAlbumData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
+            'username': 'SirDavid',
+            'password': 'fluffygate',
+            'authMechanism': 'SCRAM-SHA-1'
+        }
     }
 }
 
