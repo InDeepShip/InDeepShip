@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "bulma": "^0.9.1",
+    "bulma-steps": "^2.2.1",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^4.14.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-scripts": "3.4.4"
