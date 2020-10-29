@@ -13,7 +13,7 @@ class App extends Component {
               <div className="columns is-vcentered">
                 <div className="column is-half">
                   <h1 className="title is-size-1 has-text-primary">
-                    Connecting UCSC students & faculty to improve involvement in research.
+                    Connecting boat owners with easy registration processes and helpful brokers since 1815.
                   </h1>
                   <a href="/auth/google" className="has-text-centered">
                     {/* <button
@@ -27,7 +27,7 @@ class App extends Component {
                   </a>
                   <br /><br />
                   <div className="subtitle is-size-7 is-uppercase has-text-centered">
-                    Scroll down to see how ResearchConnect can help you!
+                    Scroll down to see how the Navis Album Department of Shipping Registry can help you!
                   </div>
                 </div>
                 <div className="column is-half">
@@ -53,10 +53,7 @@ class App extends Component {
                 <div className="step-details">
                   <p className="step-title">Step 1</p>
                   <p>
-                    Sign in with your
-                    <strong>@ucsc.edu</strong>
-                    {' '}
-  email with Google.
+                      Sign up for an account with your username and email.
                   </p>
                 </div>
               </li>
@@ -68,7 +65,7 @@ class App extends Component {
                 </div>
                 <div className="step-details">
                   <p className="step-title">Step 2</p>
-                  <p>Apply for open positions based on your interests and skills.</p>
+                  <p>Create an application for a ship registration.</p>
                 </div>
               </li>
               <li className="step-item is-info is-completed is-active">
@@ -79,18 +76,7 @@ class App extends Component {
                 </div>
                 <div className="step-details">
                   <p className="step-title">Step 3</p>
-                  <p>If you get selected, interview with the professor.</p>
-                </div>
-              </li>
-              <li className="step-item is-success is-active">
-                <div className="step-marker">
-                  <span className="icon">
-                    <i className="fa fa-flag" />
-                  </span>
-                </div>
-                <div className="step-details">
-                  <p className="step-title">Step 4</p>
-                  <p>Congrats! Now go help make the world a better place!</p>
+                  <p>Get on the ocean!</p>
                 </div>
               </li>
             </ul>
@@ -101,14 +87,12 @@ class App extends Component {
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Professors</h1>
+                <h1 className="title is-uppercase">Private owner login</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                    <li>Get rid of your inbox clutter of students asking what research positions you have</li>
-                    <li>See all the data about all your applicants in one view, making it easier than ever to pick the best of the best</li>
-                    <li>Easily gain access to students from different majors to suit your needs</li>
+                      <ul>Sign in : <a href="">here</a></ul>
                   </ol>
                 </div>
               </div>
@@ -120,14 +104,12 @@ class App extends Component {
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Students</h1>
+                <h1 className="title is-uppercase">Broker login</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                    <li>Find which professors are looking for undergraduate students in one view. No more sending hundreds of cold emails</li>
-                    <li>Easily filter out the research that you are not applicable for or have no interest in</li>
-                    <li>Contact your favorite professors about their projects in a simple application</li>
+                      <ul>Sign in : <a href="">here</a></ul>
                   </ol>
                 </div>
               </div>
@@ -135,24 +117,6 @@ class App extends Component {
           </div>
         </section>
         <hr />
-        <section className="section">
-          <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Grad Students</h1>
-              </div>
-              <div className="column">
-                <div className="content is-large">
-                  <ol style={{ wordBreak: 'break-word' }}>
-                    <li>Have a project that you need help with? Easily find hundred of students looking for experience</li>
-                    <li>Select the best students for your job, no more searching around or asking for referrals</li>
-                    <li>ResearchConnect is not limited to just research! If you want to host a seminar or form a group, ResearchConnect is a great place!</li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </React.Fragment>
     );
   }
