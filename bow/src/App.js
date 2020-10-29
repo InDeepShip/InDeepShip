@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-// import signinButton from 'assets/google_signin_white.png';
+import signinButton from './assets/google_signin_white.png';
+import ourFlag from './assets/our_flag.png';
 
 import './css/App.css';
 
@@ -16,14 +17,14 @@ class App extends Component {
                     Connecting boat owners with easy registration processes and helpful brokers since 1815.
                   </h1>
                   <a href="/auth/google" className="has-text-centered">
-                    {/* <button
+                    <button
                       style={{
                         background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
                       }}
                       className="button"
-                      onClick={this.signIn}
+                      // onClick={this.signIn}
                       title="Sign In"
-                    /> */}
+                    />
                   </a>
                   <br /><br />
                   <div className="subtitle is-size-7 is-uppercase has-text-centered">
@@ -32,7 +33,8 @@ class App extends Component {
                 </div>
                 <div className="column is-half">
                   <figure className="image has-text-centered">
-                    <img className="is-rounded" src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1141&q=80" style={{ height: '384px', width: '384px', display: 'inline-block' }} />
+                    {/* <img className="is-rounded" src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1141&q=80" style={{ height: '384px', width: '384px', display: 'inline-block' }} /> */}
+                    <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} />
                   </figure>
                 </div>
               </div>
