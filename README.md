@@ -97,7 +97,71 @@ Following commands should be executed where **Setup Virtual Enviornemnt** left o
 1. `cd InDeepShip/aft` run command `python manage.py runserver`
 2. Visit `http://127.0.0.1:8000` in your browser.
 
-# Run Software (Both Client + Server)
+## Database Software
+```
+mongodb >= v4.4.1
+```
+
+### MongoDB Install
+Run the following commands to install mongoDB via command line
+```
+brew update
+brew tap mongo/brew
+brew install mongodb-community
+```
+
+
+You should be able to check the version of mongodb installed now
+```
+$ mongod --version
+b version v4.4.1
+Build Info: {
+    "version": "4.4.1",
+    "gitVersion": "ad91a93a5a31e175f5cbf8c69561e788bbc55ce1",
+    "modules": [],
+    "allocator": "system",
+    "environment": {
+        "distarch": "x86_64",
+        "target_arch": "x86_64"
+    }
+}
+```
+
+### Start MongoDB
+If you have a Mac with OS version older than **Catalina** the following instructions would work to setup and start
+you database. However if you have OS **Catalina** or greater.. see below.
+```
+$ sudo mkdir -p /data/db
+$ sudo chown -R `id -un` /data/db
+$ mongod
+```
+
+### Start MongoDB (Mac OS Catalina or newer)
+If you have Mac OS **Catalina** or greater, you are no longer able to store files or data in
+read-only system volume, nor can you write to the 'root' directory (/) from the command line.
+So instead you need to create a directory data path in your personal home directory
+```
+$ cd ~/
+$ mkdir MongoData
+$ sudo chown -R `id -un` MongoData
+```
+
+Next, you need to pass the complete datapath to the **MongoData** directory you created to mongod. For example,
+my data path was **/Users/michael/MongoData**
+```
+$ pwd
+/Users/michael/MongoData
+
+$ mongod --dbpath=/Users/michael/MongoData
+```
+This should result in your mongo database to be up and running.
+
+#### References
+* https://www.robinwieruch.de/mongodb-macos-setup
+* https://medium.com/@bryantjiminson/fixing-data-db-not-found-error-in-macos-x-when-starting-mongodb-d7b82abb2479
+
+
+# Run Software
 So above we showed how to start the client code only. Or to start the server code. However for
 development, you will want to watch modifications mades to your react client code so you can then
 build the software and have Django backend render the built static assets and **index.html**.
