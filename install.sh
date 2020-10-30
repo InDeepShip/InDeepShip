@@ -37,3 +37,20 @@ popd
 python3 -m venv --system-site-packages ./venv
 source ./venv/bin/activate
 pip install -r requirements.txt
+
+pushd aft
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic
+popd
+
+cp ./etc/gunicorn.socket /etc/systemd/system/gunicorn.socket
+cp ./etc/gunicorn.service /etc/systemd/system/gunicorn.service
+systemctl enable gunicorn.socket
+systemctl enable gunicorn.service
+systemctl daemon-reload
+systemctl restart gunicorn
+
+ln -s /etc/nginx/sites-available/aft /etc/nginx/sites-enabled
+nginx -t # check if status is ok
+systemctl restart nginx
