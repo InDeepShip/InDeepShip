@@ -1,17 +1,8 @@
 [Unit]
-Description=gunicorn daemon
-Requires=gunicorn.socket
-After=network.target
+Description=gunicorn socket
 
-[Service]
-User=root
-Group=www-data
-WorkingDirectory=/root/InDeepShip/aft
-ExecStart=/root/InDeepShip/venv/bin/gunicorn \
-        --access-logfile - \
-        --workers 3 \
-        --bind unix:/run/gunicorn.sock \
-        aft.wsgi:application
+[Socket]
+ListenStream=/run/gunicorn.sock
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=sockets.target
