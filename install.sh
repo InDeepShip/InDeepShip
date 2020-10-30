@@ -22,7 +22,6 @@ pushd /var
 rm -rf InDeepShip
 git clone git@github.com:InDeepShip/InDeepShip.git
 pushd InDeepShip
-git checkout feature/dependency-bootstrap
 
 ########################################
 # 1. Need to build Client Code (React Frontend)
