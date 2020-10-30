@@ -1,0 +1,19 @@
+jobs:
+  include:
+      - language: node_js
+        node_js: 12
+        install:
+          - cd bow
+          - npm install
+        script:
+          - CI='' npm run build
+      - language: python
+        python: 3.8
+        install:
+          - pip install -r requirements.txt
+          - cd aft
+        script:
+        - python manage.py test
+notifications:
+  slack:
+    secure: mP8EIjftvRCYiGqq401MOr794b9C3r9lGdrqZtnTiZOv9VA8wMkGhAghuOIiw/VwCGhHbzra9X37cEE7EebKBkEEcUvExqM+PmkbY5/ELaXRyKcnQad3n7od4JovY7Wwxqeja7yuDUpalpsnW4Nxin7yYJCI/PKQjpGxPtmVoLX6N+8IOKwMhi/5oQ01NfCHaWRrknIdp8dvTUE+GoVOvImprf8mN5wbF+cPy4p/mT9ajxpWanu0wFTv4E7O5SOmCfM0xz5hlQLNLJ7ruSKmEodpGhNrIkFun0/z6w153RTRQMCIelwkDiwMOtK+O9Z+KikLvF+1GYHjjDiSf4w/4pZ/6gTf4HyvE+xn47Mk84d5oOcTfByAp+0a3st3IeAVk/184IzUkGLc6WEr6+EyRXS7QtJFwAsEmLbHaHEhDxqEaCyFBPsmIgSBfGlaC0Sf00ZJipsqJEHPk1kci9Zrze1rjUDoZ4bYjU/rUevWqIDlt6Y2B4E8tVWHZzYNNY9YCho1gAAnFw3T+zvorH09ccLws4xLjUtgSCbkUbn1mQDajcUdg1K5A2ViwlMho4nq0YmD5MQ8khBIMlZFyV8a4sutZGF2EN2NTdnmdEV7JAQjxMAEGpu9zXxOkwfva2MVMth3eXhNQpR3kudZi75wQEENjDVgFgvC0QVqbsW1iHU=
