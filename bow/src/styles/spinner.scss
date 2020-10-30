@@ -1,0 +1,16 @@
+.spinner {
+  border: 0px;
+  background: rgba(0, 0, 0, 0);
+}
+button.is-loading.spinner::after {
+  animation: spinAround 500ms infinite linear;
+  border: 3px solid #FA7C91;
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  display: block;
+  height: 1.5em;
+  position: relative;
+  width: 1.5em;
+}
