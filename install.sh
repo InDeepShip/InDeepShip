@@ -20,7 +20,7 @@ nvm install v12.19.0
 
 git clone git@github.com:InDeepShip/InDeepShip.git
 pushd InDeepShip
-git checkout production
+git checkout feature/dependency-bootstrap
 
 ########################################
 # 1. Need to build Client Code (React Frontend)
