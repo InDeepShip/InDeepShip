@@ -1,0 +1,34 @@
+html, body, #root {
+    height: 100%;
+}
+
+#search_results_container {
+    width: 100%;
+    min-height: 100%;
+    font-size: 1em;
+    background-color: #2a363f;
+}
+
+.box {
+    width: 400px;
+    margin: auto;
+}
+
+.light_green_box {
+    background-color: #67c896;
+    border-radius: 5px;
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.research_item {
+    top: 6em;
+    z-index: 1000;
+    text-align: left;
+    line-height:1.5em;
+}
+
+#title {
+    color: white;
+}
