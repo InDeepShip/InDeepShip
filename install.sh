@@ -18,6 +18,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 source ~/.bashrc
 nvm install v12.19.0
 
+rm -rf InDeepShip
 git clone git@github.com:InDeepShip/InDeepShip.git
 pushd InDeepShip
 git checkout feature/dependency-bootstrap
@@ -57,7 +58,7 @@ systemctl enable gunicorn.service
 systemctl daemon-reload
 systemctl restart gunicorn
 
-if [[ -L "/etc/nginx/sites/enabled/aft" ]];
+if [[ -L "/etc/nginx/sites-enabled/aft" ]];
     then
         echo "Symbolic Link Already Exists"
     else
