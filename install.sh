@@ -57,6 +57,12 @@ systemctl enable gunicorn.service
 systemctl daemon-reload
 systemctl restart gunicorn
 
-ln -s /etc/nginx/sites-available/aft /etc/nginx/sites-enabled
+if [[ -L "/etc/nginx/sites/enabled/aft" ]];
+    then
+        echo "Symbolic Link Already Exists"
+    else
+        ln -s /etc/nginx/sites-available/aft /etc/nginx/sites-enabled
+fi
+
 nginx -t # check if status is ok
 systemctl restart nginx
