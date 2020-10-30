@@ -76,8 +76,14 @@ WSGI_APPLICATION = 'aft.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            'name': 'NavisAlbumData',
+            'host': 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.7rnt2.mongodb.net/NavisAlbumData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
+            'username': 'SirDavid',
+            'password': 'fluffygate',
+            'authMechanism': 'SCRAM-SHA-1'
+        }
     }
 }
 
