@@ -18,6 +18,8 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 source ~/.bashrc
 nvm install v12.19.0
 
+pushd /var
+
 rm -rf InDeepShip
 git clone git@github.com:InDeepShip/InDeepShip.git
 pushd InDeepShip
@@ -27,12 +29,8 @@ git checkout feature/dependency-bootstrap
 # 1. Need to build Client Code (React Frontend)
 ########################################
 pushd bow
-
 npm install
 npm run build
-
-rm -rf /var/www/build
-mv build /var/www/build
 popd
 
 ########################################
@@ -47,9 +45,6 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py collectstatic
 popd
-
-rm -rf /var/www/aft
-mv aft /var/www/aft
 
 cp ./etc/gunicorn.socket /etc/systemd/system/gunicorn.socket
 cp ./etc/gunicorn.service /etc/systemd/system/gunicorn.service
