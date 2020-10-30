@@ -14,9 +14,8 @@ fi
 sudo apt update
 sudo apt install python3-pip python3-dev nginx curl
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-source ~/.bashrc
-nvm install v12.19.0
+curl -sL https://deb.nodesource.com/setup_12.x | bash -
+sudo apt-get install -y nodejs
 
 pushd /var
 
