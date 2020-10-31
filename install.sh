@@ -41,7 +41,7 @@ pip install -r requirements.txt
 pushd aft
 python manage.py makemigrations
 python manage.py migrate
-yes | python manage.py collectstatic
+python manage.py collectstatic --no-input
 popd
 
 cp ./etc/gunicorn.socket /etc/systemd/system/gunicorn.socket
