@@ -16,5 +16,5 @@ export const fetchUser = () => async (dispatch) => {
   // }
 
   dispatch({ type: FETCH_USER, payload: true });
-  dispatch({ type: DONE_LOADING, payload: true });
+  dispatch({ type: DONE_LOADING, payload: false });
 };

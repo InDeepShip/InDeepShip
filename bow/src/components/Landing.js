@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import signinButton from '../assets/google_signin_white.png';
 import ourFlag from '../assets/our_flag.png';
 
-// import '../css/App.css';
-
 class App extends Component {
   render() {
     return (

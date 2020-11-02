@@ -27,7 +27,8 @@ class App extends Component {
           <PrivateRoute
             exact
             path="/"
-            component={Landing}
+            // component={Landing}
+            component={null}
             // loggedIn={this.props.auth}
             loggedIn={false}
             // accountSetup={this.props.auth.isSetup}
@@ -59,8 +60,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ auth, profile, loadState }) {
-  return { auth, profile, loadState };
+function mapStateToProps({ auth, loadState }) {
+  return { auth, loadState };
 }
 
 export default connect(
