@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import signinButton from './assets/google_signin_white.png';
-import ourFlag from './assets/our_flag.png';
+import signinButton from '../assets/google_signin_white.png';
+import ourFlag from '../assets/our_flag.png';
 
-import './css/App.css';
+// import '../css/App.css';
 
 class App extends Component {
   render() {
@@ -33,8 +33,7 @@ class App extends Component {
                 </div>
                 <div className="column is-half">
                   <figure className="image has-text-centered">
-                    {/* <img className="is-rounded" src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1141&q=80" style={{ height: '384px', width: '384px', display: 'inline-block' }} /> */}
-                    <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} />
+                    <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} alt="Our Flag"/>
                   </figure>
                 </div>
               </div>
@@ -94,7 +93,7 @@ class App extends Component {
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign in : <a href="">here</a></ul>
+                      <ul>Sign in : <a href="./">here</a></ul>
                   </ol>
                 </div>
               </div>
@@ -111,7 +110,7 @@ class App extends Component {
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign in : <a href="">here</a></ul>
+                      <ul>Sign in : <a href="./">here</a></ul>
                   </ol>
                 </div>
               </div>
