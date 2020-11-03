@@ -147,11 +147,11 @@ ACCOUNT_UNIQUE_EMAIL = True
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer'
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer'
 }
 
 
