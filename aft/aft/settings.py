@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'corsheaders',
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
@@ -54,6 +55,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -145,9 +147,19 @@ ACCOUNT_UNIQUE_EMAIL = True
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer'
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': ''
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
 }
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+"""
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+       'http://localhost:4200',
+)
+"""
