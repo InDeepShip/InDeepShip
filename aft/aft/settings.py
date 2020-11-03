@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'drf_yasg'
+    'drf_yasg',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'api',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +133,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 SLACK_WEBHOOK = 'https://hooks.slack.com/services/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'
+AUTH_USER_MODEL = 'users.CustomUser'
