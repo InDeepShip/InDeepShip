@@ -53,7 +53,7 @@ class NavBar extends Component {
       showBugModal: false
     })
 
-    this.props.sendBugReport(message);
+    // send a bug report with 'message' as payload
   }
 
   handleBugReportText(e) {
