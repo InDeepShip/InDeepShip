@@ -7,8 +7,9 @@ import Landing from './Landing';
 import Spinner from './Spinner';
 import PageNotFound from './ErrorPage';
 import * as actions from '../actions';
-import {Signup} from './Signup';
-import {Login} from './Login';
+import { Signup } from './Signup';
+import { Login } from './Login';
+import NavBar from './NavBar';
 
 
 const PrivateRoute = ({
@@ -28,6 +29,7 @@ class App extends Component {
   render() {
     return this.props.loadState === 0 ? (
       <>
+        <NavBar />
         <Switch>
           <PrivateRoute
             exact
@@ -39,14 +41,14 @@ class App extends Component {
             // accountSetup={this.props.auth.isSetup}
             accountSetup={false}
           />
-          <Route 
+          <Route
             exact
             path="/signup"
             component={Signup}
             loggedIn={false}
             accountSetup={false}
           />
-          <Route 
+          <Route
             exact
             path="/login"
             component={Login}
@@ -73,6 +75,7 @@ class App extends Component {
       <Spinner fullPage />
     ) : (
           <>
+            <NavBar />
             <Spinner fullPage />
           </>
         );
