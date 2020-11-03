@@ -86,12 +86,12 @@ class App extends Component {
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Private owner login</h1>
+                <h1 className="title is-uppercase">Log in</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign in : <a href="./">here</a></ul>
+                      <ul>Log in: <a href="/login">here</a></ul>
                   </ol>
                 </div>
               </div>
@@ -103,12 +103,12 @@ class App extends Component {
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Broker login</h1>
+                <h1 className="title is-uppercase">Sign up for account!</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign in : <a href="./">here</a></ul>
+                      <ul>Sign up : <a href="/signup">here</a></ul>
                   </ol>
                 </div>
               </div>
