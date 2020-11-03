@@ -19,7 +19,6 @@
     "start": "react-scripts start",
     "watch": "npm-watch",
     "build": "react-scripts build",
-    "postbuild": "cp -r ./build/static/* ../aft/frontend/static ; cp ./build/index.html ../aft/frontend/templates",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
