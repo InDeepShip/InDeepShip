@@ -8,6 +8,7 @@ import Spinner from './Spinner';
 import PageNotFound from './ErrorPage';
 import * as actions from '../actions';
 import {Signup} from './Signup';
+import {Login} from './Login';
 
 
 const PrivateRoute = ({
@@ -42,6 +43,13 @@ class App extends Component {
             exact
             path="/signup"
             component={Signup}
+            loggedIn={false}
+            accountSetup={false}
+          />
+          <Route 
+            exact
+            path="/login"
+            component={Login}
             loggedIn={false}
             accountSetup={false}
           />
