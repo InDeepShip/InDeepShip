@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from . import settings
+from aft import settings
 
 import requests
 
@@ -8,7 +8,7 @@ import requests
 # function: sends a bug report to the #bug-report slack channel
 # output: HttpResponse with status code of post request to slack channel
 def BugReportViews(request):
-    message = "BUG REPORT: " + request.GET.get('message', None)
+    message = "BUG REPORT: " + request.GET.get('message', '')
     url = settings.SLACK_WEBHOOK
     myobj = {"text":message}
     x = requests.post(url=url, json = myobj)
