@@ -19,8 +19,11 @@ const PrivateRoute = ({
   );
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+
   render() {
-    console.log(this.props.loadState)
     return this.props.loadState === 0 ? (
       <>
         <Switch>

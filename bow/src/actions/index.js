@@ -15,6 +15,8 @@ export const fetchUser = () => async (dispatch) => {
   //   dispatch({ type: DONE_LOADING, payload: true });
   // }
 
+  // For testing
+  // Set DONE_LOADING payload to false to show spinner
   dispatch({ type: FETCH_USER, payload: true });
   dispatch({ type: DONE_LOADING, payload: true });
 };
