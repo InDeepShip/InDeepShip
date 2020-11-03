@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import signinButton from './assets/google_signin_white.png';
-import ourFlag from './assets/our_flag.png';
-
-import './css/App.css';
+import signinButton from '../assets/google_signin_white.png';
+import ourFlag from '../assets/our_flag.png';
 
 class App extends Component {
   render() {
@@ -33,8 +31,7 @@ class App extends Component {
                 </div>
                 <div className="column is-half">
                   <figure className="image has-text-centered">
-                    {/* <img className="is-rounded" src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1141&q=80" style={{ height: '384px', width: '384px', display: 'inline-block' }} /> */}
-                    <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} />
+                    <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} alt="Our Flag"/>
                   </figure>
                 </div>
               </div>
@@ -89,12 +86,12 @@ class App extends Component {
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Private owner login</h1>
+                <h1 className="title is-uppercase">Log in</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign in : <a href="">here</a></ul>
+                      <ul>Log in: <a href="/login">here</a></ul>
                   </ol>
                 </div>
               </div>
@@ -106,12 +103,12 @@ class App extends Component {
           <div className="container">
             <div className="columns is-vcentered">
               <div className="column is-one-third">
-                <h1 className="title is-uppercase">Broker login</h1>
+                <h1 className="title is-uppercase">Sign up for account!</h1>
               </div>
               <div className="column">
                 <div className="content is-large">
                   <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign in : <a href="">here</a></ul>
+                      <ul>Sign up : <a href="/signup">here</a></ul>
                   </ol>
                 </div>
               </div>
