@@ -141,4 +141,13 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 SLACK_WEBHOOK = 'https://hooks.slack.com/services/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'
+ACCOUNT_UNIQUE_EMAIL = True
 AUTH_USER_MODEL = 'users.CustomUser'
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer'
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': ''
+}
