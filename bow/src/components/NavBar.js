@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
 import signinButton from '../assets/google_signin_blue.png';
 import * as actions from '../actions';
-
 import Modal from 'react-modal';
+
+const LANDING = '/';
 
 const customStyles = {
   content: {
@@ -117,27 +118,23 @@ class NavBar extends Component {
 
     return (
       <nav className={`navbar has-shadow is-spaced ${!this.props.auth ? 'is-white' : 'is-primary'}`}>
-        <div className="container">
-          <div className="navbar-brand">
-            <Link className="navbar-item " to="/">
+        <span className='navbar-brand'>
+          <Link to={LANDING}>
               <img src={brandingImg} alt="Logo" />
-              &nbsp;&nbsp;
-                  <strong>Navis Album DRS</strong>
-            </Link>
-            <div
-              className={`navbar-burger burger ${open ? 'is-active' : ''}`}
-              onClick={this.toggle}
-              role="button"
-              tabIndex="0"
-            >
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-          <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
-            <div className="navbar-start" />
-            <div className="navbar-end">
+          </Link>
+        </span>
+        <div
+          className={`navbar-burger burger ${open ? 'is-active' : ''}`}
+          onClick={this.toggle}
+          role="button"
+          tabIndex="0"
+        >
+          <span />
+          <span />
+          <span />
+        </div>
+          <div className={`navbar-collapse ${open ? 'is-active' : ''}`}>
+            <div className="navbar-nav">
               {!this.props.auth && (<div className="navbar-item">
                 <a href="/auth/google" className="has-text-centered">
                   <button
@@ -152,16 +149,29 @@ class NavBar extends Component {
               </div>)}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
               {this.props.auth && (
-                <NavLink className="navbar-item" to="/new" onClick={this.close}>
-                  Register Ship
-                </NavLink>
-              )}
+                <Fragment>
+                  <NavLink className='navbar-item' to={LANDING}>
+                    Organization
+                  </NavLink>
+                  <NavLink className='navbar-item' to={LANDING}>
+                  Services
+                  </NavLink>
+                  <NavLink className='navbar-item' to={LANDING}>
+                  Policy
+                  </NavLink>
+                  <NavLink className='navbar-item' to={LANDING}>
+                  Contact Us
+                  </NavLink>
+                  <NavLink className="navbar-item" to="/new" onClick={this.close}>
+                    Register Ship
+                  </NavLink>
+                </Fragment>
+             )}
               <div className="navbar-item">
                 {this.renderLoginButton()}
               </div>
             </div>
           </div>
-        </div>
       </nav>
     );
   }
