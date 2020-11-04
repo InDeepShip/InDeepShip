@@ -61,7 +61,7 @@ def bug_report(request):
 
     Otherwise it returns an error message with the status code set.
     """
-    request_message = request.GET.get('message', '')
+    request_message = request.POST.get('message', '')
     # if we have an empty message then send a message to api caller
     if request_message.strip() != '':
         message = "BUG REPORT: " + request_message
