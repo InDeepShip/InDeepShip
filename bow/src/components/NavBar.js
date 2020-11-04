@@ -113,6 +113,25 @@ class NavBar extends Component {
     }
   }
 
+  renderGoogleAuth() {
+    if (!this.props.auth) {
+      return (
+              <div className="navbar-item">
+                <a href="/auth/google" className="has-text-centered">
+                  <button
+                    style={{
+                      background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
+                    }}
+                    className="button"
+                    onClick={this.signIn}
+                    title="Sign In"
+                  />
+                </a>
+              </div>
+      );
+    }
+  }
+
   render() {
     const { open } = this.state;
 
@@ -135,41 +154,24 @@ class NavBar extends Component {
         </div>
           <div className={`navbar-collapse ${open ? 'is-active' : ''}`}>
             <div className="navbar-nav">
-              {!this.props.auth && (<div className="navbar-item">
-                <a href="/auth/google" className="has-text-centered">
-                  <button
-                    style={{
-                      background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
-                    }}
-                    className="button"
-                    onClick={this.signIn}
-                    title="Sign In"
-                  />
-                </a>
-              </div>)}
+              {this.renderGoogleAuth()}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
-              {this.props.auth && (
-                <Fragment>
-                  <NavLink className='navbar-item' to={LANDING}>
-                    Organization
-                  </NavLink>
-                  <NavLink className='navbar-item' to={LANDING}>
-                  Services
-                  </NavLink>
-                  <NavLink className='navbar-item' to={LANDING}>
-                  Policy
-                  </NavLink>
-                  <NavLink className='navbar-item' to={LANDING}>
-                  Contact Us
-                  </NavLink>
-                  <NavLink className="navbar-item" to="/new" onClick={this.close}>
-                    Register Ship
-                  </NavLink>
-                </Fragment>
-             )}
-              <div className="navbar-item">
-                {this.renderLoginButton()}
-              </div>
+              <NavLink className='navbar-item' to={LANDING}>
+                Organization
+              </NavLink>
+              <NavLink className='navbar-item' to={LANDING}>
+              Services
+              </NavLink>
+              <NavLink className='navbar-item' to={LANDING}>
+              Policy
+              </NavLink>
+              <NavLink className='navbar-item' to={LANDING}>
+              Contact Us
+              </NavLink>
+              <NavLink className="navbar-item" to="/new" onClick={this.close}>
+                Log In
+              </NavLink>
+              {this.renderLoginButton()}
             </div>
           </div>
       </nav>
