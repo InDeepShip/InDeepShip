@@ -11,22 +11,19 @@ import requests
 def api_overview(request):
     """
 
-    ### DESCRIPTION
-
-    Returns a list of all DRS APIs
+    Displays overview of available DRS APIs
 
     """
     api_urls = {
-        "Login": "/api/users/",
         "Sign up": "/api/users/signup/",
         "List users": "/api/users/all/",
         "Password reset": "/api/users/password/reset/",
-        "Password reset confirm": "api/users/password/reset/confirm/",
-        "Login": "api/users/login/",
-        "Logout": "api/users/logout/",
-        "User details": "api/users/^user/",
+        "Password reset confirm": "/api/users/password/reset/confirm/",
+        "Login": "/api/users/login/",
+        "Logout": "/api/users/logout/",
+        "User details": "/api/users/^user/",
         "Password change": "api/users/password/change/",
-        "Bug report": "api/bugreport/"
+        "Bug report": "/api/bugreport/"
     }
     return Response(data=api_urls)
 
@@ -35,31 +32,10 @@ def api_overview(request):
 def bug_report(request):
     """
 
-    ### DESCRIPTION
+    Forwards a POST request with the `message` to be recorded on the Slack `#bug-report` channel.
 
-    `POST /api/bugreport` satisifies the user story of [bug report](https://www.notion.so/User-Stories-6b653ed6007841e099e42e82aa6ff8e8) by allowing client and users to report any bugs with DRS.
+    Accepts the following POST parameters: `message` Returns the success/fail message.
 
-    ### USAGE
-
-    Accepts a post request with message parameter set, for example with the payload:
-
-    ```
-    {
-        "message" : "this is a bug report"
-    }
-    ```
-
-    and sends a bug report with that message to the `#bug-report` Slack channel.
-
-    It returns a message with the status code of the post request to Slack, for example:
-
-    ```
-    {
-        "message" : "bug report submitted to Slack with status code: 200"
-    }
-    ```
-
-    Otherwise it returns an error message with the status code set.
     """
     request_message = request.GET.get('message', '')
     # if we have an empty message then send a message to api caller
