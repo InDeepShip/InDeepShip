@@ -10,7 +10,11 @@ import * as actions from '../actions';
 import { Signup } from './Signup';
 import { Login } from './Login';
 import NavBar from './NavBar';
-
+import Organization from './Organization';
+import Services from './Services';
+import Policy from './Policy';
+import ContactUs from './ContactUs';
+import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
   loggedIn, component, ...rest
@@ -41,20 +45,12 @@ class App extends Component {
             // accountSetup={this.props.auth.isSetup}
             accountSetup={false}
           />
-          <Route
-            exact
-            path="/signup"
-            component={Signup}
-            loggedIn={false}
-            accountSetup={false}
-          />
-          <Route
-            exact
-            path="/login"
-            component={Login}
-            loggedIn={false}
-            accountSetup={false}
-          />
+          <Route path={ROUTES.ORGANIZATION} component={Organization} />
+          <Route path={ROUTES.SERVICES} component={Services} />
+          <Route path={ROUTES.POLICY} component={Policy} />
+          <Route path={ROUTES.CONTACT_US} component={ContactUs} />
+          <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
+          <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>

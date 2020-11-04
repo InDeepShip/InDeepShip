@@ -1,0 +1,46 @@
+@import 'bulma';
+
+@media (min-width: 1024px) {
+    .navbar {
+        padding: .5rem 1rem;
+        max-width: 100%;
+        max-height: 100px;
+        background-color: $background-color !important;
+    }
+    .logo-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-link > p {
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+    }
+
+    .logo-link > img {
+        display: block;
+        max-width: 140px;
+        max-height: 50px;
+        width: auto;
+        height: auto;
+    }
+
+}
+
+.navbar-item {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    font-weight: bold;
+    filter: brightness(85%);
+}
+
+.navbar-item:hover {
+    background-color: transparent !important;
+    filter: brightness(100%);
+}
