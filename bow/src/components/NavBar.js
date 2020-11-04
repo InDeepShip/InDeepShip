@@ -130,7 +130,7 @@ class NavBar extends Component {
     const { open } = this.state;
 
     return (
-      <nav className={`navbar ${!this.props.auth ? 'is-white' : 'is-primary'}`}>
+      <nav className='navbar'>
         <span className='navbar-brand'>
           <Link to={LANDING} className='logo-link'>
               <img src={brandingImg} alt="Logo" />
@@ -147,7 +147,7 @@ class NavBar extends Component {
           <span />
           <span />
         </div>
-          <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
+          <div className={`navbar-menu`}>
             <div className='navbar-end'>
               {this.renderGoogleAuth()}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
