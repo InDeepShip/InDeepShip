@@ -5,6 +5,7 @@ import brandingImg from '../assets/our_flag.png';
 import signinButton from '../assets/google_signin_blue.png';
 import * as actions from '../actions';
 import '../styles/NavBar.scss';
+import * as ROUTES from '../constants/routes';
 import Modal from 'react-modal';
 
 const LANDING = '/';
@@ -130,7 +131,7 @@ class NavBar extends Component {
     const { open } = this.state;
 
     return (
-      <nav className='navbar'>
+      <nav className='navbar is-fixed-top'>
         <span className='navbar-brand'>
           <Link to={LANDING} className='logo-link'>
               <img src={brandingImg} alt="Logo" />
@@ -151,16 +152,16 @@ class NavBar extends Component {
             <div className='navbar-end'>
               {this.renderGoogleAuth()}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
-              <NavLink className='navbar-item' to={LANDING}>
+              <NavLink className='navbar-item' to={ROUTES.ORGANIZATION}>
                 Organization
               </NavLink>
-              <NavLink className='navbar-item' to={LANDING}>
+              <NavLink className='navbar-item' to={ROUTES.SERVICES}>
               Services
               </NavLink>
-              <NavLink className='navbar-item' to={LANDING}>
+              <NavLink className='navbar-item' to={ROUTES.POLICY}>
               Policy
               </NavLink>
-              <NavLink className='navbar-item' to={LANDING}>
+              <NavLink className='navbar-item' to={ROUTES.CONTACT_US}>
               Contact Us
               </NavLink>
               <NavLink className="navbar-item" to="/new" onClick={this.close}>

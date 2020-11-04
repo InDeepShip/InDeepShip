@@ -10,6 +10,8 @@ import * as actions from '../actions';
 import { Signup } from './Signup';
 import { Login } from './Login';
 import NavBar from './NavBar';
+import Organization from './Organization';
+import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
   loggedIn, component, ...rest
@@ -40,6 +42,7 @@ class App extends Component {
             // accountSetup={this.props.auth.isSetup}
             accountSetup={false}
           />
+          <Route path={ROUTES.ORGANIZATION} component={Organization} />
           <Route
             exact
             path="/signup"
