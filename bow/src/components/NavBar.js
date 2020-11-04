@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
+import bugReportImg from '../assets/bug_report.png';
 // import brandingImg from '../assets/logo.svg';
 import signinButton from '../assets/google_signin_blue.png';
 import * as actions from '../actions';
@@ -81,17 +82,17 @@ class NavBar extends Component {
               Settings
               </Link>
 
-            <a className="navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
+            {/* <a className="navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
               Report a bug
-            </a>
+            </a> */}
             <hr className="navbar-divider" />
             <a className="navbar-item" href="/api/logout">
               Logout
               </a>
           </div>
 
-          <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
-            <div className="bugReportForm" /*onSubmit={() => this.handleSubmitAdminRequest()*/>
+          {/* <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
+            <div className="bugReportForm">
               <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
               <br /><br />
               <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
@@ -102,7 +103,7 @@ class NavBar extends Component {
                 <button type="button" onClick={() => this.closeBugModal()} className="button is-warning is-link">Close</button>
               </div>
             </div>
-          </Modal>
+          </Modal> */}
 
         </div>
       );
@@ -174,10 +175,29 @@ class NavBar extends Component {
                 Sign Up
               </NavLink>
               {this.renderLoginButton()}
+              <button className="button is-danger navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
+              <img src={bugReportImg} alt="Logo" />
+              &nbsp;
+              Report a bug
+            </button>
             </div>
-          </div>
+
+          <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
+            <div className="bugReportForm">
+              <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
+              <br /><br />
+              <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
+              <br /><br />
+              <div align="center">
+                <button type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Accept</button>
+                &nbsp;&nbsp;
+                <button type="button" onClick={() => this.closeBugModal()} className="button is-warning is-link">Close</button>
+              </div>
+            </div>
+          </Modal>
         </div>
-      </nav>
+        </div>
+      </nav >
     );
   }
 }
