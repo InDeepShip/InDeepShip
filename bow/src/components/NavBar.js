@@ -66,7 +66,7 @@ class NavBar extends Component {
   }
 
   renderLoginButton() {
-    if (this.props.auth) {
+    if (!this.props.auth) {
       return (
         <div className="navbar-item has-dropdown is-hoverable">
           <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
@@ -164,8 +164,11 @@ class NavBar extends Component {
               <NavLink className='navbar-item' to={ROUTES.CONTACT_US}>
               Contact Us
               </NavLink>
-              <NavLink className="navbar-item" to="/new" onClick={this.close}>
+              <NavLink className="navbar-item" to={ROUTES.LOG_IN}>
                 Log In
+              </NavLink>
+              <NavLink className='navbar-item' to={ROUTES.SIGN_UP}>
+                Sign Up
               </NavLink>
               {this.renderLoginButton()}
             </div>
