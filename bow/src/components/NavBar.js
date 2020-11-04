@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
@@ -64,70 +64,63 @@ class NavBar extends Component {
   }
 
   renderLoginButton() {
-    switch (this.props.auth) {
-      case null:
-        return;
-      case false:
-        return (
-          <></>
-        );
-      default:
-        return (
-          <div className="navbar-item has-dropdown is-hoverable">
-            <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
-              {this.props.auth.name}
-            </NavLink>
-            <div className="navbar-dropdown is-right is-boxed">
-              <Link className="navbar-item" to={`/profile/${this.props.auth.cruzid}`}>
-                Profile
-                </Link>
-              <Link className="navbar-item" to="/settings">
-                Settings
-                </Link>
+    if (this.props.auth) {
+      return (
+        <div className="navbar-item has-dropdown is-hoverable">
+          <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
+            {this.props.auth.name}
+          </NavLink>
+          <div className="navbar-dropdown is-right is-boxed">
+            <Link className="navbar-item" to={`/profile/${this.props.auth.cruzid}`}>
+              Profile
+              </Link>
+            <Link className="navbar-item" to="/settings">
+              Settings
+              </Link>
 
-              <a className="navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
-                Report a bug
+            <a className="navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
+              Report a bug
+            </a>
+            <hr className="navbar-divider" />
+            <a className="navbar-item" href="/api/logout">
+              Logout
               </a>
-              <hr className="navbar-divider" />
-              <a className="navbar-item" href="/api/logout">
-                Logout
-                </a>
-            </div>
-
-            <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
-              <div className="bugReportForm" /*onSubmit={() => this.handleSubmitAdminRequest()*/>
-                <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
-                <br /><br />
-                <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
-                <br /><br />
-                <div align="center">
-                  <button type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Accept</button>
-                  &nbsp;&nbsp;
-                  <button type="button" onClick={() => this.closeBugModal()} className="button is-warning is-link">Close</button>
-                </div>
-              </div>
-            </Modal>
-
           </div>
-        );
-    }
+
+          <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
+            <div className="bugReportForm" /*onSubmit={() => this.handleSubmitAdminRequest()*/>
+              <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
+              <br /><br />
+              <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
+              <br /><br />
+              <div align="center">
+                <button type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Accept</button>
+                &nbsp;&nbsp;
+                <button type="button" onClick={() => this.closeBugModal()} className="button is-warning is-link">Close</button>
+              </div>
+            </div>
+          </Modal>
+
+        </div>
+      );
+     }
   }
 
   renderGoogleAuth() {
     if (!this.props.auth) {
       return (
-              <div className="navbar-item">
-                <a href="/auth/google" className="has-text-centered">
-                  <button
-                    style={{
-                      background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
-                    }}
-                    className="button"
-                    onClick={this.signIn}
-                    title="Sign In"
-                  />
-                </a>
-              </div>
+        <div className="navbar-item">
+          <a href="/auth/google" className="has-text-centered">
+            <button
+              style={{
+                background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
+              }}
+              className="button"
+              onClick={this.signIn}
+              title="Sign In"
+            />
+          </a>
+        </div>
       );
     }
   }
