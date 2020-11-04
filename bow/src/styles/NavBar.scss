@@ -36,8 +36,11 @@
 .navbar-item {
     color: #ffffff !important;
     background-color: transparent !important;
+    font-weight: bold;
+    filter: brightness(80%);
 }
 
 .navbar-item:hover {
     background-color: transparent !important;
+    filter: brightness(100%);
 }
