@@ -10,7 +10,25 @@ class ContactUs extends Component {
 
     render() {
         return (
-            <section className='hero is-large'></section>
+            <section className='hero is-large'>
+                <div className='hero-body'>
+                    <div className='container'>
+                        <div className='columns is-vcentered'>
+                            <div className='column is-6'>
+                                <h1 className='title'>
+                                    Contact Us
+                                </h1>
+                                <h2 className='sub-title'>
+                                    Contact Us via Email
+                                </h2>
+                            </div>
+                            <div className='column is-5 has-text-centered'>
+                                <img src={brandingImg} alt="Logo" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         );
     }
 }
