@@ -4,14 +4,17 @@ from rest_framework import serializers
 from allauth.account.adapter import get_adapter
 from . import models
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CustomUser
         fields = ('email', 'username', 'password', 'is_private', 'is_broker')
 
+
 class CustomRegisterSerializer(RegisterSerializer):
     is_private = serializers.BooleanField()
     is_broker = serializers.BooleanField()
+
     class Meta:
         model = models.CustomUser
         fields = ('email', 'username', 'password', 'is_private', 'is_broker')
