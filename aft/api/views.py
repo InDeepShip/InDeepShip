@@ -61,8 +61,13 @@ def bug_report(request):
 
     Otherwise it returns an error message with the status code set.
     """
-    request_message = request.POST.get('message', '')
-    # if we have an empty message then send a message to api caller
+    #request_message = request._data.get("message", "")
+    request_message = request.POST.get("message", "")
+    #request_message = request.POST.get("message", "")
+    #request_message = request.POST.get("message", "")
+    #request_message = request.body
+    #request_message = request.data
+    print(f"Printing request messge: {request_message}")
     if request_message.strip() != '':
         message = "BUG REPORT: " + request_message
         url = settings.SLACK_WEBHOOK
