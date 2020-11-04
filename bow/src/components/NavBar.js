@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import brandingImg from '../assets/our_flag.png';
-import brandingImg from '../assets/logo.svg';
+import brandingImg from '../assets/our_flag.png';
+// import brandingImg from '../assets/logo.svg';
 import signinButton from '../assets/google_signin_blue.png';
 import * as actions from '../actions';
 // import '../styles/NavBar.scss';
