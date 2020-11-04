@@ -19,7 +19,6 @@ from django.conf.urls import url
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from api import views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -37,7 +36,6 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('api/bugreport', views.BugReportViews),
     url(r'^swagger/$', schema_view.with_ui('swagger',
                                            cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc',
