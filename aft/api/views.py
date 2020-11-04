@@ -1,23 +1,80 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 from aft import settings
 
 import requests
 
-# input: get request with a 'message' param
-# function: sends a bug report to the #bug-report slack channel
-# output: HttpResponse with status code of post request to slack channel
+
+@api_view(['GET'])
+def api_overview(request):
+    """
+
+    ### DESCRIPTION
+
+    Returns a list of all DRS APIs
+
+    """
+    api_urls = {
+        "Login": "/api/users/",
+        "Sign up": "/api/users/signup/",
+        "List users": "/api/users/all/",
+        "Password reset": "/api/users/password/reset/",
+        "Password reset confirm": "api/users/password/reset/confirm/",
+        "Login": "api/users/login/",
+        "Logout": "api/users/logout/",
+        "User details": "api/users/^user/",
+        "Password change": "api/users/password/change/",
+        "Bug report": "api/bugreport/"
+    }
+    return Response(data=api_urls)
 
 
-def BugReportView(request):
+@api_view(['POST'])
+def bug_report(request):
+    """
+
+    ### DESCRIPTION
+
+    `POST /api/bugreport` satisifies the user story of [bug report](https://www.notion.so/User-Stories-6b653ed6007841e099e42e82aa6ff8e8) by allowing client and users to report any bugs with DRS.
+
+    ### USAGE
+
+    Accepts a post request with message parameter set, for example with the payload:
+
+    ```
+    {
+        "message" : "this is a bug report"
+    }
+    ```
+
+    and sends a bug report with that message to the `#bug-report` Slack channel.
+
+    It returns a message with the status code of the post request to Slack, for example:
+
+    ```
+    {
+        "message" : "bug report submitted to Slack with status code: 200"
+    }
+    ```
+
+    Otherwise it returns an error message with the status code set.
+    """
     request_message = request.GET.get('message', '')
     # if we have an empty message then send a message to api caller
     if request_message.strip() != '':
         message = "BUG REPORT: " + request_message
         url = settings.SLACK_WEBHOOK
         myobj = {"text": message}
-        x = requests.post(url=url, json=myobj)
-        html = "<html><body>Bug Report Status Code: %s.</body></html>" % x.status_code
+        ret = requests.post(url=url, json=myobj)
+        data = {
+            "message": "bug report submitted to Slack with status code: " % ret.status_code
+        }
+        ret_status = status.HTTP_200_OK
     else:
-        html = "<html><body>Input Error: Message param was empty.</body></html>"
-    return HttpResponse(html)
+        data = {
+            "error": "message param was empty"
+        }
+        ret_status = status.HTTP_400_BAD_REQUEST
+    return Response(data=data, status=ret_status)
