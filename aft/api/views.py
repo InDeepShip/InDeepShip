@@ -10,11 +10,11 @@ import requests
 @api_view(['GET'])
 def api_overview(request):
     """
-    Returns a list of all **active** accounts in the system.
 
-    For more details on how accounts are activated please [see here][ref].
+    ### DESCRIPTION
 
-    [ref]: http://example.com/activating-accounts
+    Returns a list of all DRS APIs
+
     """
     api_urls = {
         "Login": "/api/users/",
