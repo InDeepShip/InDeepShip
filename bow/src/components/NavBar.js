@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
 import signinButton from '../assets/google_signin_blue.png';
 import * as actions from '../actions';
+import '../styles/NavBar.scss';
 import Modal from 'react-modal';
 
 const LANDING = '/';
@@ -129,10 +130,11 @@ class NavBar extends Component {
     const { open } = this.state;
 
     return (
-      <nav className={`navbar has-shadow is-spaced ${!this.props.auth ? 'is-white' : 'is-primary'}`}>
+      <nav className={`navbar ${!this.props.auth ? 'is-white' : 'is-primary'}`}>
         <span className='navbar-brand'>
-          <Link to={LANDING}>
+          <Link to={LANDING} className='logo-link'>
               <img src={brandingImg} alt="Logo" />
+              <p>Navis Album DRS</p>
           </Link>
         </span>
         <div
@@ -145,8 +147,8 @@ class NavBar extends Component {
           <span />
           <span />
         </div>
-          <div className={`navbar-collapse ${open ? 'is-active' : ''}`}>
-            <div className="navbar-nav">
+          <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
+            <div className='navbar-end'>
               {this.renderGoogleAuth()}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
               <NavLink className='navbar-item' to={LANDING}>

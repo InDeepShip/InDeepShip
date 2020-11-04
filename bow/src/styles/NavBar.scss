@@ -1,0 +1,29 @@
+@media (min-width: 1024px) {
+    .navbar {
+        padding: .5rem 1rem;
+        max-width: 100%;
+    }
+    .logo-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    p {
+        color: #ffffff;
+        font-weight: bold;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+    }
+
+    img {
+        display: block;
+        max-width: 200px;
+        max-height: 70px;
+        width: auto;
+        height: auto;
+    }
+
+}
