@@ -14,18 +14,19 @@
         align-items: center;
     }
 
-    p {
+    .logo-link > p {
         color: #ffffff;
+        font-size: 12px;
         font-weight: bold;
         text-transform: uppercase;
         width: 100%;
         text-align: center;
     }
 
-    img {
+    .logo-link > img {
         display: block;
-        max-width: 200px;
-        max-height: 70px;
+        max-width: 140px;
+        max-height: 50px;
         width: auto;
         height: auto;
     }
