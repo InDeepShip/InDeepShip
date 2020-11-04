@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import brandingImg from '../assets/our_flag.png';
 import '../styles/Services.scss';
 
 class Services extends Component {

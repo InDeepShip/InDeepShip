@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import brandingImg from '../assets/our_flag.png';
 import '../styles/Policy.scss';
 
 class Policy extends Component {
