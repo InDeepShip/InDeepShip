@@ -164,7 +164,7 @@ class NavBar extends Component {
               <NavLink className='navbar-item' to={ROUTES.CONTACT_US}>
               Contact Us
               </NavLink>
-              <NavLink className="navbar-item" to={ROUTES.LOG_IN}>
+              <NavLink className="navbar-item" to={ROUTES.LOGIN}>
                 Log In
               </NavLink>
               <NavLink className='navbar-item' to={ROUTES.SIGN_UP}>

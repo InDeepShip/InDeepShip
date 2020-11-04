@@ -49,20 +49,8 @@ class App extends Component {
           <Route path={ROUTES.SERVICES} component={Services} />
           <Route path={ROUTES.POLICY} component={Policy} />
           <Route path={ROUTES.CONTACT_US} component={ContactUs} />
-          <Route
-            exact
-            path="/signup"
-            component={Signup}
-            loggedIn={false}
-            accountSetup={false}
-          />
-          <Route
-            exact
-            path="/login"
-            component={Login}
-            loggedIn={false}
-            accountSetup={false}
-          />
+          <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
+          <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>
