@@ -5,7 +5,7 @@ import ourFlag from '../assets/our_flag.png';
 class App extends Component {
   render() {
     return (
-      <Fragment>
+      <Fragment className='aria-hidden'>
         <section className="hero">
           <div className="hero-body is-medium">
             <div className="container">
@@ -17,13 +17,23 @@ class App extends Component {
                 </div>
                 <div className="column is-half is-hidden-mobile">
                   <figure className="image has-text-centered">
-                    <img className="" src={ourFlag} style={{ display: 'inline-block' }} alt="Our Flag"/>
+                    <img className="" src={ourFlag} style={{ display: 'inline-block' }} alt="Our Flag" />
                   </figure>
                 </div>
               </div>
               <div className="subtitle is-size-7 is-uppercase has-text-centered">
-                    Scroll down to see how the Navis Album Department of Shipping Registry can help you!
+                Scroll down to see how the Navis Album Department of Shipping Registry can help you!
                   </div>
+              <a href="/auth/google" className="column is-centered has-text-centered">
+                <button
+                  style={{
+                    background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
+                  }}
+                  className="button"
+                  onClick={this.signIn}
+                  title="Sign In"
+                />
+              </a>
             </div>
           </div>
         </section>
@@ -41,7 +51,7 @@ class App extends Component {
                 <div className="step-details">
                   <p className="step-title">Step 1</p>
                   <p>
-                      Sign up for an account with your username and email.
+                    Sign up for an account with your username and email.
                   </p>
                 </div>
               </li>
