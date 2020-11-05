@@ -161,7 +161,7 @@ class NavBar extends Component {
           </div>
           <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
             <div className='navbar-end'>
-              {this.renderGoogleAuth()}
+              {/* {this.renderGoogleAuth()} */}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
               <NavLink className='navbar-item' to={ROUTES.ORGANIZATION}>
                 Organization
