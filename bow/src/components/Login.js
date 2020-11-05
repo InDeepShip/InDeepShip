@@ -1,4 +1,7 @@
-import React , {Component}from 'react';
+import React , { Component }from 'react';
+import { connect } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { authLogin } from '../actions';
 import ourFlag from '../assets/our_flag.png';
 
 class Login extends Component{

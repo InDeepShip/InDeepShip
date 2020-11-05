@@ -63,6 +63,28 @@ export const authSignup = (username, email, password1, password2) => {
     };
 };
 
+export const authLogic = (email, password) => {
+    return dispatch => {
+        dispatch(authStart());
+        axios
+            .post('http://127.0.0.1:8000/api/users/login/', {
+                email: email,
+                password: password
+            })
+            .then((res) => {
+                const token = res.data.key;
+                const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+                localStorage.setItem('token', token);
+                localStorage.setItem('expirationDate', expirationDate);
+                dispatch(authSuccess(token));
+                dispatch(checkAuthTimeout(3600));
+            })
+            .catch((err) => {
+                dispatch(authFail(err));
+            });
+    };
+};
+
 export const fetchUser = () => async (dispatch) => {
   // dispatch({ type: DONE_LOADING, payload: true });
   // try {
