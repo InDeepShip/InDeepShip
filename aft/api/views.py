@@ -20,13 +20,13 @@ def api_overview(request):
         "Login": "/api/users/",
         "Sign up": "/api/users/signup/",
         "List users": "/api/users/all/",
-        "Password reset": "/api/users/password/reset/",
-        "Password reset confirm": "api/users/password/reset/confirm/",
-        "Login": "api/users/login/",
-        "Logout": "api/users/logout/",
-        "User details": "api/users/^user/",
-        "Password change": "api/users/password/change/",
-        "Bug report": "api/bugreport/"
+        "Password reset": "/api/users/password_reset/",
+        "Password reset confirm": "/api/users/password_reset/confirm/",
+        "Password change": "/api/users/password_change/",
+        "Login": "/api/users/login/",
+        "Logout": "/api/users/logout/",
+        "Password change": "/api/users/password/change/",
+        "Bug report": "/api/bugreport/"
     }
     return Response(data=api_urls)
 
