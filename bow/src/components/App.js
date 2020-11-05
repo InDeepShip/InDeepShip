@@ -74,9 +74,7 @@ class App extends Component {
     ) : (
           <>
             <NavBar />
-            <div class="has-navbar-fixed-top">
             <Spinner fullPage />
-            </div>
           </>
         );
   }
