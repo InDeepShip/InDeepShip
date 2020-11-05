@@ -5,6 +5,7 @@ import ourFlag from '../assets/our_flag.png';
 import { authSignup } from '../actions';
 import * as ROUTES from '../constants/routes';
 
+
 const invalidMsgStyle = {
   color: 'red',
   fontSize: '15px',
@@ -61,15 +62,14 @@ class SignupBase extends Component{
     }
     onSubmit = e => {
       e.preventDefault();
-
       if (formValid(this.state)) {
         const { username, email, password1, password2 } = this.state;
         this.props.signup(username, email, password1, password2);
           console.log(this.state)  // Interact with backend in future
-      } else {
+     } else {
           console.log("Form is invalid!");
       }
-    };
+    }
 
     /*
     * formValChange checks whether the form state matches the specific condition and returning the error messages. 
