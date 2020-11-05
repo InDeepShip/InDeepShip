@@ -6,7 +6,7 @@ class Login extends Component{
       super(props);
 
       this.state = {
-        username: '',
+        email: '',
         password: ''
       };
     }
@@ -16,6 +16,10 @@ class Login extends Component{
 
         const { username, password } = this.state;
         this.props.login(username, password);
+    }
+
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     render(){
@@ -31,14 +35,14 @@ class Login extends Component{
                 <h1 className="is-size-2">Log in</h1>
                   <div className="field">
                       <label className="label">Email address</label>
-                      <input placeholder="Email address"type="text" name="email"/>
+                      <input placeholder="Email address"type="text" name="email" onChange={this.handleChange} />
                   </div>
                   <div className="field">
                       <label className="label">Password</label>
-                      <input placeholder="Password"type="password"name="password1"/>
+                      <input placeholder="Password"type="password"name="password" onChange={this.handleChange} />
                   </div>
                   <br/>
-                  <input type="submit"value="Submit"/>
+                  <input type="submit" value="Submit"/>
                 <br/>
             </div>
             </div>
