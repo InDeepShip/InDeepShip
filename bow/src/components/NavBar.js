@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
-import bugReportImg from '../assets/bug_report.png';
+import bugReportImg from '../assets/bug_report_white.png';
 // import brandingImg from '../assets/logo.svg';
 import signinButton from '../assets/google_signin_blue.png';
 import * as actions from '../actions';
-// import '../styles/NavBar.scss';
+import '../styles/NavBar.scss';
 import * as ROUTES from '../constants/routes';
 import Modal from 'react-modal';
 
@@ -136,10 +136,8 @@ class NavBar extends Component {
       <nav className={`navbar has-shadow is-spaced ${!this.props.auth ? 'is-white' : 'is-primary'}`}>
         <div className="container">
           <div className='navbar-brand'>
-            <Link to={LANDING} className='navbar-item'>
-              <img src={brandingImg} alt="Logo" />
-              &nbsp;&nbsp;
-              <p>Navis Album DRS</p>
+            <Link to={LANDING} className='navbar-item-2'>
+              <img className='navbar-item-2' src={brandingImg} alt="Logo" />
             </Link>
             <div
               className={`navbar-burger burger ${open ? 'is-active' : ''}`}
