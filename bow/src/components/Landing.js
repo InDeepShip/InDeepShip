@@ -5,7 +5,7 @@ import ourFlag from '../assets/our_flag.png';
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <React.Fragment className='has-navbar-fixed-top'>
         <section className="hero">
           <div className="hero-body is-medium">
             <div className="container">
