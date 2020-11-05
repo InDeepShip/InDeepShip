@@ -2,6 +2,22 @@ import React , {Component}from 'react';
 import ourFlag from '../assets/our_flag.png';
 
 class Login extends Component{
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        username: '',
+        password: ''
+      };
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        const { username, password } = this.state;
+        this.props.login(username, password);
+    }
+
     render(){
         return (
           <div className="container">
