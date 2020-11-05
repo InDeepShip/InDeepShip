@@ -159,7 +159,7 @@ class NavBar extends Component {
               <span />
             </div>
           </div>
-          <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
+          <div className={`navbar-menu`}>
             <div className='navbar-end'>
               {this.renderGoogleAuth()}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
