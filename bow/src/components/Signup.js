@@ -1,6 +1,7 @@
 import React , {Component}from 'react';
+import { connect } from 'react-redux';
 import ourFlag from '../assets/our_flag.png';
-
+import { authSignup } from '../actions';
 
 const invalidMsgStyle = {
   color: 'red',
@@ -31,14 +32,14 @@ const formValid = ({ isError, ...rest }) => {
       if (val === null) {
           isValid = false
           return false
-      } 
+      }
       return true;
   });
 
   return isValid;
 };
 
-class Signup extends Component{
+class SignupBase extends Component{
 
     constructor(props) {
       super(props)
@@ -47,17 +48,21 @@ class Signup extends Component{
         isError: {    // This isError object will hold the form errors for every state.
           email: '',
           password1: '',
-          password2: ''
+          password2: '',
+          username: ''
       },
           email: null,
           password1: null,
-          password2: null,          
+          password2: null,
+          username: null
       }
     }
     onSubmit = e => {
       e.preventDefault();
 
       if (formValid(this.state)) {
+        const { username, email, password1, password2 } = this.state;
+        this.props.signup(username, email, password1, password2);
           console.log(this.state)  // Interact with backend in future
       } else {
           console.log("Form is invalid!");
@@ -79,19 +84,22 @@ class Signup extends Component{
                   ? ""
                   : "Email address is invalid";
               break;
+          case "username":
+            isError.username = value.length > 24 ? "Username must be less than 24 characters" : "";
+            break;
           case "password1":
               isError.password1 =
                   value.length < 8 ? "At least 8 characaters required" : "";
               break;
           case "password2":
-              isError.password2 = 
+              isError.password2 =
                   value !== this.state.password1 ? "Mismatch password" : "";
             break;
           default:
               break;
       }
 
-      this.setState({       
+      this.setState({
           isError,
           [name]: value,
       })
@@ -110,6 +118,15 @@ class Signup extends Component{
                   </figure>
               </div>
                 <h1 className="is-size-2">Create account</h1>
+                  <div className="field">
+                      <label className="label">Username</label>
+                      <input placeholder="Username" type="text" name="username" onChange={this.formValChange}/>
+                      {isError.username.length > 0 && (
+                        <div style={invalidMsgStyle}>
+                        {isError.username}
+                      </div>
+                      )}
+                  </div>
                   <div className="field">
                       <label className="label">Email address</label>
                       <input placeholder="Email address" type="text" name="email" onChange={this.formValChange}/>
@@ -144,6 +161,27 @@ class Signup extends Component{
             </div>
           </div>
     );
+  }
 }
+
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+    token: state.auth.token
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signup: (username, email, password1, password2) =>
+            dispatch(authSignup(username, email, password1, password2))
+    };
 }
-export {Signup};
+
+const Signup =  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(SignupBase);
+
+export default Signup;
