@@ -1,5 +1,6 @@
 import React , {Component}from 'react';
 import ourFlag from '../assets/our_flag.png';
+import { Redirect } from 'react-router-dom';
 
 
 const invalidMsgStyle = {
@@ -56,13 +57,28 @@ class Signup extends Component{
     }
     onSubmit = e => {
       e.preventDefault();
-
       if (formValid(this.state)) {
-          console.log(this.state)  // Interact with backend in future
+          fetch("http://206.189.218.111/api/users/signup",{
+            method: 'POST',
+              body: JSON.stringify({
+                  "email": this.state.email,
+                  "password1": this.state.password1
+              }),
+              headers: {
+                  'Content-Type': 'application/json'
+              }
+          }).then(response => {
+              if (response.status === 200){
+                  return <Redirect to='/login' />
+
+              }else {
+                  console.log("Your account creation didn't work");
+              }
+          })
       } else {
           console.log("Form is invalid!");
       }
-    };
+    }
 
     /*
     * formValChange checks whether the form state matches the specific condition and returning the error messages. 
