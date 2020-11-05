@@ -63,11 +63,12 @@ export const authSignup = (username, email, password1, password2) => {
     };
 };
 
-export const authLogic = (email, password) => {
+export const authLogin = (username, email, password) => {
     return dispatch => {
         dispatch(authStart());
         axios
             .post('http://127.0.0.1:8000/api/users/login/', {
+                username: username,
                 email: email,
                 password: password
             })

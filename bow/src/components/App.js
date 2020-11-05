@@ -8,7 +8,7 @@ import Spinner from './Spinner';
 import PageNotFound from './ErrorPage';
 import * as actions from '../actions';
 import Signup from './Signup';
-import { Login } from './Login';
+import Login from './Login';
 import NavBar from './NavBar';
 import Organization from './Organization';
 import Services from './Services';
