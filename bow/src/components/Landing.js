@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import signinButton from '../assets/google_signin_white.png';
 import ourFlag from '../assets/our_flag.png';
 
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         <section className="hero">
           <div className="hero-body is-medium">
             <div className="container">
@@ -71,7 +71,7 @@ class App extends Component {
           </div>
         </section>
         <hr />
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
