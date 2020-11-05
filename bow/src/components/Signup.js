@@ -1,7 +1,9 @@
 import React , {Component}from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import ourFlag from '../assets/our_flag.png';
 import { authSignup } from '../actions';
+import * as ROUTES from '../constants/routes';
 
 const invalidMsgStyle = {
   color: 'red',
@@ -107,6 +109,12 @@ class SignupBase extends Component{
 
     render(){
         const { isError } = this.state;
+        const { error, loading, token } = this.props;
+
+        if (token) {
+          return <Redirect to={ROUTES.LANDING} />;
+        }
+
         return (
           //<p className="is-danger">hello trump</p>
           <div className="container">
