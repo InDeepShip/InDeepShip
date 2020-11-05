@@ -5,7 +5,7 @@ import ourFlag from '../assets/our_flag.png';
 class App extends Component {
   render() {
     return (
-      <React.Fragment className='has-navbar-fixed-top'>
+      <React.Fragment>
         <section className="hero">
           <div className="hero-body is-medium">
             <div className="container">
@@ -71,6 +71,92 @@ class App extends Component {
           </div>
         </section>
         <hr />
+        <hr />
+        <section className="section">
+          <div className="container">
+            <div className="title">How it works</div>
+            <ul className="steps is-medium">
+              <li className="step-item is-black is-active">
+                <div className="step-marker">
+                  <span className="icon">
+                    <i className="fa fa-envelope" />
+                  </span>
+                </div>
+                <div className="step-details">
+                  <p className="step-title">Step 1</p>
+                  <p>
+                      Sign up for an account with your username and email.
+                  </p>
+                </div>
+              </li>
+              <li className="step-item is-primary is-completed is-active">
+                <div className="step-marker">
+                  <span className="icon">
+                    <i className="fa fa-check-square" />
+                  </span>
+                </div>
+                <div className="step-details">
+                  <p className="step-title">Step 2</p>
+                  <p>Create an application for a ship registration.</p>
+                </div>
+              </li>
+              <li className="step-item is-info is-completed is-active">
+                <div className="step-marker">
+                  <span className="icon">
+                    <i className="fa fa-handshake-o" />
+                  </span>
+                </div>
+                <div className="step-details">
+                  <p className="step-title">Step 3</p>
+                  <p>Get on the ocean!</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <hr />
+        <section className="section">
+          <div className="container">
+            <div className="title">How it works</div>
+            <ul className="steps is-medium">
+              <li className="step-item is-black is-active">
+                <div className="step-marker">
+                  <span className="icon">
+                    <i className="fa fa-envelope" />
+                  </span>
+                </div>
+                <div className="step-details">
+                  <p className="step-title">Step 1</p>
+                  <p>
+                      Sign up for an account with your username and email.
+                  </p>
+                </div>
+              </li>
+              <li className="step-item is-primary is-completed is-active">
+                <div className="step-marker">
+                  <span className="icon">
+                    <i className="fa fa-check-square" />
+                  </span>
+                </div>
+                <div className="step-details">
+                  <p className="step-title">Step 2</p>
+                  <p>Create an application for a ship registration.</p>
+                </div>
+              </li>
+              <li className="step-item is-info is-completed is-active">
+                <div className="step-marker">
+                  <span className="icon">
+                    <i className="fa fa-handshake-o" />
+                  </span>
+                </div>
+                <div className="step-details">
+                  <p className="step-title">Step 3</p>
+                  <p>Get on the ocean!</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
       </React.Fragment>
     );
   }

@@ -31,31 +31,30 @@ class App extends Component {
   }
 
   render() {
+    document.body.classList.add('has-navbar-fixed-top');
     return this.props.loadState === 0 ? (
       <>
         <NavBar />
-        <html class="has-navbar-fixed-top">
-          <Switch>
-            <PrivateRoute
-              exact
-              path="/"
-              // component={Landing}
-              component={null}
-              // loggedIn={this.props.auth}
-              loggedIn={false}
-              // accountSetup={this.props.auth.isSetup}
-              accountSetup={false}
-            />
-            <Route path={ROUTES.ORGANIZATION} component={Organization} />
-            <Route path={ROUTES.SERVICES} component={Services} />
-            <Route path={ROUTES.POLICY} component={Policy} />
-            <Route path={ROUTES.CONTACT_US} component={ContactUs} />
-            <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
-            <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
-            <Route component={PageNotFound} />
-            {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
-          </Switch>
-        </html>
+        <Switch>
+          <PrivateRoute
+            exact
+            path="/"
+            // component={Landing}
+            component={null}
+            // loggedIn={this.props.auth}
+            loggedIn={false}
+            // accountSetup={this.props.auth.isSetup}
+            accountSetup={false}
+          />
+          <Route path={ROUTES.ORGANIZATION} component={Organization} />
+          <Route path={ROUTES.SERVICES} component={Services} />
+          <Route path={ROUTES.POLICY} component={Policy} />
+          <Route path={ROUTES.CONTACT_US} component={ContactUs} />
+          <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
+          <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
+          <Route component={PageNotFound} />
+          {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
+        </Switch>
         <Route
           render={({ history }) => {
             // Auto-update service worker on route change
@@ -74,9 +73,9 @@ class App extends Component {
     ) : (
           <>
             <NavBar />
-            <html class="has-navbar-fixed-top">
-              <Spinner fullPage />
-            </html>
+            <div class="has-navbar-fixed-top">
+            <Spinner fullPage />
+            </div>
           </>
         );
   }
