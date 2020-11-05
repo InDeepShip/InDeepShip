@@ -41,11 +41,12 @@ def bug_report(request):
 
     ### USAGE
 
-    Accepts a post request with message parameter set, for example with the payload:
+    Accepts a post request with message parameter and currentPage param set, for example with the payload:
 
     ```
     {
-        "message" : "this is a bug report"
+        "message" : "this is a bug report",
+        "currentPage" : "http://206.189.218.111/services"
     }
     ```
 
@@ -64,7 +65,7 @@ def bug_report(request):
     request_message = request.data.get("message", "")
     currentPage = request.data.get("currentPage", "")
     if request_message.strip() != '':
-        message = "BUG REPORT : " + request_message + "\n\n" + "PAGE: " + currentPage
+        message = "BUG REPORT: " + request_message + "\n\n" + "PAGE: " + currentPage
         url = settings.SLACK_WEBHOOK
         myobj = {"text": message}
         ret = requests.post(url=url, json=myobj)
