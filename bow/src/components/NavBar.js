@@ -57,8 +57,17 @@ class NavBar extends Component {
     this.setState({
       showBugModal: false
     })
-
-    // send a bug report with 'message' as payload
+      const response = fetch("http://206.189.218.111/api/bugreport/",
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    "message" : message
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(response => {console.log(response)});
   }
 
   handleBugReportText(e) {
