@@ -39,3 +39,13 @@ class CustomRegisterSerializer(RegisterSerializer):
         adapter.save_user(request, user, self)
 
         return user
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = models.CustomUser
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

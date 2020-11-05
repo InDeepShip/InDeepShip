@@ -20,13 +20,13 @@ def api_overview(request):
         "Login": "/api/users/",
         "Sign up": "/api/users/signup/",
         "List users": "/api/users/all/",
-        "Password reset": "/api/users/password/reset/",
-        "Password reset confirm": "api/users/password/reset/confirm/",
-        "Login": "api/users/login/",
-        "Logout": "api/users/logout/",
-        "User details": "api/users/^user/",
-        "Password change": "api/users/password/change/",
-        "Bug report": "api/bugreport/"
+        "Password reset": "/api/users/password_reset/",
+        "Password reset confirm": "/api/users/password_reset/confirm/",
+        "Password change": "/api/users/password_change/",
+        "Login": "/api/users/login/",
+        "Logout": "/api/users/logout/",
+        "Password change": "/api/users/password/change/",
+        "Bug report": "/api/bugreport/"
     }
     return Response(data=api_urls)
 
@@ -61,15 +61,14 @@ def bug_report(request):
 
     Otherwise it returns an error message with the status code set.
     """
-    request_message = request.POST.get('message', '')
-    # if we have an empty message then send a message to api caller
+    request_message = request.data.get("message", "")
     if request_message.strip() != '':
         message = "BUG REPORT: " + request_message
         url = settings.SLACK_WEBHOOK
         myobj = {"text": message}
         ret = requests.post(url=url, json=myobj)
         data = {
-            "message": "bug report submitted to Slack with status code: " % ret.status_code
+            "message": "bug report submitted to Slack with status code: %s" % str(ret.status_code)
         }
         ret_status = status.HTTP_200_OK
     else:

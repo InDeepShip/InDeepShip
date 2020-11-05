@@ -11,30 +11,19 @@ class App extends Component {
             <div className="container">
               <div className="columns is-vcentered">
                 <div className="column is-half">
-                  <h1 className="title is-size-1 has-text-primary">
+                  <h1 className="title is-size-1 is-size-3-mobile has-text-primary">
                     Connecting boat owners with easy registration processes and helpful brokers since 1815.
                   </h1>
-                  <a href="/auth/google" className="has-text-centered">
-                    <button
-                      style={{
-                        background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
-                      }}
-                      className="button"
-                      // onClick={this.signIn}
-                      title="Sign In"
-                    />
-                  </a>
-                  <br /><br />
-                  <div className="subtitle is-size-7 is-uppercase has-text-centered">
-                    Scroll down to see how the Navis Album Department of Shipping Registry can help you!
-                  </div>
                 </div>
-                <div className="column is-half">
+                <div className="column is-half is-hidden-mobile">
                   <figure className="image has-text-centered">
-                    <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} alt="Our Flag"/>
+                    <img className="" src={ourFlag} style={{ display: 'inline-block' }} alt="Our Flag"/>
                   </figure>
                 </div>
               </div>
+              <div className="subtitle is-size-7 is-uppercase has-text-centered">
+                    Scroll down to see how the Navis Album Department of Shipping Registry can help you!
+                  </div>
             </div>
           </div>
         </section>
@@ -79,40 +68,6 @@ class App extends Component {
                 </div>
               </li>
             </ul>
-          </div>
-        </section>
-        <hr />
-        <section className="section">
-          <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Log in</h1>
-              </div>
-              <div className="column">
-                <div className="content is-large">
-                  <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Log in: <a href="/login">here</a></ul>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <hr />
-        <section className="section">
-          <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Sign up for account!</h1>
-              </div>
-              <div className="column">
-                <div className="content is-large">
-                  <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign up : <a href="/signup">here</a></ul>
-                  </ol>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
         <hr />
