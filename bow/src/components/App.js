@@ -31,6 +31,7 @@ class App extends Component {
   }
 
   render() {
+    document.body.classList.add('has-navbar-fixed-top');
     return this.props.loadState === 0 ? (
       <>
         <NavBar />
@@ -72,7 +73,9 @@ class App extends Component {
     ) : (
           <>
             <NavBar />
+            <div class="has-navbar-fixed-top">
             <Spinner fullPage />
+            </div>
           </>
         );
   }
