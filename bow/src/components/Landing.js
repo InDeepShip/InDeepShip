@@ -71,40 +71,6 @@ class App extends Component {
           </div>
         </section>
         <hr />
-        <section className="section">
-          <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Log in</h1>
-              </div>
-              <div className="column">
-                <div className="content is-large">
-                  <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Log in: <a href="/login">here</a></ul>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <hr />
-        <section className="section">
-          <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Sign up for account!</h1>
-              </div>
-              <div className="column">
-                <div className="content is-large">
-                  <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign up : <a href="/signup">here</a></ul>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <hr />
       </React.Fragment>
     );
   }
