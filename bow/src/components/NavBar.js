@@ -57,17 +57,17 @@ class NavBar extends Component {
     this.setState({
       showBugModal: false
     })
-      const response = fetch("http://206.189.218.111/api/bugreport/",
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    "message" : message
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        ).then(response => {console.log(response)});
+    const response = fetch("http://206.189.218.111/api/bugreport/",
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          "message": message
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    ).then(response => { console.log(response) });
   }
 
   handleBugReportText(e) {
@@ -159,7 +159,7 @@ class NavBar extends Component {
               <span />
             </div>
           </div>
-          <div className={`navbar-menu`}>
+          <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
             <div className='navbar-end'>
               {this.renderGoogleAuth()}
               {/* This only checks if user is logged in, need to also check if you're private/broker */}
@@ -183,26 +183,24 @@ class NavBar extends Component {
               </NavLink>
               {this.renderLoginButton()}
               <button className="button is-danger navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
-              <img src={bugReportImg} alt="Logo" />
-              &nbsp;
-              Report a bug
-            </button>
+                Report a bug
+              </button>
             </div>
 
-          <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
-            <div className="bugReportForm">
-              <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
-              <br /><br />
-              <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
-              <br /><br />
-              <div align="center">
-                <button type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Accept</button>
+            <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
+              <div className="bugReportForm">
+                <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
+                <br /><br />
+                <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
+                <br /><br />
+                <div align="center">
+                  <button type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Accept</button>
                 &nbsp;&nbsp;
                 <button type="button" onClick={() => this.closeBugModal()} className="button is-warning is-link">Close</button>
+                </div>
               </div>
-            </div>
-          </Modal>
-        </div>
+            </Modal>
+          </div>
         </div>
       </nav >
     );
