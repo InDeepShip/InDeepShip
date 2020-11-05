@@ -53,6 +53,7 @@ class NavBar extends Component {
 
   handleSubmitBugReport() {
     var message = this.state.bugReportText;
+    var currentPage = window.location;
 
     this.setState({
       showBugModal: false
@@ -61,7 +62,8 @@ class NavBar extends Component {
       {
         method: 'POST',
         body: JSON.stringify({
-          "message": message
+          "message": message,
+          "currentPage": currentPage.href
         }),
         headers: {
           'Content-Type': 'application/json'

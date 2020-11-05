@@ -62,8 +62,9 @@ def bug_report(request):
     Otherwise it returns an error message with the status code set.
     """
     request_message = request.data.get("message", "")
+    currentPage = request.data.get("currentPage", "")
     if request_message.strip() != '':
-        message = "BUG REPORT: " + request_message
+        message = "BUG REPORT : " + request_message + "\n\n" + "PAGE: " + currentPage
         url = settings.SLACK_WEBHOOK
         myobj = {"text": message}
         ret = requests.post(url=url, json=myobj)
