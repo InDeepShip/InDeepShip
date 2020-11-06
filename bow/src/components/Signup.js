@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import ourFlag from '../assets/our_flag.png';
@@ -16,7 +16,7 @@ const regExp = RegExp(
   /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
 );
 
-/* 
+/*
 * formValid function checks whether all of user inputs are valid or not.
 * This is invoked when users click on `submit` button.
 */
@@ -52,19 +52,21 @@ class SignupBase extends Component {
         email: '',
         password1: '',
         password2: '',
-        username: ''
+        name: '',
+        address: ''
       },
       email: null,
       password1: null,
       password2: null,
-      username: null
+      name: null,
+      address: null
     }
   }
   onSubmit = e => {
     e.preventDefault();
     if (formValid(this.state)) {
-      const { username, email, password1, password2 } = this.state;
-      this.props.signup(username, email, password1, password2);
+      const { name, address, email, password1, password2 } = this.state;
+      this.props.signup(name, address, email, password1, password2);
       console.log(this.state)  // Interact with backend in future
     } else {
       console.log("Form is invalid!");
@@ -72,7 +74,7 @@ class SignupBase extends Component {
   }
 
   /*
-  * formValChange checks whether the form state matches the specific condition and returning the error messages. 
+  * formValChange checks whether the form state matches the specific condition and returning the error messages.
   * When the state doesn’t match up with a specific condition. This way we are showing the error messages in React component.
   */
   formValChange = e => {
@@ -86,9 +88,11 @@ class SignupBase extends Component {
           ? ""
           : "Email address is invalid";
         break;
-      case "username":
-        isError.username = value.length > 24 ? "Username must be less than 24 characters" : "";
+      case "name":
+        isError.name = value.length < 1  ? "Name cannot be blank" : "";
         break;
+      case "address":
+        isError.address = value.length < 1 ? "Address cannot be blank": "";
       case "password1":
         isError.password1 =
           value.length < 8 ? "At least 8 characaters required" : "";
@@ -117,58 +121,79 @@ class SignupBase extends Component {
 
     document.body.classList.add('has-navbar-fixed-top');
     return (
-      //<p className="is-danger">hello trump</p>
-      <div className="container">
-        <div className="content">
-          <div align="center">
-            <div>
-              <figure className="image">
-                <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} alt="Our Flag" />
-              </figure>
-            </div>
+          <div className='container'>
             <h1 className="is-size-2">Create account</h1>
             <div className="field">
-              <label className="label">Username</label>
-              <input placeholder="Username" type="text" name="username" onChange={this.formValChange} />
-              {isError.username.length > 0 && (
-                <div style={invalidMsgStyle}>
-                  {isError.username}
-                </div>
+              <label className="label">Name</label>
+              <div className='control'>
+                <input className='input' placeholder="Name" type="text" name="name" onChange={this.formValChange} />
+              </div>
+              {isError.name.length > 0 && (
+                <p className='help is-danger'>
+                  {isError.name}
+                </p>
               )}
             </div>
             <div className="field">
+              <label className="label">Home Address</label>
+              <div className='control has-icons-left'>
+                <input className='input' placeholder="Address" type="text" name="address" onChange={this.formValChange} />
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-home'></i>
+                </span>
+              </div>
+                <p className='help is-danger'>
+                </p>
+            </div>
+            <div className="field">
               <label className="label">Email address</label>
-              <input placeholder="Email address" type="text" name="email" onChange={this.formValChange} />
+              <div className='control has-icons-left'>
+                <input className='input' placeholder="Email address" type="text" name="email" onChange={this.formValChange} />
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-envelope'></i>
+                </span>
+              </div>
               {isError.email.length > 0 && (
-                <div style={invalidMsgStyle}>
+                <p className='help is-danger'>
                   {isError.email}
-                </div>
+                </p>
               )}
             </div>
             <div className="field">
               <label className="label">Password</label>
-              <input placeholder="Password" type="password" name="password1" onChange={this.formValChange} />
+              <div className='control has-icons-left'>
+                <input className='input' placeholder="Password" type="password" name="password1" onChange={this.formValChange} />
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-lock'></i>
+                </span>
+              </div>
               {isError.password1.length > 0 && (
-                <div style={invalidMsgStyle}>
+                <p className='help is-danger'>
                   {isError.password1}
-                </div>
+                </p>
               )}
             </div>
             <div className="field">
               <label className="label">Re-enter password</label>
-              <input placeholder="Reenter Password" type="password" name="password2" onChange={this.formValChange} />
+              <div className='control has-icons-left'>
+                <input className='input' placeholder="Reenter Password" type="password" name="password2" onChange={this.formValChange} />
+                <span className='icon is-small is-left'>
+                  <i className='fas fa-lock'></i>
+                </span>
+              </div>
               {isError.password2.length > 0 && (
-                <div style={invalidMsgStyle}>
-                  {isError.password2}
-                </div>
+                <p className='help is-danger'>
+                  {isError.password1}
+                </p>
               )}
             </div>
             <br />
-            <input type="submit" value="Submit" onClick={this.onSubmit} />
-            <br />
+            <div className='field'>
+              <div className='control'>
+                <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
     );
   }
 }
