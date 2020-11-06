@@ -39,8 +39,6 @@ source ./venv/bin/activate
 pip install -r requirements.txt
 
 pushd aft
-python manage.py makemigrations
-python manage.py migrate
 python manage.py collectstatic --no-input
 popd
 
