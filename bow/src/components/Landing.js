@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import signinButton from '../assets/google_signin_white.png';
 import ourFlag from '../assets/our_flag.png';
+import ServiceCards from './ServiceCards';
 
 class App extends Component {
   render() {
@@ -81,6 +82,7 @@ class App extends Component {
           </div>
         </section>
         <hr />
+        {<ServiceCards />}
       </Fragment>
     );
   }

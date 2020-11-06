@@ -1,0 +1,10 @@
+.card-image {
+    filter: brightness(50%);
+}
+
+.card-image:hover {
+    cursor: pointer;
+    filter: brightness(100%)
+}
+
+
