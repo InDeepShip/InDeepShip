@@ -14,6 +14,8 @@ import Organization from './Organization';
 import Services from './Services';
 import Policy from './Policy';
 import ContactUs from './ContactUs';
+import Footer from './Footer';
+import EditProfile from './EditProfile';
 import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
@@ -47,6 +49,12 @@ class App extends Component {
             // accountSetup={this.props.auth.isSetup}
             accountSetup={false}
           />
+          <PrivateRoute
+            exact
+            path="/settings"
+            component={EditProfile}
+            loggedIn={true}
+          />
           <Route path={ROUTES.ORGANIZATION} component={Organization} />
           <Route path={ROUTES.SERVICES} component={Services} />
           <Route path={ROUTES.POLICY} component={Policy} />
@@ -56,6 +64,7 @@ class App extends Component {
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>
+        <Footer />
         <Route
           render={({ history }) => {
             // Auto-update service worker on route change
