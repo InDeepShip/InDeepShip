@@ -1,11 +1,18 @@
 // General styling goes here
+$purple: #3f51b5;
+$pink: #FA7C91;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+$blue: #7289da;
+$green: #43b581;
+$dark-green: #11633e;
+$background-color: #2A363F;
+$black: #16171a;
+$navy:#00145a;
+$red:#ce021d;
 
 html {
 	overflow-y: auto;
-  }
-  
-  #root > :not(.is-fullheight, .navbar, .home) {
-	margin-top: $navbar-height;
   }
   
   .navbar.is-transparent {
@@ -13,12 +20,6 @@ html {
 	background-image: none;
 	a:hover {
 	  text-decoration: underline;
-	}
-  }
-  .navbar .button{
-	@include mobile {
-	  border-color: $link !important;
-	  color: $link !important;
 	}
   }
   
@@ -52,9 +53,6 @@ html {
 	  animation-iteration-count: 1;
 	  animation-timing-function: ease-in;
 	animation-duration: 0.4s;
-	@include mobile {
-	  padding: 0;
-	}
   }
   @keyframes fadeInOpacity {
 	  0% {
@@ -83,69 +81,6 @@ html {
 	text-overflow: ellipsis;
 	min-width: 0;
   }
-  
-  @include tablet {
-	.layers {
-	  position: relative;
-	  > * {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		margin: 0 !important; // fix .columns
-	  }
-	}
-  }
-  
-  // HACK
-  @include mobile {
-	.layers .columns {
-	  padding: 12px;
-	  .has-text-white {
-		color: $text !important;
-	  }
-	}
-  }
-  
-  .input-hidden{
-	border: none;
-	background: none;
-	height: 1px;
-	width: 100%;
-	outline: none;
-	padding: 0;
-	margin: 0;
-	float: right;
-  }
-  
-  .image.shadowed {
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-	}
-	
-	.placeholder-preview {
-		text-align: center;
-		background-color: #efebeb;
-		height: 100%;
-		width: 100%;
-		border-radius: 5px;
-		cursor: pointer;
-	}
-
-	.dropzone-box {
-		box-align: center;
-		background-color: #efebeb;
-		padding-top: 40px;
-		padding-left: 40px;
-		padding-right: 40px;
-		height: 100%;
-		width: 100%;
-		cursor: pointer;
-	}
-	
-	.select {
-		color: $link !important;
-	}
 
 // Flex Grid
 $this-padding: 5px;
@@ -289,11 +224,6 @@ $this-tile-size-lg: 25%;
 	
 }
 
-.react-tabs__tab--selected {
-	background-color: $link;
-	color: #fff;
-}
-
 .status {
 	-webkit-box-align: center;
   -ms-flex-align: center;
@@ -310,3 +240,8 @@ $this-tile-size-lg: 25%;
 	line-height: 1.5;
 	white-space: nowrap;
 }
+
+.has-image-centered {
+	margin-left: auto;
+	margin-right: auto;
+  }
