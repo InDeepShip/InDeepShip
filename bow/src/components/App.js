@@ -14,6 +14,7 @@ import Organization from './Organization';
 import Services from './Services';
 import Policy from './Policy';
 import ContactUs from './ContactUs';
+import Footer from './Footer';
 import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
@@ -56,6 +57,7 @@ class App extends Component {
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>
+        <Footer />
         <Route
           render={({ history }) => {
             // Auto-update service worker on route change
