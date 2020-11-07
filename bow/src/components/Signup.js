@@ -53,15 +53,18 @@ class SignupBase extends Component {
         password1: '',
         password2: '',
         name: '',
-        address: ''
+        address: '',
+        account: 'private'
       },
       email: null,
       password1: null,
       password2: null,
       name: null,
-      address: null
+      address: null,
+      account: null
     }
   }
+
   onSubmit = e => {
     e.preventDefault();
     if (formValid(this.state)) {
@@ -186,6 +189,17 @@ class SignupBase extends Component {
                   {isError.password1}
                 </p>
               )}
+            </div>
+            <div className='field'>
+            <label className='label'>Account Type</label>
+            <div class="control">
+              <div class="select">
+                <select value={this.state.account}>
+                  <option value='private'>Personal Account</option>
+                  <option value='broker'>Broker Account</option>
+                </select>
+              </div>
+              </div>
             </div>
             <br />
             <div className='field'>
