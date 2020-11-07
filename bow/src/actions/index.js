@@ -37,15 +37,17 @@ export const checkAuthTimeout = (expirationTime) => {
   };
 };
 
-export const authSignup = (username, email, password1, password2) => {
+export const authSignup = (name, address, email, password1, password2, account) => {
     return dispatch => {
         dispatch(authStart());
         axios
             .post('http://206.189.218.111/api/users/signup/', {
-                username: username,
+                name: name,
+                address: address,
                 email: email,
                 password1: password1,
                 password2: password2,
+                account: account,
                 is_broker: false,
                 is_private: true
             })

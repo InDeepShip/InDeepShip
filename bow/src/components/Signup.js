@@ -68,8 +68,8 @@ class SignupBase extends Component {
   onSubmit = e => {
     e.preventDefault();
     if (formValid(this.state)) {
-      const { name, address, email, password1, password2 } = this.state;
-      this.props.signup(name, address, email, password1, password2);
+      const { name, address, email, password1, password2, account } = this.state;
+      this.props.signup(name, address, email, password1, password2, account);
       console.log(this.state)  // Interact with backend in future
     } else {
       console.log("Form is invalid!");
@@ -222,8 +222,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signup: (username, email, password1, password2) =>
-      dispatch(authSignup(username, email, password1, password2))
+    signup: (name, address, email, password1, password2, account) =>
+      dispatch(authSignup(name, address, email, password1, password2, account))
   };
 }
 
