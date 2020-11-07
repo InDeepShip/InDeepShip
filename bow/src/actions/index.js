@@ -41,15 +41,14 @@ export const authSignup = (name, address, email, password1, password2, account) 
     return dispatch => {
         dispatch(authStart());
         axios
-            .post('http://206.189.218.111/api/users/signup/', {
+            .post('http://127.0.0.1:8000/api/users/signup/', {
                 name: name,
                 address: address,
+                username: email,
                 email: email,
                 password1: password1,
                 password2: password2,
-                account: account,
-                is_broker: false,
-                is_private: true
+                account: account
             })
             .then(res => {
                 const token = res.data.key;

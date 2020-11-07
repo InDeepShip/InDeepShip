@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import ourFlag from '../assets/our_flag.png';
 import { authSignup } from '../actions';
 import * as ROUTES from '../constants/routes';
+import '../styles/SignUp.scss';
 
 
 const invalidMsgStyle = {
@@ -54,14 +55,14 @@ class SignupBase extends Component {
         password2: '',
         name: '',
         address: '',
-        account: 'private'
+        account: ''
       },
       email: null,
       password1: null,
       password2: null,
       name: null,
       address: null,
-      account: null
+      account: 'private'
     }
   }
 
@@ -117,6 +118,7 @@ class SignupBase extends Component {
   render() {
     const { isError } = this.state;
     const { error, loading, token } = this.props;
+    const containerClasses = loading ? 'container loading' : 'container';
 
     if (token) {
       return <Redirect to={ROUTES.LANDING} />;
@@ -124,7 +126,7 @@ class SignupBase extends Component {
 
     document.body.classList.add('has-navbar-fixed-top');
     return (
-          <div className='container'>
+          <div className={containerClasses}>
             <h1 className="is-size-2">Create account</h1>
             <div className="field">
               <label className="label">Name</label>
@@ -207,6 +209,11 @@ class SignupBase extends Component {
                 <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
               </div>
             </div>
+            {loading && (
+              <span className="loading-icon icon is-large">
+                  <i className="fas fa-3x fa-spinner fa-pulse"></i>
+              </span>
+            )}
           </div>
     );
   }
