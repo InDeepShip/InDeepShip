@@ -6,7 +6,7 @@ import ServiceCards from './ServiceCards';
 class App extends Component {
   render() {
     return (
-      <Fragment className='aria-hidden'>
+      <Fragment>
         <section className="hero">
           <div className="hero-body is-medium">
             <div className="container">

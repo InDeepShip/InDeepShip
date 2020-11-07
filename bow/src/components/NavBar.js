@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
 import bugReportImg from '../assets/bug_report_white.png';
-// import brandingImg from '../assets/logo.svg';
 import signinButton from '../assets/google_signin_blue.png';
-import * as actions from '../actions';
+import { logout } from '../actions';
 import '../styles/NavBar.scss';
 import * as ROUTES from '../constants/routes';
 import Modal from 'react-modal';
-
-const LANDING = '/';
 
 const customStyles = {
   content: {
@@ -32,6 +29,10 @@ class NavBar extends Component {
 
   toggle = () => { this.setState({ open: !this.state.open }) };
   close = () => { this.setState({ open: false }) };
+
+  handleLogout = () => {
+    this.props.logout()
+  }
 
   openBugModal = () => {
     this.setState({ showBugModal: true });
@@ -79,7 +80,7 @@ class NavBar extends Component {
   }
 
   renderLoginButton() {
-    if (!this.props.auth) {
+    if (this.props.auth.token) {
       return (
         <div className="navbar-item has-dropdown is-hoverable">
           <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
@@ -92,30 +93,11 @@ class NavBar extends Component {
             <Link className="navbar-item" to="/settings">
               Settings
               </Link>
-
-            {/* <a className="navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
-              Report a bug
-            </a> */}
             <hr className="navbar-divider" />
-            <a className="navbar-item" href="/api/logout">
+            <a className="navbar-item" href="" onClick={this.handleLogout}>
               Logout
               </a>
           </div>
-
-          {/* <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
-            <div className="bugReportForm">
-              <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
-              <br /><br />
-              <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
-              <br /><br />
-              <div align="center">
-                <button type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Accept</button>
-                &nbsp;&nbsp;
-                <button type="button" onClick={() => this.closeBugModal()} className="button is-warning is-link">Close</button>
-              </div>
-            </div>
-          </Modal> */}
-
         </div>
       );
     }
@@ -140,6 +122,21 @@ class NavBar extends Component {
     }
   }
 
+  renderUnauth() {
+    if (!this.props.auth.token) {
+      return (
+        <Fragment>
+          <NavLink className="navbar-item" to={ROUTES.LOGIN}>
+            Log In
+          </NavLink>
+          <NavLink className='navbar-item' to={ROUTES.SIGN_UP}>
+            Sign Up
+          </NavLink>
+        </Fragment>
+      );
+    }
+  }
+
   render() {
     const { open } = this.state;
 
@@ -147,7 +144,7 @@ class NavBar extends Component {
       <nav className={`navbar has-shadow is-spaced is-fixed-top is-primary`}>
         <div className="container">
           <div className='navbar-brand'>
-            <Link to={LANDING} className='navbar-item-2'>
+            <Link to={ROUTES.LANDING} className='navbar-item-2'>
               <img className='navbar-item-2' src={brandingImg} alt="Logo" />
             </Link>
             <div
@@ -162,9 +159,7 @@ class NavBar extends Component {
             </div>
           </div>
           <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
-            <div className='navbar-end'>
-              {/* {this.renderGoogleAuth()} */}
-              {/* This only checks if user is logged in, need to also check if you're private/broker */}
+            <div className='navbar-start'>
               <NavLink className='navbar-item' to={ROUTES.ORGANIZATION}>
                 Organization
               </NavLink>
@@ -177,12 +172,9 @@ class NavBar extends Component {
               <NavLink className='navbar-item' to={ROUTES.CONTACT_US}>
                 Contact Us
               </NavLink>
-              <NavLink className="navbar-item" to={ROUTES.LOGIN}>
-                Log In
-              </NavLink>
-              <NavLink className='navbar-item' to={ROUTES.SIGN_UP}>
-                Sign Up
-              </NavLink>
+            </div>
+            <div className='navbar-end'>
+              {this.renderUnauth()}
               {this.renderLoginButton()}
               <button className="button is-danger navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
                 Report a bug
@@ -209,8 +201,21 @@ class NavBar extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
-}
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+};
 
-export default withRouter(connect(mapStateToProps, actions)(NavBar));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout())
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(NavBar)
+);
