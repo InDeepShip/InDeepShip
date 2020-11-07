@@ -84,7 +84,7 @@ class NavBar extends Component {
       return (
         <div className="navbar-item has-dropdown is-hoverable">
           <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
-            {this.props.auth.name}
+            {this.props.auth.email}
           </NavLink>
           <div className="navbar-dropdown is-right is-boxed">
             <Link className="navbar-item" to={`/profile/${this.props.auth.cruzid}`}>
@@ -96,7 +96,7 @@ class NavBar extends Component {
             <hr className="navbar-divider" />
             <a className="navbar-item" href="" onClick={this.handleLogout}>
               Logout
-              </a>
+            </a>
           </div>
         </div>
       );
