@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom';
 import ourFlag from '../assets/our_flag.png';
 import { authSignup } from '../actions';
 import * as ROUTES from '../constants/routes';
-import '../styles/SignUp.scss';
 
 
 const invalidMsgStyle = {
