@@ -10,7 +10,6 @@ class LoginBase extends Component {
     super(props);
 
     this.state = {
-      username: '',
       email: '',
       password: ''
     };
@@ -19,8 +18,8 @@ class LoginBase extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { username, email, password } = this.state;
-    this.props.login(username, email, password);
+    const { email, password } = this.state;
+    this.props.login(email, password);
   }
 
   handleChange = (e) => {
@@ -29,6 +28,7 @@ class LoginBase extends Component {
 
   render() {
     const { error, loading, token } = this.props;
+    const containerClasses = loading ? 'container loading' : 'container';
 
     if (token) {
       return <Redirect to={ROUTES.LANDING} />
@@ -36,32 +36,27 @@ class LoginBase extends Component {
 
     document.body.classList.add('has-navbar-fixed-top');
     return (
-      <div className="container">
-        <div className="content">
-          <div align="center">
-            <div>
-              <figure className="image">
-                <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} alt="Our Flag" />
-              </figure>
-            </div>
-            <h1 className="is-size-2">Log in</h1>
-            <div className="field">
-              <label className="label">Username</label>
-              <input placeholder="Username" type="text" name="username" onChange={this.handleChange} />
-            </div>
-            <div className="field">
-              <label className="label">Email address</label>
-              <input placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
-            </div>
-            <div className="field">
-              <label className="label">Password</label>
-              <input placeholder="Password" type="password" name="password" onChange={this.handleChange} />
-            </div>
-            <br />
-            <input type="submit" value="Submit" onClick={this.onSubmit} />
-            <br />
+      <div className={containerClasses}>
+          <h1 className="is-size-2">Log in</h1>
+          <div className="field">
+            <label className="label">Email Address</label>
+            <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
           </div>
-        </div>
+          <div className="field">
+            <label className="label">Password</label>
+            <input className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
+          </div>
+          <br />
+          <div className='field'>
+            <div className='control'>
+              <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+            </div>
+          </div>
+          {loading && (
+            <span className="loading-icon icon is-large">
+                <i className="fas fa-3x fa-spinner fa-pulse"></i>
+            </span>
+          )}
       </div>
     );
   }
@@ -77,7 +72,7 @@ const mapStatetoProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (username, email, password) => dispatch(authLogin(username, email, password))
+    login: (email, password) => dispatch(authLogin(email, password))
   };
 };
 

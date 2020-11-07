@@ -7,10 +7,11 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token) => {
+export const authSuccess = (token, email) => {
     return {
       type: actionTypes.AUTH_SUCCESS,
-      token: token
+      token: token,
+      email: email
     };
 };
 
@@ -24,6 +25,7 @@ export const authFail = (error) => {
 export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
+  localStorage.removeItem("email");
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -37,24 +39,26 @@ export const checkAuthTimeout = (expirationTime) => {
   };
 };
 
-export const authSignup = (username, email, password1, password2) => {
+export const authSignup = (name, address, email, password1, password2, account) => {
     return dispatch => {
         dispatch(authStart());
         axios
-            .post('http://206.189.218.111/api/users/signup/', {
-                username: username,
+            .post('http://127.0.0.1:8000/api/users/signup/', {
+                name: name,
+                address: address,
+                username: email,
                 email: email,
                 password1: password1,
                 password2: password2,
-                is_broker: false,
-                is_private: true
+                account: account
             })
             .then(res => {
                 const token = res.data.key;
                 const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
                 localStorage.setItem("token", token);
                 localStorage.setItem("expirationDate", expirationDate);
-                dispatch(authSuccess(token));
+                localStorage.setItem("email", email);
+                dispatch(authSuccess(token, email));
                 dispatch(checkAuthTimeout(3600));
             })
             .catch(err => {
@@ -63,12 +67,12 @@ export const authSignup = (username, email, password1, password2) => {
     };
 };
 
-export const authLogin = (username, email, password) => {
+export const authLogin = (email, password) => {
     return dispatch => {
         dispatch(authStart());
         axios
-            .post('http://206.189.218.111/api/users/login/', {
-                username: username,
+            .post('http://127.0.0.1:8000/api/users/login/', {
+                username: email,
                 email: email,
                 password: password
             })
@@ -77,7 +81,8 @@ export const authLogin = (username, email, password) => {
                 const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
                 localStorage.setItem('token', token);
                 localStorage.setItem('expirationDate', expirationDate);
-                dispatch(authSuccess(token));
+                localStorage.setItem("email", email);
+                dispatch(authSuccess(token, email));
                 dispatch(checkAuthTimeout(3600));
             })
             .catch((err) => {

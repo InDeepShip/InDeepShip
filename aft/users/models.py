@@ -5,8 +5,8 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     name = models.CharField(blank=True, max_length=255)
-    is_private = models.BooleanField(default=True)
-    is_broker = models.BooleanField(default=False)
+    address = models.CharField(blank=True, max_length=255)
+    account = models.CharField(blank=True, max_length=255)
 
     def __str__(self):
         return self.email

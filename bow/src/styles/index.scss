@@ -12,3 +12,19 @@
 @import 'spinner';
 // @import 'searchresults';
 // @import 'tags';
+
+.container {
+    padding: 0 2rem;
+}
+
+.container.loading {
+    opacity: 0.5;
+}
+
+.loading-icon {
+    color: #000000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
