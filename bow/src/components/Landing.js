@@ -25,16 +25,6 @@ class App extends Component {
               <div className="subtitle is-size-7 is-uppercase has-text-centered">
                 Scroll down to see how the Navis Album Department of Shipping Registry can help you!
                   </div>
-              <a href="/auth/google" className="column is-centered has-text-centered">
-                <button
-                  style={{
-                    background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
-                  }}
-                  className="button"
-                  onClick={this.signIn}
-                  title="Sign In"
-                />
-              </a>
             </div>
           </div>
         </section>

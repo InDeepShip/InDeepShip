@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import ourFlag from '../assets/our_flag.png';
 import { authSignup } from '../actions';
 import * as ROUTES from '../constants/routes';
+import signinButton from '../assets/google_signin_white.png';
 
 
 const invalidMsgStyle = {
@@ -48,6 +49,7 @@ class SignupBase extends Component {
     super(props)
 
     this.state = {
+      signUpType: null,
       isError: {    // This isError object will hold the form errors for every state.
         email: '',
         password1: '',
@@ -123,98 +125,151 @@ class SignupBase extends Component {
       return <Redirect to={ROUTES.LANDING} />;
     }
 
-    document.body.classList.add('has-navbar-fixed-top');
-    return (
-          <div className={containerClasses}>
-            <h1 className="is-size-2">Create account</h1>
-            <div className="field">
-              <label className="label">Name</label>
-              <div className='control'>
-                <input className='input' placeholder="Name" type="text" name="name" onChange={this.formValChange} />
-              </div>
-              {isError.name.length > 0 && (
-                <p className='help is-danger'>
-                  {isError.name}
-                </p>
-              )}
-            </div>
-            <div className="field">
-              <label className="label">Home Address</label>
-              <div className='control has-icons-left'>
-                <input className='input' placeholder="Address" type="text" name="address" onChange={this.formValChange} />
-                <span className='icon is-small is-left'>
-                  <i className='fas fa-home'></i>
-                </span>
-              </div>
-                <p className='help is-danger'>
-                </p>
-            </div>
-            <div className="field">
-              <label className="label">Email address</label>
-              <div className='control has-icons-left'>
-                <input className='input' placeholder="Email address" type="text" name="email" onChange={this.formValChange} />
-                <span className='icon is-small is-left'>
-                  <i className='fas fa-envelope'></i>
-                </span>
-              </div>
-              {isError.email.length > 0 && (
-                <p className='help is-danger'>
-                  {isError.email}
-                </p>
-              )}
-            </div>
-            <div className="field">
-              <label className="label">Password</label>
-              <div className='control has-icons-left'>
-                <input className='input' placeholder="Password" type="password" name="password1" onChange={this.formValChange} />
-                <span className='icon is-small is-left'>
-                  <i className='fas fa-lock'></i>
-                </span>
-              </div>
-              {isError.password1.length > 0 && (
-                <p className='help is-danger'>
-                  {isError.password1}
-                </p>
-              )}
-            </div>
-            <div className="field">
-              <label className="label">Re-enter password</label>
-              <div className='control has-icons-left'>
-                <input className='input' placeholder="Reenter Password" type="password" name="password2" onChange={this.formValChange} />
-                <span className='icon is-small is-left'>
-                  <i className='fas fa-lock'></i>
-                </span>
-              </div>
-              {isError.password2.length > 0 && (
-                <p className='help is-danger'>
-                  {isError.password1}
-                </p>
-              )}
-            </div>
-            <div className='field'>
-            <label className='label'>Account Type</label>
-            <div class="control">
-              <div class="select">
-                <select value={this.state.account}>
-                  <option value='private'>Personal Account</option>
-                  <option value='broker'>Broker Account</option>
-                </select>
-              </div>
+    if (!this.state.signUpType) {
+      return (
+        <div className='hero is-fullheight'>
+          <div className='hero-body'>
+            <div className='container'>
+              <div className='columns is-centered'>
+                <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
+                  <div className="field">
+                    <div className="control">
+                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'google'})}}>
+                        <span className="icon">
+                          <i className='fab fa-google'></i>
+                        </span>
+                        <span>Sign up with google</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div className='is-fullwidth has-text-centered'>
+                    <span>OR</span>
+                  </div>
+                  <div className="field">
+                    <div className="control">
+                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'email'})}}>
+                        <span className="icon">
+                          <i className='fas fa-envelope'></i>
+                        </span>
+                        <span>Sign up with email</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <br />
-            <div className='field'>
-              <div className='control'>
-                <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
-              </div>
-            </div>
-            {loading && (
-              <span className="loading-icon icon is-large">
-                  <i className="fas fa-3x fa-spinner fa-pulse"></i>
-              </span>
-            )}
           </div>
-    );
+        </div>
+      );
+    }
+
+    document.body.classList.add('has-navbar-fixed-top');
+
+    if (this.state.signUpType === 'google') {
+      return (
+        <div className='container'>
+          Not implemented :)
+        </div>
+      );
+    }
+
+    if (this.state.signUpType === 'email') {
+      return (
+        <div className='hero is-fullheight'>
+          <div className='hero-body'>
+            <div className={containerClasses}>
+              <h1 className="is-size-2">Create account</h1>
+              <div className="field">
+                <label className="label">Name</label>
+                <div className='control'>
+                  <input className='input' placeholder="Name" type="text" name="name" onChange={this.formValChange} />
+                </div>
+                {isError.name.length > 0 && (
+                  <p className='help is-danger'>
+                    {isError.name}
+                  </p>
+                )}
+              </div>
+              <div className="field">
+                <label className="label">Home Address</label>
+                <div className='control has-icons-left'>
+                  <input className='input' placeholder="Address" type="text" name="address" onChange={this.formValChange} />
+                  <span className='icon is-small is-left'>
+                    <i className='fas fa-home'></i>
+                  </span>
+                </div>
+                  <p className='help is-danger'>
+                  </p>
+              </div>
+              <div className="field">
+                <label className="label">Email address</label>
+                <div className='control has-icons-left'>
+                  <input className='input' placeholder="Email address" type="text" name="email" onChange={this.formValChange} />
+                  <span className='icon is-small is-left'>
+                    <i className='fas fa-envelope'></i>
+                  </span>
+                </div>
+                {isError.email.length > 0 && (
+                  <p className='help is-danger'>
+                    {isError.email}
+                  </p>
+                )}
+              </div>
+              <div className="field">
+                <label className="label">Password</label>
+                <div className='control has-icons-left'>
+                  <input className='input' placeholder="Password" type="password" name="password1" onChange={this.formValChange} />
+                  <span className='icon is-small is-left'>
+                    <i className='fas fa-lock'></i>
+                  </span>
+                </div>
+                {isError.password1.length > 0 && (
+                  <p className='help is-danger'>
+                    {isError.password1}
+                  </p>
+                )}
+              </div>
+              <div className="field">
+                <label className="label">Re-enter password</label>
+                <div className='control has-icons-left'>
+                  <input className='input' placeholder="Reenter Password" type="password" name="password2" onChange={this.formValChange} />
+                  <span className='icon is-small is-left'>
+                    <i className='fas fa-lock'></i>
+                  </span>
+                </div>
+                {isError.password2.length > 0 && (
+                  <p className='help is-danger'>
+                    {isError.password1}
+                  </p>
+                )}
+              </div>
+              <div className='field'>
+              <label className='label'>Account Type</label>
+              <div class="control">
+                <div class="select">
+                  <select value={this.state.account} onChange={(e) => this.setState({account: e.target.value})}>
+                    <option value='private'>Personal Account</option>
+                    <option value='broker'>Broker Account</option>
+                  </select>
+                </div>
+                </div>
+              </div>
+              <br />
+              <div className='field'>
+                <div className='control'>
+                  <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                </div>
+              </div>
+              {loading && (
+                <span className="loading-icon icon is-large">
+                    <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

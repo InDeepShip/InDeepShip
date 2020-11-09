@@ -36,27 +36,48 @@ class LoginBase extends Component {
 
     document.body.classList.add('has-navbar-fixed-top');
     return (
-      <div className={containerClasses}>
-          <h1 className="is-size-2">Log in</h1>
-          <div className="field">
-            <label className="label">Email Address</label>
-            <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
-          </div>
-          <div className="field">
-            <label className="label">Password</label>
-            <input className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
-          </div>
-          <br />
-          <div className='field'>
-            <div className='control'>
-              <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+      <div className='hero is-full-height'>
+        <div className='hero-body'>
+          <div className={containerClasses}>
+            <div className='columns is-centered'>
+              <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
+                <h1 className="is-size-2">Log in</h1>
+                  <div className="field">
+                    <div className="control">
+                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'google'})}}>
+                        <span className="icon">
+                          <i className='fab fa-google'></i>
+                        </span>
+                        <span>Login with google</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div className='is-fullwidth has-text-centered'>
+                    <span>OR</span>
+                  </div>
+                  <div className="field">
+                    <label className="label">Email Address</label>
+                    <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
+                  </div>
+                  <div className="field">
+                    <label className="label">Password</label>
+                    <input className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
+                  </div>
+                  <br />
+                  <div className='field'>
+                    <div className='control'>
+                      <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                    </div>
+                  </div>
+                  {loading && (
+                    <span className="loading-icon icon is-large">
+                        <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                    </span>
+                  )}
+              </div>
             </div>
           </div>
-          {loading && (
-            <span className="loading-icon icon is-large">
-                <i className="fas fa-3x fa-spinner fa-pulse"></i>
-            </span>
-          )}
+        </div>
       </div>
     );
   }
