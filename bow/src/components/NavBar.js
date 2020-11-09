@@ -143,7 +143,7 @@ class NavBar extends Component {
     const { open } = this.state;
 
     return (
-      <nav className={`navbar has-shadow is-spaced is-fixed-top is-primary`}>
+      <nav className={`navbar is-spaced is-fixed-top is-primary`}>
         <div className="container">
           <div className='navbar-brand'>
             <Link to={ROUTES.LANDING} className='navbar-item-2'>

@@ -1,0 +1,19 @@
+.landing-header {
+    position: relative;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/MAERSK_MC_KINNEY_M%C3%96LLER_%26_MARSEILLE_MAERSK_%2848694054418%29.jpg/1920px-MAERSK_MC_KINNEY_M%C3%96LLER_%26_MARSEILLE_MAERSK_%2848694054418%29.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.landing-header .overlay {
+    position: absolute;
+    background-color: #000000;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+}
+
+.landing-header-text {
+    color: #ffffff !important;
+}
