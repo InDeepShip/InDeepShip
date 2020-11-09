@@ -37,7 +37,6 @@ class App extends Component {
             </div>
           </div>
         </section>
-        <hr />
         <section className="section">
           <div className="container">
             <div className="title">How it works</div>
@@ -80,10 +79,9 @@ class App extends Component {
             </ul>
           </div>
         </section>
-        <hr />
         {<ServiceCards />}
       </Fragment>
     );
   }
 }
-export default App;
+export default withRouter(App);
