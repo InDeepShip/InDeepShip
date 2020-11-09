@@ -14,57 +14,112 @@ class ServiceCards extends Component {
     render() {
         return (
             <div className='container is-fluid'>
-                <div className='columns is-multiline'>
-                    <div className='column is-one-fifth' />
-                    <div className='column is-one-fifth'>
-                        <div className="card" style={{ borderRadius: '5px', marginBottom: '2.5em' }}>
+                <div className='columns is-multiline is-centered'>
+                    <div className='column is-2'>
+                        <div className="card">
                             <Link className="card-image" to={"/register"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
                                 </figure>
                             </Link>
                             <div className='card-content'>
-                                <p className="title is-4">Private Registration</p>
+                                <p className="title">Private Registration</p>
                                 <div className="content">
                                     Private Owners are now able to register
                                     their boats or yachts digitally.
                                 </div>
                             </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className='column is-one-fifth'>
-                        <div className="card" style={{ borderRadius: '5px', marginBottom: '2.5em' }}>
+                    <div className='column is-2'>
+                        <div className="card">
                             <Link className="card-image" to={"/register"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1403&q=80" alt="Placeholder image" />
                                 </figure>
                             </Link>
                             <div className='card-content'>
-                                <p className="title is-4">Commercial Registration</p>
+                                <p className="title">Commercial Registration</p>
                                 <div className="content">
                                     Registration of commercial shipping vessels
                                     are also able to sail with the Navis Album flag.
                                 </div>
                             </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className='column is-one-fifth'>
-                        <div className="card" style={{ borderRadius: '5px', marginBottom: '2.5em' }}>
+                    <div className='column is-2'>
+                        <div className="card">
+                            <Link className="card-image" to={"/register"}>
+                                <figure className="image is-4by3">
+                                    <img src="https://images.unsplash.com/photo-1550565118-3a14e8d0386f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
+                                </figure>
+                            </Link>
+                            <div className='card-content'>
+                                <p className="title">Pay Invoice or Make Payment</p>
+                                <div className="content">
+                                    Pay an invoice for ship registration or make a payment for
+                                    documentations.
+                                </div>
+                            </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='column is-2'>
+                        <div className="card">
+                            <Link className="card-image" to={"/register"}>
+                                <figure className="image is-4by3">
+                                    <img src="https://images.unsplash.com/photo-1555562791-3cdb883dde6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80" alt="Placeholder image" />
+                                </figure>
+                            </Link>
+                            <div className='card-content'>
+                                <p className="title">Reserve Vessel Name</p>
+                                <div className="content">
+                                    Check to see if a vessel name is available for
+                                    any of the Navis Album ports
+                                </div>
+                            </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='column is-2'>
+                        <div className="card">
                             <Link className="card-image" to={"/tracking"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1495657809423-db624a2298dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1366&q=80" alt="Placeholder image" />
                                 </figure>
                             </Link>
                             <div className='card-content'>
-                                <p className="title is-4">Broker Vessel Tracking</p>
+                                <p className="title">Broker Vessel Tracking</p>
                                 <div className="content">
-                                    Keep up to date with all vessel registration
-                                    digitally.
+                                    Let us help with up to date vessel registration
+                                    digital tracking and renewals.
+                                </div>
+                            </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='column is-one-fifth' />
                 </div>
             </div>
         );

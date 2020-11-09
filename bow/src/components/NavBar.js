@@ -85,9 +85,9 @@ class NavBar extends Component {
       const greetings = `Hi, ${first_name}`;
       return (
         <div className="navbar-item has-dropdown is-hoverable">
-          <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
+          <a className="navbar-link">
             {greetings}
-          </NavLink>
+          </a>
           <div className="navbar-dropdown is-right is-boxed">
             <Link className="navbar-item" to={`/profile/${this.props.auth.cruzid}`}>
               Profile
@@ -143,7 +143,7 @@ class NavBar extends Component {
     const { open } = this.state;
 
     return (
-      <nav className={`navbar has-shadow is-spaced is-fixed-top is-primary`}>
+      <nav className={`navbar is-spaced is-fixed-top is-primary`}>
         <div className="container">
           <div className='navbar-brand'>
             <Link to={ROUTES.LANDING} className='navbar-item-2'>
