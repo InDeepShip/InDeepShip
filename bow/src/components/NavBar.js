@@ -85,9 +85,9 @@ class NavBar extends Component {
       const greetings = `Hi, ${first_name}`;
       return (
         <div className="navbar-item has-dropdown is-hoverable">
-          <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
+          <a className="navbar-link">
             {greetings}
-          </NavLink>
+          </a>
           <div className="navbar-dropdown is-right is-boxed">
             <Link className="navbar-item" to={`/profile/${this.props.auth.cruzid}`}>
               Profile
