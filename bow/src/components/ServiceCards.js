@@ -29,6 +29,11 @@ class ServiceCards extends Component {
                                     their boats or yachts digitally.
                                 </div>
                             </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className='column is-2'>
@@ -43,6 +48,11 @@ class ServiceCards extends Component {
                                 <div className="content">
                                     Registration of commercial shipping vessels
                                     are also able to sail with the Navis Album flag.
+                                </div>
+                            </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
                                 </div>
                             </div>
                         </div>
@@ -61,6 +71,11 @@ class ServiceCards extends Component {
                                     documentations.
                                 </div>
                             </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className='column is-2'>
@@ -77,6 +92,11 @@ class ServiceCards extends Component {
                                     any of the Navis Album ports
                                 </div>
                             </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className='column is-2'>
@@ -89,8 +109,13 @@ class ServiceCards extends Component {
                             <div className='card-content'>
                                 <p className="title">Broker Vessel Tracking</p>
                                 <div className="content">
-                                    Keep up to date with all vessel registration
-                                    digitally.
+                                    Let us help with up to date vessel registration
+                                    digital tracking and renewals.
+                                </div>
+                            </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
                                 </div>
                             </div>
                         </div>
