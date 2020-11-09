@@ -16,7 +16,7 @@ class ServiceCards extends Component {
             <div className='container is-fluid'>
                 <div className='columns is-multiline is-centered'>
                     <div className='column is-one-fifth'>
-                        <div className="card" style={{ borderRadius: '5px', marginBottom: '2.5em' }}>
+                        <div className="card">
                             <Link className="card-image" to={"/register"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
@@ -32,7 +32,7 @@ class ServiceCards extends Component {
                         </div>
                     </div>
                     <div className='column is-one-fifth'>
-                        <div className="card" style={{ borderRadius: '5px', marginBottom: '2.5em' }}>
+                        <div className="card">
                             <Link className="card-image" to={"/register"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1403&q=80" alt="Placeholder image" />
@@ -48,7 +48,7 @@ class ServiceCards extends Component {
                         </div>
                     </div>
                     <div className='column is-one-fifth'>
-                        <div className="card" style={{ borderRadius: '5px', marginBottom: '2.5em' }}>
+                        <div className="card">
                             <Link className="card-image" to={"/tracking"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1495657809423-db624a2298dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1366&q=80" alt="Placeholder image" />
