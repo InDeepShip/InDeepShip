@@ -14,8 +14,7 @@ class ServiceCards extends Component {
     render() {
         return (
             <div className='container is-fluid'>
-                <div className='columns is-multiline'>
-                    <div className='column is-one-fifth' />
+                <div className='columns is-multiline is-centered'>
                     <div className='column is-one-fifth'>
                         <div className="card" style={{ borderRadius: '5px', marginBottom: '2.5em' }}>
                             <Link className="card-image" to={"/register"}>
@@ -64,7 +63,6 @@ class ServiceCards extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='column is-one-fifth' />
                 </div>
             </div>
         );
