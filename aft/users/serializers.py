@@ -1,6 +1,7 @@
 # users/serializers.py
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework import serializers
+from rest_auth.models import TokenModel
 from allauth.account.adapter import get_adapter
 from . import models
 
@@ -43,6 +44,15 @@ class CustomRegisterSerializer(RegisterSerializer):
 
         return user
 
+class CustomTokenSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Token model.
+    """
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = TokenModel
+        fields = ('key', 'user')
 
 class ChangePasswordSerializer(serializers.Serializer):
     model = models.CustomUser
