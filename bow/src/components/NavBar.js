@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { generatePath, Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
 import bugReportImg from '../assets/bug_report_white.png';
@@ -81,10 +81,12 @@ class NavBar extends Component {
 
   renderLoginButton() {
     if (this.props.auth.token) {
+      const first_name = this.props.auth.user.name.split(' ')[0];
+      const greetings = `Hi, ${first_name}`;
       return (
         <div className="navbar-item has-dropdown is-hoverable">
           <NavLink className="navbar-link" to={`/profile/${this.props.auth.cruzid}`}>
-            {this.props.auth.email}
+            {greetings}
           </NavLink>
           <div className="navbar-dropdown is-right is-boxed">
             <Link className="navbar-item" to={`/profile/${this.props.auth.cruzid}`}>
