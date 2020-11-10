@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import '../styles/ServiceCards.scss';
+import * as ROUTES from '../constants/routes';
+
 
 class ServiceCards extends Component {
     constructor(props) {
@@ -80,13 +82,13 @@ class ServiceCards extends Component {
                     </div>
                     <div className='column is-2'>
                         <div className="card">
-                            <Link className="card-image" to={"/register"}>
+                            <Link className="card-image" to={ROUTES.VESSEL_NAME_LOOKUP}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1555562791-3cdb883dde6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80" alt="Placeholder image" />
                                 </figure>
                             </Link>
                             <div className='card-content'>
-                                <p className="title">Reserve Vessel Name</p>
+                                <p className="title">Check Availability of Vessel Name</p>
                                 <div className="content">
                                     Check to see if a vessel name is available for
                                     any of the Navis Album ports

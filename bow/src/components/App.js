@@ -16,6 +16,7 @@ import Policy from './Policy';
 import ContactUs from './ContactUs';
 import Footer from './Footer';
 import EditProfile from './EditProfile';
+import VesselNameLookup from './VesselNameLookup';
 import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
@@ -61,6 +62,7 @@ class App extends Component {
           <Route path={ROUTES.CONTACT_US} component={ContactUs} />
           <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
+          <Route exact path={ROUTES.VESSEL_NAME_LOOKUP} component={VesselNameLookup} loggedIn={false} accountSetup={false} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>
