@@ -18,13 +18,27 @@ class Utilities:
         return new_vessel, random_name
 
 class Api_Test(TestCase):
-    def test_vessel_lookup(self):
+    def test_vessel_lookup_sad(self):
         objects_to_delete = []
         port, port_name = Utilities.create_port()
-        vessel, vessel_name = Utilities.create_vessel()
+        vessel, vessel_name = Utilities.create_vessel(port)
         data = {
             "vesselName": vessel_name,
             "portName": port_name,
         }
-        reponse = httpClient.post("/api/vessel_lookup", data)
+        response = httpClient.post("/api/vessel_lookup/", data)
+        # should say not available
+        self.assertTrue("already" in response.data["message"])
         self.assertEqual(response.status_code, 200)
+    def test_vessel_lookup_happy(self):
+        objects_to_delete = []
+        port, port_name = Utilities.create_port()
+        vessel, vessel_name = Utilities.create_vessel(port)
+        data = {
+            "vesselName": vessel_name + "1",
+            "portName": port_name + "1",
+        }
+        # should say available
+        response = httpClient.post("/api/vessel_lookup/", data)
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse("already" in response.data["message"])
