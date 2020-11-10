@@ -26,9 +26,41 @@ def api_overview(request):
         "Login": "/api/users/login/",
         "Logout": "/api/users/logout/",
         "Password change": "/api/users/password/change/",
-        "Bug report": "/api/bugreport/"
+        "Bug report": "/api/bugreport/",
+        "Name look up": "/api/vessel_lookup/",
     }
     return Response(data=api_urls)
+
+@api_view(['POST'])
+def vessel_lookup(request):
+    """
+
+    ### DESCRIPTION
+
+    ### USAGE
+
+    Accepts a post request with message parameter and currentPage param set, for example with the payload:
+
+    ```
+    {
+        "vesselName" : "Fluggy Gate",
+        "portName" : "Miami"
+    }
+    ```
+    This will query the backend db and check to see if there is a vessel with that name and port attached.
+
+    Return message:
+    The server will return a message to the client letting them know the status of that ship name.
+    """
+    ship_name = request.data.get("vesselName", "")
+    port_name = request.data.get("portName", "")
+    try:
+        ships_with_name = Vessels.objects.get(name=vesselName, port__name=port_name)
+        message = f"There is already a vessel with the name {ship_name} in the port {port_name}."
+    except Vessels.objects.DoesNotExist:
+        message = f"The name {ship_name} is available in the port {port_name}."
+    return Response(data={"message": message}, status=200)
+
 
 
 @api_view(['POST'])
