@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { generatePath, Link, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import brandingImg from '../assets/our_flag.png';
+// import brandingImg from '../assets/logo.svg';
 import bugReportImg from '../assets/bug_report_white.png';
 import signinButton from '../assets/google_signin_blue.png';
 import { logout } from '../actions';
@@ -143,7 +144,7 @@ class NavBar extends Component {
     const { open } = this.state;
 
     return (
-      <nav className={`navbar is-spaced is-fixed-top is-primary`}>
+      <nav className={`navbar is-fixed-top is-primary`}>
         <div className="container">
           <div className='navbar-brand'>
             <Link to={ROUTES.LANDING} className='navbar-item-2'>
@@ -178,9 +179,11 @@ class NavBar extends Component {
             <div className='navbar-end'>
               {this.renderUnauth()}
               {this.renderLoginButton()}
-              <button className="button is-danger navbar-item" href={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
-                Report a bug
+              <div className="navbar-item">
+                <button className="button is-danger navbar-item" to={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
+                  Report a bug
               </button>
+              </div>
             </div>
 
             <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
