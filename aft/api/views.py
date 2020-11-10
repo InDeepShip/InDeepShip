@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from aft import settings
+#from .models import Vessel, Port
 
 import requests
 
@@ -55,9 +56,9 @@ def vessel_lookup(request):
     ship_name = request.data.get("vesselName", "")
     port_name = request.data.get("portName", "")
     try:
-        ships_with_name = Vessels.objects.get(name=vesselName, port__name=port_name)
+        ships_with_name = Vessel.objects.get(name=vesselName, port__name=port_name)
         message = f"There is already a vessel with the name {ship_name} in the port {port_name}."
-    except Vessels.objects.DoesNotExist:
+    except Vessel.objects.DoesNotExist:
         message = f"The name {ship_name} is available in the port {port_name}."
     return Response(data={"message": message}, status=200)
 
