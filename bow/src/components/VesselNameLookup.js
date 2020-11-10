@@ -29,7 +29,9 @@ class VesselNameLookup extends Component {
     }
 
     onSubmit = (e) => {
-      const { vessel, port } = this.state;
+      const { vesselName, portName } = this.state;
+      const vessel = this.state["vesselName"];
+      const port = this.state["portName"];
       fetch("http://206.189.218.111/api/vessel_lookup/",
         {
           method: 'POST',
@@ -71,11 +73,11 @@ class VesselNameLookup extends Component {
                                 </h1>
                     <div className="field">
                       <label className="label">Vessel name</label>
-                      <input className='input' placeholder="Vessel name" type="text" name="ship" onChange={this.handleChange} />
+                      <input className='input' placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
                     </div>
                     <div className="field">
                       <label className="label">Desired home port</label>
-                      <input className='input' placeholder="Home port" type="text" name="port" onChange={this.handleChange} />
+                      <input className='input' placeholder="Home port" type="text" name="portName" onChange={this.handleChange} />
                     </div>
                     <br />
                     <div className='field'>
