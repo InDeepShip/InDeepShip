@@ -7,11 +7,6 @@ import * as ROUTES from '../constants/routes';
 import signinButton from '../assets/google_signin_white.png';
 
 
-const invalidMsgStyle = {
-  color: 'red',
-  fontSize: '15px',
-};
-
 // This regex describe the format of a valid email.
 const regExp = RegExp(
   /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
@@ -199,6 +194,7 @@ class SignupBase extends Component {
                   </span>
                 </div>
                   <p className='help is-danger'>
+                    {isError.address}
                   </p>
               </div>
               <div className="field">
@@ -239,7 +235,7 @@ class SignupBase extends Component {
                 </div>
                 {isError.password2.length > 0 && (
                   <p className='help is-danger'>
-                    {isError.password1}
+                    {isError.password2}
                   </p>
                 )}
               </div>
