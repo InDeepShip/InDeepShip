@@ -114,7 +114,6 @@ export const registrationFail = (error) => {
   };
 };
 
-
 export const privateRegistration = (registrationForm) => {
     return dispatch => {
         dispatch(registrationStart());
