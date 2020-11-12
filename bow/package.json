@@ -60,6 +60,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "axios-mock-adapter": "^1.19.0",
+    "babel-jest": "^24.9.0",
     "npm-watch": "^0.7.0"
   }
 }
