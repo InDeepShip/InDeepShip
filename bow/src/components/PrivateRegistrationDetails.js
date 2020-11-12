@@ -25,7 +25,13 @@ class PrivateRegistrationDetails extends Component {
                         </div>
                     </div>
                     <div className='column'>
-                        <Link to={ROUTES.PRIVATE_REGISTRATION}></Link>
+                        <div className='container'>
+                            This is where there will be details about the process of registering
+                            privately
+                            <Link to={ROUTES.PRIVATE_REGISTRATION}>
+                                <button className="button is-primary">Private Registration Form</button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
