@@ -4,11 +4,6 @@
     color: #ffffff !important;
     background-color: transparent !important;
     font-weight: bold;
-    // filter: brightness(85%);
-    padding-top: 0rem;
-    padding-right: 0rem;
-    padding-bottom: 0rem;
-    padding-left: 0rem;
     max-height: 3.25rem;
 }
 
@@ -19,4 +14,8 @@
 
 .navbar-item {
     font-weight: bold;
+}
+
+.navbar {
+    max-height: 3.25rem;
 }

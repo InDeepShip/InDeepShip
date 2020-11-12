@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <section className="hero is-large landing-header">
+        <section className="hero is-medium landing-header">
           <div className='overlay'></div>
           <div className="hero-body is-medium">
             <div className="container">
@@ -37,7 +37,7 @@ class App extends Component {
             </div>
           </div>
         </section>
-        <section className="section">
+        {/* <section className="section">
           <div className="container">
             <div className="title">How it works</div>
             <ul className="steps is-medium">
@@ -78,7 +78,7 @@ class App extends Component {
               </li>
             </ul>
           </div>
-        </section>
+        </section> */}
         {<ServiceCards />}
       </Fragment>
     );

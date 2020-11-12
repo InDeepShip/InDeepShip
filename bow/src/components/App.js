@@ -35,7 +35,7 @@ class App extends Component {
 
   render() {
     document.body.classList.add('has-navbar-fixed-top');
-    document.body.classList.add('has-spaced-navbar-fixed-top');
+    // document.body.classList.add('has-spaced-navbar-fixed-top');
     return this.props.loadState === 0 ? (
       <>
         <NavBar />
