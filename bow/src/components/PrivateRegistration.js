@@ -135,14 +135,22 @@ class PrivateRegistrationBase extends Component {
                 </div>
                 <div className="field">
                     <label className="label">Number of Hulls</label>
-                    <div className="control">
+                    <div className="control has-icons-left">
                         <input className="input" name='hulls' type="text" placeholder="Hulls" />
+                        <span className='icon is-small is-left'>
+                            <i className='fas fa-hashtag'></i>
+                        </span>
                     </div>
                 </div>
                 <div className="field">
                     <label className="label">Purpose of Boat</label>
                     <div className="control">
                         <textarea className="textarea" name='purpose' type="text" placeholder="Description of Purpose" />
+                    </div>
+                </div>
+                <div className='field'>
+                    <div className='control'>
+                        <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
                     </div>
                 </div>
             </div>
