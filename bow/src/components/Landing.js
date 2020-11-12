@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <section className="hero is-large landing-header">
+        <section className="hero is-medium landing-header">
           <div className='overlay'></div>
           <div className="hero-body is-medium">
             <div className="container">
