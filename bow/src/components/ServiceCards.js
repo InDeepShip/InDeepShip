@@ -15,7 +15,7 @@ class ServiceCards extends Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='container has-extra-margin'>
                 <div className='columns is-multiline is-centered'>
                     <div className='column is-one-third'>
                         <div className="card">
