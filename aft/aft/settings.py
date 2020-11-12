@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'allauth',
     'allauth.account',
+    'vesselregistration',
     'rest_auth.registration',
     'api',
     'users',

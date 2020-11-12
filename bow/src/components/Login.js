@@ -87,7 +87,8 @@ const mapStatetoProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    token: state.auth.token
+    token: state.auth.token,
+    user: state.auth.user
   };
 };
 
