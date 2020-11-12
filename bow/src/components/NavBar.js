@@ -181,14 +181,14 @@ class NavBar extends Component {
               {this.renderLoginButton()}
               <div className="navbar-item">
                 <button className="button is-danger navbar-item" to={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
-                  Report a bug
+                  Give Feedback
               </button>
               </div>
             </div>
 
             <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
               <div className="bugReportForm">
-                <a align="center" href={'#' + this.props.match.url} >Please provide a brief description of the bug:</a>
+                <a align="center" href={'#' + this.props.match.url} >Please provide a brief description:</a>
                 <br /><br />
                 <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
                 <br /><br />
