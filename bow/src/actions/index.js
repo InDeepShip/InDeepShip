@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as actionTypes from './types';
-import * as addresses from '../constants/environment';
 
 export const authStart = () => {
     return {
@@ -44,7 +43,7 @@ export const authSignup = (name, address, email, password1, password2, account) 
     return dispatch => {
         dispatch(authStart());
         axios
-            .post(`${addresses.DVELOPMENT_SERVER_ADDRESS}/api/users/signup/`, {
+            .post('http://127.0.0.1:8000/api/users/signup/', {
                 name: name,
                 address: address,
                 username: email,
@@ -73,7 +72,7 @@ export const authLogin = (email, password) => {
     return dispatch => {
         dispatch(authStart());
         axios
-            .post(`${addresses.DVELOPMENT_SERVER_ADDRESS}/api/users/signup/`, {
+            .post('http://127.0.0.1:8000/api/users/login/', {
                 username: email,
                 email: email,
                 password: password
@@ -94,45 +93,19 @@ export const authLogin = (email, password) => {
     };
 };
 
-export const registrationStart = () => {
-    return {
-      type: actionTypes.REGISTRATION_START
-    };
-};
-
-export const registrationSuccess = (message) => {
-    return {
-      type: actionTypes.REGISTRATION_SUCCESS,
-      message: message
-    };
-};
-
-export const registrationFail = (error) => {
-  return {
-    type: actionTypes.REGISTRATION_FAIL,
-    error: error
-  };
-};
-
-export const privateRegistration = (registrationForm) => {
-    return dispatch => {
-        dispatch(registrationStart());
-        axios
-            .post(`${addresses.DVELOPMENT_SERVER_ADDRESS}/api/registration/`, {
-                registration: registrationForm
-            })
-            .then((res) => {
-                const message = res.data.message;
-                localStorage.setItem('message', message);
-                dispatch(registrationSuccess(message));
-            })
-            .catch((err) => {
-                dispatch(registrationFail(err));
-            });
-    };
-};
-
 export const fetchUser = () => async (dispatch) => {
+  // dispatch({ type: DONE_LOADING, payload: true });
+  // try {
+  //   const res = await axios.get('/api/current_user');
+  //   dispatch({ type: FETCH_USER, payload: res.data });
+  //   dispatch({ type: DONE_LOADING, payload: true });
+  // } catch {
+  //   dispatch({ type: FETCH_USER, payload: false });
+  //   dispatch({ type: DONE_LOADING, payload: true });
+  // }
+
+  // For testing
+  // Set DONE_LOADING payload to false to show spinner
   dispatch({ type: actionTypes.FETCH_USER, payload: true });
   dispatch({ type: actionTypes.DONE_LOADING, payload: true });
-}
+};

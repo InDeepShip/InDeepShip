@@ -7,8 +7,6 @@ import Landing from './Landing';
 import Spinner from './Spinner';
 import PageNotFound from './ErrorPage';
 import * as actions from '../actions';
-import PrivateRegistration from './PrivateRegistration';
-import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import Signup from './Signup';
 import Login from './Login';
 import NavBar from './NavBar';
@@ -64,8 +62,6 @@ class App extends Component {
           <Route path={ROUTES.CONTACT_US} component={ContactUs} />
           <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
-          <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
-          <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
           <Route exact path={ROUTES.VESSEL_NAME_LOOKUP} component={VesselNameLookup} loggedIn={false} accountSetup={false} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}

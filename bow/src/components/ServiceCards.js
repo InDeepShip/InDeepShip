@@ -18,12 +18,12 @@ class ServiceCards extends Component {
             <div className='container is-fluid'>
                 <div className='columns is-multiline is-centered'>
                     <div className='column is-2'>
-                        <Link className="card" to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
-                            <div className="card-image">
+                        <div className="card">
+                            <Link className="card-image" to={"/register"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
                                 </figure>
-                            </div>
+                            </Link>
                             <div className='card-content'>
                                 <p className="title">Private Registration</p>
                                 <div className="content">
@@ -36,7 +36,7 @@ class ServiceCards extends Component {
                                     Learn More
                                 </div>
                             </div>
-                        </Link>
+                        </div>
                     </div>
                     <div className='column is-2'>
                         <div className="card">
