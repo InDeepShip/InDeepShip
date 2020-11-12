@@ -11,8 +11,23 @@ class PrivateRegistrationDetails extends Component {
 
     render() {
         return (
-            <div>
-                <Link to={ROUTES.PRIVATE_REGISTRATION}></Link>
+            <div className='container'>
+                <div className='columns'>
+                    <div className='column is-narrow sidebar'>
+                        <div className='boxed sidebar-box'>
+                            <h3 className='title section-title'>Registration Process</h3>
+                            <ul>
+                                <li className='service is-small'>1. Starting</li>
+                                <li className='service is-small'>2. Data Gathering</li>
+                                <li className='service is-small'>3. Making Account</li>
+                                <li className='service is-small'>4. Submission</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className='column'>
+                        <Link to={ROUTES.PRIVATE_REGISTRATION}></Link>
+                    </div>
+                </div>
             </div>
         );
     }
