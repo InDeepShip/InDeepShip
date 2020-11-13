@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { privateRegistration } from '../actions';
 
+
 class PrivateRegistrationBase extends Component {
     constructor(props) {
         super(props);
@@ -22,21 +23,29 @@ class PrivateRegistrationBase extends Component {
             date: '',
             vessel_length: '',
             hulls: null,
-            purpose: ''
+            agreement: ''
 
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    handleChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value })
+    handleChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
-    handleSubmit = (e) => {
+    onSubmit(e) {
         e.preventDefault();
+        let formData = Object.assign({}, this.state);
+        delete formData.agreement;
 
+        this.props.register(formData);
     }
 
     render() {
+        const { error, loading} = this.props;
+
         return (
             <div className='container'>
             <div className='columns is-centered'>
@@ -45,7 +54,7 @@ class PrivateRegistrationBase extends Component {
                 <div className="field">
                     <label className="label">Owner Name</label>
                     <div className="control">
-                        <input className="input" name='name' type="text" placeholder="Name" onChange={this.handleChange}/>
+                        <input className="input" name='name' type="text" placeholder="Name" onChange={this.handleChange} />
                     </div>
                 </div>
                 <div className="field">
@@ -83,10 +92,10 @@ class PrivateRegistrationBase extends Component {
                     <p className='help is-danger'>
                     </p>
                 </div>
-                <div class="field">
-                    <label class="label">Port</label>
-                    <div class="control">
-                        <div class="select is-fullwidth">
+                <div className="field">
+                    <label className="label">Port</label>
+                    <div className="control">
+                        <div className="select is-fullwidth">
                         <select name='port' onChange={this.handleChange}>
                             <option>Port 1</option>
                             <option>Port 2</option>
@@ -113,10 +122,10 @@ class PrivateRegistrationBase extends Component {
                         </span>
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label">Method of Propulsion</label>
-                    <div class="control">
-                        <div class="select is-fullwidth">
+                <div className="field">
+                    <label className="label">Method of Propulsion</label>
+                    <div className="control">
+                        <div className="select is-fullwidth">
                         <select name='propulsion' onChange={this.handleChange}>
                             <option>Method 1</option>
                             <option>Method 2</option>
@@ -151,7 +160,7 @@ class PrivateRegistrationBase extends Component {
                 <div className="field">
                     <label className="label">Proposed Registration Date</label>
                     <div className="control">
-                        <input className="input" name='date' type="text" placeholder="Date" onChange={this.handleChange} />
+                        <input className='input' id='regdate' name='date' type="date" onChange={this.handleChange} />
                     </div>
                 </div>
                 <div className="field">
@@ -170,9 +179,11 @@ class PrivateRegistrationBase extends Component {
                     </div>
                 </div>
                 <div className="field">
-                    <label className="label">Purpose of Boat</label>
                     <div className="control">
-                        <textarea className="textarea" name='purpose' type="text" placeholder="Description of Purpose" onChnage={this.handleChange}/>
+                        <label className="checkbox">
+                        <input type="checkbox" name='agreement' onChange={this.handleChange} />
+                            <span> I agree that all boat use will be personal and NOT commercial</span>
+                        </label>
                     </div>
                 </div>
                 <div className='field'>
@@ -180,6 +191,11 @@ class PrivateRegistrationBase extends Component {
                         <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
                     </div>
                 </div>
+                {loading && (
+                    <span className="loading-icon icon is-large">
+                        <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                    </span>
+                )}
             </div>
             </div>
             </div>
