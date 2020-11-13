@@ -2,18 +2,28 @@ import axios from 'axios';
 import * as actionTypes from './types';
 
 export const authStart = () => {
-    return {
-      type: actionTypes.AUTH_START
-    };
+  return {
+    type: actionTypes.AUTH_START
+  };
 };
 
 export const authSuccess = (token, user) => {
-    return {
-      type: actionTypes.AUTH_SUCCESS,
-      token: token,
-      user: user
-    };
+  return {
+    type: actionTypes.AUTH_SUCCESS,
+    token: token,
+    user: user
+  };
 };
+
+export const passwordChangeSuccess = (status, code, message) => {
+  return {
+    type: actionTypes.PASSWORD_CHANGE_SUCCESS,
+    status: status,
+    message: message,
+    code: code
+  };
+};
+
 
 export const authFail = (error) => {
   return {
@@ -40,57 +50,77 @@ export const checkAuthTimeout = (expirationTime) => {
 };
 
 export const authSignup = (name, address, email, password1, password2, account) => {
-    return dispatch => {
-        dispatch(authStart());
-        axios
-            .post('http://127.0.0.1:8000/api/users/signup/', {
-                name: name,
-                address: address,
-                username: email,
-                email: email,
-                password1: password1,
-                password2: password2,
-                account: account
-            })
-            .then(res => {
-                const token = res.data.key;
-                const user = res.data.user;
-                const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-                localStorage.setItem("token", token);
-                localStorage.setItem("expirationDate", expirationDate);
-                localStorage.setItem("user", user);
-                dispatch(authSuccess(token, user));
-                dispatch(checkAuthTimeout(3600));
-            })
-            .catch(err => {
-              dispatch(authFail(err));
-            });
-    };
+  return dispatch => {
+    dispatch(authStart());
+    axios
+      .post('http://127.0.0.1:8000/api/users/signup/', {
+        name: name,
+        address: address,
+        username: email,
+        email: email,
+        password1: password1,
+        password2: password2,
+        account: account
+      })
+      .then(res => {
+        const token = res.data.key;
+        const user = res.data.user;
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        localStorage.setItem("token", token);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("user", user);
+        dispatch(authSuccess(token, user));
+        dispatch(checkAuthTimeout(3600));
+      })
+      .catch(err => {
+        dispatch(authFail(err));
+      });
+  };
+};
+
+export const passwordChange = (oldPassword, newPassword) => {
+  return dispatch => {
+    dispatch(authStart());
+    axios
+      .put('http://127.0.0.1:8000/api/users/password_change/', {
+        old_password: oldPassword,
+        new_password: newPassword
+      }, { withCredentials: true })
+      .then(res => {
+        const status = res.data.status;
+        const code = res.data.code;
+        const message = res.data.message;
+        dispatch(passwordChangeSuccess(status, code, message));
+      })
+      .catch(err => {
+        dispatch(authFail(err));
+      });
+  };
 };
 
 export const authLogin = (email, password) => {
-    return dispatch => {
-        dispatch(authStart());
-        axios
-            .post('http://127.0.0.1:8000/api/users/login/', {
-                username: email,
-                email: email,
-                password: password
-            })
-            .then((res) => {
-                const token = res.data.key;
-                const user = res.data.user;
-                const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-                localStorage.setItem('token', token);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem("user", user);
-                dispatch(authSuccess(token, user));
-                dispatch(checkAuthTimeout(3600));
-            })
-            .catch((err) => {
-                dispatch(authFail(err));
-            });
-    };
+  return dispatch => {
+    dispatch(authStart());
+    axios
+      .post('http://127.0.0.1:8000/api/users/login/', {
+        username: email,
+        email: email,
+        password: password
+      })
+      .then((res) => {
+        const token = res.data.key;
+        const user = res.data.user;
+        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+        localStorage.setItem('token', token);
+        localStorage.setItem('expirationDate', expirationDate);
+        localStorage.setItem("user", user);
+        dispatch(authSuccess(token, user));
+        dispatch(checkAuthTimeout(3600));
+      })
+      .catch((err) => {
+        dispatch(authFail(err));
+      });
+  };
 };
 
 export const fetchUser = () => async (dispatch) => {
