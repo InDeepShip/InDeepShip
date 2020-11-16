@@ -50,8 +50,8 @@ class UserSetupForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { oldPassword, newPassword1, newPassword2 } = this.state;
-    console.log(oldPassword, newPassword1, newPassword2)
-    this.props.passwordChange(oldPassword, newPassword1)
+    console.log(oldPassword, newPassword1, newPassword2, newPassword2)
+    this.props.passwordChange(oldPassword, newPassword1, newPassword2)
   }
 
   handleChange = (e) => {
@@ -144,7 +144,7 @@ function mapStateToProps({ auth, profile }) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    passwordChange: (oldPassword, newPassword) => dispatch(actions.passwordChange(oldPassword, newPassword))
+    passwordChange: (oldPassword, newPassword1, newPassword2) => dispatch(actions.passwordChange(oldPassword, newPassword1, newPassword2))
   };
 };
 

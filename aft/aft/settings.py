@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -159,16 +160,27 @@ REST_AUTH_SERIALIZERS = {
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
-    # 'PASSWORD_RESET_SERIALIZER': 'users.seriaizers.CustomPasswordResetSerializer'
 }
 
+OLD_PASSWORD_FIELD_ENABLED = True
 
+# allow cross site requests from any origin
 CORS_ORIGIN_ALLOW_ALL = True
-
-CORS_ALLOW_CREDENTIALS = True
 # CORS_ORIGIN_WHITELIST = (
-#     'http://127.0.0.1:3000', 'http://127.0.0.1:8000',
+#     'http://127.0.0.1:3000', 'http://127.0.0.1:8000', 'http://localhost:3000', 'http://localhost:8000'
 # )
 
+# allow cookies to be included in cross site requests
+CORS_ALLOW_CREDENTIALS = True
 
-OLD_PASSWORD_FIELD_ENABLED = True
+# allow cookies to be returned for cross site requests
+SESSION_COOKIE_SAMESITE = None
+CSRF_COOKIE_SAMESITE = None
+
+# allow client side javascript to access the CRSF and session cookies
+SESSION_COOKIE_HTTPONLY = False
+CSRF_COOKIE_HTTPONLY = False
+
+# Since we're not using HTTPS
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False

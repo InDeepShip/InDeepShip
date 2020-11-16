@@ -1,6 +1,10 @@
 import axios from 'axios';
 import * as actionTypes from './types';
 
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+axios.defaults.withCredentials = true
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
@@ -78,14 +82,15 @@ export const authSignup = (name, address, email, password1, password2, account) 
   };
 };
 
-export const passwordChange = (oldPassword, newPassword) => {
+export const passwordChange = (oldPassword, newPassword1, newPassword2) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .put('http://127.0.0.1:8000/api/users/password_change/', {
+      .post('http://127.0.0.1:8000/api/users/password/change/', {
         old_password: oldPassword,
-        new_password: newPassword
-      }, { withCredentials: true })
+        new_password1: newPassword1,
+        new_password2: newPassword2
+      })
       .then(res => {
         const status = res.data.status;
         const code = res.data.code;
