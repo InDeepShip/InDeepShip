@@ -7,6 +7,23 @@ import '../styles/Landing.scss';
 import * as ROUTES from '../constants/routes';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ports: [],
+    }
+    fetch("http://206.189.218.111/api/ports/", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => response.json())
+      .then(data => {
+        this.setState({
+          "ports": data["ports"]
+        })
+      })
+  }
   render() {
     return (
       <Fragment>
@@ -21,16 +38,21 @@ class App extends Component {
                   </h1>
                 </div>
                 <div className="column is-half is-hidden-mobile">
-                    <Link to={ROUTES.LOGIN}>
-                      <button className="button is-large">
+                  <Link to={ROUTES.LOGIN}>
+                    <button className="button is-large">
                       <span className="icon is-medium">
                         <i className="fas fa-user-plus"></i>
                       </span>
                       <span>Get Started</span>
-                      </button>
-                    </Link>
+                    </button>
+                  </Link>
                 </div>
+
+
+
               </div>
+
+
               <div className="subtitle is-size-7 is-uppercase has-text-centered landing-header-text">
                 Scroll down to see how the Navis Album Department of Shipping Registry can help you!
                   </div>
@@ -79,6 +101,22 @@ class App extends Component {
             </ul>
           </div>
         </section> */}
+        <div className="is-half is-hidden-mobile has-text-centered">
+          <br></br>
+          <h1 className="title is-size-5 is-size-3-mobile">
+            Currently awarding registrations in our ports of
+            {this.state.ports.map((port, index) => {
+            if (index == this.state.ports.length - 1) {
+              return "and " + port + ".";
+            } else if (index == 0) {
+              return " " + port + ", ";
+            } else {
+              return port + ", ";
+            }
+          }
+          )}
+          </h1>
+        </div>
         {<ServiceCards />}
       </Fragment>
     );
