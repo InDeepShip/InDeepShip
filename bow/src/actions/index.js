@@ -163,7 +163,7 @@ export const privateRegistration = (registrationForm) => {
     return dispatch => {
         dispatch(registrationStart());
         axios
-            .post(`${addresses.DEVELOPMENT_SERVER_ADDRESS}/api/vesselregistration/private-register/`, {
+            .post(`${addresses.DEVELOPMENT_SERVER_ADDRESS}/api/vesselregistration/private-registration/`, {
                 registration: registrationForm
             })
             .then((res) => {
