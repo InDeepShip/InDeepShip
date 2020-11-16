@@ -156,6 +156,7 @@ export const privateRegistration = (registrationForm) => {
                 dispatch(registrationFail(err));
             });
     };
+};
 
 export const authLogin = (email, password) => {
   return dispatch => {
