@@ -44,6 +44,7 @@ class CustomRegisterSerializer(RegisterSerializer):
 
         return user
 
+
 class CustomTokenSerializer(serializers.ModelSerializer):
     """
     Serializer for Token model.
@@ -53,6 +54,7 @@ class CustomTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = TokenModel
         fields = ('key', 'user')
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     model = models.CustomUser

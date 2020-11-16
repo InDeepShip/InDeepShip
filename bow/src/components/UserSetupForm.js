@@ -40,20 +40,39 @@ class UserSetupForm extends Component {
     super(props);
 
     // this.handleSubmit = props.handleSubmit.bind(this);
+    this.state = {
+      oldPassword: '',
+      newPassword1: '',
+      newPassword2: ''
+    };
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const { oldPassword, newPassword1, newPassword2 } = this.state;
+    this.props.passwordChange(oldPassword, newPassword1, newPassword2)
+  }
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit, pristine, submitting, status, message, code, error } = this.props;
+
+    if (message) {
+      console.log(message)
+    }
+
     return (
       <form
         name="userSetupForm"
-        onSubmit=''
         id="userSetupForm"
       >
         <br />
         <div className="columns is-centered">
           <div className="column is-6">
-            <Field
+            {/* <Field
               name="displayName"
               component={renderField}
               type="text"
@@ -61,7 +80,7 @@ class UserSetupForm extends Component {
               placeholder="This should auto populate"
               validate={[required, name]}
               value={this.props.auth.displayName ? this.props.auth.displayName : ''}
-            />
+            /> */}
             <Field
               name="oldPassword"
               component={renderField}
@@ -70,6 +89,7 @@ class UserSetupForm extends Component {
               placeholder="Old Password"
               validate={[required, minLength6]}
               value=''
+              onChange={this.handleChange}
             />
             <Field
               name="newPassword1"
@@ -78,7 +98,7 @@ class UserSetupForm extends Component {
               label="New Password"
               placeholder="New Password"
               value=''
-            // need to add validation
+              onChange={this.handleChange}
             />
             <Field
               name="newPassword2"
@@ -87,6 +107,7 @@ class UserSetupForm extends Component {
               label="Re-Enter Password"
               placeholder="Re-Enter New Password"
               value=''
+              onChange={this.handleChange}
             // need to add validation and hide if newPassword1 is empty
             />
           </div>
@@ -103,7 +124,7 @@ class UserSetupForm extends Component {
         <div className="field is-centered">
           <div className="control">
             <button
-              // onClick={handleSubmit}
+              onClick={this.onSubmit}
               className="button is-success"
               disabled={pristine || submitting}
             >
@@ -120,8 +141,19 @@ UserSetupForm = reduxForm({
   form: 'userSetupForm',
 })(UserSetupForm);
 
-function mapStateToProps({ auth, profile }) {
-  return { auth, profile };
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    profile: state.profile,
+    message: state.auth.message,
+    status: state.auth.status,
+  };
 }
 
-export default connect(mapStateToProps, actions)(UserSetupForm);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    passwordChange: (oldPassword, newPassword1, newPassword2) => dispatch(actions.passwordChange(oldPassword, newPassword1, newPassword2))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserSetupForm);

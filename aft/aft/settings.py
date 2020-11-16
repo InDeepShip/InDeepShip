@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = '=dgyvs=_jn(8mn1ouh4l_*=o)q=y88bsn0sjd5_lvpl3bnn&(9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['206.189.218.111', '127.0.0.1']
+ALLOWED_HOSTS = ['206.189.218.111', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -46,13 +47,19 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'api',
-    'users',
-    'django_rest_passwordreset'
+    'users'
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Navis Album DRS <noreply@navisalbum.com>'
+# EMAIL_HOST="localhost"
 
-SITE_ID = 1
+# Site id is the id of the site_name to use from the django_site table.
+# This option changes the site_name and domain in the email sent by
+# password reset.
+# SITE_ID = 80 is localhost
+# SITE_ID = 81 is 206.189.218.111
+SITE_ID = 80
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -70,7 +77,7 @@ ROOT_URLCONF = 'aft.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'aft/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,15 +159,28 @@ REST_AUTH_SERIALIZERS = {
 }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer'
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
 }
 
+OLD_PASSWORD_FIELD_ENABLED = True
 
+# allow cross site requests from any origin
 CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     'http://127.0.0.1:3000', 'http://127.0.0.1:8000', 'http://localhost:3000', 'http://localhost:8000'
+# )
 
-"""
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = (
-       'http://localhost:4200',
-)
-"""
+# allow cookies to be included in cross site requests
+CORS_ALLOW_CREDENTIALS = True
+
+# allow cookies to be returned for cross site requests
+SESSION_COOKIE_SAMESITE = None
+CSRF_COOKIE_SAMESITE = None
+
+# allow client side javascript to access the CRSF and session cookies
+SESSION_COOKIE_HTTPONLY = False
+CSRF_COOKIE_HTTPONLY = False
+
+# Since we're not using HTTPS
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
