@@ -115,15 +115,12 @@ class SignupBase extends Component {
 
   renderUserOptions() {
     return (
-      <div className='hero'>
-        <div className='hero-body'>
-          <div className='container'>
+      <div className='tile-container'>
+        <div className='tile is-6 is-vertical is-parent'>
 
-            <div className='columns'>
-            <div className='column is-centered signup-column'>
             <h3 className='title section-title'>Select Account Type</h3>
 
-              <div className="box signup-option">
+              <div className="tile is-child box signup-option">
                 <article className="media">
                   <div className="media-left">
                     <span className="icon">
@@ -132,14 +129,17 @@ class SignupBase extends Component {
                   </div>
                   <div className="media-content">
                     <div className="content">
-                      Private Account
+                      <h4>Private Account</h4>
+                      <p>
+                        Account for personal use and registration of personal vessels such as yacht's.
+                      </p>
                     </div>
                   </div>
                 </article>
               </div>
 
 
-              <div className="box signup-option">
+              <div className="tile is-child box signup-option">
                 <article className="media">
                   <div className="media-left">
                     <span className="icon">
@@ -148,13 +148,17 @@ class SignupBase extends Component {
                   </div>
                   <div className="media-content">
                     <div className="content">
-                      Broker Account
+                      <h4>Broker Account</h4>
+                      <p>
+                        Accounts for Brokers with advanced features to help you stay on top of vessel documentation
+                        tracking.
+                      </p>
                     </div>
                   </div>
                 </article>
               </div>
 
-              <div className="box signup-option">
+              <div className="tile is-child box signup-option">
                 <article className="media">
                   <div className="media-left">
                     <span className="icon">
@@ -163,16 +167,16 @@ class SignupBase extends Component {
                   </div>
                   <div className="media-content">
                     <div className="content">
-                      Corporate Account
+                      <h4>Corporate Account</h4>
+                      <p>
+                        Account to track all business vessel's and ships. ability to have everyone in the team
+                        manage vessel's documentation.
+                      </p>
                     </div>
                   </div>
                 </article>
               </div>
 
-            </div>
-            </div>
-
-          </div>
         </div>
       </div>
     );
