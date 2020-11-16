@@ -5,6 +5,7 @@ import ourFlag from '../assets/our_flag.png';
 import { authSignup } from '../actions';
 import * as ROUTES from '../constants/routes';
 import signinButton from '../assets/google_signin_white.png';
+import '../styles/SignUp.scss';
 
 
 // This regex describe the format of a valid email.
@@ -114,55 +115,62 @@ class SignupBase extends Component {
 
   renderUserOptions() {
     return (
-      <div className='hero is-fullheight'>
+      <div className='hero'>
         <div className='hero-body'>
           <div className='container'>
+
+            <div className='columns'>
+            <div className='column is-centered signup-column'>
             <h3 className='title section-title'>Select Account Type</h3>
 
-              <div class="box">
-                <article class="media">
-                  <div class="media-left">
-                    <span class="icon">
-                      <i class="fas fa-user fa-2x"></i>
+              <div className="box signup-option">
+                <article className="media">
+                  <div className="media-left">
+                    <span className="icon">
+                      <i className="fas fa-user fa-2x"></i>
                     </span>
                   </div>
-                  <div class="media-content">
-                    <div class="content">
+                  <div className="media-content">
+                    <div className="content">
+                      Private Account
                     </div>
                   </div>
                 </article>
               </div>
 
 
-              <div class="box">
-                <article class="media">
-                  <div class="media-left">
-                    <span class="icon">
-                      <i class="fas fa-user-tie fa-2x"></i>
+              <div className="box signup-option">
+                <article className="media">
+                  <div className="media-left">
+                    <span className="icon">
+                      <i className="fas fa-user-tie fa-2x"></i>
                     </span>
                   </div>
-                  <div class="media-content">
-                    <div class="content">
+                  <div className="media-content">
+                    <div className="content">
+                      Broker Account
                     </div>
                   </div>
                 </article>
               </div>
 
-              <div class="box">
-                <article class="media">
-                  <div class="media-left">
-                    <span class="icon">
-                      <i class="fas fa-users fa-2x"></i>
+              <div className="box signup-option">
+                <article className="media">
+                  <div className="media-left">
+                    <span className="icon">
+                      <i className="fas fa-users fa-2x"></i>
                     </span>
                   </div>
-                  <div class="media-content">
-                    <div class="content">
+                  <div className="media-content">
+                    <div className="content">
+                      Corporate Account
                     </div>
                   </div>
                 </article>
               </div>
 
-
+            </div>
+            </div>
 
           </div>
         </div>
@@ -304,8 +312,8 @@ class SignupBase extends Component {
               </div>
               <div className='field'>
               <label className='label'>Account Type</label>
-              <div class="control">
-                <div class="select">
+              <div className="control">
+                <div className="select">
                   <select value={this.state.account} onChange={(e) => this.setState({account: e.target.value})}>
                     <option value='private'>Personal Account</option>
                     <option value='broker'>Broker Account</option>
