@@ -35,11 +35,11 @@ class VesselNameLookup extends Component {
         'Content-Type': 'application/json'
       }
     }).then((response) => response.json())
-    .then(data => {
-      this.setState({
-        "ports": data["ports"]
+      .then(data => {
+        this.setState({
+          "ports": data["ports"]
+        })
       })
-    })
   }
 
   checkNameAvailability = (e) => {
@@ -62,8 +62,7 @@ class VesselNameLookup extends Component {
       .then(data => {
         this.setState({
           availability: data["message"]
-        }
-        );
+        });
       }
       );
 
@@ -93,11 +92,10 @@ class VesselNameLookup extends Component {
                 <label className='label'>Desired Home Port</label>
                 <div class="control">
                   <div class="select">
-                    {/* <select value={this.state.portName} onChange={(e) => this.setState({ portName: e.target.value })}> */}
-                      <select value={this.state.selectedPort} onChange={(e) => this.setState({ selectedPort: e.target.value })}>
+                    <select value={this.state.selectedPort} onChange={(e) => this.setState({ selectedPort: e.target.value })}>
                       {this.state.ports.map((value) => {
-                      return <option key={value} value={value}>{value}</option>
-                    })}
+                        return <option key={value} value={value}>{value}</option>
+                      })}
                     </select>
                   </div>
                 </div>
