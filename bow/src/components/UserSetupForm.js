@@ -50,7 +50,6 @@ class UserSetupForm extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { oldPassword, newPassword1, newPassword2 } = this.state;
-    console.log(oldPassword, newPassword1, newPassword2, newPassword2)
     this.props.passwordChange(oldPassword, newPassword1, newPassword2)
   }
 
@@ -59,11 +58,15 @@ class UserSetupForm extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit, pristine, submitting, status, message, code, error } = this.props;
+
+    if (message) {
+      console.log(message)
+    }
+
     return (
       <form
         name="userSetupForm"
-        onSubmit=''
         id="userSetupForm"
       >
         <br />
@@ -138,8 +141,13 @@ UserSetupForm = reduxForm({
   form: 'userSetupForm',
 })(UserSetupForm);
 
-function mapStateToProps({ auth, profile }) {
-  return { auth, profile };
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    profile: state.profile,
+    message: state.auth.message,
+    status: state.auth.status,
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {

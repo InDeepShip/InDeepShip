@@ -25,6 +25,19 @@ const authSuccess = (state, action) => {
   });
 };
 
+const passwordChangeSuccess = (state, action) => {
+  return updateObject(state, {
+    message: action.message,
+    status: action.status
+  });
+}
+
+const passwordChangeFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error
+  });
+}
+
 const authFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
@@ -49,6 +62,10 @@ const reducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+    case actionTypes.PASSWORD_CHANGE_SUCCESS:
+      return passwordChangeSuccess(state, action);
+    case actionTypes.PASSWORD_CHANGE_FAIL:
+      return passwordChangeFail(state, action);
     default:
       return state;
   }

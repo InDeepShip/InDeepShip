@@ -19,12 +19,18 @@ export const authSuccess = (token, user) => {
   };
 };
 
-export const passwordChangeSuccess = (status, code, message) => {
+export const passwordChangeSuccess = (message, status) => {
   return {
     type: actionTypes.PASSWORD_CHANGE_SUCCESS,
-    status: status,
     message: message,
-    code: code
+    status: status
+  };
+};
+
+export const passwordChangeFail = (error) => {
+  return {
+    type: actionTypes.PASSWORD_CHANGE_FAIL,
+    error: error
   };
 };
 
@@ -92,13 +98,12 @@ export const passwordChange = (oldPassword, newPassword1, newPassword2) => {
         new_password2: newPassword2
       })
       .then(res => {
-        const status = res.data.status;
-        const code = res.data.code;
-        const message = res.data.message;
-        dispatch(passwordChangeSuccess(status, code, message));
+        const message = res.data.detail
+        const status = res.status
+        dispatch(passwordChangeSuccess(message, status));
       })
       .catch(err => {
-        dispatch(authFail(err));
+        dispatch(passwordChangeFail(err));
       });
   };
 };
