@@ -112,3 +112,10 @@ def bug_report(request):
         }
         ret_status = status.HTTP_400_BAD_REQUEST
     return Response(data=data, status=ret_status)
+
+@api_view(['GET'])
+def ports(request):
+    # get all ports from the database
+    port_names = [port.name for port in Port.objects.all()]
+    data = {"ports": port_names}
+    return Response(data=data, status=200)

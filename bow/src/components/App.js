@@ -7,8 +7,6 @@ import Landing from './Landing';
 import Spinner from './Spinner';
 import PageNotFound from './ErrorPage';
 import * as actions from '../actions';
-import PrivateRegistration from './PrivateRegistration';
-import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import Signup from './Signup';
 import Login from './Login';
 import NavBar from './NavBar';
@@ -19,6 +17,8 @@ import ContactUs from './ContactUs';
 import Footer from './Footer';
 import EditProfile from './EditProfile';
 import VesselNameLookup from './VesselNameLookup';
+import PasswordReset from './PasswordReset';
+import PasswordResetConfirm from './PasswordResetConfirm';
 import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
@@ -37,7 +37,7 @@ class App extends Component {
 
   render() {
     document.body.classList.add('has-navbar-fixed-top');
-    document.body.classList.add('has-spaced-navbar-fixed-top');
+    // document.body.classList.add('has-spaced-navbar-fixed-top');
     return this.props.loadState === 0 ? (
       <>
         <NavBar />
@@ -59,13 +59,13 @@ class App extends Component {
             loggedIn={true}
           />
           <Route path={ROUTES.ORGANIZATION} component={Organization} />
+          <Route path={ROUTES.PASSWORD_RESET} component={PasswordReset} />
+          <Route path={ROUTES.PASSWORD_RESET_CONFIRM} component={PasswordResetConfirm} />
           <Route path={ROUTES.SERVICES} component={Services} />
           <Route path={ROUTES.POLICY} component={Policy} />
           <Route path={ROUTES.CONTACT_US} component={ContactUs} />
           <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
-          <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
-          <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
           <Route exact path={ROUTES.VESSEL_NAME_LOOKUP} component={VesselNameLookup} loggedIn={false} accountSetup={false} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}

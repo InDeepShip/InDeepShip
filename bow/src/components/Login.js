@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { authLogin } from '../actions';
 import ourFlag from '../assets/our_flag.png';
 import * as ROUTES from '../constants/routes';
@@ -42,38 +42,42 @@ class LoginBase extends Component {
             <div className='columns is-centered'>
               <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
                 <h1 className="is-size-2">Log in</h1>
-                  <div className="field">
-                    <div className="control">
-                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'google'})}}>
-                        <span className="icon">
-                          <i className='fab fa-google'></i>
-                        </span>
-                        <span>Login with google</span>
-                      </button>
-                    </div>
+                <div className="field">
+                  <div className="control">
+                    <button className="button is-medium is-fullwidth" onClick={() => { this.setState({ signUpType: 'google' }) }}>
+                      <span className="icon">
+                        <i className='fab fa-google'></i>
+                      </span>
+                      <span>Login with google</span>
+                    </button>
                   </div>
-                  <div className='is-fullwidth has-text-centered'>
-                    <span>OR</span>
+                </div>
+                <div className='is-fullwidth has-text-centered'>
+                  <span>OR</span>
+                </div>
+                <div className="field">
+                  <label className="label">Email Address</label>
+                  <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
+                </div>
+                <div className="field">
+                  <label className="label">Password</label>
+                  <input className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
+                </div>
+                <br />
+                <div className='field'>
+                  <div className='control'>
+                    <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                                    &nbsp;&nbsp;&nbsp;
+                    <Link className="link password-reset" to={ROUTES.PASSWORD_RESET}>
+                      <button className='button password-reset'>Forgot password?</button>
+                    </Link>
                   </div>
-                  <div className="field">
-                    <label className="label">Email Address</label>
-                    <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
-                  </div>
-                  <div className="field">
-                    <label className="label">Password</label>
-                    <input className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
-                  </div>
-                  <br />
-                  <div className='field'>
-                    <div className='control'>
-                      <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
-                    </div>
-                  </div>
-                  {loading && (
-                    <span className="loading-icon icon is-large">
-                        <i className="fas fa-3x fa-spinner fa-pulse"></i>
-                    </span>
-                  )}
+                </div>
+                {loading && (
+                  <span className="loading-icon icon is-large">
+                    <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -87,8 +91,7 @@ const mapStatetoProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    token: state.auth.token,
-    user: state.auth.user
+    token: state.auth.token
   };
 };
 

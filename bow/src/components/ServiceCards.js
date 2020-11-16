@@ -15,15 +15,15 @@ class ServiceCards extends Component {
 
     render() {
         return (
-            <div className='container is-fluid'>
+            <div className='container has-extra-margin'>
                 <div className='columns is-multiline is-centered'>
-                    <div className='column is-2'>
-                        <Link className="card" to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
-                            <div className="card-image">
+                    <div className='column is-one-third'>
+                        <div className="card">
+                            <Link className="card-image" to={"/register"}>
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
                                 </figure>
-                            </div>
+                            </Link>
                             <div className='card-content'>
                                 <p className="title">Private Registration</p>
                                 <div className="content">
@@ -36,51 +36,9 @@ class ServiceCards extends Component {
                                     Learn More
                                 </div>
                             </div>
-                        </Link>
-                    </div>
-                    <div className='column is-2'>
-                        <div className="card">
-                            <Link className="card-image" to={"/register"}>
-                                <figure className="image is-4by3">
-                                    <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1403&q=80" alt="Placeholder image" />
-                                </figure>
-                            </Link>
-                            <div className='card-content'>
-                                <p className="title">Commercial Registration</p>
-                                <div className="content">
-                                    Registration of commercial shipping vessels
-                                    are also able to sail with the Navis Album flag.
-                                </div>
-                            </div>
-                            <div className='card-footer'>
-                                <div className="card-footer-item">
-                                    Learn More
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div className='column is-2'>
-                        <div className="card">
-                            <Link className="card-image" to={"/register"}>
-                                <figure className="image is-4by3">
-                                    <img src="https://images.unsplash.com/photo-1550565118-3a14e8d0386f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
-                                </figure>
-                            </Link>
-                            <div className='card-content'>
-                                <p className="title">Pay Invoice or Make Payment</p>
-                                <div className="content">
-                                    Pay an invoice for ship registration or make a payment for
-                                    documentations.
-                                </div>
-                            </div>
-                            <div className='card-footer'>
-                                <div className="card-footer-item">
-                                    Learn More
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='column is-2'>
+                    <div className='column is-one-third'>
                         <div className="card">
                             <Link className="card-image" to={ROUTES.VESSEL_NAME_LOOKUP}>
                                 <figure className="image is-4by3">
@@ -101,7 +59,49 @@ class ServiceCards extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className='column is-2'>
+                    <div className='column is-one-third'>
+                        <div className="card">
+                            <Link className="card-image" to={"/register"}>
+                                <figure className="image is-4by3">
+                                    <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1403&q=80" alt="Placeholder image" />
+                                </figure>
+                            </Link>
+                            <div className='card-content'>
+                                <p className="title">Commercial Registration</p>
+                                <div className="content">
+                                    Registration of commercial shipping vessels
+                                    are also able to sail with the Navis Album flag.
+                                </div>
+                            </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='column is-one-third'>
+                        <div className="card">
+                            <Link className="card-image" to={"/register"}>
+                                <figure className="image is-4by3">
+                                    <img src="https://images.unsplash.com/photo-1550565118-3a14e8d0386f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
+                                </figure>
+                            </Link>
+                            <div className='card-content'>
+                                <p className="title">Pay Invoice or Make Payment</p>
+                                <div className="content">
+                                    Pay an invoice for ship registration or make a payment for
+                                    documentations.
+                                </div>
+                            </div>
+                            <div className='card-footer'>
+                                <div className="card-footer-item">
+                                    Learn More
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='column is-one-third'>
                         <div className="card">
                             <Link className="card-image" to={"/tracking"}>
                                 <figure className="image is-4by3">

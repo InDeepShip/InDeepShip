@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 2em;
-    border-radius: 5px;
+    // margin-top: 2em;
+    // border-radius: 5px;
     height: 100%;
     transition: all 500ms ease-in-out;
 }
@@ -26,4 +26,13 @@
 
 .card-footer-item {
     font-weight: bold;
+}
+
+// .columns:last-child {
+//     margin-bottom: 0 !important;
+// }
+
+.has-extra-margin {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
 }
