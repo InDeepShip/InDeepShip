@@ -30,7 +30,7 @@ class PasswordResetBase extends Component {
         if (message) {
             // TODO: notify user of email being sent and of redirect
             console.log(message)
-            return < Redirect to={ROUTES.PASSWORD_RESET_CONFIRM} />;
+            // return < Redirect to={ROUTES.PASSWORD_RESET_CONFIRM} />;
         }
 
         return (
