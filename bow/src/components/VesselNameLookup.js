@@ -25,7 +25,7 @@ class VesselNameLookup extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {"portName" : "Whitby Harbour"};
     }
 
     onSubmit = (e) => {
@@ -72,13 +72,24 @@ class VesselNameLookup extends Component {
                                     Check for Vessel name availability
                                 </h1>
                     <div className="field">
-                      <label className="label">Vessel name</label>
+                      <label className="label">Vessel Name</label>
                       <input className='input' placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
                     </div>
-                    <div className="field">
-                      <label className="label">Desired home port</label>
-                      <input className='input' placeholder="Home port" type="text" name="portName" onChange={this.handleChange} />
+                    <div className='field'>
+                      <label className='label'>Desired Home Port</label>
+                      <div class="control">
+                        <div class="select">
+                          <select value={this.state.portName} onChange={(e) => this.setState({portName: e.target.value})}>
+                            <option value='Whitby Harbour'>Whitby Harbour</option>
+                            <option value='Scarborough'>Scarborough</option>
+                            <option value='Point Newcastle'>Point Newcastle</option>
+                            <option value='Barrow'>Barrow</option>
+                            <option value='Robin Hood&#39;s Bay'>Robin Hood's Bay</option>
+                            <option value='Victoria'>Victoria</option>
+                          </select>
+                        </div>
                     </div>
+                  </div>
                     <br />
                     <div className='field'>
                       <div className='control'>
