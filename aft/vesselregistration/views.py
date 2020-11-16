@@ -8,16 +8,19 @@ import json
 @csrf_exempt
 def private_registration(request):
     """
-    Function used to handle user private registration
+    Function used to handle user private registration POST
     """
-    data = json.loads(request.body)
-    data = data['registration']
 
-    try:
-        models.PrivateRegistrationForms.objects.create(**data)
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        data = data['registration']
 
-    except Exception as e:
-        print('Issue creating a new private registration')
-        return HttpResponse(status=400)
+        try:
+            models.PrivateRegistrationForms.objects.create(**data)
 
-    return HttpResponse(status=201)
+        except Exception as e:
+            print('Issue creating a new private registration')
+            return HttpResponse(status=400)
+
+        return HttpResponse(status=201)
+    return HttpResponse(status=400)
