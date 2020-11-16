@@ -45,6 +45,7 @@ class SignupBase extends Component {
 
     this.state = {
       signUpType: null,
+      userType: null,
       isError: {    // This isError object will hold the form errors for every state.
         email: '',
         password1: '',
@@ -111,6 +112,64 @@ class SignupBase extends Component {
     })
   };
 
+  renderUserOptions() {
+    return (
+      <div className='hero is-fullheight'>
+        <div className='hero-body'>
+          <div className='container'>
+            <h3 className='title section-title'>Select Account Type</h3>
+
+              <div class="box">
+                <article class="media">
+                  <div class="media-left">
+                    <span class="icon">
+                      <i class="fas fa-user fa-2x"></i>
+                    </span>
+                  </div>
+                  <div class="media-content">
+                    <div class="content">
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+
+              <div class="box">
+                <article class="media">
+                  <div class="media-left">
+                    <span class="icon">
+                      <i class="fas fa-user-tie fa-2x"></i>
+                    </span>
+                  </div>
+                  <div class="media-content">
+                    <div class="content">
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="box">
+                <article class="media">
+                  <div class="media-left">
+                    <span class="icon">
+                      <i class="fas fa-users fa-2x"></i>
+                    </span>
+                  </div>
+                  <div class="media-content">
+                    <div class="content">
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { isError } = this.state;
     const { error, loading, token } = this.props;
@@ -118,6 +177,10 @@ class SignupBase extends Component {
 
     if (token) {
       return <Redirect to={ROUTES.LANDING} />;
+    }
+
+    if (!this.state.userType) {
+      return this.renderUserOptions();
     }
 
     if (!this.state.signUpType) {
