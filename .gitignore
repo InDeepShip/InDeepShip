@@ -65,6 +65,8 @@ coverage.xml
 *.log
 local_settings.py
 migrations
+*fix_t_suite*
+*out*
 
 # Flask stuff:
 instance/
