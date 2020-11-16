@@ -34,6 +34,20 @@ export const passwordChangeFail = (error) => {
   };
 };
 
+export const passwordResetSuccess = (message, status) => {
+  return {
+    type: actionTypes.PASSWORD_RESET_SUCCESS,
+    message: message,
+    status: status
+  };
+};
+
+export const passwordResetFail = (error) => {
+  return {
+    type: actionTypes.PASSWORD_RESET_FAIL,
+    error: error
+  };
+};
 
 export const authFail = (error) => {
   return {
@@ -104,6 +118,24 @@ export const passwordChange = (oldPassword, newPassword1, newPassword2) => {
       })
       .catch(err => {
         dispatch(passwordChangeFail(err));
+      });
+  };
+};
+
+export const passwordReset = (email) => {
+  return dispatch => {
+    dispatch(authStart());
+    axios
+      .post('http://127.0.0.1:8000/api/users/password/reset/', {
+        email: email
+      })
+      .then(res => {
+        const message = res.data.detail
+        const status = res.status
+        dispatch(passwordResetSuccess(message, status));
+      })
+      .catch(err => {
+        dispatch(passwordResetFail(err));
       });
   };
 };

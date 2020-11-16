@@ -18,6 +18,7 @@ import Footer from './Footer';
 import EditProfile from './EditProfile';
 import VesselNameLookup from './VesselNameLookup';
 import PasswordReset from './PasswordReset';
+import PasswordResetConfirm from './PasswordResetConfirm';
 import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
@@ -59,6 +60,7 @@ class App extends Component {
           />
           <Route path={ROUTES.ORGANIZATION} component={Organization} />
           <Route path={ROUTES.PASSWORD_RESET} component={PasswordReset} />
+          <Route path={ROUTES.PASSWORD_RESET_CONFIRM} component={PasswordResetConfirm} />
           <Route path={ROUTES.SERVICES} component={Services} />
           <Route path={ROUTES.POLICY} component={Policy} />
           <Route path={ROUTES.CONTACT_US} component={ContactUs} />

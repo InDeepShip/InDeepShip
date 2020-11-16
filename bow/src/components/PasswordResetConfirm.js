@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { passwordReset } from '../actions';
-import * as ROUTES from '../constants/routes';
-import { Redirect, Link } from 'react-router-dom';
 
-class PasswordResetBase extends Component {
+
+class PasswordResetConfirmBase extends Component {
     constructor(props) {
         super(props);
 
@@ -27,18 +26,12 @@ class PasswordResetBase extends Component {
     render() {
         const { error, message, status } = this.props;
 
-        if (message) {
-            // TODO: notify user of email being sent and of redirect
-            console.log(message)
-            return < Redirect to={ROUTES.PASSWORD_RESET_CONFIRM} />;
-        }
-
         return (
             <div className='hero is-full-height'>
                 <div className='hero-body'>
                     <div className='columns is-centered'>
                         <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
-                            <h1 className="is-size-2">Password Reset</h1>
+                            <h1 className="is-size-3">Password Reset Confirm</h1>
                             <div className="field">
                                 <label className="label">Email Address</label>
                                 <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
@@ -71,9 +64,9 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const PasswordReset = connect(
+const PasswordResetConfirm = connect(
     mapStatetoProps,
     mapDispatchToProps
-)(PasswordResetBase);
+)(PasswordResetConfirmBase);
 
-export default PasswordReset;
+export default PasswordResetConfirm;

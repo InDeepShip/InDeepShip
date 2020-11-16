@@ -38,6 +38,19 @@ const passwordChangeFail = (state, action) => {
   });
 }
 
+const passwordResetSuccess = (state, action) => {
+  return updateObject(state, {
+    message: action.message,
+    status: action.status
+  });
+}
+
+const passwordResetFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error
+  });
+}
+
 const authFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
@@ -66,6 +79,10 @@ const reducer = (state = initialState, action) => {
       return passwordChangeSuccess(state, action);
     case actionTypes.PASSWORD_CHANGE_FAIL:
       return passwordChangeFail(state, action);
+    case actionTypes.PASSWORD_RESET_SUCCESS:
+      return passwordResetSuccess(state, action);
+    case actionTypes.PASSWORD_RESET_FAIL:
+      return passwordResetFail(state, action);
     default:
       return state;
   }
