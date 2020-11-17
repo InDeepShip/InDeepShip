@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { privateRegistration } from '../actions';
@@ -27,7 +27,9 @@ class PrivateRegistrationBase extends Component {
             vessel_length: '',
             hulls: null,
             agreement: '',
-            ports: []
+            ports: [],
+            curr: 0,
+            next: 1
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -60,6 +62,178 @@ class PrivateRegistrationBase extends Component {
         this.props.register(formData);
     }
 
+    renderContent(index) {
+        switch (index) {
+            case 0:
+                return (
+                    <Fragment>
+                        <div className="field">
+                            <label className="label">Vessel Name</label>
+                            <div className="control">
+                                <input className="input" name='vessel' type="text" placeholder="Vessel Name" onChange={this.handleChange} />
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Port</label>
+                            <div className="control">
+                                <div className="select is-fullwidth">
+                                <select name='port' value={this.state.port} onChange={this.handleChange}>
+                                    {this.renderPorts()}
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">IMO (International Maritime Organization) Number</label>
+                            <div className='control has-icons-left'>
+                                <input className='input' placeholder="" type="text" name="imo" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-hashtag'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Gross Tonnage</label>
+                            <div className='control has-icons-left'>
+                                <input className='input' placeholder="" type="text" name="tonnage" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-weight-hanging'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Proposed Registration Date</label>
+                            <div className="control">
+                                <input className='input' id='regdate' name='date' type="date" onChange={this.handleChange} />
+                            </div>
+                        </div>
+                    </Fragment>
+                );
+            case 1:
+                return (
+                    <Fragment>
+                        <div className="field">
+                            <label className="label">Owner Name</label>
+                            <div className="control">
+                                <input className="input" name='name' type="text" placeholder="Name" onChange={this.handleChange} />
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Contact Email Address</label>
+                            <div className='control has-icons-left'>
+                                <input className='input' placeholder="Email address" type="text" name="email" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-envelope'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Phone number</label>
+                            <div className='control has-icons-left'>
+                                <input className='input' placeholder="1-888-888-8888" type="tel" name="phone" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-phone'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Home Address</label>
+                            <div className='control has-icons-left'>
+                                <input className='input' placeholder="Address" type="text" name="address" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-home'></i>
+                                </span>
+                            </div>
+                            <p className='help is-danger'>
+                            </p>
+                        </div>
+                    </Fragment>
+                );
+            case 2:
+                return (
+                    <Fragment>
+                        <div className="field">
+                            <label className="label">Builder Name</label>
+                            <div className="control">
+                                <input className="input" name='builder_name' type="text" placeholder="Builder Name" onChange={this.handleChange}/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Builder Address</label>
+                            <div className='control has-icons-left'>
+                                <input className='input' placeholder="Builder Address" type="text" name="builder_address" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-home'></i>
+                                </span>
+                            </div>
+                            <p className='help is-danger'>
+                            </p>
+                        </div>
+                        <div className="field">
+                            <label className="label">Yard Number</label>
+                            <div className="control">
+                                <input className="input" name='yard_number' type="text" placeholder="Yard Number" onChange={this.handleChange} />
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Length of Ship</label>
+                            <div className="control">
+                                <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange}/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Number of Hulls</label>
+                            <div className="control has-icons-left">
+                                <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange}/>
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-hashtag'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Method of Propulsion</label>
+                            <div className="control">
+                                <div className="select is-fullwidth">
+                                <select name='propulsion' onChange={this.handleChange}>
+                                    {this.renderPropulsion()}
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                    </Fragment>
+                );
+            case 3:
+                return (
+
+                    <Fragment>
+                        <div>Need to Implement</div>
+                    </Fragment>
+                );
+            case 4:
+                return (
+                    <Fragment>
+                        <div className="field">
+                            <div className="control">
+                                <label className="checkbox">
+                                <input type="checkbox" name='agreement' onChange={this.handleChange} />
+                                    <span> I agree that all boat use will be personal and NOT commercial</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div className='field'>
+                            <div className='control'>
+                                <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                            </div>
+                        </div>
+                    </Fragment>
+                );
+            default:
+                return (
+                    <div>No Bueno</div>
+                );
+        }
+    }
+
     renderPorts() {
         const { ports } = this.state;
 
@@ -85,50 +259,61 @@ class PrivateRegistrationBase extends Component {
     }
 
     renderSteps() {
+        const { curr, next } = this.state;
+        const steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Payment', 'Summary'];
+
         return (
-            <div class="steps" id="stepsDemo">
-                <div class="step-item is-success">
-                    <div class="step-marker">1</div>
-                    <div class="step-details">
-                    <p class="step-title">Vessel Info</p>
-                    </div>
-                </div>
-                <div class="step-item is-active is-success">
-                    <div class="step-marker">2</div>
-                    <div class="step-details">
-                    <p class="step-title">Register Info</p>
-                    </div>
-                </div>
-                <div class="step-item">
-                    <div class="step-marker">3</div>
-                    <div class="step-details">
-                    <p class="step-title">Social</p>
-                    </div>
-                </div>
-                <div class="step-item">
-                    <div class="step-marker">4</div>
-                    <div class="step-details">
-                    <p class="step-title">Payment</p>
-                    </div>
-                </div>
-                <div class="steps-content">
-                    <div class="step-content has-text-centered"></div>
-                    <div class="step-content has-text-centered"></div>
-                    <div class="step-content has-text-centered"></div>
-                    <div class="step-content has-text-centered is-active">
-                        <h1 class="title is-4">Your account is now created!</h1>
-                    </div>
+            <div className="steps" id="stepsDemo">
+                {
+                    steps.map((step, index) => {
+                        const isActive = curr == index ? 'is-active' : '';
+                        const isComplete = index < curr ? 'is-completed': '';
+
+                        return (
+                            <div className={`step-item ${isActive} ${isComplete}`}>
+                                <div className="step-marker">{index + 1}</div>
+                                <div className="step-details">
+                                    <p className="step-title">{step}</p>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
+                <div className="steps-content">
+                    {
+                        steps.map((step, index) => {
+                            const isActive = curr == index ? 'is-active' : '';
+
+                            return (
+                                <div className={`step-content ${isActive}`}>{this.renderContent(index)}</div>
+                            );
+                        })
+                    }
                 </div>
 
-  <div class="steps-actions">
-    <div class="steps-action">
-      <a href="#" data-nav="previous" class="button is-light">Previous</a>
-    </div>
-    <div class="steps-action">
-      <a href="#" data-nav="next" class="button is-light">Next</a>
-    </div>
-  </div>
-</div>
+                <div className="steps-actions">
+                    { (curr < 4) && <Fragment>
+                        <div className="steps-action">
+                            <a
+                                href="#"
+                                data-nav="previous"
+                                className="button is-light"
+                                onClick={() => this.setState({ curr: curr - 1, next: next - 1})}>
+                                    Previous
+                            </a>
+                        </div>
+                        <div className="steps-action">
+                            <a
+                                href="#"
+                                data-nav="next"
+                                className="button is-light"
+                                onClick={() => this.setState({ curr: curr + 1, next: next + 1})}>
+                                    Next
+                            </a>
+                        </div>
+                    </Fragment>}
+               </div>
+            </div>
         );
     }
 
@@ -145,154 +330,12 @@ class PrivateRegistrationBase extends Component {
 
         return (
             <div className='container'>
-            {this.renderSteps()}
-            <div className='columns is-centered'>
-            <div className='column'>
-            <div className="form">
-                <div className="field">
-                    <label className="label">Owner Name</label>
-                    <div className="control">
-                        <input className="input" name='name' type="text" placeholder="Name" onChange={this.handleChange} />
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Vessel Name</label>
-                    <div className="control">
-                        <input className="input" name='vessel' type="text" placeholder="Vessel Name" onChange={this.handleChange} />
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Contact Email Address</label>
-                    <div className='control has-icons-left'>
-                        <input className='input' placeholder="Email address" type="text" name="email" onChange={this.handleChange} />
-                        <span className='icon is-small is-left'>
-                            <i className='fas fa-envelope'></i>
-                        </span>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Phone number</label>
-                    <div className='control has-icons-left'>
-                        <input className='input' placeholder="1-888-888-8888" type="tel" name="phone" onChange={this.handleChange} />
-                        <span className='icon is-small is-left'>
-                            <i className='fas fa-phone'></i>
-                        </span>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Home Address</label>
-                    <div className='control has-icons-left'>
-                        <input className='input' placeholder="Address" type="text" name="address" onChange={this.handleChange} />
-                        <span className='icon is-small is-left'>
-                            <i className='fas fa-home'></i>
-                        </span>
-                    </div>
-                    <p className='help is-danger'>
-                    </p>
-                </div>
-                <div className="field">
-                    <label className="label">Port</label>
-                    <div className="control">
-                        <div className="select is-fullwidth">
-                        <select name='port' value={this.state.port} onChange={this.handleChange}>
-                            {this.renderPorts()}
-                        </select>
-                        </div>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">IMO (International Maritime Organization) Number</label>
-                    <div className='control has-icons-left'>
-                        <input className='input' placeholder="" type="text" name="imo" onChange={this.handleChange} />
-                        <span className='icon is-small is-left'>
-                            <i className='fas fa-hashtag'></i>
-                        </span>
-                    </div>
-                </div>
-                 <div className="field">
-                    <label className="label">Gross Tonnage</label>
-                    <div className='control has-icons-left'>
-                        <input className='input' placeholder="" type="text" name="tonnage" onChange={this.handleChange} />
-                        <span className='icon is-small is-left'>
-                            <i className='fas fa-weight-hanging'></i>
-                        </span>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Method of Propulsion</label>
-                    <div className="control">
-                        <div className="select is-fullwidth">
-                        <select name='propulsion' onChange={this.handleChange}>
-                            {this.renderPropulsion()}
-                        </select>
-                        </div>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Builder Name</label>
-                    <div className="control">
-                        <input className="input" name='builder_name' type="text" placeholder="Builder Name" onChange={this.handleChange}/>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Builder Address</label>
-                    <div className='control has-icons-left'>
-                        <input className='input' placeholder="Builder Address" type="text" name="builder_address" onChange={this.handleChange} />
-                        <span className='icon is-small is-left'>
-                            <i className='fas fa-home'></i>
-                        </span>
-                    </div>
-                    <p className='help is-danger'>
-                    </p>
-                </div>
-                <div className="field">
-                    <label className="label">Yard Number</label>
-                    <div className="control">
-                        <input className="input" name='yard_number' type="text" placeholder="Yard Number" onChange={this.handleChange} />
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Proposed Registration Date</label>
-                    <div className="control">
-                        <input className='input' id='regdate' name='date' type="date" onChange={this.handleChange} />
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Length of Ship</label>
-                    <div className="control">
-                        <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange}/>
-                    </div>
-                </div>
-                <div className="field">
-                    <label className="label">Number of Hulls</label>
-                    <div className="control has-icons-left">
-                        <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange}/>
-                        <span className='icon is-small is-left'>
-                            <i className='fas fa-hashtag'></i>
-                        </span>
-                    </div>
-                </div>
-                <div className="field">
-                    <div className="control">
-                        <label className="checkbox">
-                        <input type="checkbox" name='agreement' onChange={this.handleChange} />
-                            <span> I agree that all boat use will be personal and NOT commercial</span>
-                        </label>
-                    </div>
-                </div>
-                <div className='field'>
-                    <div className='control'>
-                        <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
-                    </div>
-                </div>
+                {this.renderSteps()}
                 {loading && (
                     <span className="loading-icon icon is-large">
                         <i className="fas fa-3x fa-spinner fa-pulse"></i>
                     </span>
                 )}
-            </div>
-            </div>
-            </div>
             </div>
         );
     }
