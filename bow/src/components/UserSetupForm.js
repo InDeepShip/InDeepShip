@@ -59,9 +59,11 @@ class UserSetupForm extends Component {
 
   render() {
     const { handleSubmit, pristine, submitting, status, message, code, error } = this.props;
+    var displayMessage = ""
 
     if (message) {
       console.log(message)
+      displayMessage = message
     }
 
     return (
@@ -131,6 +133,9 @@ class UserSetupForm extends Component {
               Save
             </button>
           </div>
+        </div>
+        <div className="field is-below">
+          {displayMessage}
         </div>
       </form>
     );
