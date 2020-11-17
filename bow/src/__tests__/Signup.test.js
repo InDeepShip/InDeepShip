@@ -1,4 +1,4 @@
-
+import * as addresses from '../constants/environment';
 const puppeteer = require('puppeteer');
 
 describe('user sign-up process', () => {
@@ -18,7 +18,7 @@ describe('user sign-up process', () => {
 
     it('can click account options', async () => {
         let page = await browser.newPage();
-        await page.goto("http://206.189.218.111/api/users/signup/");
+        await page.goto(`${addresses.SERVER_ADDRESS}/signup/`);
 
         await page.click("#signup-option-private");
 
