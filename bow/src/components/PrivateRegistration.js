@@ -327,7 +327,7 @@ class PrivateRegistrationBase extends Component {
     render() {
         const { error, loading} = this.props;
 
-        if (this.props.auth) {
+        if (!this.props.auth) {
             return (
                 <div className='container'>
                     You need to be logged in to register a vessel. <Link to={ROUTES.LOGIN}>Login ?</Link>
