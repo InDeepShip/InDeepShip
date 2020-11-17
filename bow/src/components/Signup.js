@@ -46,7 +46,6 @@ class SignupBase extends Component {
 
     this.state = {
       signUpType: null,
-      userType: null,
       isError: {    // This isError object will hold the form errors for every state.
         email: '',
         password1: '',
@@ -60,7 +59,7 @@ class SignupBase extends Component {
       password2: null,
       name: null,
       address: null,
-      account: 'private'
+      account: null
     }
   }
 
@@ -120,7 +119,7 @@ class SignupBase extends Component {
 
             <h3 className='title section-title'>Select Account Type</h3>
 
-              <div className="tile is-child box signup-option">
+              <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'private' })}>
                 <article className="media">
                   <div className="media-left">
                     <span className="icon">
@@ -139,7 +138,7 @@ class SignupBase extends Component {
               </div>
 
 
-              <div className="tile is-child box signup-option">
+              <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'broker' })}>
                 <article className="media">
                   <div className="media-left">
                     <span className="icon">
@@ -158,7 +157,7 @@ class SignupBase extends Component {
                 </article>
               </div>
 
-              <div className="tile is-child box signup-option">
+              <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'corporate' })}>
                 <article className="media">
                   <div className="media-left">
                     <span className="icon">
@@ -191,13 +190,13 @@ class SignupBase extends Component {
       return <Redirect to={ROUTES.LANDING} />;
     }
 
-    if (!this.state.userType) {
+    if (!this.state.account) {
       return this.renderUserOptions();
     }
 
     if (!this.state.signUpType) {
       return (
-        <div className='hero is-fullheight'>
+        <div className='hero'>
           <div className='hero-body'>
             <div className='container'>
               <div className='columns is-centered'>
@@ -245,7 +244,7 @@ class SignupBase extends Component {
 
     if (this.state.signUpType === 'email') {
       return (
-        <div className='hero is-fullheight'>
+        <div className='hero'>
           <div className='hero-body'>
             <div className={containerClasses}>
               <h1 className="is-size-2">Create account</h1>
@@ -315,23 +314,36 @@ class SignupBase extends Component {
                 )}
               </div>
               <div className='field'>
-              <label className='label'>Account Type</label>
-              <div className="control">
-                <div className="select">
-                  <select value={this.state.account} onChange={(e) => this.setState({account: e.target.value})}>
-                    <option value='private'>Personal Account</option>
-                    <option value='broker'>Broker Account</option>
-                  </select>
-                </div>
+                <label className='label'>Account Type</label>
+                <div className="control">
+                  <div className="select">
+                    <select value={this.state.account} onChange={(e) => this.setState({account: e.target.value})}>
+                      <option value='private'>Personal Account</option>
+                      <option value='broker'>Broker Account</option>
+                      <option value='corporate'>Corporate Account</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <br />
               <div className='field'>
-                <div className='control'>
+                <div className='control submit-control'>
                   <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
                 </div>
               </div>
-              {loading && (
+                <div className='or-div'>
+                  <span className='or-span'>or</span>
+                </div>
+                  <div className="field">
+                    <div className="control google-control">
+                      <button className="button is-medium" onClick={() => {this.setState({signUpType: 'google'})}}>
+                        <span className="icon">
+                          <i className='fab fa-google'></i>
+                        </span>
+                        <span>Sign up with google</span>
+                      </button>
+                    </div>
+                  </div>
+             {loading && (
                 <span className="loading-icon icon is-large">
                     <i className="fas fa-3x fa-spinner fa-pulse"></i>
                 </span>
