@@ -59,9 +59,11 @@ class UserSetupForm extends Component {
 
   render() {
     const { handleSubmit, pristine, submitting, status, message, code, error } = this.props;
+    var displayMessage = ""
 
     if (message) {
       console.log(message)
+      displayMessage = message
     }
 
     return (
@@ -132,6 +134,9 @@ class UserSetupForm extends Component {
             </button>
           </div>
         </div>
+        <div className="field is-below">
+          {displayMessage}
+        </div>
       </form>
     );
   }
@@ -147,6 +152,7 @@ const mapStateToProps = (state) => {
     profile: state.profile,
     message: state.auth.message,
     status: state.auth.status,
+    error: state.auth.error
   };
 }
 
