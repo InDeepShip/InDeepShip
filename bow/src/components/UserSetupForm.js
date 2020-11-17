@@ -152,6 +152,7 @@ const mapStateToProps = (state) => {
     profile: state.profile,
     message: state.auth.message,
     status: state.auth.status,
+    error: state.auth.error
   };
 }
 
