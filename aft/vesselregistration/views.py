@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from vesselregistration import models
+from . import models
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
+from . import serializers
 import json
 
 # Create your views here.
+
+
 @csrf_exempt
 def private_registration(request):
     """
@@ -24,3 +29,15 @@ def private_registration(request):
 
         return HttpResponse(status=201)
     return HttpResponse(status=400)
+
+
+class PrivateRegistrationView(GenericAPIView):
+    serializer_class = serializers.PrivateRegistrationSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        data = json.loads(request.body)
+        data = data['registration']
+        serializer = self.get_serializer()
+        # serializer.is_valid(raise_exception=True)
+        return serializer.save(data=data)

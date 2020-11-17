@@ -1,7 +1,7 @@
 # api/urls.py
 from django.urls import include, path
-from vesselregistration import views
+from . import views
 
 urlpatterns = [
-    path('private-registration/', views.private_registration),
+    path('private-registration/', views.PrivateRegistrationView.as_view()),
 ]
