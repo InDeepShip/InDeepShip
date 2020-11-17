@@ -2,6 +2,9 @@
   "name": "bow",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "preset": "jest-puppeteer"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -64,6 +67,7 @@
     "@babel/preset-env": "^7.12.1",
     "axios-mock-adapter": "^1.19.0",
     "babel-jest": "^24.9.0",
+    "jest-puppeteer": "^4.4.0",
     "npm-watch": "^0.7.0",
     "puppeteer": "^5.5.0"
   }
