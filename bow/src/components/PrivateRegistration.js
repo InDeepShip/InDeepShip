@@ -64,9 +64,21 @@ class PrivateRegistrationBase extends Component {
         const { ports } = this.state;
 
         return (
-            ports.map((port) => {
+            ports.map((port, index) => {
                 return (
-                    <option value={port}>{port}</option>
+                    <option key={index} value={port}>{port}</option>
+                );
+            })
+        );
+    }
+
+    renderPropulsion() {
+        const propulsions  = ['Diesel', 'Gas Turbine', 'Fuel Cell', 'Solar', 'Water-Jet'];
+
+        return (
+            propulsions.map((opt, key) => {
+                return (
+                    <option key={key} value={opt}>{opt}</option>
                 );
             })
         );
@@ -211,9 +223,7 @@ class PrivateRegistrationBase extends Component {
                     <div className="control">
                         <div className="select is-fullwidth">
                         <select name='propulsion' onChange={this.handleChange}>
-                            <option>Method 1</option>
-                            <option>Method 2</option>
-                            <option>Method 3</option>
+                            {this.renderPropulsion()}
                         </select>
                         </div>
                     </div>
