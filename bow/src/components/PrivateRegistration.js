@@ -220,11 +220,6 @@ class PrivateRegistrationBase extends Component {
                                 </label>
                             </div>
                         </div>
-                        <div className='field'>
-                            <div className='control'>
-                                <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
-                            </div>
-                        </div>
                     </Fragment>
                 );
             default:
@@ -292,26 +287,38 @@ class PrivateRegistrationBase extends Component {
                 </div>
 
                 <div className="steps-actions">
-                    { (curr < 4) && <Fragment>
-                        <div className="steps-action">
-                            <a
-                                href="#"
-                                data-nav="previous"
-                                className="button is-light"
-                                onClick={() => this.setState({ curr: curr - 1, next: next - 1})}>
-                                    Previous
-                            </a>
-                        </div>
-                        <div className="steps-action">
-                            <a
-                                href="#"
-                                data-nav="next"
-                                className="button is-light"
-                                onClick={() => this.setState({ curr: curr + 1, next: next + 1})}>
-                                    Next
-                            </a>
-                        </div>
-                    </Fragment>}
+                    {(curr > 0) &&    <Fragment>
+                            <div className="steps-action">
+                                <a
+                                    href="#"
+                                    data-nav="previous"
+                                    className="button is-light"
+                                    onClick={() => this.setState({ curr: curr - 1, next: next - 1})}>
+                                        Previous
+                                </a>
+                            </div>
+                        </Fragment>
+                    }
+                    {(curr < 4) &&
+                        <Fragment>
+                            <div className="steps-action">
+                                <a
+                                    href="#"
+                                    data-nav="next"
+                                    className="button is-light"
+                                    onClick={() => this.setState({ curr: curr + 1, next: next + 1})}>
+                                        Next
+                                </a>
+                            </div>
+                        </Fragment>
+                    }
+                    {(curr === 4) &&
+                        <Fragment>
+                            <div className="steps-action">
+                                <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                            </div>
+                        </Fragment>
+                    }
                </div>
             </div>
         );
