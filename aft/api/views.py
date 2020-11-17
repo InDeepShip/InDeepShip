@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from aft import settings
 from .models import Vessel, Port
+from django.views.decorators.csrf import csrf_exempt
 
 import requests
 
@@ -32,6 +33,8 @@ def api_overview(request):
     }
     return Response(data=api_urls)
 
+
+@csrf_exempt
 @api_view(['POST'])
 def vessel_lookup(request):
     """
@@ -56,14 +59,15 @@ def vessel_lookup(request):
     ship_name = request.data.get("vesselName", "")
     port_name = request.data.get("portName", "")
     try:
-        ships_with_name = Vessel.objects.get(name=ship_name, port__name=port_name)
+        ships_with_name = Vessel.objects.get(
+            name=ship_name, port__name=port_name)
         message = f"There is already a vessel with the name {ship_name} in the port {port_name}."
     except Vessel.DoesNotExist:
         message = f"The name {ship_name} is available in the port {port_name}."
     return Response(data={"message": message}, status=200)
 
 
-
+@csrf_exempt
 @api_view(['POST'])
 def bug_report(request):
     """
@@ -113,6 +117,8 @@ def bug_report(request):
         ret_status = status.HTTP_400_BAD_REQUEST
     return Response(data=data, status=ret_status)
 
+
+@csrf_exempt
 @api_view(['GET'])
 def ports(request):
     # get all ports from the database
