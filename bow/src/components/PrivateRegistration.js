@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { privateRegistration } from '../actions';
 import * as ROUTES from '../constants/routes';
 import * as ENVIRON from '../constants/environment';
+import '../styles/PrivateRegistration.scss';
 
 
 class PrivateRegistrationBase extends Component {
@@ -259,6 +260,7 @@ class PrivateRegistrationBase extends Component {
 
         return (
             <div className="steps" id="stepsDemo">
+                <div className='steps-container'>
                 {
                     steps.map((step, index) => {
                         const isActive = curr == index ? 'is-active' : '';
@@ -274,6 +276,7 @@ class PrivateRegistrationBase extends Component {
                         );
                     })
                 }
+                </div>
                 <div className="steps-content">
                     {
                         steps.map((step, index) => {
@@ -327,7 +330,7 @@ class PrivateRegistrationBase extends Component {
     render() {
         const { error, loading} = this.props;
 
-        if (!this.props.auth) {
+        if (this.props.auth) {
             return (
                 <div className='container'>
                     You need to be logged in to register a vessel. <Link to={ROUTES.LOGIN}>Login ?</Link>
