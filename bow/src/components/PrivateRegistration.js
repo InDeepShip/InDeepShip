@@ -33,12 +33,18 @@ class PrivateRegistrationBase extends Component {
             next: 1
         };
 
+        if (this.props.auth) {
+            this.state.name = this.props.auth.user.name;
+            this.state.email = this.props.auth.user.email;
+            this.state.address = this.props.auth.user.address;
+        }
+
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
-        fetch(`${ENVIRON.DEPLOYMENT_SERVER_ADDRESS}/api/ports/`, {
+        fetch(`${ENVIRON.SERVER_ADDRESS}/api/ports/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -64,6 +70,7 @@ class PrivateRegistrationBase extends Component {
     }
 
     renderContent(index) {
+
         switch (index) {
             case 0:
                 return (
@@ -116,13 +123,13 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Owner Name</label>
                             <div className="control">
-                                <input className="input" name='name' type="text" placeholder="Name" onChange={this.handleChange} />
+                                <input className="input" name='name' type="text"  value={this.state.name} onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="field">
                             <label className="label">Contact Email Address</label>
                             <div className='control has-icons-left'>
-                                <input className='input' placeholder="Email address" type="text" name="email" onChange={this.handleChange} />
+                                <input className='input' value={this.state.email} type="text" name="email" onChange={this.handleChange} />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-envelope'></i>
                                 </span>
@@ -140,7 +147,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Home Address</label>
                             <div className='control has-icons-left'>
-                                <input className='input' placeholder="Address" type="text" name="address" onChange={this.handleChange} />
+                                <input className='input' value={this.state.address} type="text" name="address" onChange={this.handleChange} />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-home'></i>
                                 </span>
@@ -330,7 +337,7 @@ class PrivateRegistrationBase extends Component {
     render() {
         const { error, loading} = this.props;
 
-        if (this.props.auth) {
+        if (!this.props.auth) {
             return (
                 <div className='container'>
                     You need to be logged in to register a vessel. <Link to={ROUTES.LOGIN}>Login ?</Link>
