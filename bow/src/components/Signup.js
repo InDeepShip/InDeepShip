@@ -194,45 +194,7 @@ class SignupBase extends Component {
       return this.renderUserOptions();
     }
 
-    if (!this.state.signUpType) {
-      return (
-        <div className='hero'>
-          <div className='hero-body'>
-            <div className='container'>
-              <div className='columns is-centered'>
-                <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
-                  <div className="field">
-                    <div className="control">
-                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'google'})}}>
-                        <span className="icon">
-                          <i className='fab fa-google'></i>
-                        </span>
-                        <span>Sign up with google</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className='is-fullwidth has-text-centered'>
-                    <span>OR</span>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'email'})}}>
-                        <span className="icon">
-                          <i className='fas fa-envelope'></i>
-                        </span>
-                        <span>Sign up with email</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-
-    document.body.classList.add('has-navbar-fixed-top');
+   document.body.classList.add('has-navbar-fixed-top');
 
     if (this.state.signUpType === 'google') {
       return (
@@ -242,7 +204,7 @@ class SignupBase extends Component {
       );
     }
 
-    if (this.state.signUpType === 'email') {
+    if (this.state.account) {
       return (
         <div className='hero'>
           <div className='hero-body'>

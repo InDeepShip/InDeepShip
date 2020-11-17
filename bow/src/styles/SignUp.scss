@@ -21,29 +21,3 @@
 .submit-control  {
     text-align: center !important;
 }
-
-.or-div {
-    position: relative;
-    text-align: center;
-    margin: 20px 0px;
-}
-
-.or-span {
-    background: #ffffff;
-    padding: 0px 10px;
-}
-
-.or-div:before {
-    display: inline-block;
-    border-top: 1px solid rgb(184, 196, 194);
-    content: "";
-    margin: 0px auto;
-    position: absolute;
-    height: 0px;
-    top: 50%;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: -1;
-    transform: translateY(-50%);
-}
