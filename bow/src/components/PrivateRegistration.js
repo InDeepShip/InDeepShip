@@ -336,13 +336,17 @@ class PrivateRegistrationBase extends Component {
         }
 
         return (
-            <div className='container'>
-                {this.renderSteps()}
-                {loading && (
-                    <span className="loading-icon icon is-large">
-                        <i className="fas fa-3x fa-spinner fa-pulse"></i>
-                    </span>
-                )}
+            <div className='hero'>
+                <div className='hero-body'>
+                    <div className='container'>
+                        {this.renderSteps()}
+                        {loading && (
+                            <span className="loading-icon icon is-large">
+                                <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                            </span>
+                        )}
+                    </div>
+                </div>
             </div>
         );
     }
