@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import brandingImg from '../assets/our_flag.png';
 import '../styles/Organization.scss';
 import { Field, reduxForm } from 'redux-form';
+import * as ROUTES from '../constants/routes';
+import { Link, withRouter } from 'react-router-dom';
+
 
 const renderField = ({
   input,
@@ -27,8 +30,10 @@ class VesselNameLookup extends Component {
     const vessel = "Vessel";
     this.state = {
       ports: [],
-      selectedPort: ""
+      selectedPort: "",
+      name_available: false
     }
+    this.PromptToReserve = this.PromptToReserve.bind(this)
     fetch("http://206.189.218.111/api/ports/", {
       method: 'GET',
       headers: {
@@ -46,7 +51,8 @@ class VesselNameLookup extends Component {
     const { vesselName, portName } = this.state;
     const vessel = this.state["vesselName"];
     const port = this.state["selectedPort"];
-    fetch("http://206.189.218.111/api/vessel_lookup/",
+    // fetch("http://206.189.218.111/api/vessel_lookup/",
+    fetch("http://127.0.0.1:8000/api/vessel_lookup/",
       {
         method: 'POST',
         body: JSON.stringify({
@@ -61,11 +67,23 @@ class VesselNameLookup extends Component {
       .then((response) => response.json())
       .then(data => {
         this.setState({
-          availability: data["message"]
-        });
-      }
-      );
+          availability: data["message"], name_available: data["available"]
+        })})
+  }
 
+  PromptToReserve() {
+    if (!this.props.auth) {
+      return (
+          <div className='container'>
+              You can login to reserve this vessel name. <Link to={ROUTES.LOGIN}>Login?</Link>
+          </div>
+      );
+  }
+    return <div className='field'>
+            <div className='control'>
+              <button className='button is-primary'>Reserve Name</button>
+            </div>
+          </div>;
   }
 
   handleChange = (e) => {
@@ -109,7 +127,10 @@ class VesselNameLookup extends Component {
               <div name="resultOfCheck">
                 <h1>{this.state.availability}</h1>
               </div>
-            </div>
+              <div>
+                {this.state.name_available ? <this.PromptToReserve /> : null}
+              </div>
+          </div>
           </div>
         </div>
       </section>
