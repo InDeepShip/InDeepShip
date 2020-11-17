@@ -119,7 +119,7 @@ class SignupBase extends Component {
 
           <h3 className='title section-title'>Select Account Type</h3>
 
-          <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'private' })}>
+          <div id="signup-option-private" className="tile is-child box signup-option" onClick={() => this.setState({ account: 'private' })}>
             <article className="media">
               <div className="media-left">
                 <span className="icon">
@@ -138,7 +138,7 @@ class SignupBase extends Component {
           </div>
 
 
-          <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'broker' })}>
+          <div id="signup-option-broker" className="tile is-child box signup-option" onClick={() => this.setState({ account: 'broker' })}>
             <article className="media">
               <div className="media-left">
                 <span className="icon">
@@ -157,7 +157,7 @@ class SignupBase extends Component {
             </article>
           </div>
 
-          <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'corporate' })}>
+          <div id="signup-option-coroporate" className="tile is-child box signup-option" onClick={() => this.setState({ account: 'corporate' })}>
             <article className="media">
               <div className="media-left">
                 <span className="icon">
@@ -289,7 +289,7 @@ class SignupBase extends Component {
               </div>
               <div className='field'>
                 <div className='control submit-control'>
-                  <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                  <button id="signup-submit-btn" className='button is-primary' onClick={this.onSubmit}>Submit</button>
                 </div>
               </div>
               <div className='or-div'>
@@ -297,7 +297,7 @@ class SignupBase extends Component {
               </div>
               <div className="field">
                 <div className="control google-control">
-                  <button className="button is-medium" onClick={() => { this.setState({ signUpType: 'google' }) }}>
+                  <button id="signup-google-btn" className="button is-medium" onClick={() => { this.setState({ signUpType: 'google' }) }}>
                     <span className="icon">
                       <i className='fab fa-google'></i>
                     </span>
