@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { privateRegistration } from '../actions';
+import * as ROUTES from '../constants/routes';
+import * as ENVIRON from '../constants/environment';
 
 
 class PrivateRegistrationBase extends Component {
@@ -23,12 +26,26 @@ class PrivateRegistrationBase extends Component {
             date: '',
             vessel_length: '',
             hulls: null,
-            agreement: ''
-
+            agreement: '',
+            ports: []
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        fetch(`${ENVIRON.DEPLOYMENT_SERVER_ADDRESS}/api/ports/`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }).then((response) => response.json())
+        .then(data => {
+            this.setState({
+            "ports": data["ports"]
+            })
+        });
     }
 
     handleChange(e) {
@@ -43,11 +60,80 @@ class PrivateRegistrationBase extends Component {
         this.props.register(formData);
     }
 
+    renderPorts() {
+        const { ports } = this.state;
+
+        return (
+            ports.map((port) => {
+                return (
+                    <option value={port}>{port}</option>
+                );
+            })
+        );
+    }
+
+    renderSteps() {
+        return (
+            <div class="steps" id="stepsDemo">
+                <div class="step-item is-success">
+                    <div class="step-marker">1</div>
+                    <div class="step-details">
+                    <p class="step-title">Vessel Info</p>
+                    </div>
+                </div>
+                <div class="step-item is-active is-success">
+                    <div class="step-marker">2</div>
+                    <div class="step-details">
+                    <p class="step-title">Register Info</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker">3</div>
+                    <div class="step-details">
+                    <p class="step-title">Social</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-marker">4</div>
+                    <div class="step-details">
+                    <p class="step-title">Payment</p>
+                    </div>
+                </div>
+                <div class="steps-content">
+                    <div class="step-content has-text-centered"></div>
+                    <div class="step-content has-text-centered"></div>
+                    <div class="step-content has-text-centered"></div>
+                    <div class="step-content has-text-centered is-active">
+                        <h1 class="title is-4">Your account is now created!</h1>
+                    </div>
+                </div>
+
+  <div class="steps-actions">
+    <div class="steps-action">
+      <a href="#" data-nav="previous" class="button is-light">Previous</a>
+    </div>
+    <div class="steps-action">
+      <a href="#" data-nav="next" class="button is-light">Next</a>
+    </div>
+  </div>
+</div>
+        );
+    }
+
     render() {
         const { error, loading} = this.props;
 
+        if (this.props.auth) {
+            return (
+                <div className='container'>
+                    You need to be logged in to register a vessel. <Link to={ROUTES.LOGIN}>Login ?</Link>
+                </div>
+            );
+        }
+
         return (
             <div className='container'>
+            {this.renderSteps()}
             <div className='columns is-centered'>
             <div className='column'>
             <div className="form">
@@ -96,10 +182,8 @@ class PrivateRegistrationBase extends Component {
                     <label className="label">Port</label>
                     <div className="control">
                         <div className="select is-fullwidth">
-                        <select name='port' onChange={this.handleChange}>
-                            <option>Port 1</option>
-                            <option>Port 2</option>
-                            <option>Port 3</option>
+                        <select name='port' value={this.state.port} onChange={this.handleChange}>
+                            {this.renderPorts()}
                         </select>
                         </div>
                     </div>
@@ -208,7 +292,8 @@ const mapStateToProps = (state) => {
     return {
         loading: state.registration.loading,
         error: state.registration.error,
-        message: state.registration.message
+        message: state.registration.message,
+        auth: state.auth
     };
 };
 
@@ -223,4 +308,4 @@ const PrivateRegistration = connect(
     mapDispatchToProps
 )(PrivateRegistrationBase);
 
-export default PrivateRegistration;
+export default withRouter(PrivateRegistration);
