@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import { authLogin } from '../actions';
-import ourFlag from '../assets/our_flag.png';
 import * as ROUTES from '../constants/routes';
 
 class LoginBase extends Component {

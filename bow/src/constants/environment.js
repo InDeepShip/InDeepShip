@@ -1,0 +1,2 @@
+export const DEVELOPMENT_SERVER_ADDRESS = 'http://127.0.0.1:8000';
+export const DEPLOYMENT_SERVER_ADDRESS = 'http://206.189.218.111';

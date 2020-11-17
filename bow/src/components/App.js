@@ -19,7 +19,10 @@ import EditProfile from './EditProfile';
 import VesselNameLookup from './VesselNameLookup';
 import PasswordReset from './PasswordReset';
 import PasswordResetConfirm from './PasswordResetConfirm';
+import PrivateRegistration from './PrivateRegistration';
+import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import * as ROUTES from '../constants/routes';
+
 
 const PrivateRoute = ({
   loggedIn, component, ...rest
@@ -67,6 +70,8 @@ class App extends Component {
           <Route exact path={ROUTES.SIGN_UP} component={Signup} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.VESSEL_NAME_LOOKUP} component={VesselNameLookup} loggedIn={false} accountSetup={false} />
+          <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
+          <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>

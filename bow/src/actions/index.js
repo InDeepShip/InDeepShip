@@ -1,9 +1,28 @@
 import axios from 'axios';
 import * as actionTypes from './types';
+import * as addresses from '../constants/environment';
 
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-axios.defaults.withCredentials = true
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.withCredentials = true;
+
+export const registrationStart = () => {
+  return {
+    type: actionTypes.REGISTRATION_START
+  };
+};
+
+export const registrationSuccess = () => {
+  return {
+    type: actionTypes.REGISTRATION_SUCCESS,
+  };
+};
+
+export const registrationFail = () => {
+  return {
+    type: actionTypes.REGISTRATION_FAIL
+  };
+};
 
 export const authStart = () => {
   return {
@@ -138,6 +157,24 @@ export const passwordReset = (email) => {
         dispatch(passwordResetFail(err));
       });
   };
+};
+
+export const privateRegistration = (registrationForm) => {
+    return dispatch => {
+        dispatch(registrationStart());
+        axios
+            .post(`${addresses.DEVELOPMENT_SERVER_ADDRESS}/api/vesselregistration/private-registration/`, {
+                registration: registrationForm
+            })
+            .then((res) => {
+                const message = res.data.message;
+                localStorage.setItem('message', message);
+                dispatch(registrationSuccess(message));
+            })
+            .catch((err) => {
+                dispatch(registrationFail(err));
+            });
+    };
 };
 
 export const authLogin = (email, password) => {
