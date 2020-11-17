@@ -5,6 +5,7 @@ import ourFlag from '../assets/our_flag.png';
 import { authSignup } from '../actions';
 import * as ROUTES from '../constants/routes';
 import signinButton from '../assets/google_signin_white.png';
+import '../styles/SignUp.scss';
 
 
 // This regex describe the format of a valid email.
@@ -58,7 +59,7 @@ class SignupBase extends Component {
       password2: null,
       name: null,
       address: null,
-      account: 'private'
+      account: null
     }
   }
 
@@ -111,6 +112,75 @@ class SignupBase extends Component {
     })
   };
 
+  renderUserOptions() {
+    return (
+      <div className='tile-container'>
+        <div className='tile is-6 is-vertical is-parent'>
+
+            <h3 className='title section-title'>Select Account Type</h3>
+
+              <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'private' })}>
+                <article className="media">
+                  <div className="media-left">
+                    <span className="icon">
+                      <i className="fas fa-user fa-2x"></i>
+                    </span>
+                  </div>
+                  <div className="media-content">
+                    <div className="content">
+                      <h4>Private Account</h4>
+                      <p>
+                        Account for personal use and registration of personal vessels such as yacht's.
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+
+              <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'broker' })}>
+                <article className="media">
+                  <div className="media-left">
+                    <span className="icon">
+                      <i className="fas fa-user-tie fa-2x"></i>
+                    </span>
+                  </div>
+                  <div className="media-content">
+                    <div className="content">
+                      <h4>Broker Account</h4>
+                      <p>
+                        Accounts for Brokers with advanced features to help you stay on top of vessel documentation
+                        tracking.
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div className="tile is-child box signup-option" onClick={() => this.setState({ account: 'corporate' })}>
+                <article className="media">
+                  <div className="media-left">
+                    <span className="icon">
+                      <i className="fas fa-users fa-2x"></i>
+                    </span>
+                  </div>
+                  <div className="media-content">
+                    <div className="content">
+                      <h4>Corporate Account</h4>
+                      <p>
+                        Account to track all business vessel's and ships. ability to have everyone in the team
+                        manage vessel's documentation.
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { isError } = this.state;
     const { error, loading, token } = this.props;
@@ -120,45 +190,11 @@ class SignupBase extends Component {
       return <Redirect to={ROUTES.LANDING} />;
     }
 
-    if (!this.state.signUpType) {
-      return (
-        <div className='hero is-fullheight'>
-          <div className='hero-body'>
-            <div className='container'>
-              <div className='columns is-centered'>
-                <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
-                  <div className="field">
-                    <div className="control">
-                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'google'})}}>
-                        <span className="icon">
-                          <i className='fab fa-google'></i>
-                        </span>
-                        <span>Sign up with google</span>
-                      </button>
-                    </div>
-                  </div>
-                  <div className='is-fullwidth has-text-centered'>
-                    <span>OR</span>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <button className="button is-medium is-fullwidth" onClick={() => {this.setState({signUpType: 'email'})}}>
-                        <span className="icon">
-                          <i className='fas fa-envelope'></i>
-                        </span>
-                        <span>Sign up with email</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
+    if (!this.state.account) {
+      return this.renderUserOptions();
     }
 
-    document.body.classList.add('has-navbar-fixed-top');
+   document.body.classList.add('has-navbar-fixed-top');
 
     if (this.state.signUpType === 'google') {
       return (
@@ -168,9 +204,9 @@ class SignupBase extends Component {
       );
     }
 
-    if (this.state.signUpType === 'email') {
+    if (this.state.account) {
       return (
-        <div className='hero is-fullheight'>
+        <div className='hero'>
           <div className='hero-body'>
             <div className={containerClasses}>
               <h1 className="is-size-2">Create account</h1>
@@ -240,23 +276,36 @@ class SignupBase extends Component {
                 )}
               </div>
               <div className='field'>
-              <label className='label'>Account Type</label>
-              <div class="control">
-                <div class="select">
-                  <select value={this.state.account} onChange={(e) => this.setState({account: e.target.value})}>
-                    <option value='private'>Personal Account</option>
-                    <option value='broker'>Broker Account</option>
-                  </select>
-                </div>
+                <label className='label'>Account Type</label>
+                <div className="control">
+                  <div className="select">
+                    <select value={this.state.account} onChange={(e) => this.setState({account: e.target.value})}>
+                      <option value='private'>Personal Account</option>
+                      <option value='broker'>Broker Account</option>
+                      <option value='corporate'>Corporate Account</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-              <br />
               <div className='field'>
-                <div className='control'>
+                <div className='control submit-control'>
                   <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
                 </div>
               </div>
-              {loading && (
+                <div className='or-div'>
+                  <span className='or-span'>or</span>
+                </div>
+                  <div className="field">
+                    <div className="control google-control">
+                      <button className="button is-medium" onClick={() => {this.setState({signUpType: 'google'})}}>
+                        <span className="icon">
+                          <i className='fab fa-google'></i>
+                        </span>
+                        <span>Sign up with google</span>
+                      </button>
+                    </div>
+                  </div>
+             {loading && (
                 <span className="loading-icon icon is-large">
                     <i className="fas fa-3x fa-spinner fa-pulse"></i>
                 </span>

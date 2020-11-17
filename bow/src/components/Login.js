@@ -43,19 +43,6 @@ class LoginBase extends Component {
               <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
                 <h1 className="is-size-2">Log in</h1>
                 <div className="field">
-                  <div className="control">
-                    <button className="button is-medium is-fullwidth" onClick={() => { this.setState({ signUpType: 'google' }) }}>
-                      <span className="icon">
-                        <i className='fab fa-google'></i>
-                      </span>
-                      <span>Login with google</span>
-                    </button>
-                  </div>
-                </div>
-                <div className='is-fullwidth has-text-centered'>
-                  <span>OR</span>
-                </div>
-                <div className="field">
                   <label className="label">Email Address</label>
                   <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
                 </div>
@@ -63,7 +50,6 @@ class LoginBase extends Component {
                   <label className="label">Password</label>
                   <input className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
                 </div>
-                <br />
                 <div className='field'>
                   <div className='control'>
                     <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
@@ -73,7 +59,25 @@ class LoginBase extends Component {
                     </Link>
                   </div>
                 </div>
-                {loading && (
+                <br/>
+                <div className='field'>
+                  <span>Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link></span>
+                </div>
+                <div className='or-div'>
+                  <span className='or-span'>or</span>
+                </div>
+                <div className="field">
+                  <div className="control">
+                    <button className="button is-medium is-fullwidth" onClick={() => { this.setState({ signUpType: 'google' }) }}>
+                      <span className="icon">
+                        <i className='fab fa-google'></i>
+                      </span>
+                      <span>Login with google</span>
+                    </button>
+                  </div>
+                </div>
+                <br />
+               {loading && (
                   <span className="loading-icon icon is-large">
                     <i className="fas fa-3x fa-spinner fa-pulse"></i>
                   </span>
