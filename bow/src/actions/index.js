@@ -96,7 +96,7 @@ export const authSignup = (name, address, email, password1, password2, account) 
   return dispatch => {
     dispatch(authStart());
     axios
-      .post('http://127.0.0.1:8000/api/users/signup/', {
+      .post(`${addresses.SERVER_ADDRESS}/api/users/signup/`, {
         name: name,
         address: address,
         username: email,
@@ -125,7 +125,7 @@ export const passwordChange = (oldPassword, newPassword1, newPassword2) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post('http://127.0.0.1:8000/api/users/password/change/', {
+      .post(`${addresses.SERVER_ADDRESS}/api/users/password/change/`, {
         old_password: oldPassword,
         new_password1: newPassword1,
         new_password2: newPassword2
@@ -145,7 +145,7 @@ export const passwordReset = (email) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post('http://127.0.0.1:8000/api/users/password/reset/', {
+      .post(`${addresses.SERVER_ADDRESS}/api/users/password/reset/`, {
         email: email
       })
       .then(res => {
@@ -181,7 +181,7 @@ export const authLogin = (email, password) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post('http://127.0.0.1:8000/api/users/login/', {
+      .post(`${addresses.SERVER_ADDRESS}/api/users/login/`, {
         username: email,
         email: email,
         password: password
