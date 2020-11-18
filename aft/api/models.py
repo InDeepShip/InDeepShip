@@ -14,3 +14,9 @@ class Vessel(models.Model):
     port = models.ForeignKey(Port, null=False, on_delete=models.CASCADE)
 #    class Meta:
 #        app_label = 'api.Vessel'
+
+class Propulsion(models.Model):
+    name = models.CharField(max_length=128, null=False, default="")
+#    class Meta:
+#        app_label = 'Propulsion'
+

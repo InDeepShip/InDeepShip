@@ -8,5 +8,6 @@ urlpatterns = [
     path('bugreport/', views.bug_report),
     path('vessel_lookup/', views.vessel_lookup),
     path('ports/', views.ports),
+    path('propulsion_methods/', views.propulsion_methods),
     path('', views.api_overview)
 ]

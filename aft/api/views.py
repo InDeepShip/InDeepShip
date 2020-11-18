@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port
+from .models import Vessel, Port, Propulsion
 from django.views.decorators.csrf import csrf_exempt
 
 import requests
@@ -126,4 +126,12 @@ def ports(request):
     # get all ports from the database
     port_names = [port.name for port in Port.objects.all()]
     data = {"ports": port_names}
+    return Response(data=data, status=200)
+
+@csrf_exempt
+@api_view(['GET'])
+def propulsion_methods(request):
+    # get all propulsion methods from the database
+    propulsion_names = [propulsion.name for propulsion in Propulsion.objects.all()]
+    data = {"propulsion_methods": propulsion_names}
     return Response(data=data, status=200)
