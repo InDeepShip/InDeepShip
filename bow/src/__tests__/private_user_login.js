@@ -1,4 +1,4 @@
-
+require("dotenv").config()
 const puppeteer = require('puppeteer');
 
 describe('Private user log-in process', () => {
@@ -19,34 +19,34 @@ describe('Private user log-in process', () => {
 
     test('can click reset password', async () => {
         let page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login/`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
 
         const [response] = await Promise.all([
             page.waitForNavigation(),
             page.click("#pwd-reset-btn"),
           ]);
 
-        expect(response).not.toBe('null');
+          expect(await page.$("#pwd-reset-page-selector")).not.toBe('null');
 
     });
 
     test('can click signup', async () => {
         let page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login/`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
 
         const [response] = await Promise.all([
             page.waitForNavigation(),
             page.click("#signup-link-selector"),
           ]);
-
-        expect(response).not.toBe('null');
+        
+        expect(await page.$("#signup-option-private")).not.toBe('null');
 
     });
 
     test("a registered private user can log in", async () => {
         // Arrange: initialize code
         let page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login/`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
         const registeredUser = { name: "David", address: "1150 high street", email: " aa@aa.com", password1: "11111111", password2: "11111111" };
 
 
@@ -54,8 +54,13 @@ describe('Private user log-in process', () => {
         await page.waitForSelector('#login-form');
         await page.type('#email-selector', registeredUser.email);
         await page.type('#pwd-selector', registeredUser.password1);
-        await page.click('#login-submit-btn');
+        
+        await Promise.all([
+            page.waitForNavigation(), 
+            page.click('#login-submit-btn', {delay: 1000})
+          ]);
 
+        expect(await page.$('#landing-page-selector')).not.toBe('null');
         // Assert
 
 
@@ -64,13 +69,17 @@ describe('Private user log-in process', () => {
     test("a non-registered private user cannot log in", async () => {
         let page = browser.newPage();
         const nonRegisteredUser = {name : "invalid user", email : " invalid@mail.com", password : "11111111"};
-        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login/`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
 
         await page.waitForSelector('#login-form');
         await page.type('#email-selector', nonRegisteredUser.email);
         await page.type('#pwd-selector', nonRegisteredUser.password);
-        await page.click('#login-submit-btn');
+        await Promise.all([
+            page.waitForNavigation(), 
+            page.click('#login-submit-btn', {delay: 1000})
+          ]);
 
+        expect(await page.$('#landing-page-selector')).toBe('null');
         
     });
 

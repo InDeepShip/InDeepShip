@@ -10,6 +10,7 @@
     "axios": "^0.21.0",
     "bulma": "^0.9.1",
     "bulma-steps": "^2.2.1",
+    "dotenv": "^8.2.0",
     "fix-image-rotation": "^2.0.0",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.14.1",

@@ -27,7 +27,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <section className="hero is-medium landing-header">
+        <section id="landing-page-selector" className="hero is-medium landing-header">
           <div className='overlay'></div>
           <div className="hero-body is-medium">
             <div className="container">
