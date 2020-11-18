@@ -81,7 +81,7 @@ class VesselNameLookup extends Component {
   }
 
   PromptToReserve() {
-    if (this.props.auth) {
+    if (!this.props.auth) {
       return (
         <div>
           <br />
