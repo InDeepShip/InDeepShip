@@ -62,9 +62,11 @@ def vessel_lookup(request):
         ships_with_name = Vessel.objects.get(
             name=ship_name, port__name=port_name)
         message = f"There is already a vessel with the name {ship_name} in the port {port_name}."
+        name_available = False
     except Vessel.DoesNotExist:
         message = f"The name {ship_name} is available in the port {port_name}."
-    return Response(data={"message": message}, status=200)
+        name_available = True
+    return Response(data={"message": message, "available": name_available}, status=200)
 
 
 @csrf_exempt

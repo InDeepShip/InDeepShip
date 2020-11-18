@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import brandingImg from '../assets/our_flag.png';
 import '../styles/Organization.scss';
 import { Field, reduxForm } from 'redux-form';
+import * as ROUTES from '../constants/routes';
+import { Link, withRouter } from 'react-router-dom';
+import { Alert } from 'reactstrap';
+
+
 
 const renderField = ({
   input,
@@ -27,8 +32,13 @@ class VesselNameLookup extends Component {
     const vessel = "Vessel";
     this.state = {
       ports: [],
-      selectedPort: ""
+      selectedPort: "",
+      name_available: false,
+      application_sent: false
     }
+    this.PromptToReserve = this.PromptToReserve.bind(this)
+    this.reserveName = this.reserveName.bind(this)
+
     fetch("http://206.189.218.111/api/ports/", {
       method: 'GET',
       headers: {
@@ -46,7 +56,9 @@ class VesselNameLookup extends Component {
     const { vesselName, portName } = this.state;
     const vessel = this.state["vesselName"];
     const port = this.state["selectedPort"];
-    fetch("http://206.189.218.111/api/vessel_lookup/",
+    this.setState({application_sent: false})
+    // fetch("http://206.189.218.111/api/vessel_lookup/",
+    fetch("http://127.0.0.1:8000/api/vessel_lookup/",
       {
         method: 'POST',
         body: JSON.stringify({
@@ -61,11 +73,40 @@ class VesselNameLookup extends Component {
       .then((response) => response.json())
       .then(data => {
         this.setState({
-          availability: data["message"]
-        });
-      }
-      );
+          availability: data["message"], name_available: data["available"]
+        })})
+  }
 
+  reserveName() {
+    // TODO SEND POST REQUEST TO RESERVE NAME - ZT - 11/17/2020
+    // NEED TO CREATE DB FIRST TO DETERMINE HOW TO HANDLE RESERVED NAMES 
+    this.setState({application_sent: true})
+    return null; 
+  }
+
+  PromptToReserve() {
+    if (this.props.auth) {
+      return (
+          <div>
+            <br />
+              <h1>You can <Link to={ROUTES.LOGIN}>login</Link> or <Link to={ROUTES.SIGN_UP}>sign up</Link> to reserve this vessel name.</h1>
+          </div>
+      );
+  }
+
+    return <div className='field'>
+            <div className='control'>
+              <br />
+              <h1>Would you like to submit an application to reserve this name under your account?</h1>
+              <br />
+              <button className='button is-primary' onClick={this.reserveName}>Reserve Name</button>
+            </div>
+            <div>
+            <br />
+              {this.state.application_sent ?  <h1>An application has been successfully submitted!</h1>: null}
+            </div>
+          </div>
+          ;
   }
 
   handleChange = (e) => {
@@ -109,7 +150,10 @@ class VesselNameLookup extends Component {
               <div name="resultOfCheck">
                 <h1>{this.state.availability}</h1>
               </div>
-            </div>
+              <div>
+                {this.state.name_available ? <this.PromptToReserve /> : null}
+              </div>
+          </div>
           </div>
         </div>
       </section>
