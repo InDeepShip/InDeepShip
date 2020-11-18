@@ -10,7 +10,7 @@ module.exports = {
   // },
 
   verbose: true,
-  collectCoverage: true,
+  collectCoverage: false,
   // coveragePathIgnorePatterns: [
   //   "<rootDir>/node_modules/",
   //   "<rootDir>/testCoverageReport/",
@@ -25,5 +25,6 @@ module.exports = {
     "!**/testCoverageReport/**"
   ],
   coverageDirectory: "<rootDir>/testCoverageReport/",
-  preset: "jest-puppeteer"
+  preset: "jest-puppeteer",
+  testTimeout: 15000
 };

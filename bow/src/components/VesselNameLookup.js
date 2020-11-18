@@ -4,7 +4,7 @@ import '../styles/Organization.scss';
 import { Field, reduxForm } from 'redux-form';
 import * as ROUTES from '../constants/routes';
 import { Link, withRouter } from 'react-router-dom';
-import { Alert } from 'reactstrap';
+//import { Alert } from 'reactstrap';
 import axios from 'axios';
 
 
