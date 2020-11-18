@@ -4,6 +4,8 @@ import '../styles/Organization.scss';
 import { Field, reduxForm } from 'redux-form';
 import * as ROUTES from '../constants/routes';
 import { Link, withRouter } from 'react-router-dom';
+import { Alert } from 'reactstrap';
+
 
 
 const renderField = ({
@@ -31,9 +33,12 @@ class VesselNameLookup extends Component {
     this.state = {
       ports: [],
       selectedPort: "",
-      name_available: false
+      name_available: false,
+      application_sent: false
     }
     this.PromptToReserve = this.PromptToReserve.bind(this)
+    this.reserveName = this.reserveName.bind(this)
+
     fetch("http://206.189.218.111/api/ports/", {
       method: 'GET',
       headers: {
@@ -51,6 +56,7 @@ class VesselNameLookup extends Component {
     const { vesselName, portName } = this.state;
     const vessel = this.state["vesselName"];
     const port = this.state["selectedPort"];
+    this.setState({application_sent: false})
     // fetch("http://206.189.218.111/api/vessel_lookup/",
     fetch("http://127.0.0.1:8000/api/vessel_lookup/",
       {
@@ -71,19 +77,36 @@ class VesselNameLookup extends Component {
         })})
   }
 
+  reserveName() {
+    // TODO SEND POST REQUEST TO RESERVE NAME - ZT - 11/17/2020
+    // NEED TO CREATE DB FIRST TO DETERMINE HOW TO HANDLE RESERVED NAMES 
+    this.setState({application_sent: true})
+    return null; 
+  }
+
   PromptToReserve() {
-    if (!this.props.auth) {
+    if (this.props.auth) {
       return (
-          <div className='container'>
-              You can login to reserve this vessel name. <Link to={ROUTES.LOGIN}>Login?</Link>
+          <div>
+            <br />
+              <h1>You can <Link to={ROUTES.LOGIN}>login</Link> or <Link to={ROUTES.SIGN_UP}>sign up</Link> to reserve this vessel name.</h1>
           </div>
       );
   }
+
     return <div className='field'>
             <div className='control'>
-              <button className='button is-primary'>Reserve Name</button>
+              <br />
+              <h1>Would you like to submit an application to reserve this name under your account?</h1>
+              <br />
+              <button className='button is-primary' onClick={this.reserveName}>Reserve Name</button>
             </div>
-          </div>;
+            <div>
+            <br />
+              {this.state.application_sent ?  <h1>An application has been successfully submitted!</h1>: null}
+            </div>
+          </div>
+          ;
   }
 
   handleChange = (e) => {
