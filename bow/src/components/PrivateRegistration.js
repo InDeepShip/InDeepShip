@@ -29,7 +29,8 @@ class PrivateRegistrationBase extends Component {
             agreement: '',
             ports: [],
             curr: 0,
-            next: 1
+            next: 1,
+            propulsion_methods: []
         };
 
         if (this.props.auth) {
@@ -54,6 +55,17 @@ class PrivateRegistrationBase extends Component {
                     "ports": data["ports"]
                 })
             });
+        fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/propulsion_methods/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => response.json())
+                .then(data => {
+                    this.setState({
+                        "propulsion_methods": data["propulsion_methods"]
+                    })
+                });
     }
 
     handleChange(e) {
@@ -249,10 +261,10 @@ class PrivateRegistrationBase extends Component {
     }
 
     renderPropulsion() {
-        const propulsions = ['Diesel', 'Gas Turbine', 'Fuel Cell', 'Solar', 'Water-Jet'];
+        const { propulsion_methods } = this.state;
 
         return (
-            propulsions.map((opt, key) => {
+            propulsion_methods.map((opt, key) => {
                 return (
                     <option key={key} value={opt}>{opt}</option>
                 );
