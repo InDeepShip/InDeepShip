@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1605668409405" clover="3.2.0">
+  <project timestamp="1605668409405" name="All files">
+    <metrics statements="66" coveredstatements="3" conditionals="42" coveredconditionals="0" methods="16" coveredmethods="0" elements="124" coveredelements="3" complexity="0" loc="66" ncloc="66" packages="2" files="2" classes="2"/>
+    <package name="components">
+      <metrics statements="63" coveredstatements="0" conditionals="42" coveredconditionals="0" methods="16" coveredmethods="0"/>
+      <file name="Signup.js" path="/Users/siman/Documents/Projects/InDeepShip/bow/src/components/Signup.js">
+        <metrics statements="63" coveredstatements="0" conditionals="42" coveredconditionals="0" methods="16" coveredmethods="0"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="86" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="88" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="93" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="96" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="116" count="0" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
+        <line num="141" count="0" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+        <line num="185" count="0" type="stmt"/>
+        <line num="186" count="0" type="stmt"/>
+        <line num="187" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="189" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="190" count="0" type="stmt"/>
+        <line num="193" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="194" count="0" type="stmt"/>
+        <line num="197" count="0" type="stmt"/>
+        <line num="199" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="200" count="0" type="stmt"/>
+        <line num="207" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="208" count="0" type="stmt"/>
+        <line num="282" count="0" type="stmt"/>
+        <line num="300" count="0" type="stmt"/>
+        <line num="321" count="0" type="stmt"/>
+        <line num="322" count="0" type="stmt"/>
+        <line num="329" count="0" type="stmt"/>
+        <line num="330" count="0" type="stmt"/>
+        <line num="332" count="0" type="stmt"/>
+        <line num="336" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="constants">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="environment.js" path="/Users/siman/Documents/Projects/InDeepShip/bow/src/constants/environment.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

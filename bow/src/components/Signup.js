@@ -157,7 +157,7 @@ class SignupBase extends Component {
             </article>
           </div>
 
-          <div id="signup-option-coroporate" className="tile is-child box signup-option" onClick={() => this.setState({ account: 'corporate' })}>
+          <div id="signup-option-corporate" className="tile is-child box signup-option" onClick={() => this.setState({ account: 'corporate' })}>
             <article className="media">
               <div className="media-left">
                 <span className="icon">
@@ -206,14 +206,14 @@ class SignupBase extends Component {
 
     if (this.state.account) {
       return (
-        <div className='hero'>
+        <div id="signup-form" className='hero'>
           <div className='hero-body'>
             <div className={containerClasses}>
               <h1 className="is-size-2">Create account</h1>
               <div className="field">
                 <label className="label">Name</label>
                 <div className='control'>
-                  <input className='input' placeholder="Name" type="text" name="name" onChange={this.formValChange} />
+                  <input id="name-selector" className='input' placeholder="Name" type="text" name="name" onChange={this.formValChange} />
                 </div>
                 {isError.name.length > 0 && (
                   <p className='help is-danger'>
@@ -224,7 +224,7 @@ class SignupBase extends Component {
               <div className="field">
                 <label className="label">Home Address</label>
                 <div className='control has-icons-left'>
-                  <input className='input' placeholder="Address" type="text" name="address" onChange={this.formValChange} />
+                  <input id="home-address-selector" className='input' placeholder="Address" type="text" name="address" onChange={this.formValChange} />
                   <span className='icon is-small is-left'>
                     <i className='fas fa-home'></i>
                   </span>
@@ -236,7 +236,7 @@ class SignupBase extends Component {
               <div className="field">
                 <label className="label">Email address</label>
                 <div className='control has-icons-left'>
-                  <input className='input' placeholder="Email address" type="text" name="email" onChange={this.formValChange} />
+                  <input id="email-selector" className='input' placeholder="Email address" type="text" name="email" onChange={this.formValChange} />
                   <span className='icon is-small is-left'>
                     <i className='fas fa-envelope'></i>
                   </span>
@@ -250,7 +250,7 @@ class SignupBase extends Component {
               <div className="field">
                 <label className="label">Password</label>
                 <div className='control has-icons-left'>
-                  <input className='input' placeholder="Password" type="password" name="password1" onChange={this.formValChange} />
+                  <input id="pwd1-selector" className='input' placeholder="Password" type="password" name="password1" onChange={this.formValChange} />
                   <span className='icon is-small is-left'>
                     <i className='fas fa-lock'></i>
                   </span>
@@ -264,7 +264,7 @@ class SignupBase extends Component {
               <div className="field">
                 <label className="label">Re-enter password</label>
                 <div className='control has-icons-left'>
-                  <input className='input' placeholder="Reenter Password" type="password" name="password2" onChange={this.formValChange} />
+                  <input id="pwd2-selector" className='input' placeholder="Reenter Password" type="password" name="password2" onChange={this.formValChange} />
                   <span className='icon is-small is-left'>
                     <i className='fas fa-lock'></i>
                   </span>
