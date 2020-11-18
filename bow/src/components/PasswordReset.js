@@ -34,7 +34,7 @@ class PasswordResetBase extends Component {
         }
 
         return (
-            <div className='hero is-full-height'>
+            <div id="pwd-reset-page-selector" className='hero is-full-height'>
                 <div className='hero-body'>
                     <div className='columns is-centered'>
                         <div className='column is-5-tablet is-4-desktop is-3-widescreen'>

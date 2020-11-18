@@ -37,37 +37,37 @@ class LoginBase extends Component {
     return (
       <div className='hero is-full-height'>
         <div className='hero-body'>
-          <div className={containerClasses}>
+          <div id="login-form" className={containerClasses}>
             <div className='columns is-centered'>
               <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
                 <h1 className="is-size-2">Log in</h1>
                 <div className="field">
                   <label className="label">Email Address</label>
-                  <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
+                  <input id="email-selector" className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
                 </div>
                 <div className="field">
                   <label className="label">Password</label>
-                  <input className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
+                  <input id="pwd-selector" className='input' placeholder="Password" type="password" name="password" onChange={this.handleChange} />
                 </div>
                 <div className='field'>
                   <div className='control'>
-                    <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                    <button id="login-submit-btn" className='button is-primary' onClick={this.onSubmit}>Submit</button>
                                     &nbsp;&nbsp;&nbsp;
                     <Link className="link password-reset" to={ROUTES.PASSWORD_RESET}>
-                      <button className='button password-reset'>Forgot password?</button>
+                      <button id="pwd-reset-btn" className='button password-reset'>Forgot password?</button>
                     </Link>
                   </div>
                 </div>
                 <br/>
                 <div className='field'>
-                  <span>Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link></span>
+                  <span>Don't have an account? <Link id="signup-link-selector" to={ROUTES.SIGN_UP}>Sign Up</Link></span>
                 </div>
                 <div className='or-div'>
                   <span className='or-span'>or</span>
                 </div>
                 <div className="field">
                   <div className="control">
-                    <button className="button is-medium is-fullwidth" onClick={() => { this.setState({ signUpType: 'google' }) }}>
+                    <button id="login-google-btn" className="button is-medium is-fullwidth" onClick={() => { this.setState({ signUpType: 'google' }) }}>
                       <span className="icon">
                         <i className='fab fa-google'></i>
                       </span>
