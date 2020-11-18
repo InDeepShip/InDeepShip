@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+require("dotenv").config()
 
 describe('Private user sign-up process', () => {
     let browser;
