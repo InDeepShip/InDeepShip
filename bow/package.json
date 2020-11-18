@@ -30,7 +30,7 @@
     "start": "react-scripts start",
     "watch": "npm-watch",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watch",
     "eject": "react-scripts eject"
   },
   "watch": {
