@@ -1,10 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './types';
 
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.withCredentials = true;
-
 export const registrationStart = () => {
   return {
     type: actionTypes.REGISTRATION_START

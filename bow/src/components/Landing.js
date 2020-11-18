@@ -12,7 +12,7 @@ class App extends Component {
     this.state = {
       ports: [],
     }
-    fetch("http://206.189.218.111/api/ports/", {
+    fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/ports/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

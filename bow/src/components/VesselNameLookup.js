@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import * as ROUTES from '../constants/routes';
 import { Link, withRouter } from 'react-router-dom';
 import { Alert } from 'reactstrap';
+import axios from 'axios';
 
 
 
@@ -39,17 +40,16 @@ class VesselNameLookup extends Component {
     this.PromptToReserve = this.PromptToReserve.bind(this)
     this.reserveName = this.reserveName.bind(this)
 
-    fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/ports/`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => response.json())
-      .then(data => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/ports/`)
+      .then(res => {
         this.setState({
-          "ports": data["ports"]
+          "ports": res.data.ports
         })
       })
+      .catch(err => {
+        console.log(err)
+      });
   }
 
   checkNameAvailability = (e) => {
@@ -57,24 +57,20 @@ class VesselNameLookup extends Component {
     const vessel = this.state["vesselName"];
     const port = this.state["selectedPort"];
     this.setState({ application_sent: false })
-    fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          "vesselName": vessel,
-          "portName": port
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    )
-      .then((response) => response.json())
-      .then(data => {
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
+        "vesselName": vessel,
+        "portName": port
+      })
+      .then(res => {
         this.setState({
-          availability: data["message"], name_available: data["available"]
+          availability: res.data.message, name_available: res.data.available
         })
       })
+      .catch(err => {
+        console.log(err)
+      });
   }
 
   reserveName() {

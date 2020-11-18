@@ -60,7 +60,7 @@ class NavBar extends Component {
     this.setState({
       showBugModal: false
     })
-    const response = fetch("http://206.189.218.111/api/bugreport/",
+    const response = fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/bugreport/`,
       {
         method: 'POST',
         body: JSON.stringify({
