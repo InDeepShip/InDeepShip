@@ -1,4 +1,3 @@
-import * as addresses from '../constants/environment';
 const puppeteer = require('puppeteer');
 
 describe('Private user sign-up process', () => {
@@ -19,22 +18,22 @@ describe('Private user sign-up process', () => {
 
     it('can click private account options', async () => {
         let page = await browser.newPage();
-        await page.goto(`${addresses.SERVER_ADDRESS}/signup/`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup/`);
 
         await page.click("#signup-option-private");
         await page.waitForSelector('#signup-form');
 
         expect(await page.$('#signup-form')).not.toBe('null');
-        
+
     });
-    
+
 
     test("can sign up a new private user", async () => {
         // Arrange: initialize code
         let page = await browser.newPage();
-        await page.goto(`${addresses.SERVER_ADDRESS}/signup/`);
-        const user = {name : "David", address : "1150 high street", email : " aa@aa.com", password1 : "11111111", password2 : "11111111"};
-        
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup/`);
+        const user = { name: "David", address: "1150 high street", email: " aa@aa.com", password1: "11111111", password2: "11111111" };
+
 
         // Act
         await page.click("#signup-option-private");
@@ -47,14 +46,14 @@ describe('Private user sign-up process', () => {
         await page.type('#pwd2-selector', user.password2);
 
         await page.click('#signup-submit-btn');
-        
+
         // Assert
-        
-        
+
+
     });
 
     // test("Should not add the user to the store if it's not saved to the server", async () => {
-        
+
     //     const user = {name : "David", address : "1150 high stree", email : " aa@aa.com", password1 : "11111111", password2 : "11111111", account : "broker"};
     //     fakeAxios.onPost("http://127.0.0.1:8000/api/users/signup/").reply(500);
 
@@ -62,6 +61,6 @@ describe('Private user sign-up process', () => {
 
     //     expect(userSlice().user).toHaveLength(0);
     // });
-    
+
 });
 

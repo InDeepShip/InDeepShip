@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { privateRegistration } from '../actions';
 import * as ROUTES from '../constants/routes';
-import * as ENVIRON from '../constants/environment';
 import '../styles/PrivateRegistration.scss';
 
 
@@ -44,17 +43,17 @@ class PrivateRegistrationBase extends Component {
     }
 
     componentDidMount() {
-        fetch(`${ENVIRON.SERVER_ADDRESS}/api/ports/`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/ports/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then((response) => response.json())
-        .then(data => {
-            this.setState({
-            "ports": data["ports"]
-            })
-        });
+            .then(data => {
+                this.setState({
+                    "ports": data["ports"]
+                })
+            });
     }
 
     handleChange(e) {
@@ -85,9 +84,9 @@ class PrivateRegistrationBase extends Component {
                             <label className="label">Port</label>
                             <div className="control">
                                 <div className="select is-fullwidth">
-                                <select name='port' value={this.state.port} onChange={this.handleChange}>
-                                    {this.renderPorts()}
-                                </select>
+                                    <select name='port' value={this.state.port} onChange={this.handleChange}>
+                                        {this.renderPorts()}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +122,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Owner Name</label>
                             <div className="control">
-                                <input className="input" name='name' type="text"  value={this.state.name} onChange={this.handleChange} />
+                                <input className="input" name='name' type="text" value={this.state.name} onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="field">
@@ -163,7 +162,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Builder Name</label>
                             <div className="control">
-                                <input className="input" name='builder_name' type="text" placeholder="Builder Name" onChange={this.handleChange}/>
+                                <input className="input" name='builder_name' type="text" placeholder="Builder Name" onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="field">
@@ -186,13 +185,13 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Length of Ship</label>
                             <div className="control">
-                                <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange}/>
+                                <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="field">
                             <label className="label">Number of Hulls</label>
                             <div className="control has-icons-left">
-                                <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange}/>
+                                <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange} />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-hashtag'></i>
                                 </span>
@@ -202,9 +201,9 @@ class PrivateRegistrationBase extends Component {
                             <label className="label">Method of Propulsion</label>
                             <div className="control">
                                 <div className="select is-fullwidth">
-                                <select name='propulsion' onChange={this.handleChange}>
-                                    {this.renderPropulsion()}
-                                </select>
+                                    <select name='propulsion' onChange={this.handleChange}>
+                                        {this.renderPropulsion()}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +222,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <div className="control">
                                 <label className="checkbox">
-                                <input type="checkbox" name='agreement' onChange={this.handleChange} />
+                                    <input type="checkbox" name='agreement' onChange={this.handleChange} />
                                     <span> I agree that all boat use will be personal and NOT commercial</span>
                                 </label>
                             </div>
@@ -250,7 +249,7 @@ class PrivateRegistrationBase extends Component {
     }
 
     renderPropulsion() {
-        const propulsions  = ['Diesel', 'Gas Turbine', 'Fuel Cell', 'Solar', 'Water-Jet'];
+        const propulsions = ['Diesel', 'Gas Turbine', 'Fuel Cell', 'Solar', 'Water-Jet'];
 
         return (
             propulsions.map((opt, key) => {
@@ -268,21 +267,21 @@ class PrivateRegistrationBase extends Component {
         return (
             <div className="steps" id="stepsDemo">
                 <div className='steps-container'>
-                {
-                    steps.map((step, index) => {
-                        const isActive = curr == index ? 'is-active' : '';
-                        const isComplete = index < curr ? 'is-completed': '';
+                    {
+                        steps.map((step, index) => {
+                            const isActive = curr == index ? 'is-active' : '';
+                            const isComplete = index < curr ? 'is-completed' : '';
 
-                        return (
-                            <div className={`step-item ${isActive} ${isComplete}`}>
-                                <div className="step-marker">{index + 1}</div>
-                                <div className="step-details">
-                                    <p className="step-title">{step}</p>
+                            return (
+                                <div className={`step-item ${isActive} ${isComplete}`}>
+                                    <div className="step-marker">{index + 1}</div>
+                                    <div className="step-details">
+                                        <p className="step-title">{step}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        );
-                    })
-                }
+                            );
+                        })
+                    }
                 </div>
                 <div className="steps-content">
                     {
@@ -297,17 +296,17 @@ class PrivateRegistrationBase extends Component {
                 </div>
 
                 <div className="steps-actions">
-                    {(curr > 0) &&    <Fragment>
-                            <div className="steps-action">
-                                <a
-                                    href="#"
-                                    data-nav="previous"
-                                    className="button is-light"
-                                    onClick={() => this.setState({ curr: curr - 1, next: next - 1})}>
-                                        Previous
+                    {(curr > 0) && <Fragment>
+                        <div className="steps-action">
+                            <a
+                                href="#"
+                                data-nav="previous"
+                                className="button is-light"
+                                onClick={() => this.setState({ curr: curr - 1, next: next - 1 })}>
+                                Previous
                                 </a>
-                            </div>
-                        </Fragment>
+                        </div>
+                    </Fragment>
                     }
                     {(curr < 4) &&
                         <Fragment>
@@ -316,8 +315,8 @@ class PrivateRegistrationBase extends Component {
                                     href="#"
                                     data-nav="next"
                                     className="button is-light"
-                                    onClick={() => this.setState({ curr: curr + 1, next: next + 1})}>
-                                        Next
+                                    onClick={() => this.setState({ curr: curr + 1, next: next + 1 })}>
+                                    Next
                                 </a>
                             </div>
                         </Fragment>
@@ -329,13 +328,13 @@ class PrivateRegistrationBase extends Component {
                             </div>
                         </Fragment>
                     }
-               </div>
+                </div>
             </div>
         );
     }
 
     render() {
-        const { error, loading} = this.props;
+        const { error, loading } = this.props;
 
         if (!this.props.auth) {
             return (

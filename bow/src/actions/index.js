@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as actionTypes from './types';
-import * as addresses from '../constants/environment';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -96,7 +95,7 @@ export const authSignup = (name, address, email, password1, password2, account) 
   return dispatch => {
     dispatch(authStart());
     axios
-      .post(`${addresses.SERVER_ADDRESS}/api/users/signup/`, {
+      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/signup/`, {
         name: name,
         address: address,
         username: email,
@@ -125,7 +124,7 @@ export const passwordChange = (oldPassword, newPassword1, newPassword2) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post(`${addresses.SERVER_ADDRESS}/api/users/password/change/`, {
+      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/change/`, {
         old_password: oldPassword,
         new_password1: newPassword1,
         new_password2: newPassword2
@@ -145,7 +144,7 @@ export const passwordReset = (email) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post(`${addresses.SERVER_ADDRESS}/api/users/password/reset/`, {
+      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/reset/`, {
         email: email
       })
       .then(res => {
@@ -160,28 +159,28 @@ export const passwordReset = (email) => {
 };
 
 export const privateRegistration = (registrationForm) => {
-    return dispatch => {
-        dispatch(registrationStart());
-        axios
-            .post(`${addresses.SERVER_ADDRESS}/api/vesselregistration/private-registration/`, {
-                registration: registrationForm
-            })
-            .then((res) => {
-                const message = res.data.message;
-                localStorage.setItem('message', message);
-                dispatch(registrationSuccess(message));
-            })
-            .catch((err) => {
-                dispatch(registrationFail(err));
-            });
-    };
+  return dispatch => {
+    dispatch(registrationStart());
+    axios
+      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vesselregistration/private-registration/`, {
+        registration: registrationForm
+      })
+      .then((res) => {
+        const message = res.data.message;
+        localStorage.setItem('message', message);
+        dispatch(registrationSuccess(message));
+      })
+      .catch((err) => {
+        dispatch(registrationFail(err));
+      });
+  };
 };
 
 export const authLogin = (email, password) => {
   return dispatch => {
     dispatch(authStart());
     axios
-      .post(`${addresses.SERVER_ADDRESS}/api/users/login/`, {
+      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/login/`, {
         username: email,
         email: email,
         password: password
