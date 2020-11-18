@@ -1,5 +1,7 @@
 @import 'bulma';
 
+$desktop-width: 1024px;
+
 .navbar-item-2 {
     color: #ffffff !important;
     background-color: transparent !important;
@@ -20,6 +22,8 @@
     max-height: 3.25rem;
 }
 
-.navbar-brand {
-    padding-left: 0.75rem;
+@media (min-width: $desktop-width){
+    .navbar-brand {
+        padding-left: 0.75rem;
+    }
 }
