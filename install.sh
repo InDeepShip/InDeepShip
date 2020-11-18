@@ -21,7 +21,7 @@ pushd /var
 
 rm -rf InDeepShip
 git clone git@github.com:InDeepShip/InDeepShip.git
-echo 'REACT_APP_SERVER_ADDRESS="http://206.189.218.111/"' > /var/InDeepShip/bow/.env
+echo 'REACT_APP_SERVER_ADDRESS="http://206.189.218.111"' > /var/InDeepShip/bow/.env
 pushd InDeepShip
 
 ########################################
