@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import brandingImg from '../assets/our_flag.png';
 import '../styles/Organization.scss';
-import { Field, reduxForm } from 'redux-form';
 import * as ROUTES from '../constants/routes';
 import { Link, withRouter } from 'react-router-dom';
-import { Alert } from 'reactstrap';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
 
 
 
@@ -37,7 +37,7 @@ class VesselNameLookup extends Component {
       name_available: false,
       application_sent: false
     }
-    this.PromptToReserve = this.PromptToReserve.bind(this)
+    this.promptToReserve = this.promptToReserve.bind(this)
     this.reserveName = this.reserveName.bind(this)
 
     axios
@@ -80,7 +80,7 @@ class VesselNameLookup extends Component {
     return null;
   }
 
-  PromptToReserve() {
+  promptToReserve() {
     if (!this.props.auth) {
       return (
         <div>
@@ -88,21 +88,24 @@ class VesselNameLookup extends Component {
           <h1>You can <Link to={ROUTES.LOGIN}>login</Link> or <Link to={ROUTES.SIGN_UP}>sign up</Link> to reserve this vessel name.</h1>
         </div>
       );
+    } else{
+      return(
+         <div className='field'>
+          <div className='control'>
+            <br />
+            <h1>Would you like to submit an application to reserve this name under your account?</h1>
+            <br />
+            <button className='button is-primary' onClick={this.reserveName}>Reserve Name</button>
+          </div>
+          <div>
+            <br />
+            {this.state.application_sent ? <h1>An application has been successfully submitted!</h1> : null}
+          </div>
+        </div>)
+      ;
     }
 
-    return <div className='field'>
-      <div className='control'>
-        <br />
-        <h1>Would you like to submit an application to reserve this name under your account?</h1>
-        <br />
-        <button className='button is-primary' onClick={this.reserveName}>Reserve Name</button>
-      </div>
-      <div>
-        <br />
-        {this.state.application_sent ? <h1>An application has been successfully submitted!</h1> : null}
-      </div>
-    </div>
-      ;
+    
   }
 
   handleChange = (e) => {
@@ -147,7 +150,7 @@ class VesselNameLookup extends Component {
                 <h1>{this.state.availability}</h1>
               </div>
               <div>
-                {this.state.name_available ? <this.PromptToReserve /> : null}
+                {this.state.name_available ? <this.promptToReserve /> : null}
               </div>
             </div>
           </div>
@@ -157,4 +160,14 @@ class VesselNameLookup extends Component {
   }
 }
 
-export default VesselNameLookup;
+const mapStateToProps = (state) => {
+  return {
+      auth: state.auth
+  };
+};
+
+const VesselNameLookupConnect = connect(
+  mapStateToProps
+)(VesselNameLookup);
+
+export default withRouter(VesselNameLookupConnect);
