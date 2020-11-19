@@ -58,9 +58,9 @@ DEFAULT_FROM_EMAIL = 'Navis Album DRS <noreply@navisalbum.com>'
 # Site id is the id of the site_name to use from the django_site table.
 # This option changes the site_name and domain in the email sent by
 # password reset.
-# SITE_ID = 80 is localhost
-# SITE_ID = 81 is 206.189.218.111
-SITE_ID = 80
+# SITE_ID = 79 is 127.0.0.1:3000 (for testing)
+# SITE_ID = 81 is 206.189.218.111 (for production)
+SITE_ID = 79
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
