@@ -25,15 +25,19 @@ class ServiceCards extends Component {
                                     <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
                                 </figure>
                             </div>
+                            <header className="card-header">
+                                <p className="card-header-title">
+                                    Private Registration
+                                </p>
+                            </header>
                             <div className='card-content'>
-                                <p className="title">Private Registration</p>
                                 <div className="content">
                                     Private Owners are now able to register
                                     their boats or yachts digitally.
                                 </div>
                             </div>
-                            <footer className="card-footer">
-                                <a href="#" className="card-footer-item">Learn More</a>
+                            <footer className="card-footer service-card-footer">
+                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
                             </footer>
                             </div>
                         </Link>
@@ -46,15 +50,19 @@ class ServiceCards extends Component {
                                     <img src="https://images.unsplash.com/photo-1555562791-3cdb883dde6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80" alt="Placeholder image" />
                                 </figure>
                             </div>
+                            <header className="card-header">
+                                <p className="card-header-title">
+                                    Vessel Name Lookup
+                                </p>
+                            </header>
                             <div className='card-content'>
-                                <p className="title">Check Availability of Vessel Name</p>
                                 <div className="content">
                                     Check to see if a vessel name is available for
                                     any of the Navis Album ports
                                 </div>
                             </div>
-                            <footer className="card-footer">
-                                <a href="#" className="card-footer-item">Learn More</a>
+                            <footer className="card-footer service-card-footer">
+                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
                             </footer>
                             </div>
                         </Link>
@@ -66,15 +74,19 @@ class ServiceCards extends Component {
                                     <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1403&q=80" alt="Placeholder image" />
                                 </figure>
                             </div>
+                            <header className="card-header">
+                                <p className="card-header-title">
+                                    Merchant Registration
+                                </p>
+                            </header>
                             <div className='card-content'>
-                                <p className="title">Commercial Registration</p>
                                 <div className="content">
                                     Registration of commercial shipping vessels
                                     are also able to sail with the Navis Album flag.
                                 </div>
                             </div>
-                            <footer className="card-footer">
-                                <a href="#" className="card-footer-item">Learn More</a>
+                            <footer className="card-footer service-card-footer">
+                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
                             </footer>
                         </div>
                     </div>
@@ -85,15 +97,19 @@ class ServiceCards extends Component {
                                     <img src="https://images.unsplash.com/photo-1550565118-3a14e8d0386f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
                                 </figure>
                             </div>
+                            <header className="card-header">
+                                <p className="card-header-title">
+                                    Make a Payment
+                                </p>
+                            </header>
                             <div className='card-content'>
-                                <p className="title">Pay Invoice or Make Payment</p>
                                 <div className="content">
                                     Pay an invoice for ship registration or make a payment for
                                     documentations.
                                 </div>
                             </div>
-                            <footer className="card-footer">
-                                <a href="#" className="card-footer-item">Learn More</a>
+                            <footer className="card-footer service-card-footer">
+                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
                             </footer>
                         </div>
                     </div>
@@ -104,15 +120,19 @@ class ServiceCards extends Component {
                                     <img src="https://images.unsplash.com/photo-1495657809423-db624a2298dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1366&q=80" alt="Placeholder image" />
                                 </figure>
                             </div>
+                            <header className="card-header">
+                                <p className="card-header-title">
+                                    Vessel Tracking
+                                </p>
+                            </header>
                             <div className='card-content'>
-                                <p className="title">Broker Vessel Tracking</p>
                                 <div className="content">
                                     Let us help with up to date vessel registration
                                     digital tracking and renewals.
                                 </div>
                             </div>
-                            <footer className="card-footer">
-                                <a href="#" className="card-footer-item">Learn More</a>
+                            <footer className="card-footer service-card-footer">
+                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
                             </footer>
                         </div>
                     </div>
