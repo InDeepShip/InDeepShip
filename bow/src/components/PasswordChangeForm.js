@@ -86,7 +86,7 @@ class PasswordChangeForm extends Component {
             <Field
               name="oldPassword"
               component={renderField}
-              type="text"
+              type="password"
               label="Enter Password"
               placeholder="Old Password"
               validate={[required, minLength6]}
@@ -96,7 +96,7 @@ class PasswordChangeForm extends Component {
             <Field
               name="newPassword1"
               component={renderField}
-              type="text"
+              type="password"
               label="New Password"
               placeholder="New Password"
               value=''
@@ -105,7 +105,7 @@ class PasswordChangeForm extends Component {
             <Field
               name="newPassword2"
               component={renderField}
-              type="text"
+              type="password"
               label="Re-Enter Password"
               placeholder="Re-Enter New Password"
               value=''
