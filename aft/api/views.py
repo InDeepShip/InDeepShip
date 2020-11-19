@@ -43,7 +43,7 @@ def vessel_lookup(request):
 
     ### USAGE
 
-    Accepts a post request with message parameter and currentPage param set, for example with the payload:
+    1) Accepts a post request with vesselName parameter and portName param set, for example with the payload:
 
     ```
     {
@@ -55,18 +55,54 @@ def vessel_lookup(request):
 
     Return message:
     The server will return a message to the client letting them know the status of that ship name.
+
+
+    2) Accepts a post request with only vesselName parameter set, for example with the payload:
+
+    ```
+    {
+        "vesselName" : "Fluggy Gate",
+    }
+    ```
+    This will query the backend db and check to see what ports are availble for that name.
+
+    Return message:
+    The server will return a message to the client letting them know the status of that ship name.
     """
     ship_name = request.data.get("vesselName", "")
     port_name = request.data.get("portName", "")
-    try:
-        ships_with_name = Vessel.objects.get(
-            name=ship_name, port__name=port_name)
-        message = f"There is already a vessel with the name {ship_name} in the port {port_name}."
-        name_available = False
-    except Vessel.DoesNotExist:
-        message = f"The name {ship_name} is available in the port {port_name}."
-        name_available = True
-    return Response(data={"message": message, "available": name_available}, status=200)
+
+    if port_name != "":
+        try:
+            ships_with_name = Vessel.objects.get(
+                name=ship_name, port__name=port_name)
+            message = f"There is already a vessel with the name {ship_name} in the port {port_name}."
+            name_available = False
+        except Vessel.DoesNotExist:
+            message = f"The name {ship_name} is available in the port {port_name}."
+            name_available = True
+        return Response(data={"message": message, "available": name_available}, status=200)
+    else:
+        port_names = [port.name for port in Port.objects.all()]
+        try:
+            vessels = Vessel.objects.filter(name=ship_name)
+            for v in vessels:
+                port_names.remove(v.port.name)
+        except Vessel.DoesNotExist:
+            pass
+        if len(port_names) == 0:
+                name_available = False
+                message = f"{ship_name} is not availble at any of our ports."
+        else:
+            port_string = ""
+            for p in port_names:
+                port_string += p + ", "
+            print(ship_name)
+            print(port_names)
+            message = f"{ship_name} is available at {port_string.strip()}"
+            name_available = True
+        return Response(data={"message": message, "available": name_available}, status=200)
+
 
 
 @csrf_exempt
