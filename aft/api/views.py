@@ -5,9 +5,8 @@ from rest_framework import status
 from aft import settings
 from .models import Vessel, Port, Propulsion
 from django.views.decorators.csrf import csrf_exempt
-
+#from users.models import Broker, PrivateUser
 import requests
-
 
 @api_view(['GET'])
 def api_overview(request):

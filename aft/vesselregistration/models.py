@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class PrivateRegistrationForms(models.Model):
+class Registration(models.Model):
     name = models.CharField(max_length=255)
     vessel = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
@@ -18,4 +18,3 @@ class PrivateRegistrationForms(models.Model):
     vessel_length = models.CharField(max_length=255)
     hulls = models.DecimalField(max_digits=3, decimal_places=0)
     purpose = models.CharField(max_length=512)
-
