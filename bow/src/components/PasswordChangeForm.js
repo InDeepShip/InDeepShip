@@ -95,6 +95,7 @@ class PasswordChangeForm extends Component {
               value={this.props.auth.displayName ? this.props.auth.displayName : ''}
             /> */}
             <Field
+              id="oldpassword-selector"
               name="oldPassword"
               component={renderField}
               type="password"
@@ -105,6 +106,7 @@ class PasswordChangeForm extends Component {
               onChange={this.handleChange}
             />
             <Field
+              id="newpassword1-selector"
               name="newPassword1"
               component={renderField}
               type="password"
@@ -114,6 +116,7 @@ class PasswordChangeForm extends Component {
               onChange={this.handleChange}
             />
             <Field
+              id="newpassword2-selector"
               name="newPassword2"
               component={renderField}
               type="password"
@@ -137,6 +140,7 @@ class PasswordChangeForm extends Component {
         <div className="field is-centered">
           <div className="control">
             <button
+              id="save-selector"
               onClick={this.onSubmit}
               className="button is-success"
               disabled={pristine || submitting}

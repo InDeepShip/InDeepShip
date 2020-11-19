@@ -56,11 +56,11 @@ class PasswordResetConfirm extends Component {
                             <h1 className="is-size-3">Password Reset Confirm</h1>
                             <div className="field">
                                 <label className="label">New Password</label>
-                                <input id="new-password-1-selector" className='input' placeholder="Password" type="password" name="new_password1" onChange={this.handleChange} />
+                                <input id="newpassword1-selector" className='input' placeholder="Password" type="password" name="new_password1" onChange={this.handleChange} />
                             </div>
                             <div className="field">
                                 <label className="label">Re-Enter New Password</label>
-                                <input id="new-password-2-selector" className='input' placeholder="Password" type="password" name="new_password2" onChange={this.handleChange} />
+                                <input id="newpassword2-selector" className='input' placeholder="Password" type="password" name="new_password2" onChange={this.handleChange} />
                             </div>
                             <br />
                             <div className='field'>
