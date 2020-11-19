@@ -15,10 +15,11 @@ class ServiceCards extends Component {
 
     render() {
         return (
-            <div className='container has-extra-margin'>
+            <div className='container'>
                 <div className='columns is-multiline is-centered'>
-                    <div className='column is-one-third'>
-                        <Link className="card service-card" to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
+                    <div className='column service-column'>
+                        <Link to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
+                            <div className="card service-card">
                             <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
@@ -31,15 +32,15 @@ class ServiceCards extends Component {
                                     their boats or yachts digitally.
                                 </div>
                             </div>
-                            <div className='card-footer'>
-                                <div className="card-footer-item service-card-footer-item">
-                                    Learn More
-                                </div>
+                            <footer className="card-footer">
+                                <a href="#" className="card-footer-item">Learn More</a>
+                            </footer>
                             </div>
                         </Link>
                     </div>
-                    <div className='column is-one-third'>
-                        <Link className="card service-card" to={ROUTES.VESSEL_NAME_LOOKUP}>
+                    <div className='column service-column'>
+                        <Link to={ROUTES.VESSEL_NAME_LOOKUP}>
+                            <div className="card service-card">
                             <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1555562791-3cdb883dde6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80" alt="Placeholder image" />
@@ -52,14 +53,13 @@ class ServiceCards extends Component {
                                     any of the Navis Album ports
                                 </div>
                             </div>
-                            <div className='card-footer'>
-                                <div className="card-footer-item service-card-footer-item">
-                                    Learn More
-                                </div>
+                            <footer className="card-footer">
+                                <a href="#" className="card-footer-item">Learn More</a>
+                            </footer>
                             </div>
                         </Link>
                     </div>
-                    <div className='column is-one-third'>
+                    <div className='column service-column'>
                         <div className="card service-card">
                             <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
@@ -73,14 +73,12 @@ class ServiceCards extends Component {
                                     are also able to sail with the Navis Album flag.
                                 </div>
                             </div>
-                            <div className='card-footer'>
-                                <div className="card-footer-item service-card-footer-item">
-                                    Learn More
-                                </div>
-                            </div>
+                            <footer className="card-footer">
+                                <a href="#" className="card-footer-item">Learn More</a>
+                            </footer>
                         </div>
                     </div>
-                    <div className='column is-one-third'>
+                    <div className='column service-column'>
                         <div className="card service-card">
                             <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
@@ -94,14 +92,12 @@ class ServiceCards extends Component {
                                     documentations.
                                 </div>
                             </div>
-                            <div className='card-footer'>
-                                <div className="card-footer-item service-card-footer-item">
-                                    Learn More
-                                </div>
-                            </div>
+                            <footer className="card-footer">
+                                <a href="#" className="card-footer-item">Learn More</a>
+                            </footer>
                         </div>
                     </div>
-                    <div className='column is-one-third'>
+                    <div className='column service-column'>
                         <div className="card service-card">
                             <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
@@ -115,11 +111,9 @@ class ServiceCards extends Component {
                                     digital tracking and renewals.
                                 </div>
                             </div>
-                            <div className='card-footer'>
-                                <div className="card-footer-item service-card-footer-item">
-                                    Learn More
-                                </div>
-                            </div>
+                            <footer className="card-footer">
+                                <a href="#" className="card-footer-item">Learn More</a>
+                            </footer>
                         </div>
                     </div>
                 </div>

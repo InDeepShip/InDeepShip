@@ -135,7 +135,7 @@ class DashboardBase extends Component {
                                 <div className="card-content">
                                     <div className="content">
                                         <div className="control has-icons-left has-icons-right">
-                                            <input className="input is-large" type="text" placeholder="" />
+                                            <input className="input is-medium" type="text" placeholder="" />
                                             <span className="icon is-medium is-left">
                                                 <i className="fa fa-search" />
                                             </span>
@@ -155,7 +155,7 @@ class DashboardBase extends Component {
                                 <div className="card-content">
                                     <div className="content">
                                         <div className="control has-icons-left has-icons-right">
-                                            <input className="input is-large" type="text" placeholder="" />
+                                            <input className="input is-medium" type="text" placeholder="" />
                                             <span className="icon is-medium is-left">
                                                 <i className="fa fa-search" />
                                             </span>

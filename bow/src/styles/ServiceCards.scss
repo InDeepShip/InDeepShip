@@ -1,11 +1,6 @@
 .service-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    // margin-top: 2em;
-    // border-radius: 5px;
-    height: 100%;
     transition: all 500ms ease-in-out;
+    height: 480px;
 }
 
 .service-card-image {
@@ -14,7 +9,7 @@
 
 .service-card:hover {
     cursor: pointer;
-    margin-top: 1.5em;
+    margin-top: 1.0rem;
     box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
     transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
 
@@ -28,11 +23,13 @@
     font-weight: bold;
 }
 
-// .columns:last-child {
-//     margin-bottom: 0 !important;
-// }
-
 .has-extra-margin {
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
+}
+
+.service-column {
+    min-width: 280px;
+    max-width: 300px;
+    min-height: 520px;
 }
