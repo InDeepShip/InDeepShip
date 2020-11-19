@@ -31,9 +31,16 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
+
 class SiteUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     address = models.OneToOneField(Address, null=False, on_delete=models.CASCADE)
-    #reserved_names = models.
+    user_type = models.CharField(max_length=100, default="Broker")
+    
     def __str__(self):
         return self.user.email
+"""
+Types of users:
+Broker
+PrivateUser
+"""
