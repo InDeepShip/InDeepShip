@@ -80,6 +80,31 @@ class DashboardBase extends Component {
                     </section>
                     <div className="columns">
                         <div className="column is-6">
+                            <div className="card events-card">
+                                <header className="card-header">
+                                    <p className="card-header-title">
+                                        Events
+                                    </p>
+                                </header>
+                                <div className="card-table">
+                                    <div className="content">
+                                        <table className="table is-full-width is-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="5%">Hi</td>
+                                                    <td>Some data</td>
+                                                    <td>
+                                                        <a href="#" className="button is-small is-primary">Action</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <footer className="card-footer">
+                                    <a href="#" className="card-footer-item">View All</a>
+                                </footer>
+                            </div>
                         </div>
                         <div className="column is-6"></div>
                     </div>
