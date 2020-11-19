@@ -19,7 +19,7 @@ describe('Private user sign-up process', () => {
     });
 
     test('can click private account options', async () => {
-        let page = await browser.newPage();
+        const page = await browser.newPage();
         
         await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup`);
         // await page.goto("http://206.189.218.111/signup/");
@@ -27,15 +27,14 @@ describe('Private user sign-up process', () => {
         await page.waitForSelector('#signup-form');
 
         expect(await page.$('#signup-form')).not.toBe('null');
-
+        await page.close();
     });
 
     test('cannot sign up a private use if input are invalid', async () => {
-        let page = await browser.newPage();
+        const page = await browser.newPage();
         await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup`);
         
-        const user = { name: "David", address: "1150 high street", email: " aa@aa.com", password1: "11111111", password2: "11111111" };
-
+        const user = { name: "David", address: "1150 high street", email: " aa@mail.com", password1: "11111111", password2: "11111111" };
 
         // Act
         await page.click("#signup-option-private");
@@ -46,22 +45,19 @@ describe('Private user sign-up process', () => {
         await page.type('#email-selector', user.email);
         await page.type('#pwd1-selector', user.password1);
         await page.type('#pwd2-selector', user.password2);
-        await Promise.all([
-            page.waitForNavigation(), 
-            page.click('#signup-submit-btn', {delay: 1000})
-          ]);
-
-        expect(await page.$('#landing-page-selector')).toBe('null');
+        await page.click('#signup-submit-btn', {delay: 1000});
         
+        expect(await page.$('#landing-page-selector')).toBeNull();
+        await page.close();
     });
 
     test("can sign up a new private user if input are valid", async () => {
         // Arrange: initialize code
-        let page = await browser.newPage();
+        const page = await browser.newPage();
         await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup`);
         
         // await page.goto("http://206.189.218.111/signup/");
-        const user = { name: "David", address: "1150 high street", email: "david@gmail.com", password1: "daviddavid", password2: "daviddavid" };
+        const user = { name: "Chris", address: "1150 high street", email: "chris@mail.com", password1: "chrischris", password2: "chrischris" };
 
 
         // Act
@@ -80,7 +76,7 @@ describe('Private user sign-up process', () => {
           ]);
 
         expect(await page.$('#landing-page-selector')).not.toBe('null');
-
+        await page.close();
     });
 
 });
