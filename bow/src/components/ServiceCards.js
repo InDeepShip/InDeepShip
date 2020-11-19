@@ -15,7 +15,7 @@ class ServiceCards extends Component {
 
     render() {
         return (
-            <div className='container'>
+            <section className='service-cards-container'>
                 <div className='columns is-multiline is-centered'>
                     <div className='column service-column'>
                         <Link to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
@@ -137,7 +137,7 @@ class ServiceCards extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         );
     }
 }
