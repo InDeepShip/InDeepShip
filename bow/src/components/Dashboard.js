@@ -13,24 +13,38 @@ class DashboardBase extends Component {
     render() {
         return (
             <div className="container">
-                <div className="columns">
+                <div className="columns user-columns">
                 <div className="column is-3">
                     <aside className="menu is-hidden-mobile">
                         <p className="menu-label">General</p>
                         <ul className="menu-list">
-                            <li>Dashboard</li>
-                            <li>Customers</li>
+                            <li>
+                                <a href="#" className="">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="#" className="">Customers</a>
+                            </li>
                         </ul>
                         <p className="menu-label">Administration</p>
                         <ul className="menu-list">
-                            <li>List Item 1</li>
-                            <li>List Item 2</li>
+                            <li>
+                                <a href="#" className="">Item 1</a>
+                            </li>
+                            <li>
+                                <a href="#" className="">Item 2</a>
+                            </li>
                         </ul>
                         <p className="menu-label">Transactions</p>
                         <ul className="menu-list">
-                            <li>Payments</li>
-                            <li>Balance</li>
-                            <li>Reports</li>
+                            <li>
+                                <a href="#" className="">Payments</a>
+                            </li>
+                            <li>
+                                <a href="#" className="">Balance</a>
+                            </li>
+                            <li>
+                                <a href="#" className="">Reports</a>
+                            </li>
                         </ul>
                     </aside>
                 </div>
