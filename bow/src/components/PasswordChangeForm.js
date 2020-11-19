@@ -35,7 +35,7 @@ const renderField = ({
     </div>
   );
 
-class UserSetupForm extends Component {
+class PasswordChangeForm extends Component {
   constructor(props) {
     super(props);
 
@@ -68,8 +68,8 @@ class UserSetupForm extends Component {
 
     return (
       <form
-        name="userSetupForm"
-        id="userSetupForm"
+        name="PasswordChangeForm"
+        id="PasswordChangeForm"
       >
         <br />
         <div className="columns is-centered">
@@ -142,9 +142,9 @@ class UserSetupForm extends Component {
   }
 }
 
-UserSetupForm = reduxForm({
-  form: 'userSetupForm',
-})(UserSetupForm);
+PasswordChangeForm = reduxForm({
+  form: 'passwordChangeForm',
+})(PasswordChangeForm);
 
 const mapStateToProps = (state) => {
   return {
@@ -162,4 +162,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSetupForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordChangeForm);

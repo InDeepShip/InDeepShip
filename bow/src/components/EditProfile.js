@@ -4,7 +4,7 @@ import {
   Tab, Tabs, TabList, TabPanel,
 } from 'react-tabs';
 import * as actions from '../actions';
-import UserSetupForm from './UserSetupForm';
+import PasswordChangeForm from './PasswordChangeForm';
 import 'react-tabs/style/react-tabs.css';
 
 class EditProfile extends Component {
@@ -29,7 +29,7 @@ class EditProfile extends Component {
             </TabList>
 
             <TabPanel>
-              <UserSetupForm onSubmit={this.handleSubmitUser} user={this.props.auth} initialValues={{ displayName: [this.props.auth.name], setupBio: [this.props.auth.bio] }} />
+              <PasswordChangeForm onSubmit={this.handleSubmitUser} user={this.props.auth} initialValues={{ displayName: [this.props.auth.name], setupBio: [this.props.auth.bio] }} />
             </TabPanel>
             <TabPanel>
               <div className="subtitle">Coming Soon!</div>
