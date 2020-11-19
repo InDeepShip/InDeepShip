@@ -41,12 +41,12 @@ class PasswordResetBase extends Component {
                             <h1 className="is-size-2">Password Reset</h1>
                             <div className="field">
                                 <label className="label">Email Address</label>
-                                <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
+                                <input id="pwd-reset-input-selector" className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
                             </div>
                             <br />
                             <div className='field'>
                                 <div className='control'>
-                                    <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                                    <button id="pwd-reset-submit-btn" className='button is-primary' onClick={this.onSubmit}>Submit</button>
                                 </div>
                             </div>
                         </div>

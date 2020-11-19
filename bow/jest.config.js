@@ -10,7 +10,7 @@ module.exports = {
   // },
 
   verbose: true,
-  collectCoverage: false,
+  collectCoverage: true,
   // coveragePathIgnorePatterns: [
   //   "<rootDir>/node_modules/",
   //   "<rootDir>/testCoverageReport/",
@@ -18,6 +18,11 @@ module.exports = {
   // ],
   collectCoverageFrom: [
     "**/*.{js,jsx}",
+    "**/src/*.{js,jsx}",
+    "**/src/components/*.{js,jsx}",
+    "**/src/actions/*.{js,jsx}",
+    "**/src/constants/*.{js,jsx}",
+    "**/src/reducers/*.{js,jsx}",
     "!**/node_modules/**",
     "!**/vendor/**",
     "!jest.config.js",
