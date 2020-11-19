@@ -140,12 +140,22 @@ class NavBar extends Component {
     }
   }
 
+  // Checks if current size is < 1024px
+  componentDidMount() {
+    window.addEventListener('resize', () => {
+        this.setState({
+            isMobile: window.innerWidth < 1024
+        });
+    }, false);
+  }
+
   render() {
     const { open } = this.state;
+    const className = this.state.isMobile ? 'container-fluid' : 'container';
 
     return (
       <nav className={`navbar is-fixed-top is-primary`}>
-        <div className="container">
+        <div className={className}>
           <div className='navbar-brand'>
             <Link to={ROUTES.LANDING} className='navbar-item-2'>
               <img className='navbar-item-2' src={brandingImg} alt="Logo" />

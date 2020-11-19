@@ -53,9 +53,9 @@ class App extends Component {
               </div>
 
 
-              <div className="subtitle is-size-7 is-uppercase has-text-centered landing-header-text">
+              {/* <div className="subtitle is-size-7 is-uppercase has-text-centered landing-header-text">
                 Scroll down to see how the Navis Album Department of Shipping Registry can help you!
-                  </div>
+                  </div> */}
             </div>
           </div>
         </section>
