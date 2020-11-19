@@ -9,11 +9,15 @@ import { logout } from '../actions';
 import '../styles/NavBar.scss';
 import * as ROUTES from '../constants/routes';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 class NavBar extends Component {
 
   constructor(props) {
     super(props);
+
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
 
     this.state = {
       open: false,
@@ -27,9 +31,22 @@ class NavBar extends Component {
   toggle = () => { this.setState({ open: !this.state.open }) };
   close = () => { this.setState({ open: false }) };
 
+  // set ref to div that wraps nav
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  // Close navbar if clicked outside
+  handleClickOutside(event) {
+    console.log("click outside!")
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.close()
+    }
+  }
+
 
   // scroll to feedback textbox
-  handleFeedbackOnClick = (event) => {
+  handleClickOnFeedback = (event) => {
     // check that element has rendered
     if (this.textboxRef.current) {
       this.textboxRef.current.scrollIntoView({
@@ -109,6 +126,13 @@ class NavBar extends Component {
         isMobile: window.innerWidth < 1024
       });
     }, false);
+
+    // Check if clicked outside
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   render() {
@@ -116,50 +140,52 @@ class NavBar extends Component {
     const className = this.state.isMobile ? 'container-fluid' : 'container';
 
     return (
-      <nav className={`navbar is-fixed-top is-primary`}>
-        <div className={className}>
-          <div className='navbar-brand'>
-            <Link to={ROUTES.LANDING} className='navbar-item-2'>
-              <img className='navbar-item-2' src={brandingImg} alt="Logo" />
-            </Link>
-            <div
-              className={`navbar-burger burger ${open ? 'is-active' : ''}`}
-              onClick={this.toggle}
-              role="button"
-              tabIndex="0"
-            >
-              <span />
-              <span />
-              <span />
+      <div ref={this.setWrapperRef}>
+        <nav className={`navbar is-fixed-top is-primary`}>
+          <div className={className}>
+            <div className='navbar-brand'>
+              <Link to={ROUTES.LANDING} className='navbar-item-2'>
+                <img className='navbar-item-2' src={brandingImg} alt="Logo" />
+              </Link>
+              <div
+                className={`navbar-burger burger ${open ? 'is-active' : ''}`}
+                onClick={this.toggle}
+                role="button"
+                tabIndex="0"
+              >
+                <span />
+                <span />
+                <span />
+              </div>
             </div>
-          </div>
-          <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
-            <div className='navbar-start'>
-              <NavLink className='navbar-item' to={ROUTES.ORGANIZATION}>
-                Organization
+            <div className={`navbar-menu ${open ? 'is-active' : ''}`}>
+              <div className='navbar-start'>
+                <NavLink className='navbar-item' to={ROUTES.ORGANIZATION}>
+                  Organization
               </NavLink>
-              <NavLink className='navbar-item' to={ROUTES.SERVICES}>
-                Services
+                <NavLink className='navbar-item' to={ROUTES.SERVICES}>
+                  Services
               </NavLink>
-              <NavLink className='navbar-item' to={ROUTES.POLICY}>
-                Policy
+                <NavLink className='navbar-item' to={ROUTES.POLICY}>
+                  Policy
               </NavLink>
-              <NavLink className='navbar-item' to={ROUTES.CONTACT_US}>
-                Contact Us
+                <NavLink className='navbar-item' to={ROUTES.CONTACT_US}>
+                  Contact Us
               </NavLink>
-            </div>
-            <div className='navbar-end'>
-              {this.renderUnauth()}
-              {this.renderLoginButton()}
-              <div className="navbar-item">
-                <button id="give-feedback-selector" className="button is-danger navbar-item" onClick={this.handleFeedbackOnClick}>
-                  Give Feedback
+              </div>
+              <div className='navbar-end'>
+                {this.renderUnauth()}
+                {this.renderLoginButton()}
+                <div className="navbar-item">
+                  <button id="give-feedback-selector" className="button is-danger navbar-item" onClick={this.handleClickOnFeedback}>
+                    Give Feedback
               </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </nav >
+        </nav >
+      </div>
     );
   }
 }
