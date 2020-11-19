@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { passwordReset } from '../actions';
 import * as ROUTES from '../constants/routes';
 import { Redirect, Link } from 'react-router-dom';
+import axios from 'axios';
 
-class PasswordResetBase extends Component {
+class PasswordReset extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             email: '',
+            displayMessage: ''
         };
     }
 
@@ -17,7 +19,19 @@ class PasswordResetBase extends Component {
         e.preventDefault();
 
         const { email } = this.state;
-        this.props.passwordReset(email);
+
+        axios
+            .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/reset/`, {
+                email: email
+            })
+            .then(res => {
+                console.log(res.data)
+                this.setState({ displayMessage: res.data.detail })
+            })
+            .catch(err => {
+                console.log(err)
+                this.setState({ displayMessage: JSON.stringify(err.response.data) })
+            });
     }
 
     handleChange = (e) => {
@@ -25,13 +39,7 @@ class PasswordResetBase extends Component {
     }
 
     render() {
-        const { error, message, status } = this.props;
-
-        if (message) {
-            // TODO: notify user of email being sent and of redirect
-            console.log(message)
-            // return < Redirect to={ROUTES.PASSWORD_RESET_CONFIRM} />;
-        }
+        const { displayMessage } = this.state
 
         return (
             <div id="pwd-reset-page-selector" className='hero is-full-height'>
@@ -49,6 +57,9 @@ class PasswordResetBase extends Component {
                                     <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
                                 </div>
                             </div>
+                            <div className="field is-below">
+                                {displayMessage}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,24 +67,5 @@ class PasswordResetBase extends Component {
         );
     }
 }
-
-const mapStatetoProps = (state) => {
-    return {
-        email: state.auth.email,
-        message: state.auth.message,
-        status: state.auth.status
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        passwordReset: (email) => dispatch(passwordReset(email))
-    };
-};
-
-const PasswordReset = connect(
-    mapStatetoProps,
-    mapDispatchToProps
-)(PasswordResetBase);
 
 export default PasswordReset;

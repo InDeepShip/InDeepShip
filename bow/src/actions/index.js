@@ -33,36 +33,6 @@ export const authSuccess = (token, user) => {
   };
 };
 
-export const passwordChangeSuccess = (message, status) => {
-  return {
-    type: actionTypes.PASSWORD_CHANGE_SUCCESS,
-    message: message,
-    status: status
-  };
-};
-
-export const passwordChangeFail = (error) => {
-  return {
-    type: actionTypes.PASSWORD_CHANGE_FAIL,
-    error: error
-  };
-};
-
-export const passwordResetSuccess = (message, status) => {
-  return {
-    type: actionTypes.PASSWORD_RESET_SUCCESS,
-    message: message,
-    status: status
-  };
-};
-
-export const passwordResetFail = (error) => {
-  return {
-    type: actionTypes.PASSWORD_RESET_FAIL,
-    error: error
-  };
-};
-
 export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
@@ -112,44 +82,6 @@ export const authSignup = (name, address, email, password1, password2, account) 
       })
       .catch(err => {
         dispatch(authFail(err));
-      });
-  };
-};
-
-export const passwordChange = (oldPassword, newPassword1, newPassword2) => {
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/change/`, {
-        old_password: oldPassword,
-        new_password1: newPassword1,
-        new_password2: newPassword2
-      })
-      .then(res => {
-        const message = res.data.detail
-        const status = res.status
-        dispatch(passwordChangeSuccess(message, status));
-      })
-      .catch(err => {
-        dispatch(passwordChangeFail(err));
-      });
-  };
-};
-
-export const passwordReset = (email) => {
-  return dispatch => {
-    dispatch(authStart());
-    axios
-      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/reset/`, {
-        email: email
-      })
-      .then(res => {
-        const message = res.data.detail
-        const status = res.status
-        dispatch(passwordResetSuccess(message, status));
-      })
-      .catch(err => {
-        dispatch(passwordResetFail(err));
       });
   };
 };

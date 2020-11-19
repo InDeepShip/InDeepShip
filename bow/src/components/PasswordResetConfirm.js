@@ -26,10 +26,10 @@ class PasswordResetConfirm extends Component {
 
         axios
             .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/reset/confirm/`, {
-                "new_password1": new_password1,
-                "new_password2": new_password2,
-                "uid": uid,
-                "token": token
+                new_password1: new_password1,
+                new_password2: new_password2,
+                uid: uid,
+                token: token
             })
             .then(res => {
                 console.log(res.data)
@@ -47,6 +47,7 @@ class PasswordResetConfirm extends Component {
 
     render() {
         const { displayMessage } = this.state
+
         return (
             <div className='hero is-full-height'>
                 <div className='hero-body'>

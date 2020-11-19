@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import DropZoneField from './DropZoneField';
 import * as actions from '../actions';
+import axios from 'axios';
 
 const required = value => (value ? undefined : 'Required');
 
@@ -43,14 +44,29 @@ class PasswordChangeForm extends Component {
     this.state = {
       oldPassword: '',
       newPassword1: '',
-      newPassword2: ''
+      newPassword2: '',
+      displayMessage: ''
     };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     const { oldPassword, newPassword1, newPassword2 } = this.state;
-    this.props.passwordChange(oldPassword, newPassword1, newPassword2)
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/change/`, {
+        old_password: oldPassword,
+        new_password1: newPassword1,
+        new_password2: newPassword2
+      })
+      .then(res => {
+        console.log(res.data)
+        this.setState({ displayMessage: res.data.detail })
+      })
+      .catch(err => {
+        console.log(err)
+        this.setState({ displayMessage: JSON.stringify(err.response.data) })
+      });
   }
 
   handleChange = (e) => {
@@ -58,13 +74,8 @@ class PasswordChangeForm extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, submitting, status, message, code, error } = this.props;
-    var displayMessage = ""
-
-    if (message) {
-      console.log(message)
-      displayMessage = message
-    }
+    const { pristine, submitting } = this.props;
+    const { displayMessage } = this.state
 
     return (
       <form
@@ -146,20 +157,4 @@ PasswordChangeForm = reduxForm({
   form: 'passwordChangeForm',
 })(PasswordChangeForm);
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth,
-    profile: state.profile,
-    message: state.auth.message,
-    status: state.auth.status,
-    error: state.auth.error
-  };
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    passwordChange: (oldPassword, newPassword1, newPassword2) => dispatch(actions.passwordChange(oldPassword, newPassword1, newPassword2))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PasswordChangeForm);
+export default PasswordChangeForm;
