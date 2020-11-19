@@ -112,6 +112,18 @@ class SignupBase extends Component {
     })
   };
 
+  renderError(err) {
+    return (
+      <div className='notification is-danger'>
+        <span class="icon has-text-warning">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+        <div>{err.response.data.password1}</div>
+        <div>{err.response.data.email}</div>         
+      </div>
+    ); 
+  }
+
   renderUserOptions() {
     return (
       <div className='tile-container'>
@@ -287,6 +299,7 @@ class SignupBase extends Component {
                   </div>
                 </div>
               </div>
+              {error && this.renderError(error)}
               <div className='field'>
                 <div className='control submit-control'>
                   <button id="signup-submit-btn" className='button is-primary' onClick={this.onSubmit}>Submit</button>

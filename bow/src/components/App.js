@@ -23,7 +23,6 @@ import PrivateRegistration from './PrivateRegistration';
 import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import * as ROUTES from '../constants/routes';
 
-
 const PrivateRoute = ({
   loggedIn, component, ...rest
 }) => (
@@ -34,6 +33,11 @@ const PrivateRoute = ({
   );
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.textboxRef = React.createRef();
+  }
+
   componentDidMount() {
     this.props.fetchUser();
   }
@@ -43,7 +47,7 @@ class App extends Component {
     // document.body.classList.add('has-spaced-navbar-fixed-top');
     return this.props.loadState === 0 ? (
       <>
-        <NavBar />
+        <NavBar textboxRef={this.textboxRef} />
         <Switch>
           <PrivateRoute
             exact
@@ -75,7 +79,7 @@ class App extends Component {
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>
-        <Footer />
+        <Footer textboxRef={this.textboxRef} />
         <Route
           render={({ history }) => {
             // Auto-update service worker on route change

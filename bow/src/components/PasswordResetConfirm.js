@@ -1,22 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { passwordReset } from '../actions';
+import * as QueryString from "query-string";
+import axios from 'axios';
 
 
-class PasswordResetConfirmBase extends Component {
+class PasswordResetConfirm extends Component {
     constructor(props) {
         super(props);
 
+        this.params = QueryString.parse(props.location.search);
         this.state = {
-            email: '',
+            new_password1: '',
+            new_password2: '',
+            uid: this.params.uid,
+            token: this.params.token,
+            displayMessage: '',
+            loading: false
         };
     }
 
     onSubmit = (e) => {
         e.preventDefault();
+        const { new_password1, new_password2, uid, token } = this.state;
+        this.setState({ loading: true })
 
-        const { email } = this.state;
-        this.props.passwordReset(email);
+        axios
+            .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/reset/confirm/`, {
+                new_password1: new_password1,
+                new_password2: new_password2,
+                uid: uid,
+                token: token
+            })
+            .then(res => {
+                console.log(res.data)
+                this.setState({ loading: false })
+                this.setState({ displayMessage: res.data.detail })
+            })
+            .catch(err => {
+                console.log(err)
+                this.setState({ loading: false })
+                this.setState({ displayMessage: JSON.stringify(err.response.data) })
+            });
     }
 
     handleChange = (e) => {
@@ -24,7 +49,7 @@ class PasswordResetConfirmBase extends Component {
     }
 
     render() {
-        const { error, message, status } = this.props;
+        const { displayMessage, loading } = this.state
 
         return (
             <div className='hero is-full-height'>
@@ -33,14 +58,26 @@ class PasswordResetConfirmBase extends Component {
                         <div className='column is-5-tablet is-4-desktop is-3-widescreen'>
                             <h1 className="is-size-3">Password Reset Confirm</h1>
                             <div className="field">
-                                <label className="label">Email Address</label>
-                                <input className='input' placeholder="Email address" type="email" name="email" onChange={this.handleChange} />
+                                <label className="label">New Password</label>
+                                <input id="newpassword1-selector" className='input' placeholder="Password" type="password" name="new_password1" onChange={this.handleChange} />
+                            </div>
+                            <div className="field">
+                                <label className="label">Re-Enter New Password</label>
+                                <input id="newpassword2-selector" className='input' placeholder="Password" type="password" name="new_password2" onChange={this.handleChange} />
                             </div>
                             <br />
                             <div className='field'>
                                 <div className='control'>
                                     <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
                                 </div>
+                            </div>
+                            {loading && (
+                                <span className="loading-icon icon is-large">
+                                    <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                                </span>
+                            )}
+                            <div className="field is-below">
+                                {displayMessage}
                             </div>
                         </div>
                     </div>
@@ -49,24 +86,5 @@ class PasswordResetConfirmBase extends Component {
         );
     }
 }
-
-const mapStatetoProps = (state) => {
-    return {
-        email: state.auth.email,
-        message: state.auth.message,
-        status: state.auth.status
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        passwordReset: (email) => dispatch(passwordReset(email))
-    };
-};
-
-const PasswordResetConfirm = connect(
-    mapStatetoProps,
-    mapDispatchToProps
-)(PasswordResetConfirmBase);
 
 export default PasswordResetConfirm;

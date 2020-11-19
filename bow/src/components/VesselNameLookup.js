@@ -35,37 +35,27 @@ class VesselNameLookup extends Component {
       ports: [],
       selectedPort: "",
       name_available: false,
-      application_sent: false
+      application_sent: false,
+      reserveName: false
     }
     this.promptToReserve = this.promptToReserve.bind(this)
+    this.submitApplication = this.submitApplication.bind(this)
     this.reserveName = this.reserveName.bind(this)
-
-    axios
-      .get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/ports/`)
-      .then(res => {
-        this.setState({
-          "ports": res.data.ports
-        })
-      })
-      .catch(err => {
-        console.log(err)
-      });
+    this.availablePorts = this.availablePorts.bind(this)
   }
 
   checkNameAvailability = (e) => {
-    const { vesselName, portName } = this.state;
+    const { vesselName } = this.state;
     const vessel = this.state["vesselName"];
-    const port = this.state["selectedPort"];
     this.setState({ application_sent: false })
 
     axios
       .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
         "vesselName": vessel,
-        "portName": port
       })
       .then(res => {
         this.setState({
-          availability: res.data.message, name_available: res.data.available
+          availability: res.data.message, name_available: res.data.available, ports: res.data.ports
         })
       })
       .catch(err => {
@@ -73,11 +63,30 @@ class VesselNameLookup extends Component {
       });
   }
 
-  reserveName() {
+  submitApplication() {
     // TODO SEND POST REQUEST TO RESERVE NAME - ZT - 11/17/2020
     // NEED TO CREATE DB FIRST TO DETERMINE HOW TO HANDLE RESERVED NAMES
-    this.setState({ application_sent: true })
+    this.setState({ application_sent: true });
     return null;
+  }
+
+reserveName() {
+    this.setState({ reserveName: true });
+  }
+
+availablePorts() {
+return <div className='field'>
+    <label className='label'>Desired Home Port</label>
+      <div class="control">
+        <div class="select">
+          <select value={this.state.selectedPort} onChange={(e) => this.setState({ selectedPort: e.target.value })}>
+            {this.state.ports.map((value) => {
+              return <option key={value} value={value}>{value}</option>
+            })}
+          </select>
+        </div>
+      </div>
+    </div> 
   }
 
   promptToReserve() {
@@ -98,6 +107,13 @@ class VesselNameLookup extends Component {
             <button className='button is-primary' onClick={this.reserveName}>Reserve Name</button>
           </div>
           <div>
+            <br />
+            {this.state.reserveName ? <this.availablePorts/>: null}
+          </div>
+          <div>
+            <br />
+            {this.state.reserveName ? <button className='button is-primary' onClick={this.submitApplication}>Submit Application</button>: null }
+            <br />
             <br />
             {this.state.application_sent ? <h1>An application has been successfully submitted!</h1> : null}
           </div>
@@ -121,29 +137,14 @@ class VesselNameLookup extends Component {
               <img src={brandingImg} alt="Logo" />
             </div>
             <div className='column is-6'>
-              <h1 className='title'>
-                Check for Vessel name availability
-                                </h1>
+              <h1 className='title'>Check for Vessel name availability</h1>
               <div className="field">
                 <label className="label">Vessel Name</label>
                 <input className='input' placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
               </div>
               <div className='field'>
-                <label className='label'>Desired Home Port</label>
-                <div class="control">
-                  <div class="select">
-                    <select value={this.state.selectedPort} onChange={(e) => this.setState({ selectedPort: e.target.value })}>
-                      {this.state.ports.map((value) => {
-                        return <option key={value} value={value}>{value}</option>
-                      })}
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <br />
-              <div className='field'>
                 <div className='control'>
-                  <button className='button is-primary' onClick={this.checkNameAvailability}>Check availability</button>
+                  <button className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
                 </div>
               </div>
               <div name="resultOfCheck">
