@@ -10,76 +10,38 @@ import '../styles/NavBar.scss';
 import * as ROUTES from '../constants/routes';
 import Modal from 'react-modal';
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
-};
-
 class NavBar extends Component {
-  state = {
-    open: false,
-    showBugModal: false,
-    bugReportText: ""
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+      showBugModal: false,
+      bugReportText: ""
+    }
+    // ref to textbox in footer
+    this.textboxRef = this.props.textboxRef
   }
 
   toggle = () => { this.setState({ open: !this.state.open }) };
   close = () => { this.setState({ open: false }) };
 
+
+  // scroll to feedback textbox
+  handleFeedbackOnClick = (event) => {
+    // check that element has rendered
+    if (this.textboxRef.current) {
+      this.textboxRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      })
+    }
+  }
+
   handleLogout = () => {
     this.props.logout()
   }
-
-  openBugModal = () => {
-    this.setState({ showBugModal: true });
-  }
-
-  closeBugModal = () => {
-    this.setState({ showBugModal: false });
-  }
-
-  reportBugs() {
-    if (typeof (window) !== 'undefined') {
-      Modal.setAppElement('body')
-    }
-
-    this.setState({
-      showBugModal: true
-    })
-  }
-
-  handleSubmitBugReport() {
-    var message = this.state.bugReportText;
-    var currentPage = window.location;
-
-    this.setState({
-      showBugModal: false
-    })
-    const response = fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/bugreport/`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          "message": message,
-          "currentPage": currentPage.href
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    ).then(response => { console.log(response) });
-  }
-
-  handleBugReportText(e) {
-    this.setState({
-      bugReportText: e.target.value
-    });
-  }
-
   renderLoginButton() {
     if (this.props.auth.token) {
       const first_name = this.props.auth.user.name.split(' ')[0];
@@ -143,9 +105,9 @@ class NavBar extends Component {
   // Checks if current size is < 1024px
   componentDidMount() {
     window.addEventListener('resize', () => {
-        this.setState({
-            isMobile: window.innerWidth < 1024
-        });
+      this.setState({
+        isMobile: window.innerWidth < 1024
+      });
     }, false);
   }
 
@@ -190,25 +152,11 @@ class NavBar extends Component {
               {this.renderUnauth()}
               {this.renderLoginButton()}
               <div className="navbar-item">
-                <button className="button is-danger navbar-item" to={'#' + this.props.match.url} onClick={() => this.reportBugs()}>
+                <button id="give-feedback-selector" className="button is-danger navbar-item" onClick={this.handleFeedbackOnClick}>
                   Give Feedback
               </button>
               </div>
             </div>
-
-            <Modal isOpen={this.state.showBugModal} contentLabel="bugReport" style={customStyles} >
-              <div className="bugReportForm">
-                <a align="center" href={'#' + this.props.match.url} >Please provide a brief description:</a>
-                <br /><br />
-                <textarea align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
-                <br /><br />
-                <div align="center">
-                  <button type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Accept</button>
-                &nbsp;&nbsp;
-                <button type="button" onClick={() => this.closeBugModal()} className="button is-warning is-link">Close</button>
-                </div>
-              </div>
-            </Modal>
           </div>
         </div>
       </nav >
