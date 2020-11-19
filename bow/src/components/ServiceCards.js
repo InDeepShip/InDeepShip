@@ -18,8 +18,8 @@ class ServiceCards extends Component {
             <div className='container has-extra-margin'>
                 <div className='columns is-multiline is-centered'>
                     <div className='column is-one-third'>
-                        <Link className="card" to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
-                            <div className="card-image">
+                        <Link className="card service-card" to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
+                            <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
                                 </figure>
@@ -32,19 +32,19 @@ class ServiceCards extends Component {
                                 </div>
                             </div>
                             <div className='card-footer'>
-                                <div className="card-footer-item">
+                                <div className="card-footer-item service-card-footer-item">
                                     Learn More
                                 </div>
                             </div>
                         </Link>
                     </div>
                     <div className='column is-one-third'>
-                        <div className="card">
-                            <Link className="card-image" to={ROUTES.VESSEL_NAME_LOOKUP}>
+                        <Link className="card service-card" to={ROUTES.VESSEL_NAME_LOOKUP}>
+                            <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1555562791-3cdb883dde6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80" alt="Placeholder image" />
                                 </figure>
-                            </Link>
+                            </div>
                             <div className='card-content'>
                                 <p className="title">Check Availability of Vessel Name</p>
                                 <div className="content">
@@ -53,19 +53,19 @@ class ServiceCards extends Component {
                                 </div>
                             </div>
                             <div className='card-footer'>
-                                <div className="card-footer-item">
+                                <div className="card-footer-item service-card-footer-item">
                                     Learn More
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className='column is-one-third'>
-                        <div className="card">
-                            <Link className="card-image" to={"/register"}>
+                        <div className="card service-card">
+                            <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1524522173746-f628baad3644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1403&q=80" alt="Placeholder image" />
                                 </figure>
-                            </Link>
+                            </div>
                             <div className='card-content'>
                                 <p className="title">Commercial Registration</p>
                                 <div className="content">
@@ -74,19 +74,19 @@ class ServiceCards extends Component {
                                 </div>
                             </div>
                             <div className='card-footer'>
-                                <div className="card-footer-item">
+                                <div className="card-footer-item service-card-footer-item">
                                     Learn More
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='column is-one-third'>
-                        <div className="card">
-                            <Link className="card-image" to={"/register"}>
+                        <div className="card service-card">
+                            <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1550565118-3a14e8d0386f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
                                 </figure>
-                            </Link>
+                            </div>
                             <div className='card-content'>
                                 <p className="title">Pay Invoice or Make Payment</p>
                                 <div className="content">
@@ -95,19 +95,19 @@ class ServiceCards extends Component {
                                 </div>
                             </div>
                             <div className='card-footer'>
-                                <div className="card-footer-item">
+                                <div className="card-footer-item service-card-footer-item">
                                     Learn More
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='column is-one-third'>
-                        <div className="card">
-                            <Link className="card-image" to={"/tracking"}>
+                        <div className="card service-card">
+                            <div className="card-image service-card-image">
                                 <figure className="image is-4by3">
                                     <img src="https://images.unsplash.com/photo-1495657809423-db624a2298dc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1366&q=80" alt="Placeholder image" />
                                 </figure>
-                            </Link>
+                            </div>
                             <div className='card-content'>
                                 <p className="title">Broker Vessel Tracking</p>
                                 <div className="content">
@@ -116,7 +116,7 @@ class ServiceCards extends Component {
                                 </div>
                             </div>
                             <div className='card-footer'>
-                                <div className="card-footer-item">
+                                <div className="card-footer-item service-card-footer-item">
                                     Learn More
                                 </div>
                             </div>
