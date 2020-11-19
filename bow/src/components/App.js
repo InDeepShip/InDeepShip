@@ -21,6 +21,7 @@ import PasswordReset from './PasswordReset';
 import PasswordResetConfirm from './PasswordResetConfirm';
 import PrivateRegistration from './PrivateRegistration';
 import PrivateRegistrationDetails from './PrivateRegistrationDetails';
+import Dashboard from './Dashboard';
 import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
@@ -76,6 +77,7 @@ class App extends Component {
           <Route exact path={ROUTES.VESSEL_NAME_LOOKUP} component={VesselNameLookup} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
           <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
+          <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>
