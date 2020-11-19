@@ -1,10 +1,9 @@
 # users/models.py
 from django.contrib.auth.models import AbstractUser
 #from django.db import models
-from api.models import Port, Vessel, Propulsion
-from vesselregistration.models import Registration
+#from api.models import Port, Vessel, Propulsion
+#from vesselregistration.models import Registration
 from djongo import models
-
 
 class Address(models.Model):
      address1 = models.CharField(max_length=128, null=True)
@@ -20,7 +19,9 @@ class Address(models.Model):
                                         self.city,
                                         self.state,
                                         self.zipCode)
-
+class ReservedName(models.Model):
+    name = models.CharField(blank=True, max_length=255)
+    address = models.CharField(blank=True, max_length=255)
 
 class CustomUser(AbstractUser):
     name = models.CharField(blank=True, max_length=255)
@@ -30,20 +31,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-
-class Broker(models.Model):
+class SiteUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    vessels = models.ForeignKey(Vessel, null=True, on_delete=models.CASCADE)
-    registrations = models.ForeignKey(Registration, null=True, on_delete=models.CASCADE)
     address = models.OneToOneField(Address, null=False, on_delete=models.CASCADE)
+    #reserved_names = models.
     def __str__(self):
         return self.user.email
-
-#
-#class PrivateUser(models.Model):
-#    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-#    #vessels = models.ForeignKey(Vessel, on_delete=models.CASCADE, null=True)
-#    # address = models.OneToOneField(Address)
-#
-#    def __str__(self):
-#        return self.user.email
