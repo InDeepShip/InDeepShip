@@ -1,3 +1,4 @@
+import { randomUserGenerator, registeredUserGenerator } from '../utility';
 require("dotenv").config()
 const puppeteer = require('puppeteer');
 
@@ -5,10 +6,7 @@ describe('Private user log-in process', () => {
     let browser;
 
     beforeEach(async (done) => {
-        browser = await puppeteer.launch({
-            headless: false,
-            slowMo: 50,
-        });
+        browser = await puppeteer.launch();
         done();
     });
 
@@ -26,7 +24,7 @@ describe('Private user log-in process', () => {
             page.click("#pwd-reset-btn"),
           ]);
 
-        expect(await page.$("#pwd-reset-page-selector")).not.toBe('null');
+        expect(await page.$("#pwd-reset-page-selector")).not.toBeNull();
         await page.close();
     });
 
@@ -47,7 +45,7 @@ describe('Private user log-in process', () => {
         // Arrange: initialize code
         const page = await browser.newPage();
         await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
-        const registeredUser = { name: "Chris", address: "1150 high street", email: " chris@mail.com", password: "chrischris"};
+        const registeredUser = registeredUserGenerator();
 
 
         // Act
@@ -67,12 +65,12 @@ describe('Private user log-in process', () => {
 
     test("a non-registered private user cannot log in", async () => {
         const page = await browser.newPage();
-        const nonRegisteredUser = {name : "invalid user", email : "invalid@mail.com", password : "11111111"};
+        const nonRegisteredUser = randomUserGenerator();
         await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
 
         await page.waitForSelector('#login-form');
         await page.type('#email-selector', nonRegisteredUser.email);
-        await page.type('#pwd-selector', nonRegisteredUser.password);
+        await page.type('#pwd-selector', nonRegisteredUser.pwd1);
         await page.click('#login-submit-btn', {delay: 1000});
 
         expect(await page.$('#landing-page-selector')).toBeNull();

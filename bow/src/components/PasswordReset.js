@@ -65,7 +65,7 @@ class PasswordReset extends Component {
                                     <i className="fas fa-3x fa-spinner fa-pulse"></i>
                                 </span>
                             )}
-                            <div className="field is-below">
+                            <div id="email-sent-msg-selector" className="field is-below">
                                 {displayMessage}
                             </div>
                         </div>
