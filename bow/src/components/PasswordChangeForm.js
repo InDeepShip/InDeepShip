@@ -45,13 +45,15 @@ class PasswordChangeForm extends Component {
       oldPassword: '',
       newPassword1: '',
       newPassword2: '',
-      displayMessage: ''
+      displayMessage: '',
+      loading: false
     };
   }
 
   onSubmit = (e) => {
     e.preventDefault();
     const { oldPassword, newPassword1, newPassword2 } = this.state;
+    this.setState({ loading: true })
 
     axios
       .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/change/`, {
@@ -61,10 +63,12 @@ class PasswordChangeForm extends Component {
       })
       .then(res => {
         console.log(res.data)
+        this.setState({ loading: false })
         this.setState({ displayMessage: res.data.detail })
       })
       .catch(err => {
         console.log(err)
+        this.setState({ loading: false })
         this.setState({ displayMessage: JSON.stringify(err.response.data) })
       });
   }
@@ -75,7 +79,7 @@ class PasswordChangeForm extends Component {
 
   render() {
     const { pristine, submitting } = this.props;
-    const { displayMessage } = this.state
+    const { displayMessage, loading } = this.state
 
     return (
       <form
@@ -85,15 +89,6 @@ class PasswordChangeForm extends Component {
         <br />
         <div className="columns is-centered">
           <div className="column is-6">
-            {/* <Field
-              name="displayName"
-              component={renderField}
-              type="text"
-              label="Display Name"
-              placeholder="This should auto populate"
-              validate={[required, name]}
-              value={this.props.auth.displayName ? this.props.auth.displayName : ''}
-            /> */}
             <Field
               id="oldpassword-selector"
               name="oldPassword"
@@ -124,7 +119,6 @@ class PasswordChangeForm extends Component {
               placeholder="Re-Enter New Password"
               value=''
               onChange={this.handleChange}
-            // need to add validation and hide if newPassword1 is empty
             />
           </div>
           <div className="column is-5 is-offset-1 has-text-centered">
@@ -149,6 +143,11 @@ class PasswordChangeForm extends Component {
             </button>
           </div>
         </div>
+        {loading && (
+          <span className="loading-icon icon is-large">
+            <i className="fas fa-3x fa-spinner fa-pulse"></i>
+          </span>
+        )}
         <div className="field is-below">
           {displayMessage}
         </div>

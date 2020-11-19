@@ -15,14 +15,15 @@ class PasswordResetConfirm extends Component {
             new_password2: '',
             uid: this.params.uid,
             token: this.params.token,
-            displayMessage: ''
+            displayMessage: '',
+            loading: false
         };
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-
         const { new_password1, new_password2, uid, token } = this.state;
+        this.setState({ loading: true })
 
         axios
             .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/reset/confirm/`, {
@@ -33,10 +34,12 @@ class PasswordResetConfirm extends Component {
             })
             .then(res => {
                 console.log(res.data)
+                this.setState({ loading: false })
                 this.setState({ displayMessage: res.data.detail })
             })
             .catch(err => {
                 console.log(err)
+                this.setState({ loading: false })
                 this.setState({ displayMessage: JSON.stringify(err.response.data) })
             });
     }
@@ -46,7 +49,7 @@ class PasswordResetConfirm extends Component {
     }
 
     render() {
-        const { displayMessage } = this.state
+        const { displayMessage, loading } = this.state
 
         return (
             <div className='hero is-full-height'>
@@ -68,6 +71,11 @@ class PasswordResetConfirm extends Component {
                                     <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
                                 </div>
                             </div>
+                            {loading && (
+                                <span className="loading-icon icon is-large">
+                                    <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                                </span>
+                            )}
                             <div className="field is-below">
                                 {displayMessage}
                             </div>
