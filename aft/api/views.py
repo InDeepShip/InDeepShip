@@ -99,9 +99,9 @@ def vessel_lookup(request):
                 port_string += p + ", "
             print(ship_name)
             print(port_names)
-            message = f"{ship_name} is available at {port_string.strip()}"
+            message = f"{ship_name} is available at {port_string.strip()[:-1]}"
             name_available = True
-        return Response(data={"message": message, "available": name_available}, status=200)
+        return Response(data={"message": message, "available": name_available, "ports": port_names}, status=200)
 
 
 
