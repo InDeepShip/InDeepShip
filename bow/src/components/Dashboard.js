@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../styles/Dashboard.scss';
 
 
 class DashboardBase extends Component {
@@ -36,8 +37,12 @@ class DashboardBase extends Component {
                 <div className="column is-9">
                     <nav className="breadcrumb" aria-label="breadcrumbs">
                         <ul>
-                            <li>General</li>
-                            <li>Dashboard</li>
+                            <li>
+                                <a href="#">General</a>
+                            </li>
+                            <li>
+                                <a href="#">Dashboard</a>
+                            </li>
                         </ul>
                     </nav>
                     <section className="hero is-primary welcome is-small">
@@ -80,7 +85,7 @@ class DashboardBase extends Component {
                     </section>
                     <div className="columns">
                         <div className="column is-6">
-                            <div className="card events-card">
+                            <div className="card events-card user-card">
                                 <header className="card-header">
                                     <p className="card-header-title">
                                         Events
@@ -106,7 +111,48 @@ class DashboardBase extends Component {
                                 </footer>
                             </div>
                         </div>
-                        <div className="column is-6"></div>
+                        <div className="column is-6">
+                            <div className="card user-card">
+                                <div className="card-header">
+                                    <p className="card-header-title">
+                                        Vessel Name Search
+                                    </p>
+                                </div>
+                                <div className="card-content">
+                                    <div className="content">
+                                        <div className="control has-icons-left has-icons-right">
+                                            <input className="input is-large" type="text" placeholder="" />
+                                            <span className="icon is-medium is-left">
+                                                <i className="fa fa-search" />
+                                            </span>
+                                            <span className="icon is-medium is-right">
+                                                <i className="fa fa-check"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card user-card">
+                                <div className="card-header">
+                                    <p className="card-header-title">
+                                        User Search
+                                    </p>
+                                </div>
+                                <div className="card-content">
+                                    <div className="content">
+                                        <div className="control has-icons-left has-icons-right">
+                                            <input className="input is-large" type="text" placeholder="" />
+                                            <span className="icon is-medium is-left">
+                                                <i className="fa fa-search" />
+                                            </span>
+                                            <span className="icon is-medium is-right">
+                                                <i className="fa fa-check"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 </div>
