@@ -11,14 +11,15 @@ class PasswordReset extends Component {
 
         this.state = {
             email: '',
-            displayMessage: ''
+            displayMessage: '',
+            loading: false
         };
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-
         const { email } = this.state;
+        this.setState({ loading: true })
 
         axios
             .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/users/password/reset/`, {
@@ -26,10 +27,12 @@ class PasswordReset extends Component {
             })
             .then(res => {
                 console.log(res.data)
+                this.setState({ loading: false })
                 this.setState({ displayMessage: res.data.detail })
             })
             .catch(err => {
                 console.log(err)
+                this.setState({ loading: false })
                 this.setState({ displayMessage: JSON.stringify(err.response.data) })
             });
     }
@@ -39,7 +42,7 @@ class PasswordReset extends Component {
     }
 
     render() {
-        const { displayMessage } = this.state
+        const { displayMessage, loading } = this.state
 
         return (
             <div id="pwd-reset-page-selector" className='hero is-full-height'>
@@ -57,6 +60,11 @@ class PasswordReset extends Component {
                                     <button id="submit-selector" className='button is-primary' onClick={this.onSubmit}>Submit</button>
                                 </div>
                             </div>
+                            {loading && (
+                                <span className="loading-icon icon is-large">
+                                    <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                                </span>
+                            )}
                             <div className="field is-below">
                                 {displayMessage}
                             </div>
