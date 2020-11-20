@@ -168,3 +168,24 @@ def propulsion_methods(request):
     propulsion_names = [propulsion.name for propulsion in Propulsion.objects.all()]
     data = {"propulsion_methods": propulsion_names}
     return Response(data=data, status=200)
+
+@api_view(["POST"])
+def reserve_name(request):
+    data = json.loads(request.body)
+    email = data["email"]
+    # get the email of the user submitting the app
+    user_with_email = user_models.SiteUser.objects.get(user__email=email)
+    name_to_reserve = data["name"]
+    port_to_reserve = data["port"]
+    try:
+        port_to_reserve = api_models.Port.objects.get(name=port_to_reserve)
+    except api_models.Port.DoesNotExist:
+        print("The submitted port does not exist.")
+        return HttpResponse(status=400)
+    new_name_object = api_models.ReservedName(name=name, 
+            port = port_to_reserve,
+            reserving_user=user_with_email)
+    # save the new reserved name object
+    new_name_object.save()
+    print("Name reserved.")
+    return HttpResponse(status=201)
