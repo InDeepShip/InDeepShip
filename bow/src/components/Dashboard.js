@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import '../styles/Dashboard.scss';
 
 
@@ -8,6 +9,21 @@ class DashboardBase extends Component {
         super(props);
 
         this.state = {};
+    }
+
+    componentDidMount() {
+        const { email } = this.props.auth.user;
+
+        axios
+        .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vesselregistration/private-registrations/`, {
+            email: email
+        })
+        .then((res) => {
+            const message = res.data.message;
+        })
+        .catch((err) => {
+            console.log('error');
+        });
     }
 
     render() {

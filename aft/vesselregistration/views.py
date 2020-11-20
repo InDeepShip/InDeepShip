@@ -56,12 +56,31 @@ def private_registration(request):
         for key, value in vessel_dict.items():
             if hasattr(ship, key):
                 setattr(ship, key, value)
-    except api_models.Vessel.DoesNotExist:    
+    except api_models.Vessel.DoesNotExist:
         ship = api_models.Vessel(**vessel_dict)
-        # init ship from fixed up 
+        # init ship from fixed up
     ship.save()
     reg_dict["vessel"] = ship
     new_reg = api_models.Registration(**reg_dict)
     new_reg.save()
     return HttpResponse(status=201)
 
+
+@csrf_exempt
+@api_view(["GET"])
+def user_private_registrations(request):
+    """
+        Function used to get a list of private vessel registrations
+        for a certain user.
+    """
+    data = json.loads(request.body)
+
+    try:
+        query_email = data['email']
+    except:
+        # User did not provide query email, invalid query
+        pass
+
+    query_result = api_models..objects.filter(email=query_email)
+
+    return HttpResponse(status=201)
