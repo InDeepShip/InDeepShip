@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser();
+    this.props.onTryAutoSignup();
   }
 
   render() {
@@ -110,7 +110,14 @@ function mapStateToProps({ auth, loadState }) {
   return { auth, loadState };
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+};
+
+
 export default connect(
   mapStateToProps,
-  actions,
+  mapDispatchToProps
 )(App);
