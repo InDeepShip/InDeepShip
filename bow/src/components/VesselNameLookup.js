@@ -63,10 +63,8 @@ class VesselNameLookup extends Component {
       .then(res => {
         this.setState({ application_sent: true });
         // set new reserved name
-        localStorage.removeItem("reservedName");
-        localStorage.setItem("reservedName", vesselName);
-        localStorage.removeItem("port");
-        localStorage.setItem("reservedPort", selectedPort);
+        localStorage.removeItem("selectedPort");
+        localStorage.setItem("selectedPort", selectedPort);
         console.log("Name reserved.")
         this.setState({ loading: false })
         this.setState({ displayRespMessage: res.data.detail })

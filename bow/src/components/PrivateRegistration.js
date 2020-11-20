@@ -10,16 +10,16 @@ class PrivateRegistrationBase extends Component {
     constructor(props) {
         super(props);
 
-        const reservedName = localStorage.getItem("reservedName")
-        const reservedPort = localStorage.getItem("reservedPort")
+        const vessel = localStorage.getItem("vesselName")
+        const port = localStorage.getItem("selectedPort")
 
         this.state = {
             name: '',
-            vessel: reservedName !== null ? reservedName : "",
+            vessel: vessel !== null ? vessel : "",
             email: '',
             phone: null,
             address: '',
-            port: reservedPort !== null ? reservedPort : "",
+            port: port !== null ? port : "",
             imo: null,
             tonnage: '',
             propulsion: '',
