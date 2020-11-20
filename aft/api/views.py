@@ -11,6 +11,7 @@ import requests
 import json
 from django.http import HttpResponse
 
+
 @api_view(['GET'])
 def api_overview(request):
     """
@@ -93,8 +94,8 @@ def vessel_lookup(request):
         except Vessel.DoesNotExist:
             pass
         if len(port_names) == 0:
-                name_available = False
-                message = f"{ship_name} is not availble at any of our ports."
+            name_available = False
+            message = f"{ship_name} is not availble at any of our ports."
         else:
             port_string = ""
             for p in port_names:
@@ -104,6 +105,7 @@ def vessel_lookup(request):
             message = f"{ship_name} is available at {port_string.strip()[:-1]}"
             name_available = True
         return Response(data={"message": message, "available": name_available, "ports": port_names}, status=200)
+
 
 @csrf_exempt
 @api_view(['POST'])
@@ -164,13 +166,16 @@ def ports(request):
     data = {"ports": port_names}
     return Response(data=data, status=200)
 
+
 @csrf_exempt
 @api_view(['GET'])
 def propulsion_methods(request):
     # get all propulsion methods from the database
-    propulsion_names = [propulsion.name for propulsion in Propulsion.objects.all()]
+    propulsion_names = [
+        propulsion.name for propulsion in Propulsion.objects.all()]
     data = {"propulsion_methods": propulsion_names}
     return Response(data=data, status=200)
+
 
 @api_view(["POST"])
 def reserve_name(request):
@@ -185,9 +190,9 @@ def reserve_name(request):
     except Port.DoesNotExist:
         print("The submitted port does not exist.")
         return HttpResponse(status=400)
-    new_name_object = ReservedName(name=name_to_reserve, 
-            port = port_to_reserve,
-            reserving_user=user_with_email)
+    new_name_object = ReservedName(name=name_to_reserve,
+                                   port=port_to_reserve,
+                                   reserving_user=user_with_email)
     # save the new reserved name object
     new_name_object.save()
     print("Name reserved.")
