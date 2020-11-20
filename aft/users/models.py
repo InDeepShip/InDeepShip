@@ -33,7 +33,7 @@ class SiteUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     address = models.OneToOneField(Address, null=False, on_delete=models.CASCADE)
     user_type = models.CharField(max_length=100, default="Broker")
-    
+
     def __str__(self):
         return self.user.email
 """
