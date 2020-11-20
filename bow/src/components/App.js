@@ -106,7 +106,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ auth, loadState }) {
+const  mapStateToProps = ({ auth, loadState }) => {
   return { auth, loadState };
 }
 
