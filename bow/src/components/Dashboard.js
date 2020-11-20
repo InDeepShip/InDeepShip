@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PrivateDashboard from './PrivateDashboard';
+import RegistrarDashboard from './RegistrarDashboard';
 import { connect } from 'react-redux';
 
 class DashboardBase extends Component {
@@ -16,7 +17,7 @@ class DashboardBase extends Component {
         }
 
         if (user.account === 'registrar') {
-            return <div />;
+            return <RegistrarDashboard />;
         }
 
         if (user.account === 'broker') {

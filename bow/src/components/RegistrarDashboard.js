@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../styles/PrivateDashboard.scss';
+import '../styles/RegistrarDashboard.scss';
 
 
-class PrivateDashboardBase extends Component {
+class RegistrarDashboardBase extends Component {
     constructor(props) {
         super(props);
 
@@ -98,7 +98,7 @@ class PrivateDashboardBase extends Component {
                         </div>
                     </section>
                     <div className="columns">
-                        <div className="column is-6">
+                        <div className="column is-12">
                             <div className="card events-card user-card">
                                 <header className="card-header">
                                     <p className="card-header-title">
@@ -125,48 +125,6 @@ class PrivateDashboardBase extends Component {
                                 </footer>
                             </div>
                         </div>
-                        <div className="column is-6">
-                            <div className="card user-card">
-                                <div className="card-header">
-                                    <p className="card-header-title">
-                                        Vessel Name Search
-                                    </p>
-                                </div>
-                                <div className="card-content">
-                                    <div className="content">
-                                        <div className="control has-icons-left has-icons-right">
-                                            <input className="input is-medium" type="text" placeholder="" />
-                                            <span className="icon is-medium is-left">
-                                                <i className="fa fa-search" />
-                                            </span>
-                                            <span className="icon is-medium is-right">
-                                                <i className="fa fa-check"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card user-card">
-                                <div className="card-header">
-                                    <p className="card-header-title">
-                                        User Search
-                                    </p>
-                                </div>
-                                <div className="card-content">
-                                    <div className="content">
-                                        <div className="control has-icons-left has-icons-right">
-                                            <input className="input is-medium" type="text" placeholder="" />
-                                            <span className="icon is-medium is-left">
-                                                <i className="fa fa-search" />
-                                            </span>
-                                            <span className="icon is-medium is-right">
-                                                <i className="fa fa-check"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 </div>
@@ -181,8 +139,8 @@ const mapStatetoProps = (state) => {
     }
 };
 
-const PrivateDashboard = connect(
+const RegistrarDashboard = connect(
     mapStatetoProps
-)(PrivateDashboardBase);
+)(RegistrarDashboardBase);
 
-export default PrivateDashboard;
+export default RegistrarDashboard;
