@@ -3,10 +3,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port, Propulsion
+from .models import Vessel, Port, Propulsion, ReservedName
+from users import models as user_models
 from django.views.decorators.csrf import csrf_exempt
 #from users.models import Broker, PrivateUser
 import requests
+import json
+from django.http import HttpResponse
 
 @api_view(['GET'])
 def api_overview(request):
@@ -178,11 +181,11 @@ def reserve_name(request):
     name_to_reserve = data["name"]
     port_to_reserve = data["port"]
     try:
-        port_to_reserve = api_models.Port.objects.get(name=port_to_reserve)
-    except api_models.Port.DoesNotExist:
+        port_to_reserve = Port.objects.get(name=port_to_reserve)
+    except Port.DoesNotExist:
         print("The submitted port does not exist.")
         return HttpResponse(status=400)
-    new_name_object = api_models.ReservedName(name=name, 
+    new_name_object = ReservedName(name=name_to_reserve, 
             port = port_to_reserve,
             reserving_user=user_with_email)
     # save the new reserved name object
