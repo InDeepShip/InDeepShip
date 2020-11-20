@@ -16,6 +16,7 @@ def private_registration(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         data = data['registration']
+        print(data)
         # get the email out of the request
         email = data["email"]
         # first step here is to see if the IMO number for the vessel already exists
@@ -24,6 +25,7 @@ def private_registration(request):
             print('No user with that email exists in the database.')
             return HttpResponse(status=400)
         try:
+            print(data["port"])
             port = api_models.Port.objects.get(name=data["port"])
         except api_models.Port.DoesNotExist:
             print('Port submitted does not exist.')
@@ -50,6 +52,9 @@ def private_registration(request):
                 reg_dict[field.name] = data[field.name]
         try:
             ship = api_models.Vessel.objects.get(imo=data["imo"])
+            for key, value in vessel_dict.items():
+                if hasattr(ship, key):
+                    setattr(ship, key, value)
         except api_models.Vessel.DoesNotExist:    
             ship = api_models.Vessel(**vessel_dict)
             # init ship from fixed up 
