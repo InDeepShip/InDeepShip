@@ -10,13 +10,16 @@ class PrivateRegistrationBase extends Component {
     constructor(props) {
         super(props);
 
+        const reservedName = localStorage.getItem("reservedName")
+        const reservedPort = localStorage.getItem("reservedPort")
+
         this.state = {
             name: '',
-            vessel: '',
+            vessel: reservedName !== null ? reservedName : "",
             email: '',
             phone: null,
             address: '',
-            port: '',
+            port: reservedPort !== null ? reservedPort : "",
             imo: null,
             tonnage: '',
             propulsion: '',
@@ -89,7 +92,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Vessel Name</label>
                             <div className="control">
-                                <input className="input" name='vessel' type="text" placeholder="Vessel Name" onChange={this.handleChange} />
+                                <input className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="field">

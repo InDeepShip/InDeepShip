@@ -10,13 +10,14 @@ import { connect } from 'react-redux';
 class VesselNameLookup extends Component {
   constructor(props) {
     super(props);
+    const vesselName = localStorage.getItem("vesselName")
     this.state = {
       ports: [],
       selectedPort: "",
       name_available: false,
       application_sent: false,
       reserveName: false,
-      vesselName: localStorage.getItem("vesselName"),
+      vesselName: vesselName !== null ? vesselName : "",
       loading: false,
       displayRespMessage: '',
     }
@@ -63,7 +64,9 @@ class VesselNameLookup extends Component {
         this.setState({ application_sent: true });
         // set new reserved name
         localStorage.removeItem("reservedName");
-        localStorage("reservedName", vesselName);
+        localStorage.setItem("reservedName", vesselName);
+        localStorage.removeItem("port");
+        localStorage.setItem("reservedPort", selectedPort);
         console.log("Name reserved.")
         this.setState({ loading: false })
         this.setState({ displayRespMessage: res.data.detail })
@@ -72,6 +75,7 @@ class VesselNameLookup extends Component {
       .catch(err => {
         console.log(err)
         this.setState({ loading: false })
+        this.setState({ displayRespMessage: "The submitted port does not exist." })
         this.setState({ displayRespMessage: JSON.stringify(err) })
       });
 
