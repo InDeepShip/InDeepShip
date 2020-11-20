@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from vesselregistration import models
-from api.models import models as api_models
+from api import models as api_models
 from users import models as user_models
 import json
+from datetime import datetime
 
 # Create your views here.
 @csrf_exempt
@@ -17,52 +18,65 @@ def private_registration(request):
         data = data['registration']
         # get the email out of the request
         email = data["email"]
-        print(email)
         # first step here is to see if the IMO number for the vessel already exists
         user_with_email = user_models.SiteUser.objects.get(user__email=email)
         if user_with_email == None:
             print('No user with that email exists in the database.')
             return HttpResponse(status=400)
         try:
-            port = Port.objects.get(name=data["port"])
-        except Port.DoesNotExist:
+            port = api_models.Port.objects.get(name=data["port"])
+        except api_models.Port.DoesNotExist:
             print('Port submitted does not exist.')
             return HttpResponse(status=400)
         try:
-            propulsion = Propulsion.objects.get(name=data['propulsion'])
-        except Propulsion.DoesNotExist:
+            propulsion = api_models.Propulsion.objects.get(name=data['propulsion'])
+        except api_models.Propulsion.DoesNotExist:
             print('Propulsion method submitted does not exist.')
             return HttpResponse(status=400)
         # going to need to figure out how to turn the registration into a date
-        print(data["date"])
+        datetime_date = datetime.strptime(data["date"], "%Y-%m-%d")
         # set the attribtes that are foreign keys
         data["port"] = port
         data["propulsion"] = propulsion
+        data["owner"] = user_with_email
+        data["start_date"] = datetime_date
+        vessel_dict = {}
+        reg_dict = {}
+        field_names = [field.name for field in api_models.Vessel._meta.get_fields()]
+        print(f"field_names pulled from vessel dict: {field_names}")
+        field_names = [field.name for field in api_models.Registration._meta.get_fields()]
+        print(f"field_names pulled from reg dict: {field_names}")
+        for field in api_models.Vessel._meta.get_fields():
+            #if hasattr(data, field.name):
+            if field.name in data:
+                print(f"field.name in vessel: {field.name}")
+                vessel_dict[field.name] = data[field.name]
+        # so nothing in the data dict is being found in the reg object
+        print(f"vessel_dict: {vessel_dict}")
+        #print(api_models.Registration._meta.get_fields())
+        for field in api_models.Registration._meta.get_fields():
+            print(f"Looking for reg field name in data: {field.name}")
+            if field.name in data:
+                reg_dict[field.name] = data[field.name]
+                print(f"Dict length: {len(reg_dict)}")
         try:
-            ship = Vessel.objects.get(imo=data["imo"])
+            ship = api_models.Vessel.objects.get(imo=data["imo"])
+            print("Found ship bitch")
          # if the vessel doesn't exist, need to create a new one
-            for key, value in data:
-                if hasattr(ship, key):
-                    setattr(ship, key, value)
-        except Vessel.DoesNotExist:    
-#            ship = Vessel(name=name,
-#                    port=port,
-#                    imo=data['imo'], 
-#                    tonnage=data['tonnage'],
-#                    propulsion=propulsion,
-#                    yard_number=data['yard_number'],
-#                    vessel_length=data['vessel_length'],
-#                    hulls = data['hulls'],
-#                    purpose=data['purpose']
-#                    )
+#            for key, value in vessel_dict:
+#                if hasattr(ship, key):
+#                    setattr(ship, key, value)
+        except api_models.Vessel.DoesNotExist:    
+            ship = api_models.Vessel(**vessel_dict)
             # init ship from fixed up 
-            ship = Vessel(**data)
-            ship.save()
-        try:
-            models.Registration.objects.create(**data)
-        except Exception as e:
-            print(e)
-            print('Issue creating a new private registration')
-            return HttpResponse(status=400)
+        ship.save()
+        print("Saved ship")
+        reg_dict["vessel"] = ship
+        for key, value in reg_dict.items():
+            print(key)
+            print(value)
+        print(f"reg dict: {reg_dict}")
+        new_reg = api_models.Registration(**reg_dict)
+        new_reg.save()
         return HttpResponse(status=201)
     return HttpResponse(status=400)
