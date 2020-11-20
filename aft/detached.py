@@ -2,7 +2,7 @@ import django
 from django.conf import settings
 #settings.configure()
 django.setup()
-from api.models import Port, Vessel
+from api.models import Port, Vessel, Registration
 from users.models import SiteUser, Address, CustomUser
 
 #new_port = Port.objects.filter(name="Carribean")
@@ -17,8 +17,13 @@ from users.models import SiteUser, Address, CustomUser
 # new_vessel.save()
 
 
-user = CustomUser.objects.get(email="mrbradle@ucsc.edu")
-address = Address()
-address.save()
-site_user = SiteUser(user=user, address=address)
-site_user.save()
+#user = CustomUser.objects.get(email="mrbradle@ucsc.edu")
+#address = Address()
+#address.save()
+#site_user = SiteUser(user=user, address=address)
+#site_user.save()
+#for vessel in Vessel.objects.all():
+#    vessel.delete()
+#
+#for vessel in Registration.objects.all():
+#    vessel.delete()

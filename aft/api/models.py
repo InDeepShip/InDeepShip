@@ -10,14 +10,14 @@ class Propulsion(models.Model):
 
 # Create your models here.
 class Registration(models.Model):
-    vessel = models.OneToOneField("Vessel", on_delete=models.CASCADE)
+    vessel = models.ForeignKey("Vessel", on_delete=models.CASCADE)
     port = models.ForeignKey(Port, null=False, on_delete=models.CASCADE)
-    tonnage = models.CharField(max_length=255)
+    tonnage = models.IntegerField(default=0)
     propulsion = models.ForeignKey(Propulsion, null=True, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now_add=True)
-    yard_number = models.CharField(max_length=255)
-    vessel_length = models.CharField(max_length=255)
-    hulls = models.DecimalField(max_digits=3, decimal_places=0)
+    yard_number = models.IntegerField(default=0)
+    vessel_length = models.IntegerField(default=0)
+    hulls = models.IntegerField(default=0)
     purpose = models.CharField(max_length=512)
     owner = models.ForeignKey(SiteUser, null=True, on_delete=models.CASCADE)
 
