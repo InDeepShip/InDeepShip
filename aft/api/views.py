@@ -5,9 +5,8 @@ from rest_framework import status
 from aft import settings
 from .models import Vessel, Port, Propulsion
 from django.views.decorators.csrf import csrf_exempt
-
+#from users.models import Broker, PrivateUser
 import requests
-
 
 @api_view(['GET'])
 def api_overview(request):
@@ -102,8 +101,6 @@ def vessel_lookup(request):
             message = f"{ship_name} is available at {port_string.strip()[:-1]}"
             name_available = True
         return Response(data={"message": message, "available": name_available, "ports": port_names}, status=200)
-
-
 
 @csrf_exempt
 @api_view(['POST'])
