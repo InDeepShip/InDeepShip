@@ -32,3 +32,8 @@ class Vessel(models.Model):
     hulls = models.DecimalField(max_digits=3, decimal_places=0, default=1)
     purpose = models.CharField(max_length=512, default="")
     owner = models.ForeignKey(SiteUser, null=False, on_delete=models.CASCADE)
+
+class ReservedName(models.Model):
+    name = models.CharField(blank=True, max_length=255)
+    port = models.ForeignKey(Port, on_delete=models.CASCADE)
+    reserving_user = models.ForeignKey(SiteUser, on_delete=models.CASCADE)

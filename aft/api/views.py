@@ -102,8 +102,6 @@ def vessel_lookup(request):
             name_available = True
         return Response(data={"message": message, "available": name_available, "ports": port_names}, status=200)
 
-
-
 @csrf_exempt
 @api_view(['POST'])
 def bug_report(request):

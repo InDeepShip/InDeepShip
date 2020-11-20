@@ -42,41 +42,21 @@ def private_registration(request):
         data["start_date"] = datetime_date
         vessel_dict = {}
         reg_dict = {}
-        field_names = [field.name for field in api_models.Vessel._meta.get_fields()]
-        print(f"field_names pulled from vessel dict: {field_names}")
-        field_names = [field.name for field in api_models.Registration._meta.get_fields()]
-        print(f"field_names pulled from reg dict: {field_names}")
         for field in api_models.Vessel._meta.get_fields():
-            #if hasattr(data, field.name):
             if field.name in data:
-                print(f"field.name in vessel: {field.name}")
                 vessel_dict[field.name] = data[field.name]
-        # so nothing in the data dict is being found in the reg object
-        print(f"vessel_dict: {vessel_dict}")
-        #print(api_models.Registration._meta.get_fields())
         for field in api_models.Registration._meta.get_fields():
-            print(f"Looking for reg field name in data: {field.name}")
             if field.name in data:
                 reg_dict[field.name] = data[field.name]
-                print(f"Dict length: {len(reg_dict)}")
         try:
             ship = api_models.Vessel.objects.get(imo=data["imo"])
-            print("Found ship bitch")
-         # if the vessel doesn't exist, need to create a new one
-#            for key, value in vessel_dict:
-#                if hasattr(ship, key):
-#                    setattr(ship, key, value)
         except api_models.Vessel.DoesNotExist:    
             ship = api_models.Vessel(**vessel_dict)
             # init ship from fixed up 
         ship.save()
-        print("Saved ship")
         reg_dict["vessel"] = ship
-        for key, value in reg_dict.items():
-            print(key)
-            print(value)
-        print(f"reg dict: {reg_dict}")
         new_reg = api_models.Registration(**reg_dict)
         new_reg.save()
         return HttpResponse(status=201)
     return HttpResponse(status=400)
+

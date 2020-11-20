@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 #from api.models import Port, Vessel, Propulsion
 #from vesselregistration.models import Registration
 from djongo import models
+from api import models as api_models
 
 class Address(models.Model):
      address1 = models.CharField(max_length=128, null=True)
@@ -19,10 +20,6 @@ class Address(models.Model):
                                         self.city,
                                         self.state,
                                         self.zipCode)
-class ReservedName(models.Model):
-    name = models.CharField(blank=True, max_length=255)
-    address = models.CharField(blank=True, max_length=255)
-
 class CustomUser(AbstractUser):
     name = models.CharField(blank=True, max_length=255)
     address = models.CharField(blank=True, max_length=255)
