@@ -4,13 +4,11 @@ import Root from './components/Root';
 import './styles/index.scss';
 import store from './store';
 import * as serviceWorker from './serviceWorker';
+import axios from 'axios';
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.withCredentials = true;
 
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));
 

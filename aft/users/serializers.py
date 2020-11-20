@@ -1,6 +1,7 @@
 # users/serializers.py
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework import serializers
+from rest_auth.models import TokenModel
 from allauth.account.adapter import get_adapter
 from . import models
 
@@ -8,34 +9,58 @@ from . import models
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CustomUser
-        fields = ('email', 'username', 'password', 'is_private', 'is_broker')
+        fields = ('email', 'name', 'password', 'address', 'account')
 
 
 class CustomRegisterSerializer(RegisterSerializer):
-    is_private = serializers.BooleanField()
-    is_broker = serializers.BooleanField()
+    address = serializers.CharField()
+    account = serializers.CharField()
+    name = serializers.CharField()
 
     class Meta:
         model = models.CustomUser
-        fields = ('email', 'username', 'password', 'is_private', 'is_broker')
+        fields = ('email', 'name', 'password', 'address', 'account')
 
     def get_cleaned_data(self):
         return {
-            'username': self.validated_data.get('username', ''),
+            'name': self.validated_data.get('name', ''),
             'password1': self.validated_data.get('password1', ''),
             'password2': self.validated_data.get('password2', ''),
             'email': self.validated_data.get('email', ''),
-            'is_private': self.validated_data.get('is_private', ''),
-            'is_broker': self.validated_data.get('is_broker', '')
+            'username': self.validated_data.get('email', ''),
+            'address': self.validated_data.get('address', ''),
+            'account': self.validated_data.get('account', '')
         }
 
     def save(self, request):
         adapter = get_adapter()
         user = adapter.new_user(request)
         self.cleaned_data = self.get_cleaned_data()
-        user.is_private = self.cleaned_data.get('is_private')
-        user.is_broker = self.cleaned_data.get('is_broker')
+        user.address = self.cleaned_data.get('address')
+        user.account = self.cleaned_data.get('account')
+        user.name = self.cleaned_data.get('name')
         user.save()
         adapter.save_user(request, user, self)
 
         return user
+
+
+class CustomTokenSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Token model.
+    """
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = TokenModel
+        fields = ('key', 'user')
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = models.CustomUser
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

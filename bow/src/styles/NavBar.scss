@@ -1,0 +1,29 @@
+@import 'bulma';
+
+$desktop-width: 1024px;
+
+.navbar-item-2 {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    font-weight: bold;
+    max-height: 3.25rem;
+}
+
+.navbar-item-2:hover {
+    background-color: transparent !important;
+    filter: brightness(85%);
+}
+
+.navbar-item {
+    font-weight: bold;
+}
+
+.navbar {
+    max-height: 3.25rem;
+}
+
+@media (min-width: $desktop-width){
+    .navbar-brand {
+        padding-left: 0.75rem;
+    }
+}

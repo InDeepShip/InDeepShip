@@ -1,4 +1,8 @@
 ##########################################################################
+# .gitignore test output
+##########################################################################
+bow/testCoverageReport/
+##########################################################################
 # .gitignore deployable static assets and index.html file
 ##########################################################################
 aft/frontend/static/js/
@@ -64,6 +68,9 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
+migrations
+*fix_t_suite*
+*out*
 
 # Flask stuff:
 instance/
@@ -124,6 +131,7 @@ media/
 # **/migrations/**
 # !**/migrations
 # !**/migrations/__init__.py
+
 
 
 ##########################################################################
@@ -234,3 +242,4 @@ dist
 
 # TernJS port file
 .tern-port
+*.swp

@@ -1,123 +1,91 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import signinButton from '../assets/google_signin_white.png';
 import ourFlag from '../assets/our_flag.png';
+import ServiceCards from './ServiceCards';
+import '../styles/Landing.scss';
+import * as ROUTES from '../constants/routes';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ports: [],
+      loading: true
+    }
+    fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/ports/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => response.json())
+      .then(data => {
+        this.setState({
+          "ports": data["ports"],
+          loading: false
+        })
+      })
+  }
   render() {
     return (
-      <React.Fragment>
-        <section className="hero">
+      <Fragment>
+        <section id="landing-page-selector" className="hero is-medium landing-header">
+          <div className='overlay'></div>
           <div className="hero-body is-medium">
             <div className="container">
               <div className="columns is-vcentered">
                 <div className="column is-half">
-                  <h1 className="title is-size-1 has-text-primary">
-                    Connecting boat owners with easy registration processes and helpful brokers since 1815.
+                  <h1 className="title is-size-1 is-size-3-mobile landing-header-text">
+                    Boat Registration Made Easy Since 1815.
                   </h1>
-                  <a href="/auth/google" className="has-text-centered">
-                    <button
-                      style={{
-                        background: `url("${signinButton}")`, backgroundSize: 'cover', width: 196, height: 46, border: 'none', display: 'inline-block'
-                      }}
-                      className="button"
-                      // onClick={this.signIn}
-                      title="Sign In"
-                    />
-                  </a>
-                  <br /><br />
-                  <div className="subtitle is-size-7 is-uppercase has-text-centered">
-                    Scroll down to see how the Navis Album Department of Shipping Registry can help you!
-                  </div>
                 </div>
-                <div className="column is-half">
-                  <figure className="image has-text-centered">
-                    <img className="is-rounded" src={ourFlag} style={{ height: '384px', width: '384px', display: 'inline-block' }} alt="Our Flag"/>
-                  </figure>
+                <div className="column is-third is-hidden-mobile get-started-column">
+                    <Link className="button is-large" to={ROUTES.LOGIN}>
+                      <span className="icon is-medium">
+                        <i className="fas fa-user-plus"></i>
+                      </span>
+                      <span>Get Started</span>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <hr />
-        <section className="section">
-          <div className="container">
-            <div className="title">How it works</div>
-            <ul className="steps is-medium">
-              <li className="step-item is-black is-active">
-                <div className="step-marker">
-                  <span className="icon">
-                    <i className="fa fa-envelope" />
+       {<ServiceCards />}
+        <section className="container">
+          <div className="columns is-vcentered is-multiline">
+            <div className="column is-half ports-column">
+                <div className="button is-large">
+                  <span className="icon is-medium">
+                    <i className="fas fa-ship"></i>
                   </span>
-                </div>
-                <div className="step-details">
-                  <p className="step-title">Step 1</p>
-                  <p>
-                      Sign up for an account with your username and email.
-                  </p>
-                </div>
-              </li>
-              <li className="step-item is-primary is-completed is-active">
-                <div className="step-marker">
-                  <span className="icon">
-                    <i className="fa fa-check-square" />
-                  </span>
-                </div>
-                <div className="step-details">
-                  <p className="step-title">Step 2</p>
-                  <p>Create an application for a ship registration.</p>
-                </div>
-              </li>
-              <li className="step-item is-info is-completed is-active">
-                <div className="step-marker">
-                  <span className="icon">
-                    <i className="fa fa-handshake-o" />
-                  </span>
-                </div>
-                <div className="step-details">
-                  <p className="step-title">Step 3</p>
-                  <p>Get on the ocean!</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <hr />
-        <section className="section">
-          <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Log in</h1>
-              </div>
-              <div className="column">
-                <div className="content is-large">
-                  <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Log in: <a href="/login">here</a></ul>
-                  </ol>
-                </div>
+                  <span>Our Ports</span>
               </div>
             </div>
+            <div className="column is-third">
+              <aside className="menu is-hidden-mobile">
+                  <p className="menu-label">Ports Accepting Registration</p>
+                  <ul className="menu-list">
+                    {this.state.ports.map((port, index) => {
+                      return (
+                        <li key={index}>
+                            <a href="#" className="">{port}</a>
+                        </li>
+                      );
+                  }
+                  )}
+                  </ul>
+              </aside>
+          </div>
+          { this.state.loading &&
+            <span className="loading-icon icon is-large">
+              <i className="fas fa-3x fa-spinner fa-pulse"></i>
+            </span>
+          }
           </div>
         </section>
-        <hr />
-        <section className="section">
-          <div className="container">
-            <div className="columns is-vcentered">
-              <div className="column is-one-third">
-                <h1 className="title is-uppercase">Sign up for account!</h1>
-              </div>
-              <div className="column">
-                <div className="content is-large">
-                  <ol style={{ wordBreak: 'break-word' }}>
-                      <ul>Sign up : <a href="/signup">here</a></ul>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <hr />
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
-export default App;
+export default withRouter(App);

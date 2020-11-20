@@ -21,6 +21,7 @@ pushd /var
 
 rm -rf InDeepShip
 git clone git@github.com:InDeepShip/InDeepShip.git
+echo 'REACT_APP_SERVER_ADDRESS="http://206.189.218.111"' > /var/InDeepShip/bow/.env
 pushd InDeepShip
 
 ########################################
@@ -39,8 +40,6 @@ source ./venv/bin/activate
 pip install -r requirements.txt
 
 pushd aft
-python manage.py makemigrations
-python manage.py migrate
 python manage.py collectstatic --no-input
 popd
 
