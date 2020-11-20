@@ -10,13 +10,16 @@ class PrivateRegistrationBase extends Component {
     constructor(props) {
         super(props);
 
+        const vessel = localStorage.getItem("vesselName")
+        const port = localStorage.getItem("selectedPort")
+
         this.state = {
             name: '',
-            vessel: '',
+            vessel: vessel !== null ? vessel : "",
             email: '',
             phone: null,
             address: '',
-            port: '',
+            port: port !== null ? port : "",
             imo: null,
             tonnage: '',
             propulsion: '',
@@ -56,16 +59,16 @@ class PrivateRegistrationBase extends Component {
                 })
             });
         fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/propulsion_methods/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then((response) => response.json())
-                .then(data => {
-                    this.setState({
-                        "propulsion_methods": data["propulsion_methods"]
-                    })
-                });
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => response.json())
+            .then(data => {
+                this.setState({
+                    "propulsion_methods": data["propulsion_methods"]
+                })
+            });
     }
 
     handleChange(e) {
@@ -89,7 +92,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Vessel Name</label>
                             <div className="control">
-                                <input className="input" name='vessel' type="text" placeholder="Vessel Name" onChange={this.handleChange} />
+                                <input className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="field">
@@ -349,15 +352,17 @@ class PrivateRegistrationBase extends Component {
         const { error, loading } = this.props;
 
         if (!this.props.auth) {
+            const pathname = ROUTES.LOGIN
+            const thisPage = ROUTES.PRIVATE_REGISTRATION
             return (
-                <div className='container'>
-                    You need to be logged in to register a vessel. <Link to={ROUTES.LOGIN}>Login ?</Link>
-                </div>
+                < div className='container' >
+                    You need to be logged in to register a vessel. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login ?</Link >
+                </div >
             );
         }
 
         return (
-            <div className='hero'>
+            <div className='hero' >
                 <div className='hero-body'>
                     <div className='container'>
                         {this.renderSteps()}

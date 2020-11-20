@@ -51,7 +51,7 @@ class Footer extends Component {
                     </span>
                     <div className="bugReportForm">
                         <br /><br />
-                        Please provide a brief description of your feedback:
+                        Please provide brief feedback:
                         <br /><br />
                         <textarea id="bug-report-textbox-selector" align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
                         <br /><br />
