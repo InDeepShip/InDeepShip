@@ -95,7 +95,6 @@ contains the python, pip and packages for your virtual environment
 ### Start Server Software
 Following commands should be executed where **Setup Virtual Enviornemnt** left off.
 1. `cd InDeepShip/aft` run command `python manage.py runserver`
-2. Visit `http://127.0.0.1:8000` in your browser.
 
 ## Database Software
 ```
@@ -160,23 +159,37 @@ This should result in your mongo database to be up and running.
 * https://www.robinwieruch.de/mongodb-macos-setup
 * https://medium.com/@bryantjiminson/fixing-data-db-not-found-error-in-macos-x-when-starting-mongodb-d7b82abb2479
 
-
 # Run Software
-So above we showed how to start the client code only. Or to start the server code. However for
-development, you will want to watch modifications mades to your react client code so you can then
-build the software and have Django backend render the built static assets and **index.html**.
-Follow the instructions below to set this up.
+In order to run both frontend + backend software locally, you need to do the following
 
-1. Open up a terminal session
+### Start Frontend Server
+1. Open a terminal
 2. `cd InDeepShip/bow`
-3. Run `npm run watch` this will watch your js and css files in case there are changes
-in order to rebundle the client code.
+3. Run `npm start`
 
-4. Open another terminal session
-5. Note: Make sure this terminal session has your **python virtaul enviornment** activated.
-6. `cd InDeepShip/aft`
-7. Run `python manage.py runserver` The Django Server should now render the react frontend code.
-8. Visit `http://127.0.01:8000` to view application.
+### Start Backend Server
+1. Open a terminal
+2. Make sure you are in your virtualenv for python.
+3. `cd InDeepShip/aft`
+4. `python manage.py runserver`
+
+
+# Access Server
+To access our development server, you can `ssh` in case there is any need to make
+modifications or fix server on the fly
+1. Open a terminal
+2. `ssh USERNAME@SERVER_IP` You should have a personal account setup for you
+3. Default password is `password123`
+4. At some point you should change your default password
+
+If for any reason you need to make modifications as `root` user, you should have root privledges
+you can change into the `root` user via:
+1. Run Command `sudo su -`
+2. This will prompt you for your user password
+
+## Running Development Server Code
+Server code is located in directory `/var/InDeepShip` FYI
+
 
 # Django REST Framework Browsable API
 
