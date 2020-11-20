@@ -174,6 +174,23 @@ In order to run both frontend + backend software locally, you need to do the fol
 4. `python manage.py runserver`
 
 
+# Access Server
+To access our development server, you can `ssh` in case there is any need to make
+modifications or fix server on the fly
+1. Open a terminal
+2. `ssh USERNAME@SERVER_IP` You should have a personal account setup for you
+3. Default password is `password123`
+4. At some point you should change your default password
+
+If for any reason you need to make modifications as `root` user, you should have root privledges
+you can change into the `root` user via:
+1. Run Command `sudo su -`
+2. This will prompt you for your user password
+
+## Running Development Server Code
+Server code is located in directory `/var/InDeepShip` FYI
+
+
 # Django REST Framework Browsable API
 
 Django REST Framework supports generating human-friendly HTML output for each resource when the HTML format is requested. These pages allow for easy browsing of resources, as well as forms for submitting data to the resources using POST, PUT, and DELETE. Read more [here](https://www.django-rest-framework.org/topics/browsable-api/).
