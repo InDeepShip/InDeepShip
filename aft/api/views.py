@@ -179,12 +179,12 @@ def propulsion_methods(request):
 
 @api_view(["POST"])
 def reserve_name(request):
-    data = json.loads(request.body)
-    email = data["email"]
+    data = request.data
+    email = data.get("email")
     # get the email of the user submitting the app
-    user_with_email = user_models.SiteUser.objects.get(user__email=email)
-    name_to_reserve = data["name"]
-    port_to_reserve = data["port"]
+    user_with_email = user_models.CustomUser.objects.get(email=email)
+    name_to_reserve = data.get("name")
+    port_to_reserve = data.get("port")
     try:
         port_to_reserve = Port.objects.get(name=port_to_reserve)
     except Port.DoesNotExist:

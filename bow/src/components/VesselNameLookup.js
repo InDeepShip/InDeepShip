@@ -16,7 +16,9 @@ class VesselNameLookup extends Component {
       name_available: false,
       application_sent: false,
       reserveName: false,
-      vesselName: localStorage.getItem("vesselName")
+      vesselName: localStorage.getItem("vesselName"),
+      loading: false,
+      displayRespMessage: '',
     }
     this.promptToReserve = this.promptToReserve.bind(this)
     this.submitApplication = this.submitApplication.bind(this)
@@ -59,11 +61,18 @@ class VesselNameLookup extends Component {
       })
       .then(res => {
         this.setState({ application_sent: true });
+        // set new reserved name
+        localStorage.removeItem("reservedName");
+        localStorage("reservedName", vesselName);
         console.log("Name reserved.")
+        this.setState({ loading: false })
+        this.setState({ displayRespMessage: res.data.detail })
         return null;
       })
       .catch(err => {
         console.log(err)
+        this.setState({ loading: false })
+        this.setState({ displayRespMessage: JSON.stringify(err) })
       });
 
   }
@@ -129,6 +138,8 @@ class VesselNameLookup extends Component {
   }
 
   render() {
+    const { displayRespMessage, loading } = this.state
+
     return (
       <section className='hero is-large'>
         <div className='container'>
@@ -152,6 +163,14 @@ class VesselNameLookup extends Component {
               </div>
               <div>
                 {this.state.name_available ? <this.promptToReserve /> : null}
+              </div>
+              {loading && (
+                <span className="loading-icon icon is-large">
+                  <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                </span>
+              )}
+              <div id="display-resp-message-selector" className="field is-below">
+                {displayRespMessage}
               </div>
             </div>
           </div>
