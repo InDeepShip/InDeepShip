@@ -130,18 +130,6 @@ export const authLogin = (email, password) => {
 };
 
 export const fetchUser = () => async (dispatch) => {
-  // dispatch({ type: DONE_LOADING, payload: true });
-  // try {
-  //   const res = await axios.get('/api/current_user');
-  //   dispatch({ type: FETCH_USER, payload: res.data });
-  //   dispatch({ type: DONE_LOADING, payload: true });
-  // } catch {
-  //   dispatch({ type: FETCH_USER, payload: false });
-  //   dispatch({ type: DONE_LOADING, payload: true });
-  // }
-
-  // For testing
-  // Set DONE_LOADING payload to false to show spinner
   dispatch({ type: actionTypes.FETCH_USER, payload: true });
   dispatch({ type: actionTypes.DONE_LOADING, payload: true });
 };
