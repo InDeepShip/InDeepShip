@@ -12,14 +12,14 @@ def private_registration(request):
     """
     Function used to handle user private registration POST
     """
-
     if request.method == 'POST':
         data = json.loads(request.body)
         data = data['registration']
         # get the email out of the request
         email = data["email"]
+        print(email)
         # first step here is to see if the IMO number for the vessel already exists
-        user_with_email = SiteUser.objects.get(user__email=email)
+        user_with_email = user_models.SiteUser.objects.get(user__email=email)
         if user_with_email == None:
             print('No user with that email exists in the database.')
             return HttpResponse(status=400)
@@ -33,6 +33,8 @@ def private_registration(request):
         except Propulsion.DoesNotExist:
             print('Propulsion method submitted does not exist.')
             return HttpResponse(status=400)
+        # going to need to figure out how to turn the registration into a date
+        print(data["date"])
         # set the attribtes that are foreign keys
         data["port"] = port
         data["propulsion"] = propulsion

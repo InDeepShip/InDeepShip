@@ -3,8 +3,9 @@ from django.conf import settings
 #settings.configure()
 django.setup()
 from api.models import Port, Vessel
+from users.models import SiteUser, Address, CustomUser
 
-new_port = Port.objects.filter(name="Carribean")
+#new_port = Port.objects.filter(name="Carribean")
 #new_port = Port(name="Carribean")
 # new_port = Port.objects.get(name="Carribean")
 # print(new_port.id)
@@ -16,3 +17,8 @@ new_port = Port.objects.filter(name="Carribean")
 # new_vessel.save()
 
 
+user = CustomUser.objects.get(email="mrbradle@ucsc.edu")
+address = Address()
+address.save()
+site_user = SiteUser(user=user, address=address)
+site_user.save()
