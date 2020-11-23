@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PrivateDashboard from './PrivateDashboard';
 import RegistrarDashboard from './RegistrarDashboard';
-import { connect } from 'react-redux';
+import Spinner from './Spinner';
+import * as actions from '../actions';
 
 class DashboardBase extends Component {
     constructor(props) {
@@ -10,20 +12,30 @@ class DashboardBase extends Component {
         this.state = {};
     }
 
+    componentDidMount() {
+        this.props.onTryAutoSignup();
+    }
+
     render() {
-        const { user } = this.props.auth;
-        if (user.account === 'private') {
-            return <PrivateDashboard />
-        }
+        if (this.props.auth) {
+            const { user } = this.props.auth;
+            if (user.account === 'private') {
+                return <PrivateDashboard />
+            }
 
-        if (user.account === 'registrar') {
-            return <RegistrarDashboard />;
-        }
+            if (user.account === 'registrar') {
+                return <RegistrarDashboard />;
+            }
 
-        if (user.account === 'broker') {
+            if (user.account === 'broker') {
+                return (
+                    <div></div>
+                )
+            }
+        } else {
             return (
-                <div></div>
-            )
+                <Spinner fullPage />
+            );
         }
     }
 }
@@ -34,8 +46,15 @@ const mapStatetoProps = (state) => {
     }
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+};
+
 const Dashboard = connect(
-    mapStatetoProps
+    mapStatetoProps,
+    mapDispatchToProps
 )(DashboardBase);
 
 export default Dashboard;
