@@ -12,6 +12,10 @@ class LoginBase extends Component {
       email: '',
       password: ''
     };
+
+    if (!props.location.prevPage) {
+      props.location.prevPage = ROUTES.DASHBOARD
+    }
   }
 
   onSubmit = (e) => {
@@ -30,7 +34,7 @@ class LoginBase extends Component {
     const containerClasses = loading ? 'container loading' : 'container';
 
     if (token) {
-      return <Redirect to={ROUTES.LANDING} />
+      return <Redirect to={this.props.location.prevPage} />
     }
 
     document.body.classList.add('has-navbar-fixed-top');
@@ -58,7 +62,7 @@ class LoginBase extends Component {
                     </Link>
                   </div>
                 </div>
-                <br/>
+                <br />
                 <div className='field'>
                   <span>Don't have an account? <Link id="signup-link-selector" to={ROUTES.SIGN_UP}>Sign Up</Link></span>
                 </div>
@@ -76,7 +80,7 @@ class LoginBase extends Component {
                   </div>
                 </div>
                 <br />
-               {loading && (
+                {loading && (
                   <span className="loading-icon icon is-large">
                     <i className="fas fa-3x fa-spinner fa-pulse"></i>
                   </span>

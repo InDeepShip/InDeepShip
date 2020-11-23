@@ -9,6 +9,8 @@ from datetime import datetime
 from rest_framework.decorators import api_view
 
 # Create your views here.
+
+
 @csrf_exempt
 @api_view(["POST"])
 def private_registration(request):
@@ -21,7 +23,7 @@ def private_registration(request):
     # get the email out of the request
     email = data["email"]
     # first step here is to see if the IMO number for the vessel already exists
-    user_with_email = user_models.SiteUser.objects.get(user__email=email)
+    user_with_email = user_models.CustomUser.objects.get(email=email)
     if user_with_email == None:
         print('No user with that email exists in the database.')
         return HttpResponse(status=400)
@@ -56,12 +58,11 @@ def private_registration(request):
         for key, value in vessel_dict.items():
             if hasattr(ship, key):
                 setattr(ship, key, value)
-    except api_models.Vessel.DoesNotExist:    
+    except api_models.Vessel.DoesNotExist:
         ship = api_models.Vessel(**vessel_dict)
-        # init ship from fixed up 
+        # init ship from fixed up
     ship.save()
     reg_dict["vessel"] = ship
     new_reg = api_models.Registration(**reg_dict)
     new_reg.save()
     return HttpResponse(status=201)
-

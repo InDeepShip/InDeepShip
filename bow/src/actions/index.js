@@ -44,6 +44,8 @@ export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("email");
+  localStorage.removeItem("vesselName")
+  localStorage.removeItem("selectedPort")
   return {
     type: actionTypes.AUTH_LOGOUT
   };

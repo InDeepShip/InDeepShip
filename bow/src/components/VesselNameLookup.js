@@ -7,37 +7,19 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 
-
-
-const renderField = ({
-  input,
-  label,
-  placeholder,
-  type,
-  meta: { touched, error, warning },
-}) => (
-    <div className="field">
-      <label className="label">{label}</label>
-      <div className="control">
-        <input {...input} placeholder={placeholder} type={type} className="input" />
-        {touched
-          && ((error && <p className="help is-danger">{error}</p>)
-            || (warning && <p className="help is-warning">{warning}</p>))}
-      </div>
-    </div>
-  );
-
 class VesselNameLookup extends Component {
   constructor(props) {
     super(props);
-    const vessel = "Vessel";
+    const vesselName = localStorage.getItem("vesselName")
     this.state = {
       ports: [],
       selectedPort: "",
       name_available: false,
       application_sent: false,
       reserveName: false,
-      reservedName: ""
+      vesselName: vesselName !== null ? vesselName : "",
+      loading: false,
+      displayRespMessage: '',
     }
     this.promptToReserve = this.promptToReserve.bind(this)
     this.submitApplication = this.submitApplication.bind(this)
@@ -47,12 +29,11 @@ class VesselNameLookup extends Component {
 
   checkNameAvailability = (e) => {
     const { vesselName } = this.state;
-    const vessel = this.state["vesselName"];
     this.setState({ application_sent: false })
 
     axios
       .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
-        "vesselName": vessel,
+        "vesselName": vesselName,
       })
       .then(res => {
         this.setState({
@@ -78,15 +59,22 @@ class VesselNameLookup extends Component {
         "name": vesselName,
         "port": selectedPort,
         "email": email
-
       })
       .then(res => {
         this.setState({ application_sent: true });
+        // set new reserved name
+        localStorage.removeItem("selectedPort");
+        localStorage.setItem("selectedPort", selectedPort);
         console.log("Name reserved.")
+        this.setState({ loading: false })
+        this.setState({ displayRespMessage: res.data.detail })
         return null;
       })
       .catch(err => {
         console.log(err)
+        this.setState({ loading: false })
+        this.setState({ displayRespMessage: "The submitted port does not exist." })
+        this.setState({ displayRespMessage: JSON.stringify(err) })
       });
 
   }
@@ -112,11 +100,12 @@ class VesselNameLookup extends Component {
 
   promptToReserve() {
     if (!this.props.auth) {
+      const pathname = ROUTES.LOGIN
+      const thisPage = ROUTES.VESSEL_NAME_LOOKUP
       return (
-        <div>
-          <br />
-          <h1>You can <Link to={ROUTES.LOGIN}>login</Link> or <Link to={ROUTES.SIGN_UP}>sign up</Link> to reserve this vessel name.</h1>
-        </div>
+        < div className='container' >
+          You need to be logged in to reserve a vessel name. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login ?</Link >
+        </div >
       );
     } else {
       return (
@@ -141,15 +130,18 @@ class VesselNameLookup extends Component {
         </div>)
         ;
     }
-
-
   }
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+    if (e.target.name === "vesselName") {
+      localStorage.setItem(e.target.name, e.target.value)
+    }
   }
 
   render() {
+    const { displayRespMessage, loading } = this.state
+
     return (
       <section className='hero is-large'>
         <div className='container'>
@@ -161,7 +153,7 @@ class VesselNameLookup extends Component {
               <h1 className='title'>Check for Vessel name availability</h1>
               <div className="field">
                 <label className="label">Vessel Name</label>
-                <input className='input' placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
+                <input className='input' value={this.state.vesselName} placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
               </div>
               <div className='field'>
                 <div className='control'>
@@ -173,6 +165,14 @@ class VesselNameLookup extends Component {
               </div>
               <div>
                 {this.state.name_available ? <this.promptToReserve /> : null}
+              </div>
+              {loading && (
+                <span className="loading-icon icon is-large">
+                  <i className="fas fa-3x fa-spinner fa-pulse"></i>
+                </span>
+              )}
+              <div id="display-resp-message-selector" className="field is-below">
+                {displayRespMessage}
               </div>
             </div>
           </div>

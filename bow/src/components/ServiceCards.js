@@ -20,50 +20,44 @@ class ServiceCards extends Component {
                     <div className='column service-column'>
                         <Link to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
                             <div className="card service-card">
-                            <div className="card-image service-card-image">
-                                <figure className="image is-4by3">
-                                    <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
-                                </figure>
-                            </div>
-                            <header className="card-header">
-                                <p className="card-header-title">
-                                    Private Registration
-                                </p>
-                            </header>
-                            <div className='card-content'>
-                                <div className="content">
-                                    Private Owners are now able to register
-                                    their boats or yachts digitally.
+                                <div className="card-image service-card-image">
+                                    <figure className="image is-4by3">
+                                        <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Placeholder image" />
+                                    </figure>
                                 </div>
-                            </div>
-                            <footer className="card-footer service-card-footer">
-                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
-                            </footer>
+                                <header className="card-header">
+                                    <p className="card-header-title">
+                                        Private Registration
+                                </p>
+                                </header>
+                                <div className='card-content'>
+                                    <div className="content">
+                                        Private Owners are now able to register
+                                        their boats or yachts digitally.
+                                </div>
+                                </div>
                             </div>
                         </Link>
                     </div>
                     <div className='column service-column'>
                         <Link to={ROUTES.VESSEL_NAME_LOOKUP}>
                             <div className="card service-card">
-                            <div className="card-image service-card-image">
-                                <figure className="image is-4by3">
-                                    <img src="https://images.unsplash.com/photo-1555562791-3cdb883dde6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80" alt="Placeholder image" />
-                                </figure>
-                            </div>
-                            <header className="card-header">
-                                <p className="card-header-title">
-                                    Vessel Name Lookup
-                                </p>
-                            </header>
-                            <div className='card-content'>
-                                <div className="content">
-                                    Check to see if a vessel name is available for
-                                    any of the Navis Album ports
+                                <div className="card-image service-card-image">
+                                    <figure className="image is-4by3">
+                                        <img src="https://images.unsplash.com/photo-1555562791-3cdb883dde6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1268&q=80" alt="Placeholder image" />
+                                    </figure>
                                 </div>
-                            </div>
-                            <footer className="card-footer service-card-footer">
-                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
-                            </footer>
+                                <header className="card-header">
+                                    <p className="card-header-title">
+                                        Vessel Name Lookup
+                                </p>
+                                </header>
+                                <div className='card-content'>
+                                    <div className="content">
+                                        Check to see if a vessel name is available for
+                                        any of the Navis Album ports
+                                </div>
+                                </div>
                             </div>
                         </Link>
                     </div>
@@ -85,9 +79,6 @@ class ServiceCards extends Component {
                                     are also able to sail with the Navis Album flag.
                                 </div>
                             </div>
-                            <footer className="card-footer service-card-footer">
-                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
-                            </footer>
                         </div>
                     </div>
                     <div className='column service-column'>
@@ -108,9 +99,6 @@ class ServiceCards extends Component {
                                     documentations.
                                 </div>
                             </div>
-                            <footer className="card-footer service-card-footer">
-                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
-                            </footer>
                         </div>
                     </div>
                     <div className='column service-column'>
@@ -131,9 +119,6 @@ class ServiceCards extends Component {
                                     digital tracking and renewals.
                                 </div>
                             </div>
-                            <footer className="card-footer service-card-footer">
-                                <a href="#" className="card-footer-item service-card-footer-item">Learn More</a>
-                            </footer>
                         </div>
                     </div>
                 </div>
