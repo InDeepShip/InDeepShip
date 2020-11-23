@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Route, Switch, Redirect,
 } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Landing from './Landing';
 import Spinner from './Spinner';
@@ -47,25 +48,9 @@ class App extends Component {
     document.body.classList.add('has-navbar-fixed-top');
     // document.body.classList.add('has-spaced-navbar-fixed-top');
     return this.props.loadState === 0 ? (
-      <>
+      <Router>
         <NavBar textboxRef={this.textboxRef} />
         <Switch>
-          <PrivateRoute
-            exact
-            path="/"
-            // component={Landing}
-            component={null}
-            // loggedIn={this.props.auth}
-            loggedIn={false}
-            // accountSetup={this.props.auth.isSetup}
-            accountSetup={false}
-          />
-          <PrivateRoute
-            exact
-            path="/settings"
-            component={EditProfile}
-            loggedIn={true}
-          />
           <Route path={ROUTES.ORGANIZATION} component={Organization} />
           <Route path={ROUTES.PASSWORD_RESET} component={PasswordReset} />
           <Route path={ROUTES.PASSWORD_RESET_CONFIRM} component={PasswordResetConfirm} />
@@ -78,6 +63,7 @@ class App extends Component {
           <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
           <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
           <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
+          <Route exact path={ROUTES.LANDING} component={Landing} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
         </Switch>
@@ -94,14 +80,14 @@ class App extends Component {
             return null;
           }}
         />
-      </>
+      </Router>
     ) : (this.props.loadState === 1) ? (
       <Spinner fullPage />
     ) : (
-          <>
-            <NavBar />
-            <Spinner fullPage />
-          </>
+      <>
+        <NavBar />
+        <Spinner fullPage />
+      </>
         );
   }
 }
