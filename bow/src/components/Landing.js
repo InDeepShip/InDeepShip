@@ -37,7 +37,7 @@ class App extends Component {
               <div className="columns is-vcentered">
                 <div className="column is-half">
                   <h1 className="title is-size-1 is-size-3-mobile landing-header-text">
-                    Boat Registration Made Easy Since 1815.
+                    Ship Registration Made Easy Since 1815.
                   </h1>
                 </div>
                 <div className="column is-third is-hidden-mobile get-started-column">
