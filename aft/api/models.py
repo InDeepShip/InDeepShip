@@ -62,3 +62,8 @@ class MerchantVessel(models.Model):
     yearOfBuild = models.IntegerField(default=0)
     registeredLength = models.IntegerField(default=0)
     registration = models.CharField(max_length = 128,default="")
+
+class Engine(models.Model):
+    kW = models.IntegerField(default=0)
+    manufacturer = models.CharField(max_length = 128)
+    model = models.CharField(max_length = 128)
