@@ -1,5 +1,5 @@
 from djongo import models
-from users.models import CustomUser
+from users.models import CustomUser, Address
 
 # Create your models here.
 
@@ -67,3 +67,10 @@ class Engine(models.Model):
     kW = models.IntegerField(default=0)
     manufacturer = models.CharField(max_length = 128)
     model = models.CharField(max_length = 128)
+    vessel = models.ForeignKey(MerchantVessel, on_delete = models.CASCADE, null=True)
+
+class LegalEntity(models.Model):
+    name = models.CharField(max_length = 128, default="")
+    address = models.OneToOneField(Address, null=True, on_delete=models.CASCADE)
+    email = models.EmailField()
+    telephone = models.CharField(max_length = 128, default="")
