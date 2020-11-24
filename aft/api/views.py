@@ -235,3 +235,30 @@ def get_registrations(request):
     regs = Registration.objects.filter(owner__email=user_email) 
     data = {"registrations": regs}
     return Response(data=data, status=200)
+
+@api_view(["GET"])
+def get_statuses(request):
+    user_email = request.GET.get("email", "")
+    if user_email == "":
+        message = "There is no email attached to the request."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+       user = user_models.CustomUser.objects.get(email=user_email)
+    except user_models.CustomUser.DoesNotExist:
+        message = "There is no user in the database with that email."
+        return Response(
+            data={"message": message},
+            status=200)
+    regs = Registration.objects.get(owner_id=user.id)
+    ships = []
+    for reg in regs:
+        vessel = Vessel.objects.get(vessel_id=reg.vessel_id)
+        name = vessel.name
+        port = Port.objects.get(name=id.port_id).name
+        start_date = vessel.start_date
+
+
+    data = {"ships": regs}
+    return Response(data=data, status=200)
