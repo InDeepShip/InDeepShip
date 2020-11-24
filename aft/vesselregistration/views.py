@@ -17,7 +17,7 @@ def private_registration(request):
     """
     Function used to handle user private registration POST
     """
-    data = json.loads(request.body)
+    data = request.data
     data = data['registration']
     print(data)
     # get the email out of the request
