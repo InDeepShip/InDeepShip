@@ -21,6 +21,7 @@ class Registration(models.Model):
     propulsion = models.ForeignKey(
         Propulsion, null=True, on_delete=models.CASCADE)
     start_date = models.DateField(auto_now_add=True)
+    expiration_date = models.DateField(default=None)
     yard_number = models.IntegerField(default=0)
     vessel_length = models.IntegerField(default=0)
     hulls = models.IntegerField(default=0)
