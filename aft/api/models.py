@@ -49,6 +49,12 @@ class ReservedName(models.Model):
     port = models.ForeignKey(Port, on_delete=models.CASCADE)
     reserving_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
+class LegalEntity(models.Model):
+    name = models.CharField(max_length = 128, default="")
+    address = models.OneToOneField(Address, null=True, on_delete=models.CASCADE)
+    email = models.EmailField()
+    telephone = models.CharField(max_length = 128, default="")
+
 class MerchantVessel(models.Model):
     officialNumber = models.CharField(max_length = 128, default="")
     name = models.CharField(max_length = 128,default="")
@@ -62,6 +68,8 @@ class MerchantVessel(models.Model):
     yearOfBuild = models.IntegerField(default=0)
     registeredLength = models.IntegerField(default=0)
     registration = models.CharField(max_length = 128,default="")
+    builder = models.ForeignKey(LegalEntity, related_name="builder",on_delete = models.CASCADE, null=True)
+    managingCompany = models.ForeignKey(LegalEntity, related_name = "managingCompany",on_delete = models.CASCADE, null=True)
 
 class Engine(models.Model):
     kW = models.IntegerField(default=0)
@@ -69,8 +77,3 @@ class Engine(models.Model):
     model = models.CharField(max_length = 128)
     vessel = models.ForeignKey(MerchantVessel, on_delete = models.CASCADE, null=True)
 
-class LegalEntity(models.Model):
-    name = models.CharField(max_length = 128, default="")
-    address = models.OneToOneField(Address, null=True, on_delete=models.CASCADE)
-    email = models.EmailField()
-    telephone = models.CharField(max_length = 128, default="")
