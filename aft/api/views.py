@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port, Propulsion, ReservedName
+from .models import Vessel, Port, Propulsion, ReservedName, Registration
 from users import models as user_models
 from django.views.decorators.csrf import csrf_exempt
 #from users.models import Broker, PrivateUser
@@ -215,4 +215,23 @@ def get_vessels(request):
             status=200)
     vessels = Vessel.objects.get(owner__email=user_email) 
     data = {"vessels": vessels}
+    return Response(data=data, status=200)
+
+@api_view(["GET"])
+def get_registrations(request):
+    user_email = request.GET.get("email", "")
+    if user_email == "":
+        message = "There is no email attached to the request."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+       user = CustomUser.objects.get(email=email)
+    except CustomUser.DoesNotExist:
+        message = "There is no user in the database with that email."
+        return Response(
+            data={"message": message},
+            status=200)
+    regs = Registration.objects.get(owner__email=user_email) 
+    data = {"registrations": regs}
     return Response(data=data, status=200)

@@ -11,5 +11,6 @@ urlpatterns = [
     path('propulsion_methods/', views.propulsion_methods),
     path('reserve-name/', views.reserve_name),
     path('vessels/', views.get_vessels),
+    path('registrations/', views.get_registrations),
     path('', views.api_overview)
 ]
