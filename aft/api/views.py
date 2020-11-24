@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
 from django.http import HttpResponse
+from datetime import datetime, timedelta
+
 
 
 @api_view(['GET'])
@@ -251,14 +253,41 @@ def get_statuses(request):
         return Response(
             data={"message": message},
             status=200)
-    regs = Registration.objects.get(owner_id=user.id)
+    try:
+        regs = Registration.objects.filter(owner_id=user.id)
+    except user_models.CustomUser.DoesNotExist:
+        message = "There is no registration in the database under that user id."
+        return Response(data={"message": message}, status=200)
     ships = []
     for reg in regs:
-        vessel = Vessel.objects.get(vessel_id=reg.vessel_id)
+        try:
+            vessel = Vessel.objects.get(id=reg.vessel_id)
+        except user_models.CustomUser.DoesNotExist:
+            message = "There is no vessel in the database under that registration id."
+            return Response(data={"message": message}, status=200)
+        try:
+            port = Port.objects.get(id=vessel.port_id)
+        except user_models.CustomUser.DoesNotExist:
+            message = "There is no port in the database under that port id."
+            return Response(data={"message": message}, status=200)
+        port = port.name
         name = vessel.name
-        port = Port.objects.get(name=id.port_id).name
-        start_date = vessel.start_date
+        imo = vessel.imo
+        start_date = reg.start_date
+        expiration_date = reg.expiration_date
+        # old expirations with no expiration date default to registered
+        if expiration_date is None:
+            status = "Registered"
+        else:
+            remaining_time = expiration_date - start_date
+            if time_between_insertion.days > 30:
+                status = "Registered"
+            elif time_between_insertion.days > 0:
+                status = "Expiring Soon"
+            else:
+                status = "Expired"
+        ship = {"name": name, "port": port, "imo": imo, "status": status}
+        ships.append(ship)
 
-
-    data = {"ships": regs}
+    data = {"ships": ships}
     return Response(data=data, status=200)
