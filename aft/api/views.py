@@ -207,13 +207,13 @@ def get_vessels(request):
             data={"message": message},
             status=200)
     try:
-       user = CustomUser.objects.get(email=email)
-    except CustomUser.DoesNotExist:
+       user = user_models.CustomUser.objects.get(email=user_email)
+    except user_models.CustomUser.DoesNotExist:
         message = "There is no user in the database with that email."
         return Response(
             data={"message": message},
             status=200)
-    vessels = Vessel.objects.get(owner__email=user_email) 
+    vessels = Vessel.objects.filter(owner__email=user_email) 
     data = {"vessels": vessels}
     return Response(data=data, status=200)
 
@@ -226,12 +226,12 @@ def get_registrations(request):
             data={"message": message},
             status=200)
     try:
-       user = CustomUser.objects.get(email=email)
-    except CustomUser.DoesNotExist:
+       user = user_models.CustomUser.objects.get(email=user_email)
+    except user_models.CustomUser.DoesNotExist:
         message = "There is no user in the database with that email."
         return Response(
             data={"message": message},
             status=200)
-    regs = Registration.objects.get(owner__email=user_email) 
+    regs = Registration.objects.filter(owner__email=user_email) 
     data = {"registrations": regs}
     return Response(data=data, status=200)
