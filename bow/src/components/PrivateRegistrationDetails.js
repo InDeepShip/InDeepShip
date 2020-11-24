@@ -14,8 +14,8 @@ class PrivateRegistrationDetails extends Component {
         return (
             <div className='container'>
                 <div className='columns private-registration-columns'>
-                    <div className='column is-3'>
-                        <div className='boxed sidebar-box'>
+                    <div className='column is-3 menu-container'>
+                        <div className='boxed sidebar-box register-menu'>
                             <aside className='menu is-hidden-mobile'>
                                 <p className='menu-label'>Why Register A Vessel?</p>
                                 <p className='menu-label'>Steps To Register A Vessel</p>
