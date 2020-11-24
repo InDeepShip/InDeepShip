@@ -56,6 +56,12 @@ class LegalEntity(models.Model):
     email = models.EmailField()
     telephone = models.CharField(max_length = 128, default="")
 
+class Engine(models.Model):
+    kW = models.IntegerField(default=0)
+    manufacturer = models.CharField(max_length = 128)
+    model = models.CharField(max_length = 128)
+    #vessel = models.ForeignKey(MerchantVessel, on_delete = models.CASCADE, null=True)
+
 class MerchantVessel(models.Model):
     officialNumber = models.CharField(max_length = 128, default="")
     name = models.CharField(max_length = 128,default="")
@@ -71,10 +77,5 @@ class MerchantVessel(models.Model):
     registration = models.CharField(max_length = 128,default="")
     builder = models.ForeignKey(LegalEntity, related_name="builder",on_delete = models.CASCADE, null=True)
     managingCompany = models.ForeignKey(LegalEntity, related_name = "managingCompany",on_delete = models.CASCADE, null=True)
-
-class Engine(models.Model):
-    kW = models.IntegerField(default=0)
-    manufacturer = models.CharField(max_length = 128)
-    model = models.CharField(max_length = 128)
-    vessel = models.ForeignKey(MerchantVessel, on_delete = models.CASCADE, null=True)
-
+    engines = models.ManyToManyField(Engine)
+    api_key = models.CharField(max_length = 256, default="")

@@ -13,6 +13,7 @@ class Address(models.Model):
     lineTwo = models.CharField(max_length=128, null=True)
     lineThree = models.CharField(max_length=64, null=True)
     postcode = models.CharField(max_length=64, null=True)
+    # needs to be in standardized country code
     country = models.CharField(max_length=5, null=True)
 
     def __str__(self):

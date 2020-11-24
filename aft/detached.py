@@ -1,9 +1,9 @@
-from users.models import CustomUser, Address, CustomUser
-from api.models import Port, Vessel, Registration
 import django
 from django.conf import settings
 # settings.configure()
 django.setup()
+from users.models import CustomUser, Address, CustomUser
+from api.models import Port, Vessel, Registration
 
 #new_port = Port.objects.filter(name="Carribean")
 #new_port = Port(name="Carribean")
@@ -27,3 +27,22 @@ django.setup()
 #
 # for vessel in Registration.objects.all():
 #    vessel.delete()
+
+address = Address(lineOne="1156 High Street",
+        lineTwo="",
+        lineThree="",
+        postcode="95060",
+        country="USA")
+address.save()
+address = Address(lineOne="1156 Low Street",
+        lineTwo="",
+        lineThree="",
+        postcode="15010",
+        country="USA")
+address.save()
+address = Address(lineOne="1156 Medium Street",
+        lineTwo="",
+        lineThree="",
+        postcode="85800",
+        country="USA")
+address.save()
