@@ -1,23 +1,25 @@
 .port-card {
     transition: all 500ms ease-in-out;
-    height: 80px;
+    height: 300px;
     position: relative;
-    margin: 50px;
+    margin: 20px;
 }
 
 .port-column {
-    min-width: 100px;
-    max-width: 150px;
-    min-height: 160px;
+    min-width: 280px;
+    max-width: 300px;
+    min-height: 320px;
+    max-height: 350;
 }
 
 .port-card-image {
     filter: brightness(50%);
+    height: 150px;
+    overflow: hidden;
 }
 
 .port-card:hover {
     cursor: pointer;
-    display: table-cell;
     margin-top: 1.0rem;
     box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
     transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
