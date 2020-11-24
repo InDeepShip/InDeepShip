@@ -10,6 +10,8 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
 from django.http import HttpResponse
+from datetime import datetime, timedelta
+
 
 
 @api_view(['GET'])
@@ -234,4 +236,58 @@ def get_registrations(request):
             status=200)
     regs = Registration.objects.filter(owner__email=user_email) 
     data = {"registrations": regs}
+    return Response(data=data, status=200)
+
+@api_view(["GET"])
+def get_statuses(request):
+    user_email = request.GET.get("email", "")
+    if user_email == "":
+        message = "There is no email attached to the request."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+       user = user_models.CustomUser.objects.get(email=user_email)
+    except user_models.CustomUser.DoesNotExist:
+        message = "There is no user in the database with that email."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+        regs = Registration.objects.filter(owner_id=user.id)
+    except user_models.CustomUser.DoesNotExist:
+        message = "There is no registration in the database under that user id."
+        return Response(data={"message": message}, status=200)
+    ships = []
+    for reg in regs:
+        try:
+            vessel = Vessel.objects.get(id=reg.vessel_id)
+        except user_models.CustomUser.DoesNotExist:
+            message = "There is no vessel in the database under that registration id."
+            return Response(data={"message": message}, status=200)
+        try:
+            port = Port.objects.get(id=vessel.port_id)
+        except user_models.CustomUser.DoesNotExist:
+            message = "There is no port in the database under that port id."
+            return Response(data={"message": message}, status=200)
+        port = port.name
+        name = vessel.name
+        imo = vessel.imo
+        start_date = reg.start_date
+        expiration_date = reg.expiration_date
+        # old expirations with no expiration date default to registered
+        if expiration_date is None:
+            status = "Registered"
+        else:
+            remaining_time = expiration_date - start_date
+            if time_between_insertion.days > 30:
+                status = "Registered"
+            elif time_between_insertion.days > 0:
+                status = "Expiring Soon"
+            else:
+                status = "Expired"
+        ship = {"name": name, "port": port, "imo": imo, "status": status}
+        ships.append(ship)
+
+    data = {"ships": ships}
     return Response(data=data, status=200)

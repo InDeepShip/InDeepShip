@@ -12,5 +12,6 @@ urlpatterns = [
     path('reserve-name/', views.reserve_name),
     path('vessels/', views.get_vessels),
     path('registrations/', views.get_registrations),
+    path('vesselstatus/', views.get_statuses),
     path('', views.api_overview)
 ]
