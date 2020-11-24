@@ -56,7 +56,7 @@ class Footer extends Component {
                         <textarea id="bug-report-textbox-selector" align="center" cols="50" rows="10" type='text' onChange={(e) => this.handleBugReportText(e)} />
                         <br /><br />
                         <div align="center">
-                            <button id="bug-report-submit-selector" type="button" onClick={() => this.handleSubmitBugReport()} className="button is-warning is-link">Submit</button>
+                            <button id="bug-report-submit-selector" type="button" onClick={() => this.handleSubmitBugReport()} className="button is-normal is-primary">Submit</button>
                         </div>
                     </div>
                     {/* scroll a little past the submit button */}
