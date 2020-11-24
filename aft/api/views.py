@@ -196,7 +196,7 @@ def reserve_name(request):
     # save the new reserved name object
     new_name_object.save()
     print("Name reserved.")
-    return HttpResponse(status=201)
+    return HttpResponse(status=200)
 
 @api_view(["GET"])
 def get_vessels(request):
@@ -213,3 +213,6 @@ def get_vessels(request):
         return Response(
             data={"message": message},
             status=200)
+    vessels = Vessel.objects.get(owner__email=user_email) 
+    data = {"vessels": vessels}
+    return Response(data=data, status=200)
