@@ -121,7 +121,7 @@ export const authLogin = (email, password) => {
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem('token', token);
         localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem("user", user);
+        localStorage.setItem("user", JSON.stringify(user));
         dispatch(authSuccess(token, user));
         dispatch(checkAuthTimeout(3600));
       })
@@ -131,19 +131,31 @@ export const authLogin = (email, password) => {
   };
 };
 
-export const fetchUser = () => async (dispatch) => {
-  // dispatch({ type: DONE_LOADING, payload: true });
-  // try {
-  //   const res = await axios.get('/api/current_user');
-  //   dispatch({ type: FETCH_USER, payload: res.data });
-  //   dispatch({ type: DONE_LOADING, payload: true });
-  // } catch {
-  //   dispatch({ type: FETCH_USER, payload: false });
-  //   dispatch({ type: DONE_LOADING, payload: true });
-  // }
+export const authCheckState = () => {
+  return dispatch => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  // For testing
-  // Set DONE_LOADING payload to false to show spinner
+    if (token === undefined) {
+      dispatch(logout());
+    } else {
+      const expirationDate = new Date(localStorage.getItem("expirationDate"));
+
+      if (expirationDate <= new Date()) {
+        dispatch(logout());
+      } else {
+        dispatch(authSuccess(token, user));
+        dispatch(
+          checkAuthTimeout(
+            (expirationDate.getTime() - new Date().getTime()) / 1000
+          )
+        )
+      }
+    }
+  }
+};
+
+export const fetchUser = () => async (dispatch) => {
   dispatch({ type: actionTypes.FETCH_USER, payload: true });
   dispatch({ type: actionTypes.DONE_LOADING, payload: true });
 };

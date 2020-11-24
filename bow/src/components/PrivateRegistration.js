@@ -29,12 +29,15 @@ class PrivateRegistrationBase extends Component {
             date: '',
             vessel_length: '',
             hulls: null,
-            agreement: '',
+            agreement: false,
             ports: [],
             curr: 0,
             next: 1,
-            propulsion_methods: []
+            propulsion_methods: [],
+            agreementError: null
         };
+
+        this.steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Summary', 'Payment'];
 
         if (this.props.auth) {
             this.state.name = this.props.auth.user.name;
@@ -43,6 +46,8 @@ class PrivateRegistrationBase extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
+        this.handlePagePrevious = this.handlePagePrevious.bind(this);
+        this.handlePageNext = this.handlePageNext.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -55,7 +60,8 @@ class PrivateRegistrationBase extends Component {
         }).then((response) => response.json())
             .then(data => {
                 this.setState({
-                    "ports": data["ports"]
+                    "ports": data["ports"],
+                    port: data.ports[0]
                 })
             });
         fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/propulsion_methods/`, {
@@ -66,19 +72,60 @@ class PrivateRegistrationBase extends Component {
         }).then((response) => response.json())
             .then(data => {
                 this.setState({
-                    "propulsion_methods": data["propulsion_methods"]
+                    "propulsion_methods": data["propulsion_methods"],
+                    propulsion: data.propulsion_methods[0]
                 })
             });
     }
 
     handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
+        if (e.target.name === "agreement") {
+            this.setState({ [e.target.name]: e.target.checked })
+        } else {
+            this.setState({ [e.target.name]: e.target.value });
+        }
+    }
+
+    handlePageNext(e) {
+        const { curr, next } = this.state;
+
+        // Need to make sure agreement checkbox was selected
+        if (this.steps[curr] === 'Summary') {
+            if (this.state.agreement) {
+                this.setState({
+                    curr: curr + 1,
+                    next: next + 1,
+                    agreementError: ""
+                });
+            } else {
+                this.setState({
+                    agreementError: "Need to agree to terms"
+                })
+            }
+        } else {
+            this.setState({
+                curr: curr + 1,
+                next: next + 1
+            });
+        }
+
+    }
+
+    handlePagePrevious(e) {
+        const { curr, next } = this.state;
+        this.setState({
+            curr: curr - 1,
+            next: next - 1
+        });
     }
 
     onSubmit(e) {
         e.preventDefault();
         let formData = Object.assign({}, this.state);
         delete formData.agreement;
+        delete formData.curr;
+        delete formData.next;
+        delete formData.agreementError;
 
         this.props.register(formData);
     }
@@ -226,22 +273,85 @@ class PrivateRegistrationBase extends Component {
                 );
             case 3:
                 return (
-
                     <Fragment>
-                        <div>Need to Implement</div>
-                    </Fragment>
-                );
-            case 4:
-                return (
-                    <Fragment>
+                        <div className="field">
+                            <label className="label">Vessel Name</label>
+                            <span>{this.state.vessel}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Port</label>
+                            <span>{this.state.port}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">IMO (International Maritime Organization) Number</label>
+                            <span>{this.state.imo}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Gross Tonnage</label>
+                            <span>{this.state.tonnage}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Proposed Registration Date</label>
+                            <span>{this.state.date}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Owner Name</label>
+                            <span>{this.state.name}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Contact Email Address</label>
+                            <span>{this.state.email}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Phone number</label>
+                            <span>{this.state.phone}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Home Address</label>
+                            <span>{this.state.address}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Builder Name</label>
+                            <span>{this.state.builder_name}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Builder Address</label>
+                            <span>{this.state.builder_address}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Yard Number</label>
+                            <span>{this.state.yard_number}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Length of Ship</label>
+                            <span>{this.state.vessel_length}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Number of Hulls</label>
+                            <span>{this.state.hulls}</span>
+                        </div>
+                        <div className="field">
+                            <label className="label">Method of Propulsion</label>
+                            <span>{this.state.propulsion}</span>
+                        </div>
                         <div className="field">
                             <div className="control">
                                 <label className="checkbox">
                                     <input type="checkbox" name='agreement' onChange={this.handleChange} />
                                     <span> I agree that all boat use will be personal and NOT commercial</span>
                                 </label>
+                                <p className='help is-danger'>
+                                    {this.state.agreementError}
+                                </p>
                             </div>
                         </div>
+                    </Fragment>
+                );
+            case 4:
+                return (
+
+                    <Fragment>
+                        <div>Need to Implement</div>
                     </Fragment>
                 );
             default:
@@ -277,7 +387,7 @@ class PrivateRegistrationBase extends Component {
 
     renderSteps() {
         const { curr, next } = this.state;
-        const steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Payment', 'Summary'];
+        const steps = this.steps;
 
         return (
             <div className="steps" id="stepsDemo">
@@ -317,7 +427,7 @@ class PrivateRegistrationBase extends Component {
                                 href="#"
                                 data-nav="previous"
                                 className="button is-light"
-                                onClick={() => this.setState({ curr: curr - 1, next: next - 1 })}>
+                                onClick={this.handlePagePrevious}>
                                 Previous
                                 </a>
                         </div>
@@ -330,7 +440,7 @@ class PrivateRegistrationBase extends Component {
                                     href="#"
                                     data-nav="next"
                                     className="button is-light"
-                                    onClick={() => this.setState({ curr: curr + 1, next: next + 1 })}>
+                                    onClick={this.handlePageNext}>
                                     Next
                                 </a>
                             </div>
