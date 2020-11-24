@@ -10,6 +10,44 @@ class PortsCards extends Component {
         };
     }
 
+    renderImage(port) {
+        switch(port) {
+            case "Victoria":
+                return <img src="http://www.yachtportcartagena.com/wp-content/uploads/2018/01/Yacht-Port-Cartagena-1-800x800.jpeg" />
+            case "Whitby Harbour": case "Scarborough": case "Robin Hood's Bay":
+                return <img src="https://www.fishingqueposmanuelantonio.com/wp-content/uploads/2015/06/11223964_717643158365313_7721575619537954388_n.jpg" />
+            default:
+                return <img src="http://www.travelwith2ofus.com/images/cruise-ship-port-sm2.jpg"></img>
+        }
+    }
+
+    renderCardContent(port) {
+        switch(port) {
+            case "Victoria":
+                return (
+                <div className='card-content'>
+                    <div className="content has-text-centered">
+                        Yachts registration
+                    </div>
+                </div>);
+            case "Whitby Harbour": case "Scarborough": case "Robin Hood's Bay":
+                return (
+                    <div className='card-content'>
+                        <div className="content has-text-centered">
+                            Fishing vessels registration
+                        </div>
+                    </div>
+                );
+            default:
+                return (
+                    <div className='card-content'>
+                        <div className="content has-text-centered">
+                            Merchant ships registration
+                        </div>
+                    </div>
+                );
+        }
+    }
     render() {
         return (
         <div>
@@ -22,18 +60,20 @@ class PortsCards extends Component {
           <div className="columns is-multiline is-centered is-vcentered">
             {this.props.ports.map((port, index) => {
                       return (
-                        <div className="port-column port-card">
-                            <div className="content has-text-centered">
-                                <p className="title is-6">
-                                    {port}
-                                </p>
-                            </div>
-                            <div className="port-card-image">
-                                <div className="media">
-                                    <figure className="port-card-image">
-                                        <img className="is-rounded" src="http://www.travelwith2ofus.com/images/cruise-ship-port-sm2.jpg"></img>
-                                    </figure>
+                        <div className="column port-column">
+                            <div className="card port-card">
+                                <div className="card-header">
+                                    <p className="card-header-title is-centered">
+                                        {port}
+                                    </p>
                                 </div>
+                                <div className="card-image port-card-image">
+                                        <figure className="image">
+                                        {this.renderImage(port)}
+                                        </figure>
+                                </div>
+                                {this.renderCardContent(port)}
+                                
                             </div>
                         </div>
                       );
