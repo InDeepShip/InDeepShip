@@ -8,19 +8,19 @@ from api import models as api_models
 
 
 class Address(models.Model):
-    address1 = models.CharField(max_length=128, null=True)
+    lineOne = models.CharField(max_length=128, null=True)
     # for apt number and what not
-    address2 = models.CharField(max_length=128, null=True)
-    city = models.CharField(max_length=64, null=True)
-    state = models.CharField(max_length=64, null=True)
-    zipCode = models.CharField(max_length=5, null=True)
+    lineTwo = models.CharField(max_length=128, null=True)
+    lineThree = models.CharField(max_length=64, null=True)
+    postcode = models.CharField(max_length=64, null=True)
+    country = models.CharField(max_length=5, null=True)
 
     def __str__(self):
-        return "{} {} {} {} {}".format(self.address1,
-                                       self.address2,
-                                       self.city,
-                                       self.state,
-                                       self.zipCode)
+        return "{} {} {} {} {}".format(self.lineOne,
+                                       self.lineTwo,
+                                       self.lineThree,
+                                       self.postcode,
+                                       self.country)
 
 
 class CustomUser(AbstractUser):
