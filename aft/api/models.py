@@ -48,3 +48,17 @@ class ReservedName(models.Model):
     name = models.CharField(blank=True, max_length=255)
     port = models.ForeignKey(Port, on_delete=models.CASCADE)
     reserving_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+class MerchantVessel(models.Model):
+    officialNumber = models.CharField(max_length = 128, default="")
+    name = models.CharField(max_length = 128,default="")
+    type = models.CharField(max_length = 128,default="")
+    keelLayingDate = models.DateField(null=True)
+    grossTonnage = models.IntegerField(default=0)
+    hin = models.CharField(max_length = 128,default="")
+    callSign = models.CharField(max_length = 128,default="")
+    mmsi = models.CharField(max_length = 128,default="")
+    imoNumber = models.IntegerField(default=0)
+    yearOfBuild = models.IntegerField(default=0)
+    registeredLength = models.IntegerField(default=0)
+    registration = models.CharField(max_length = 128,default="")
