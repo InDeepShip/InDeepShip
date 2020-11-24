@@ -10,5 +10,6 @@ urlpatterns = [
     path('ports/', views.ports),
     path('propulsion_methods/', views.propulsion_methods),
     path('reserve-name/', views.reserve_name),
+    path('vessels/', views.get_vessels),
     path('', views.api_overview)
 ]

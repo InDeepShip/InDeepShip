@@ -197,3 +197,19 @@ def reserve_name(request):
     new_name_object.save()
     print("Name reserved.")
     return HttpResponse(status=201)
+
+@api_view(["GET"])
+def get_vessels(request):
+    user_email = request.GET.get("email", "")
+    if user_email == "":
+        message = "There is no email attached to the request."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+       user = CustomUser.objects.get(email=email)
+    except CustomUser.DoesNotExist:
+        message = "There is no user in the database with that email."
+        return Response(
+            data={"message": message},
+            status=200)
