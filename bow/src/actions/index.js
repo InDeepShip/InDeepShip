@@ -42,6 +42,7 @@ export const authFail = (error) => {
 
 export const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("user");
   localStorage.removeItem("expirationDate");
   localStorage.removeItem("email");
   localStorage.removeItem("vesselName")
@@ -78,7 +79,7 @@ export const authSignup = (name, address, email, password1, password2, account) 
         const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
         localStorage.setItem("token", token);
         localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("user", user);
+        localStorage.setItem("user", JSON.stringify(user));
         dispatch(authSuccess(token, user));
         dispatch(checkAuthTimeout(3600));
       })
