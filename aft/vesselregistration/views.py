@@ -45,6 +45,7 @@ def private_registration(request):
     data["propulsion"] = propulsion
     data["owner"] = user_with_email
     data["start_date"] = datetime_date
+    data["expiration_date"] = datetime_date + datetime.timedelta(years=1)
     vessel_dict = {}
     reg_dict = {}
     for field in api_models.Vessel._meta.get_fields():

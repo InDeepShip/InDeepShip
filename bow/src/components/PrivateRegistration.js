@@ -39,7 +39,7 @@ class PrivateRegistrationBase extends Component {
 
         this.steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Summary', 'Payment'];
 
-        if (this.props.auth) {
+        if (this.props.auth && this.props.auth.token) {
             this.state.name = this.props.auth.user.name;
             this.state.email = this.props.auth.user.email;
             this.state.address = this.props.auth.user.address;
@@ -461,13 +461,22 @@ class PrivateRegistrationBase extends Component {
     render() {
         const { error, loading } = this.props;
 
-        if (!this.props.auth) {
+        if (!this.props.auth || !this.props.auth.token) {
             const pathname = ROUTES.LOGIN
             const thisPage = ROUTES.PRIVATE_REGISTRATION
             return (
-                < div className='container' >
-                    You need to be logged in to register a vessel. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login ?</Link >
-                </div >
+                <section className="hero">
+                    <div className="hero-body">
+                        <div className="container">
+                            <h1 className="title">
+                                You need to be logged in to register a vessel
+                            </h1>
+                            <Link to={{ pathname: pathname, prevPage: thisPage }}>
+                                <button className='button is-normal is-primary'>Login</button>
+                            </Link >
+                        </div>
+                    </div>
+                </section>
             );
         }
 
