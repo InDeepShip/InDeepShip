@@ -1,3 +1,7 @@
+.stripe-form {
+    text-align: center;
+}
+
 .stripe-form input {
     display: block;
     border: none;
@@ -39,7 +43,7 @@
 */
 .StripeElement, .StripeElementIdeal, .StripeElementFpx {
     display: block;
-    margin: 10px 0 20px 0;
+    margin: 20px auto;
     max-width: 500px;
     padding: 10px 14px;
     box-shadow: rgba(50, 50, 93, 0.14902) 0px 1px 3px,
