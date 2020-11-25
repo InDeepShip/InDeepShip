@@ -1,22 +1,32 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
+# from rest_framework.authentication import BaseAuthentication
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port, Propulsion, ReservedName, Registration
+from .models import Vessel, Port, Propulsion, ReservedName, Registration, MerchantVessel
+from django.core import serializers
 from users import models as user_models
-from django.views.decorators.csrf import csrf_exempt
-#from users.models import Broker, PrivateUser
+from rest_framework.permissions import AllowAny
+# from users.models import Broker, PrivateUser
 import requests
 import json
 from django.http import HttpResponse
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
 
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def api_overview(request):
     """
 
-    ### DESCRIPTION
+    # DESCRIPTION
 
     Returns a list of all DRS APIs
 
@@ -37,14 +47,14 @@ def api_overview(request):
     return Response(data=api_urls)
 
 
-@csrf_exempt
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def vessel_lookup(request):
     """
 
-    ### DESCRIPTION
+    # DESCRIPTION
 
-    ### USAGE
+    # USAGE
 
     1) Accepts a post request with vesselName parameter and portName param set, for example with the payload:
 
@@ -107,16 +117,16 @@ def vessel_lookup(request):
         return Response(data={"message": message, "available": name_available, "ports": port_names}, status=200)
 
 
-@csrf_exempt
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def bug_report(request):
     """
 
-    ### DESCRIPTION
+    # DESCRIPTION
 
     `POST /api/bugreport` satisifies the user story of [bug report](https://www.notion.so/User-Stories-6b653ed6007841e099e42e82aa6ff8e8) by allowing client and users to report any bugs with DRS.
 
-    ### USAGE
+    # USAGE
 
     Accepts a post request with message parameter and currentPage param set, for example with the payload:
 
@@ -127,7 +137,8 @@ def bug_report(request):
     }
     ```
 
-    and sends a bug report with that message to the `#bug-report` Slack channel.
+    # bug-report` Slack channel.
+    and sends a bug report with that message to the `
 
     It returns a message with the status code of the post request to Slack, for example:
 
@@ -158,8 +169,8 @@ def bug_report(request):
     return Response(data=data, status=ret_status)
 
 
-@csrf_exempt
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def ports(request):
     # get all ports from the database
     port_names = [port.name for port in Port.objects.all()]
@@ -167,8 +178,8 @@ def ports(request):
     return Response(data=data, status=200)
 
 
-@csrf_exempt
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def propulsion_methods(request):
     # get all propulsion methods from the database
     propulsion_names = [
@@ -198,8 +209,9 @@ def reserve_name(request):
     print("Name reserved.")
     return HttpResponse(status=200)
 
+
 @api_view(["GET"])
-def get_vessels(request):
+def get_user_vessels(request):
     user_email = request.GET.get("email", "")
     if user_email == "":
         message = "There is no email attached to the request."
@@ -207,15 +219,16 @@ def get_vessels(request):
             data={"message": message},
             status=200)
     try:
-       user = user_models.CustomUser.objects.get(email=user_email)
+        user = user_models.CustomUser.objects.get(email=user_email)
     except user_models.CustomUser.DoesNotExist:
         message = "There is no user in the database with that email."
         return Response(
             data={"message": message},
             status=200)
-    vessels = Vessel.objects.filter(owner__email=user_email) 
+    vessels = Vessel.objects.filter(owner__email=user_email)
     data = {"vessels": vessels}
     return Response(data=data, status=200)
+
 
 @api_view(["GET"])
 def get_registrations(request):
@@ -226,12 +239,44 @@ def get_registrations(request):
             data={"message": message},
             status=200)
     try:
-       user = user_models.CustomUser.objects.get(email=user_email)
+        user = user_models.CustomUser.objects.get(email=user_email)
     except user_models.CustomUser.DoesNotExist:
         message = "There is no user in the database with that email."
         return Response(
             data={"message": message},
             status=200)
-    regs = Registration.objects.filter(owner__email=user_email) 
+    regs = Registration.objects.filter(owner__email=user_email)
     data = {"registrations": regs}
     return Response(data=data, status=200)
+
+
+@api_view(["GET"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def get_merchant_vessels(request):
+    '''
+    The surveyor api accepts an `api-key` header assigned to a Surveyor. Returns an array of assigned merchant vessel ships.
+    '''
+    api_key = request.headers.get("api-key", "")
+    print(api_key)
+    if api_key == "":
+        message = "Invalid or missing API Key"
+        data = {}
+        status = 405
+    else:
+        results = MerchantVessel.objects.filter(api_key=api_key)
+        if len(results) == 0:
+            message = "Not found"
+            data = {}
+            status = 404
+        else:
+            def del_api(v): del v["api_key"]; return v
+            vessels = [del_api(v) for v in results.values()]
+            message = "Success"
+            data = {"vessels": vessels}
+            status = 200
+    return Response({
+        "data": data,
+        "status": status,
+        "message": message
+    })

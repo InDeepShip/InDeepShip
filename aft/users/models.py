@@ -14,7 +14,11 @@ class Address(models.Model):
     lineThree = models.CharField(max_length=64, null=True)
     postcode = models.CharField(max_length=64, null=True)
     # needs to be in standardized country code
+    # https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes alpha-3, so 3 character code
     country = models.CharField(max_length=5, null=True)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return "{} {} {} {} {}".format(self.lineOne,
