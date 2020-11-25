@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { privateRegistration } from '../actions';
 import * as ROUTES from '../constants/routes';
 import '../styles/PrivateRegistration.scss';
+import InjectedCheckoutForm from './CheckoutForm';
+
 
 
 class PrivateRegistrationBase extends Component {
@@ -349,10 +351,10 @@ class PrivateRegistrationBase extends Component {
                 );
             case 4:
                 return (
-
-                    <Fragment>
-                        <div>Need to Implement</div>
-                    </Fragment>
+                    <div className="field">
+                        <label className="label">Enter Payment Information</label>
+                        <InjectedCheckoutForm />
+                    </div>
                 );
             default:
                 return (
@@ -465,18 +467,7 @@ class PrivateRegistrationBase extends Component {
             const pathname = ROUTES.LOGIN
             const thisPage = ROUTES.PRIVATE_REGISTRATION
             return (
-                <section className="hero">
-                    <div className="hero-body">
-                        <div className="container">
-                            <h1 className="title">
-                                You need to be logged in to register a vessel
-                            </h1>
-                            <Link to={{ pathname: pathname, prevPage: thisPage }}>
-                                <button className='button is-normal is-primary'>Login</button>
-                            </Link >
-                        </div>
-                    </div>
-                </section>
+                <Redirect to={{ pathname: pathname, prevPage: thisPage }} />
             );
         }
 
