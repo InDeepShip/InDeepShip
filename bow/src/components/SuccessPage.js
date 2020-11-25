@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ErrorPage extends Component {
+class SuccessPage extends Component {
     constructor(props) {
         super(props);
 
@@ -9,9 +9,9 @@ class ErrorPage extends Component {
 
     render() {
         return (
-            <div>Error submitting payment</div>
+            <div>Yay successfully submitted payment</div>
         );
     }
 }
 
-export default ErrorPage;
+export default SuccessPage;

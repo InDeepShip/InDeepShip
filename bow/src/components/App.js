@@ -25,6 +25,8 @@ import PasswordResetConfirm from './PasswordResetConfirm';
 import PrivateRegistration from './PrivateRegistration';
 import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import Dashboard from './Dashboard';
+import SuccessPage from './SuccessPage';
+import ErrorPage from './ErrorPage';
 import * as ROUTES from '../constants/routes';
 
 const stripePromise = loadStripe('pk_test_51HrAP1ClBcrzs3YUasdAJPY6kecZuVBFUAqg83Pf3pe4M4d1wcDyksperpVm01cj3oo2yT09sR47SLlbNyQD0pXC00XqFAVtjC');
@@ -56,6 +58,8 @@ class App extends Component {
         <Elements stripe={ stripePromise }>
           <NavBar textboxRef={this.textboxRef} />
           <Switch>
+            <Route path={ROUTES.SUCCESS_PAGE} component={SuccessPage} />
+            <Route path={ROUTES.ERROR_PAGE} component={ErrorPage} />
             <Route path={ROUTES.ORGANIZATION} component={Organization} />
             <Route path={ROUTES.PASSWORD_RESET} component={PasswordReset} />
             <Route path={ROUTES.PASSWORD_RESET_CONFIRM} component={PasswordResetConfirm} />

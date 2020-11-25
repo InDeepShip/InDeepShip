@@ -33,8 +33,8 @@ def create_checkout_session(request):
             'quantity': 1,
             }],
             mode='payment',
-            success_url='https://127.0.0.1:8000/success',
-            cancel_url='https://127.0.0.1:8000/cancel',
+            success_url='http://127.0.0.1:3000/success',
+            cancel_url='http://127.0.0.1:3000/cancel',
         )
     except Exception as e:
         print(e)
