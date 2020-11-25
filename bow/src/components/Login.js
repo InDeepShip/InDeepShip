@@ -17,7 +17,7 @@ class LoginBase extends Component {
       props.location.prevPage = ROUTES.DASHBOARD
     }
   }
-  
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
