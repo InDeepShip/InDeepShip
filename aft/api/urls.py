@@ -13,5 +13,6 @@ urlpatterns = [
     path('user_vessels/', views.get_user_vessels),
     path('registrations/', views.get_registrations),
     path('vessels/', views.get_merchant_vessels),
+    path('vesselstatus/', views.get_statuses),
     path('', views.api_overview)
 ]
