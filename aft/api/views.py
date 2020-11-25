@@ -4,7 +4,7 @@ from rest_framework.response import Response
 # from rest_framework.authentication import BaseAuthentication
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port, Propulsion, ReservedName, Registration, MerchantVessel
+from .models import Vessel, Port, Propulsion, ReservedName, Registration, MerchantVessel, Surveyors
 from django.core import serializers
 from users import models as user_models
 from rest_framework.permissions import AllowAny
@@ -330,3 +330,9 @@ def get_statuses(request):
 
     data = {"ships": ships}
     return Response(data=data, status=200)
+
+@api_view(["GET"])
+def get_surveyors(request):
+    data = {"surveyors": Surveyors.objects.all()}
+    return Response(data=data, status=200)
+

@@ -15,5 +15,6 @@ urlpatterns = [
     path('vessels/', views.get_merchant_vessels),
     path('vesselstatus/', views.get_statuses),
     path('payments/', include('payments.urls')),
+    path('surveyors/', views.get_surveyors,
     path('', views.api_overview)
 ]
