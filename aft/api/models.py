@@ -115,3 +115,7 @@ class MerchantVessel(models.Model):
         model_container=Engine
     )
     api_key = models.CharField(max_length=256, default="")
+
+class Surveyor(models.Model):
+    name = models.CharField(max_length=256, default="")
+    api_key = models.CharField(max_length=256, default="")
