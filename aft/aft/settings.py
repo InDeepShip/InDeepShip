@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'api',
     'users',
-    'vesselregistration'
+    'vesselregistration',
+    'payments'
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -13,5 +13,6 @@ urlpatterns = [
     path('vessels/', views.get_vessels),
     path('registrations/', views.get_registrations),
     path('vesselstatus/', views.get_statuses),
+    path('payments/', include('payments.urls')),
     path('', views.api_overview)
 ]
