@@ -259,7 +259,8 @@ def get_merchant_vessels(request):
     '''
     api_key = request.headers.get("api-key", "")
     print(api_key)
-    if api_key == "":
+    # TODO check formatting
+    if api_key == "" or len(api_key) != 36:
         message = "Invalid or missing API Key"
         data = {}
         status = 405
