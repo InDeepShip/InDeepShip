@@ -23,6 +23,7 @@ import PasswordResetConfirm from './PasswordResetConfirm';
 import PrivateRegistration from './PrivateRegistration';
 import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import Dashboard from './Dashboard';
+import ShipView from './ShipView';
 import * as ROUTES from '../constants/routes';
 
 const PrivateRoute = ({
@@ -63,6 +64,7 @@ class App extends Component {
           <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
           <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
           <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
+          <Route exact path={ROUTES.SHIPVIEW} component={ShipView} />
           <Route exact path={ROUTES.LANDING} component={Landing} />
           <Route component={PageNotFound} />
           {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
