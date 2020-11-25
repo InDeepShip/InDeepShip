@@ -67,7 +67,7 @@ class CheckoutForm extends Component {
                 }}
                 />
                 <button className="button is-primary" type="submit" disabled={!stripe}>
-                    Pay
+                    Checkout
                 </button>
             </form>
         );

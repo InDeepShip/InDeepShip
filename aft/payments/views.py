@@ -26,9 +26,9 @@ def create_checkout_session(request):
                 'price_data': {
                 'currency': 'usd',
                 'product_data': {
-                'name': 'T-shirt',
+                'name': 'Private Registration',
                 },
-                'unit_amount': 2000,
+                'unit_amount': 1000,
             },
             'quantity': 1,
             }],
