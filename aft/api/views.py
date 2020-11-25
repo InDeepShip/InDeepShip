@@ -278,6 +278,26 @@ def get_merchant_vessels(request):
 
 
 @api_view(["GET"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def get_all_merchant_vessels(request):
+    '''
+    Returns an array of all merchant vessels.
+    '''
+    results = MerchantVessel.objects.filter()
+    def del_api(v): del v["api_key"]; return v
+    vessels = [del_api(v) for v in results.values()]
+    message = "Success"
+    data = {"vessels": vessels}
+    status = 200
+    return Response({
+        "data": data,
+        "status": status,
+        "message": message
+    })
+
+
+@api_view(["GET"])
 def get_statuses(request):
     user_email = request.GET.get("email", "")
     if user_email == "":
