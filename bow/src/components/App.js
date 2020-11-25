@@ -3,6 +3,8 @@ import {
   Route, Switch, Redirect,
 } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Element } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js/pure';
 import { connect } from 'react-redux';
 import Landing from './Landing';
 import Spinner from './Spinner';
