@@ -4,11 +4,8 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 import { privateRegistration } from '../actions';
 import * as ROUTES from '../constants/routes';
 import '../styles/PrivateRegistration.scss';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import InjectedCheckoutForm from './CheckoutForm';
 
-const stripePromise = loadStripe('pk_test_51HrAP1ClBcrzs3YUasdAJPY6kecZuVBFUAqg83Pf3pe4M4d1wcDyksperpVm01cj3oo2yT09sR47SLlbNyQD0pXC00XqFAVtjC');
 
 
 class PrivateRegistrationBase extends Component {
@@ -354,9 +351,10 @@ class PrivateRegistrationBase extends Component {
                 );
             case 4:
                 return (
-                    <Elements stripe={ stripePromise }>
+                    <div className="field">
+                        <label className="label">Enter Payment Information</label>
                         <InjectedCheckoutForm />
-                    </Elements>
+                    </div>
                 );
             default:
                 return (
