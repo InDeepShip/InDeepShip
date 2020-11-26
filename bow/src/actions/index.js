@@ -35,7 +35,7 @@ export const authSuccess = (token, user) => {
 
 export const authSuccessBroker = (status) => {
   return {
-    type: actionTypes.AUTH_SUCCESS,
+    type: actionTypes.AUTH_SUCCESS_BROKER,
     status: status
   };
 };
@@ -84,6 +84,7 @@ export const authSignup = (name, address, email, password1, password2, account) 
       .then(res => {
         if (account === 'broker') {
             const status = res.data.status;
+            localStorage.setItem("status", status);
             dispatch(authSuccessBroker(status));
         } else {
           const token = res.data.key;

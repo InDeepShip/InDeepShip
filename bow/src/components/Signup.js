@@ -195,15 +195,15 @@ class SignupBase extends Component {
 
   render() {
     const { isError } = this.state;
-    const { error, loading, token, user } = this.props;
+    const { error, loading, token, status } = this.props;
     const containerClasses = loading ? 'container loading' : 'container';
 
     if (token) {
       return <Redirect to={ROUTES.LANDING} />;
     }
 
-    if (user === 'pending') {
-      return <Redirect to={ROUTES.ERROR_PAGE} />;
+    if (status === 'pending') {
+      return <Redirect to={ROUTES.BROKER_ACCOUNT_PENDING} />;
     }
 
     if (!this.state.account) {
@@ -340,7 +340,7 @@ const mapStateToProps = state => {
     loading: state.auth.loading,
     error: state.auth.error,
     token: state.auth.token,
-    user: state.auth.user
+    status: state.auth.status
   };
 };
 

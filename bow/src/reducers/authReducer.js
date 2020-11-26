@@ -6,7 +6,8 @@ const initialState = {
   token: null,
   error: null,
   loading: false,
-  user: null
+  user: null,
+  status: null
 };
 
 const authStart = (state, action) => {
