@@ -4,14 +4,14 @@ from rest_framework.response import Response
 # from rest_framework.authentication import BaseAuthentication
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port, Propulsion, ReservedName, Registration, MerchantVessel
+from .models import Vessel, Port, Propulsion, ReservedName, Registration, Surveyor, MerchantVessel
 from django.core import serializers
 from users import models as user_models
 from rest_framework.permissions import AllowAny
 # from users.models import Broker, PrivateUser
 import requests
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from datetime import datetime, timedelta
 
 
@@ -350,3 +350,38 @@ def get_statuses(request):
 
     data = {"ships": ships}
     return Response(data=data, status=200)
+
+
+@api_view(["POST"])
+def assign_surveyor(request):
+    api_key = request.headers.get("api-key", "")
+    imo = request.POST.get("imo", "")
+    # make sure an API key is supplied
+    if api_key == "":
+        message = "Please supply an API key for surveyor look up."
+        return Response(data={"message": message}, status=200)
+    if imo == "":
+        message = "Please supply an IMO # for merchant vessel look up."
+        return Response(data={"message": message}, status=200)
+    # get the appropriate surveyor with that api key
+    surveyor = Surveyor.objects.filter(api_key=api_key)
+    if len(surveyor) == 0:
+        message = "There is no surveyor with that API key associated."
+        return Response(data={"message": message}, status=200)
+    # now need to make sure that the IMO exists for a ship
+    vessel = MerchantVessel.objects.filter(imoNumber=imo)
+    if len(vessel) == 0:
+        message = "There is no ship with that IMO # associated."
+        return Response(data={"message": message}, status=200)
+    vessel = vessel[0]
+    vessel.api_key = api_key
+    vessel.save()
+    message = "The API key has been saved to the ship."
+    return Response(data={"message": message}, status=200)
+
+@api_view(["GET"])
+def get_surveyors(request):
+    surveyors = []
+    for s in Surveyor.objects.all():
+        surveyors.append({"name": s.name, "api_key": s.api_key})
+    return Response(data={"surveyors": surveyors}, status=200)
