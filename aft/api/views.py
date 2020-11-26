@@ -333,7 +333,7 @@ def get_statuses(request):
 
 
 @api_view(["POST"])
-def add_surveyor_ship(request):
+def assign_surveyor(request):
     api_key = request.headers.get("api-key", "")
     imo = request.POST.get("imo", "")
     # make sure an API key is supplied
@@ -349,10 +349,11 @@ def add_surveyor_ship(request):
         message = "There is no surveyor with that API key associated."
         return Response(data={"message": message}, status=200)
     # now need to make sure that the IMO exists for a ship
-    vessel = MerchantVessels.objects.filter(imo=imo)
+    vessel = MerchantVessel.objects.filter(imoNumber=imo)
     if len(vessel) == 0:
-        message = "There is no ship with that IMO #  associated."
+        message = "There is no ship with that IMO # associated."
         return Response(data={"message": message}, status=200)
+    vessel = vessel[0]
     vessel.api_key = api_key
     vessel.save()
     message = "The API key has been saved to the ship."
