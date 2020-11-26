@@ -1,10 +1,11 @@
 # users/urls.py
 from django.urls import include, path, re_path
 from rest_auth.views import PasswordResetConfirmView
-from .views import RegisterViewCustom
+from .views import RegisterViewCustom, LoginViewCustom
 from . import views
 
 urlpatterns = [
+    path('login/', LoginViewCustom.as_view(), name='account_login'),
     path('', include('rest_auth.urls')),
     path('signup/', RegisterViewCustom.as_view(), name='account_signup'),
     path('signup/', include('rest_auth.registration.urls')),

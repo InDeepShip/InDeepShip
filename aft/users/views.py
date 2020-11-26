@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework import generics
 from rest_auth.registration.views import RegisterView
+from rest_auth.views import LoginView
 from rest_framework.response import Response
 from rest_framework import status
 from allauth.account import app_settings as allauth_settings
@@ -43,3 +44,23 @@ class RegisterViewCustom(RegisterView):
         return Response(self.get_response_data(user),
                         status=status.HTTP_201_CREATED,
                         headers=headers)
+
+class LoginViewCustom(LoginView):
+    def post(self, request, *args, **kwargs):
+        self.request = request
+        self.serializer = self.get_serializer(data=self.request.data,
+                                              context={'request': request})
+        self.serializer.is_valid(raise_exception=True)
+
+        # Custom check
+        self.user = self.serializer.validated_data['user']
+
+        if not self.user.is_verified:
+            data = {
+                'status': 'pending'
+            }
+            return Response(data,
+                            status=status.HTTP_201_CREATED)
+        else:
+            self.login()
+            return self.get_response()
