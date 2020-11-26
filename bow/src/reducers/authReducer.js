@@ -25,6 +25,15 @@ const authSuccess = (state, action) => {
   });
 };
 
+const authSuccessBroker = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: false,
+    status: action.status
+  });
+};
+
+
 const authFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
@@ -49,6 +58,8 @@ const reducer = (state = initialState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+    case actionTypes.AUTH_SUCCESS_BROKER:
+      return authSuccessBroker(state, action);
     default:
       return state;
   }

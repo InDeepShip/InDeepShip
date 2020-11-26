@@ -33,6 +33,14 @@ export const authSuccess = (token, user) => {
   };
 };
 
+export const authSuccessBroker = (status) => {
+  return {
+    type: actionTypes.AUTH_SUCCESS,
+    status: status
+  };
+};
+
+
 export const authFail = (error) => {
   return {
     type: actionTypes.AUTH_FAIL,
@@ -74,14 +82,19 @@ export const authSignup = (name, address, email, password1, password2, account) 
         account: account
       })
       .then(res => {
-        const token = res.data.key;
-        const user = res.data.user;
-        const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
-        localStorage.setItem("token", token);
-        localStorage.setItem("expirationDate", expirationDate);
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch(authSuccess(token, user));
-        dispatch(checkAuthTimeout(3600));
+        if (account === 'broker') {
+            const status = res.data.status;
+            dispatch(authSuccessBroker(status));
+        } else {
+          const token = res.data.key;
+          const user = res.data.user;
+          const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
+          localStorage.setItem("token", token);
+          localStorage.setItem("expirationDate", expirationDate);
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(authSuccess(token, user));
+          dispatch(checkAuthTimeout(3600));
+        }
       })
       .catch(err => {
         dispatch(authFail(err));
