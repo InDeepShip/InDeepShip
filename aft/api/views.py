@@ -4,14 +4,14 @@ from rest_framework.response import Response
 # from rest_framework.authentication import BaseAuthentication
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port, Propulsion, ReservedName, Registration, MerchantVessel, Surveyor
+from .models import Vessel, Port, Propulsion, ReservedName, Registration, Surveyor, MerchantVessel
 from django.core import serializers
 from users import models as user_models
 from rest_framework.permissions import AllowAny
 # from users.models import Broker, PrivateUser
 import requests
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from datetime import datetime, timedelta
 
 
@@ -331,10 +331,6 @@ def get_statuses(request):
     data = {"ships": ships}
     return Response(data=data, status=200)
 
-@api_view(["GET"])
-def get_surveyors(request):
-    data = {"surveyors": Surveyors.objects.all()}
-    return Response(data=data, status=200)
 
 @api_view(["POST"])
 def add_surveyor_ship(request):
@@ -361,3 +357,10 @@ def add_surveyor_ship(request):
     vessel.save()
     message = "The API key has been saved to the ship."
     return Response(data={"message": message}, status=200)
+
+@api_view(["GET"])
+def get_surveyors(request):
+    surveyors = []
+    for s in Surveyor.objects.all():
+        surveyors.append({"name": s.name, "api_key": s.api_key})
+    return Response(data={"surveyors": surveyors}, status=200)
