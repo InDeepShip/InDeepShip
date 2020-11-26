@@ -2,7 +2,6 @@
 from django.urls import include, path, re_path
 from rest_auth.views import PasswordResetConfirmView
 from .views import RegisterViewCustom
-
 from . import views
 
 urlpatterns = [
