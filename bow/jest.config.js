@@ -29,7 +29,7 @@ module.exports = {
     "!babel.config.js",
     "!**/testCoverageReport/**"
   ],
-  coverageDirectory: "<rootDir>/testCoverageReport/",
+  //coverageDirectory: "<rootDir>/testCoverageReport/",
   preset: "jest-puppeteer",
   testTimeout: 15000
 };
