@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { privateRegistration } from '../actions';
 import * as ROUTES from '../constants/routes';
 import '../styles/PrivateRegistration.scss';
+import InjectedCheckoutForm from './CheckoutForm';
+
 
 
 class PrivateRegistrationBase extends Component {
@@ -39,7 +41,7 @@ class PrivateRegistrationBase extends Component {
 
         this.steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Summary', 'Payment'];
 
-        if (this.props.auth) {
+        if (this.props.auth && this.props.auth.token) {
             this.state.name = this.props.auth.user.name;
             this.state.email = this.props.auth.user.email;
             this.state.address = this.props.auth.user.address;
@@ -349,10 +351,10 @@ class PrivateRegistrationBase extends Component {
                 );
             case 4:
                 return (
-
-                    <Fragment>
-                        <div>Need to Implement</div>
-                    </Fragment>
+                    <div className="field">
+                        <label className="label">Enter Payment Information</label>
+                        <InjectedCheckoutForm />
+                    </div>
                 );
             default:
                 return (
@@ -461,13 +463,11 @@ class PrivateRegistrationBase extends Component {
     render() {
         const { error, loading } = this.props;
 
-        if (!this.props.auth) {
+        if (!this.props.auth || !this.props.auth.token) {
             const pathname = ROUTES.LOGIN
             const thisPage = ROUTES.PRIVATE_REGISTRATION
             return (
-                < div className='container' >
-                    You need to be logged in to register a vessel. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login ?</Link >
-                </div >
+                <Redirect to={{ pathname: pathname, prevPage: thisPage }} />
             );
         }
 
