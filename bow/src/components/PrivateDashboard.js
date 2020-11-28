@@ -12,7 +12,7 @@ class PrivateDashboardBase extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div id="private-dashboard-selector" className="container">
                 <div className="columns user-columns">
                 <div className="column is-3">
                     <aside className="menu is-hidden-mobile">

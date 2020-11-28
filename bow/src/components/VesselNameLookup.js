@@ -153,15 +153,15 @@ class VesselNameLookup extends Component {
               <h1 className='title'>Check for Vessel name availability</h1>
               <div className="field">
                 <label className="label">Vessel Name</label>
-                <input className='input' value={this.state.vesselName} placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
+                <input id="vessel-name-input" className='input' value={this.state.vesselName} placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
               </div>
               <div className='field'>
                 <div className='control'>
-                  <button className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
+                  <button id="check-btn" className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
                 </div>
               </div>
               <div name="resultOfCheck">
-                <h1>{this.state.availability}</h1>
+                <h1 id="check-result">{this.state.availability}</h1>
               </div>
               <div>
                 {this.state.name_available ? <this.promptToReserve /> : null}

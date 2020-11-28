@@ -25,9 +25,7 @@ describe('User password reset process', () => {
         await page.click('#submit-selector');
         await page.waitForSelector('#email-sent-msg-selector');
                 
-        //const element = await page.$('#email-sent-msg-selector'); 
-        //const text = await page.evaluate(element => element.textContent, element);
-        // console.log(element.textContent, "hhhe", text, "dddd");
+        expect(await page.$eval('#email-sent-msg-selector', e => e.textContent)).not.toBeNull();
         expect(await page.$eval('#email-sent-msg-selector', e => e.textContent)).toBe("Password reset e-mail has been sent.");
         await page.close();
     });
