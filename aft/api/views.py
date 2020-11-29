@@ -99,7 +99,6 @@ def vessel_lookup(request):
             pass
         try:
             reserve_names = ReservedName.objects.filter(name=ship_name)
-            print(reserve_names)
             for n in reserve_names:
                 if n.port.name in port_names:
                     port_names.remove(n.port.name)
