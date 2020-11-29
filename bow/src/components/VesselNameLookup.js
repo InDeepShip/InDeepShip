@@ -99,12 +99,15 @@ class VesselNameLookup extends Component {
   }
 
   promptToReserve() {
-    if (!this.props.auth) {
+    if (!this.props.auth.token) {
       const pathname = ROUTES.LOGIN
       const thisPage = ROUTES.VESSEL_NAME_LOOKUP
+      const pathname_2 = ROUTES.SIGN_UP
+
       return (
-        < div className='container' >
-          You need to be logged in to reserve a vessel name. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login ?</Link >
+        < div>
+        <br />
+          You need to be logged in to reserve a vessel name. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login</Link > or < Link to={{ pathname: pathname_2, prevPage: thisPage }}> Sign Up? </Link > 
         </div >
       );
     } else {

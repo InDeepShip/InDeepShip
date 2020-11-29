@@ -97,6 +97,14 @@ def vessel_lookup(request):
                 port_names.remove(v.port.name)
         except Vessel.DoesNotExist:
             pass
+        try:
+            reserve_names = ReservedName.objects.filter(name=ship_name)
+            print(reserve_names)
+            for n in reserve_names:
+                if n.port.name in port_names:
+                    port_names.remove(n.port.name)
+        except ReservedName.DoesNotExist:
+            pass
         if len(port_names) == 0:
             name_available = False
             message = f"{ship_name} is not availble at any of our ports."
