@@ -19,16 +19,16 @@ class ShipView extends Component {
 
     componentDidMount() {
         this.setState({ loading: true });
-        this.getShips();
+        // this.getShips();
 
 
         // for offline testing
-        // const { ships } = this.state;
-        // this.setState({
-        //     loading: false,
-        //     allShips: ships,
-        //     ships: [{ "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner": 1 }, { "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner_id": 1 }]
-        // })
+        const { ships } = this.state;
+        this.setState({
+            loading: false,
+            allShips: ships,
+            ships: [{ "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner": 1 }, { "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner_id": 1 }]
+        })
 
 
 
