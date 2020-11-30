@@ -40,11 +40,15 @@ class VesselNameLookup extends Component {
           availability: res.data.message,
           name_available: res.data.available,
           ports: res.data.ports
-        })
+        });
+        if (this.state.name_available){
+          this.setState({ selectedPort: this.state.ports[0] });
+        }
       })
       .catch(err => {
         console.log(err)
       });
+
   }
 
 
