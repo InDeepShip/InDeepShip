@@ -11,25 +11,27 @@ class ShipView extends Component {
         super(props);
 
         this.state = {
-            loading:true
+            allShips: [],
+            ships: [],
+            loading: true
         };
     }
 
     componentDidMount() {
         this.setState({ loading: true });
-        // this.getShips();
+        this.getShips();
 
 
         // for offline testing
-        const { ships } = this.state;
-        this.setState({
-            loading:false,
-            allShips: ships,
-            ships: [{"_id":{"$oid":"5fb72ecd0615b67c4b30691d"},"id":135,"name":"neep Eep","port_id":101,"imo":10,"tonnage":"10","propulsion_id":101,"yard_number":"10","vessel_length":"100","hulls":"6","purpose":"","owner_id":1}, {"_id":{"$oid":"5fb72ecd0615b67c4b30691d"},"id":135,"name":"neep Eep","port_id":101,"imo":10,"tonnage":"10","propulsion_id":101,"yard_number":"10","vessel_length":"100","hulls":"6","purpose":"","owner_id":1}]
-        })
+        // const { ships } = this.state;
+        // this.setState({
+        //     loading: false,
+        //     allShips: ships,
+        //     ships: [{ "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner": 1 }, { "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner_id": 1 }]
+        // })
 
 
-        
+
         // this.props.onTryAutoSignup();
     }
 
@@ -66,19 +68,18 @@ class ShipView extends Component {
             <React.Fragment>
                 {ships.filter((_, index) => (index % mod) === eq).map(ship => (
                     <ShipCard
-                        key={ship._id}
+                        key={ship.imo}
                         ship={{
-                            id: ship._id,
                             name: ship.name,
-                            port_id: ship.port_id,
+                            port: ship.port,
                             imo: ship.imo,
                             tonnage: ship.tonnage,
-                            // propulsion_id: ship.propultion.name,
-                            propulsion_id: ship.propulsion_id,
+                            propulsion: ship.propulsion_id,
                             yard_number: ship.yard_number,
                             vessel_length: ship.vessel_length,
                             hulls: ship.hulls,
                             purpose: ship.purpose,
+                            owner: ship.owner
 
                             // TODO get deadline and input it here
                             // deadline: new Date(ship.registration.deadline),
@@ -115,7 +116,7 @@ class ShipView extends Component {
                             {this.formatShip(3, 1)}
                             {ships.length ? null : (
                                 <div className="has-text-centered title">
-                                    Nothing matched that filter! Try something else
+                                    No ships to see! Try registering a ship
                                 </div>
                             )}
                         </div>
