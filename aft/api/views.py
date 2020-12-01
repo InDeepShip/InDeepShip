@@ -12,7 +12,7 @@ from rest_framework.permissions import AllowAny
 import requests
 import json
 from django.http import HttpResponse, JsonResponse
-from datetime import datetime, timedelta
+from datetime import datetime, date, timedelta
 
 
 @api_view(['GET'])
@@ -96,6 +96,13 @@ def vessel_lookup(request):
             for v in vessels:
                 port_names.remove(v.port.name)
         except Vessel.DoesNotExist:
+            pass
+        try:
+            reserve_names = ReservedName.objects.filter(name=ship_name)
+            for n in reserve_names:
+                if n.port.name in port_names:
+                    port_names.remove(n.port.name)
+        except ReservedName.DoesNotExist:
             pass
         if len(port_names) == 0:
             name_available = False
@@ -297,6 +304,7 @@ def get_all_merchant_vessels(request):
     })
 
 
+
 @api_view(["GET"])
 def get_statuses(request):
     user_email = request.GET.get("email", "")
@@ -385,3 +393,24 @@ def get_surveyors(request):
     for s in Surveyor.objects.all():
         surveyors.append({"name": s.name, "api_key": s.api_key})
     return Response(data={"surveyors": surveyors}, status=200)
+
+@api_view(["POST"])
+def renew_registration(request):
+    data = request.data
+    email = data.get("email")
+    # get the email of the user submitting the app
+    user_with_email = user_models.CustomUser.objects.get(email=email)
+    imo = data.get("imo")
+    try:
+        vessel = Vessel.objects.get(imo=imo)
+    except Vessel.DoesNotExist:
+        print("The submitted IMO number is not associated with a ship.")
+        return HttpResponse(status=400)
+    try:
+        exp_date = date.today() + timedelta(days=365)
+        reg = Registration.objects.filter(id=vessel.id).update(expiration_date=exp_date)
+    except Registration.DoesNotExist:
+        print("There is no registration associated with that vessel.")
+        return HttpResponse(status=400)
+    
+    return Response(data={"expiration_date": exp_date}, status=200)

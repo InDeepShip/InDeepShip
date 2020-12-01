@@ -42,7 +42,7 @@ class Vessel(models.Model):
         max_digits=20, decimal_places=0, default=0)
     hulls = models.DecimalField(max_digits=3, decimal_places=0, default=1)
     purpose = models.CharField(max_length=512, default="")
-    owner = models.ForeignKey(CustomUser, null=False, on_delete=models.CASCADE)
+    owner = models.ForeignKey(CustomUser, null=True, on_delete=models.CASCADE)
 
 
 class ReservedName(models.Model):
@@ -73,7 +73,7 @@ class Engine(models.Model):
     #vessel = models.ForeignKey(MerchantVessel, on_delete = models.CASCADE, null=True)
 
 
-class Registration(models.Model):
+class MerchantRegistration(models.Model):
     #  status: string ( one of ‘Active’, ‘Pending’, ‘Name Reserved’ )
     status = models.CharField(max_length=128, default="")
 
@@ -103,7 +103,7 @@ class MerchantVessel(models.Model):
     yearOfBuild = models.IntegerField(default=0)
     registeredLength = models.IntegerField(default=0)
     registration = models.EmbeddedField(
-        model_container=Registration
+        model_container=MerchantRegistration
     )
     builder = models.EmbeddedField(
         model_container=LegalEntity
@@ -115,6 +115,7 @@ class MerchantVessel(models.Model):
         model_container=Engine
     )
     api_key = models.CharField(max_length=256, default="")
+
 
 class Surveyor(models.Model):
     name = models.CharField(max_length=256, default="")
