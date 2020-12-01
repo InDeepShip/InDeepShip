@@ -19,7 +19,7 @@ describe('Private user sign-up process', () => {
     test('can click private account options', async () => {
         const page = await browser.newPage();
         
-        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/signup`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/signup`);
         await page.click("#signup-option-private");
         await page.waitForSelector('#signup-form');
 
@@ -29,7 +29,7 @@ describe('Private user sign-up process', () => {
 
     test('cannot sign up a private use if input are invalid', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/signup`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/signup`);
         
         const user = { username: "David", address: "1150 high street", email: " aa@mail.com", pwd1: "11111111", pwd2: "11111111" };
 
@@ -51,7 +51,7 @@ describe('Private user sign-up process', () => {
     test("can sign up a new private user if input are valid", async () => {
         // Arrange: initialize code
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/signup`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/signup`);
         const user = randomUserGenerator();
 
         //const user = { username: "Chris", address: "1150 high street", email: " chris@mail.com", pwd1: "chrischris", pwd2: "chrischris"};

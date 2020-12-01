@@ -17,7 +17,7 @@ describe('Private user log-in process', () => {
 
     test('can click reset password', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/login`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
         const [response] = await Promise.all([
             page.waitForNavigation(),
@@ -30,7 +30,7 @@ describe('Private user log-in process', () => {
 
     test('can click signup', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/login`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
         const [response] = await Promise.all([
             page.waitForNavigation(),
@@ -44,7 +44,7 @@ describe('Private user log-in process', () => {
     test("a registered private user can log in", async () => {
         // Arrange: initialize code
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/login`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
         const registeredUser = registeredUserGenerator();
 
 
@@ -66,7 +66,7 @@ describe('Private user log-in process', () => {
     test("a non-registered private user cannot log in", async () => {
         const page = await browser.newPage();
         const nonRegisteredUser = randomUserGenerator();
-        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/login`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
         await page.waitForSelector('#login-form');
         await page.type('#email-selector', nonRegisteredUser.email);
