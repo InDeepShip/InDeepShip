@@ -35,11 +35,14 @@ popd
 ########################################
 # 2. Need to build Server Code (Django Backend)
 ########################################
+
+# 2. 1 first set up the enviroment
 python3 -m venv --system-site-packages ./venv
 source ./venv/bin/activate
 pip install -r requirements.txt
 
 pushd aft
+echo 'SERVER_ADDRESS=http://206.189.218.111\nDEBUG=off' > .env
 python manage.py collectstatic --no-input
 popd
 
