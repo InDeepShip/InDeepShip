@@ -8,25 +8,29 @@ export const updateObject = (oldObject, updatedProperties) => {
 /*
 * Generate a random user for testing user signup and login
 */
+export const randomString = (length = 10) => {
+  return Math.random().toString(16).substr(2, length);
+}
+
 export const randomUserGenerator = (length = 10) => {
 
-    let randomString = "test" + Math.random().toString(16).substr(2, length);
+    let rdString = "test" + randomString();
 
     return {
-      username: randomString,
-      address: randomString,
-      email: randomString + "@gmail.com",
-      pwd1 : randomString,
-      pwd2: randomString,
+      username: rdString,
+      address: rdString,
+      email: rdString + "@gmail.com",
+      pwd1 : rdString,
+      pwd2: rdString,
     };
 }
 
 export const registeredUserGenerator = () => {
 
   return {
-    username: "Chris", 
+    username: "Dave", 
     address: "1150 high street", 
-    email: " chris@mail.com", 
-    password: "chrischris"
+    email: "dave@gmail.com", 
+    password: "davedave"
   };
 }
