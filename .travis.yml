@@ -6,6 +6,7 @@ jobs:
           - cd bow
           - npm install
         script:
+          - npm test
           - CI='' npm run build
       - language: python
         python: 3.8
