@@ -124,6 +124,15 @@ class PrivateRegistrationBase extends Component {
     }
 
     onSubmit = async (event) => {
+        const { curr, next } = this.state;
+
+        if (!this.state.agreement) {
+            this.setState({
+                agreementError: "Need to agree to terms"
+            });
+            return;
+        }
+
         event.preventDefault();
         let formData = Object.assign({}, this.state);
         delete formData.agreement;
