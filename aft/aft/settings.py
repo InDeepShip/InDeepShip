@@ -11,7 +11,19 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
 from corsheaders.defaults import default_headers
+
+CWD = os.path.dirname(os.path.realpath(__file__))
+"""
+    Setup Environmental variables
+"""
+env = environ.Env(
+    DEBUG=(bool, True),
+    SERVER_ADDRESS=(str, 'http://127.0.0.1:3000')
+)
+
+environ.Env.read_env(env_file=os.path.join(CWD, '..', '.env'))
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +36,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=dgyvs=_jn(8mn1ouh4l_*=o)q=y88bsn0sjd5_lvpl3bnn&(9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 # ALLOWED_HOSTS = ['206.189.218.111', '127.0.0.1', 'localhost']
 ALLOWED_HOSTS = ["*"]
@@ -186,3 +198,8 @@ CSRF_COOKIE_HTTPONLY = False
 # Since we're not using HTTPS
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
+
+"""
+    IP Addreses for development and deployment url redirects
+"""
+SERVER_ADDRESS = env('SERVER_ADDRESS')
