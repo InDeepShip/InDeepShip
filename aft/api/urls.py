@@ -18,5 +18,6 @@ urlpatterns = [
     path('payments/', include('payments.urls')),
     path('surveyors/', views.get_surveyors),
     path('assign-surveyor/', views.assign_surveyor),
+    path('renew_registration/', views.renew_registration),
     path('', views.api_overview)
 ]
