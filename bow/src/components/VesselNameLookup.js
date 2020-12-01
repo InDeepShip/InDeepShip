@@ -40,11 +40,15 @@ class VesselNameLookup extends Component {
           availability: res.data.message,
           name_available: res.data.available,
           ports: res.data.ports
-        })
+        });
+        if (this.state.name_available){
+          this.setState({ selectedPort: this.state.ports[0] });
+        }
       })
       .catch(err => {
         console.log(err)
       });
+
   }
 
 
@@ -99,12 +103,15 @@ class VesselNameLookup extends Component {
   }
 
   promptToReserve() {
-    if (!this.props.auth) {
+    if (!this.props.auth.token) {
       const pathname = ROUTES.LOGIN
       const thisPage = ROUTES.VESSEL_NAME_LOOKUP
+      const pathname_2 = ROUTES.SIGN_UP
+
       return (
-        < div className='container' >
-          You need to be logged in to reserve a vessel name. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login ?</Link >
+        < div>
+        <br />
+          You need to be logged in to reserve a vessel name. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login</Link > or < Link to={{ pathname: pathname_2, prevPage: thisPage }}> Sign Up? </Link > 
         </div >
       );
     } else {
@@ -153,15 +160,15 @@ class VesselNameLookup extends Component {
               <h1 className='title'>Check for Vessel name availability</h1>
               <div className="field">
                 <label className="label">Vessel Name</label>
-                <input className='input' value={this.state.vesselName} placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
+                <input id="vessel-name-input" className='input' value={this.state.vesselName} placeholder="Vessel name" type="text" name="vesselName" onChange={this.handleChange} />
               </div>
               <div className='field'>
                 <div className='control'>
-                  <button className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
+                  <button id="check-btn" className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
                 </div>
               </div>
               <div name="resultOfCheck">
-                <h1>{this.state.availability}</h1>
+                <h1 id="check-result">{this.state.availability}</h1>
               </div>
               <div>
                 {this.state.name_available ? <this.promptToReserve /> : null}

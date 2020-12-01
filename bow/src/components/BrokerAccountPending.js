@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
-import '../styles/ErrorPage.scss';
 
-class ErrorPage extends Component {
+class BrokerAccountPending extends Component {
     constructor(props) {
         super(props);
 
@@ -16,11 +15,11 @@ class ErrorPage extends Component {
                 <div className="hero-body">
                     <div className="container">
                         <div className="columns is-centered">
-                            <div className="column is-4 error-page-column">
+                            <div className="column is-4 success-page-column">
                                 <section>
-                                <h1 className="title">Error Submitting Payment</h1>
-                                    <span className="icon has-text-danger">
-                                        <i className="fas fa-3x fa-ban"></i>
+                                <h1 className="title">Account is being reviewed</h1>
+                                    <span className="icon has-text-success">
+                                        <i className="fas fa-3x fa-check-circle"></i>
                                     </span>
                                 </section>
                                 <Link as="button" className="button is-primary" to={ROUTES.LANDING}>
@@ -35,4 +34,4 @@ class ErrorPage extends Component {
     }
 }
 
-export default ErrorPage;
+export default BrokerAccountPending;

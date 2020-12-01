@@ -39,6 +39,10 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.address = self.cleaned_data.get('address')
         user.account = self.cleaned_data.get('account')
         user.name = self.cleaned_data.get('name')
+
+        if user.account == 'broker':
+            user.is_verified = False
+
         user.save()
         adapter.save_user(request, user, self)
 

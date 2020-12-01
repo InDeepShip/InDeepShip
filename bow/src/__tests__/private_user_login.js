@@ -59,7 +59,7 @@ describe('Private user log-in process', () => {
           ]);
 
         // Assert
-        expect(await page.$('#landing-page-selector')).not.toBeNull();
+        expect(await page.$('#private-dashboard-selector')).not.toBeNull();
         await page.close();
     });
 
@@ -73,7 +73,7 @@ describe('Private user log-in process', () => {
         await page.type('#pwd-selector', nonRegisteredUser.pwd1);
         await page.click('#login-submit-btn', {delay: 1000});
 
-        expect(await page.$('#landing-page-selector')).toBeNull();
+        expect(await page.$('#private-dashboard-selector')).toBeNull();
         await page.close();
     });
 

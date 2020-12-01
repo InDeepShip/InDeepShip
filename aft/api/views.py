@@ -1,22 +1,26 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
+# from rest_framework.authentication import BaseAuthentication
 from rest_framework import status
 from aft import settings
-from .models import Vessel, Port, Propulsion, ReservedName, Registration
+from .models import Vessel, Port, Propulsion, ReservedName, Registration, Surveyor, MerchantVessel
+from django.core import serializers
 from users import models as user_models
-from django.views.decorators.csrf import csrf_exempt
-#from users.models import Broker, PrivateUser
+from rest_framework.permissions import AllowAny
+# from users.models import Broker, PrivateUser
 import requests
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from datetime import datetime, date, timedelta
 
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def api_overview(request):
     """
 
-    ### DESCRIPTION
+    # DESCRIPTION
 
     Returns a list of all DRS APIs
 
@@ -37,14 +41,14 @@ def api_overview(request):
     return Response(data=api_urls)
 
 
-@csrf_exempt
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def vessel_lookup(request):
     """
 
-    ### DESCRIPTION
+    # DESCRIPTION
 
-    ### USAGE
+    # USAGE
 
     1) Accepts a post request with vesselName parameter and portName param set, for example with the payload:
 
@@ -93,6 +97,13 @@ def vessel_lookup(request):
                 port_names.remove(v.port.name)
         except Vessel.DoesNotExist:
             pass
+        try:
+            reserve_names = ReservedName.objects.filter(name=ship_name)
+            for n in reserve_names:
+                if n.port.name in port_names:
+                    port_names.remove(n.port.name)
+        except ReservedName.DoesNotExist:
+            pass
         if len(port_names) == 0:
             name_available = False
             message = f"{ship_name} is not availble at any of our ports."
@@ -107,16 +118,16 @@ def vessel_lookup(request):
         return Response(data={"message": message, "available": name_available, "ports": port_names}, status=200)
 
 
-@csrf_exempt
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def bug_report(request):
     """
 
-    ### DESCRIPTION
+    # DESCRIPTION
 
     `POST /api/bugreport` satisifies the user story of [bug report](https://www.notion.so/User-Stories-6b653ed6007841e099e42e82aa6ff8e8) by allowing client and users to report any bugs with DRS.
 
-    ### USAGE
+    # USAGE
 
     Accepts a post request with message parameter and currentPage param set, for example with the payload:
 
@@ -127,7 +138,8 @@ def bug_report(request):
     }
     ```
 
-    and sends a bug report with that message to the `#bug-report` Slack channel.
+    # bug-report` Slack channel.
+    and sends a bug report with that message to the `
 
     It returns a message with the status code of the post request to Slack, for example:
 
@@ -158,8 +170,8 @@ def bug_report(request):
     return Response(data=data, status=ret_status)
 
 
-@csrf_exempt
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def ports(request):
     # get all ports from the database
     port_names = [port.name for port in Port.objects.all()]
@@ -167,8 +179,8 @@ def ports(request):
     return Response(data=data, status=200)
 
 
-@csrf_exempt
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def propulsion_methods(request):
     # get all propulsion methods from the database
     propulsion_names = [
@@ -198,8 +210,9 @@ def reserve_name(request):
     print("Name reserved.")
     return HttpResponse(status=200)
 
+
 @api_view(["GET"])
-def get_vessels(request):
+def get_user_vessels(request):
     user_email = request.GET.get("email", "")
     if user_email == "":
         message = "There is no email attached to the request."
@@ -207,15 +220,16 @@ def get_vessels(request):
             data={"message": message},
             status=200)
     try:
-       user = user_models.CustomUser.objects.get(email=user_email)
+        user = user_models.CustomUser.objects.get(email=user_email)
     except user_models.CustomUser.DoesNotExist:
         message = "There is no user in the database with that email."
         return Response(
             data={"message": message},
             status=200)
-    vessels = Vessel.objects.filter(owner__email=user_email) 
+    vessels = Vessel.objects.filter(owner__email=user_email)
     data = {"vessels": vessels}
     return Response(data=data, status=200)
+
 
 @api_view(["GET"])
 def get_registrations(request):
@@ -226,12 +240,177 @@ def get_registrations(request):
             data={"message": message},
             status=200)
     try:
-       user = user_models.CustomUser.objects.get(email=user_email)
+        user = user_models.CustomUser.objects.get(email=user_email)
     except user_models.CustomUser.DoesNotExist:
         message = "There is no user in the database with that email."
         return Response(
             data={"message": message},
             status=200)
-    regs = Registration.objects.filter(owner__email=user_email) 
+    regs = Registration.objects.filter(owner__email=user_email)
     data = {"registrations": regs}
     return Response(data=data, status=200)
+
+
+@api_view(["GET"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def get_merchant_vessels(request):
+    '''
+    The surveyor api accepts an `api-key` header assigned to a Surveyor. Returns an array of assigned merchant vessel ships.
+    '''
+    api_key = request.headers.get("api-key", "")
+    print(api_key)
+    # TODO check formatting
+    if api_key == "" or len(api_key) != 36:
+        message = "Invalid or missing API Key"
+        data = {}
+        status = 405
+    else:
+        results = MerchantVessel.objects.filter(api_key=api_key)
+        if len(results) == 0:
+            message = "Not found"
+            data = {}
+            status = 404
+        else:
+            def del_api(v): del v["api_key"]; return v
+            vessels = [del_api(v) for v in results.values()]
+            message = "Success"
+            data = {"vessels": vessels}
+            status = 200
+    return Response({
+        "data": data,
+        "status": status,
+        "message": message
+    })
+
+
+@api_view(["GET"])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def get_all_merchant_vessels(request):
+    '''
+    Returns an array of all merchant vessels.
+    '''
+    results = MerchantVessel.objects.filter()
+    def del_api(v): del v["api_key"]; return v
+    vessels = [del_api(v) for v in results.values()]
+    message = "Success"
+    data = {"vessels": vessels}
+    status = 200
+    return Response({
+        "data": data,
+        "status": status,
+        "message": message
+    })
+
+
+
+@api_view(["GET"])
+def get_statuses(request):
+    user_email = request.GET.get("email", "")
+    if user_email == "":
+        message = "There is no email attached to the request."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+        user = user_models.CustomUser.objects.get(email=user_email)
+    except user_models.CustomUser.DoesNotExist:
+        message = "There is no user in the database with that email."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+        regs = Registration.objects.filter(owner_id=user.id)
+    except user_models.CustomUser.DoesNotExist:
+        message = "There is no registration in the database under that user id."
+        return Response(data={"message": message}, status=200)
+    ships = []
+    for reg in regs:
+        try:
+            vessel = Vessel.objects.get(id=reg.vessel_id)
+        except user_models.CustomUser.DoesNotExist:
+            message = "There is no vessel in the database under that registration id."
+            return Response(data={"message": message}, status=200)
+        try:
+            port = Port.objects.get(id=vessel.port_id)
+        except user_models.CustomUser.DoesNotExist:
+            message = "There is no port in the database under that port id."
+            return Response(data={"message": message}, status=200)
+        port = port.name
+        name = vessel.name
+        imo = vessel.imo
+        start_date = reg.start_date
+        expiration_date = reg.expiration_date
+        # old expirations with no expiration date default to registered
+        if expiration_date is None:
+            status = "Registered"
+        else:
+            remaining_time = expiration_date - start_date
+            if time_between_insertion.days > 30:
+                status = "Registered"
+            elif time_between_insertion.days > 0:
+                status = "Expiring Soon"
+            else:
+                status = "Expired"
+        ship = {"name": name, "port": port, "imo": imo, "status": status}
+        ships.append(ship)
+
+    data = {"ships": ships}
+    return Response(data=data, status=200)
+
+
+@api_view(["POST"])
+def assign_surveyor(request):
+    api_key = request.headers.get("api-key", "")
+    imo = request.POST.get("imo", "")
+    # make sure an API key is supplied
+    if api_key == "":
+        message = "Please supply an API key for surveyor look up."
+        return Response(data={"message": message}, status=200)
+    if imo == "":
+        message = "Please supply an IMO # for merchant vessel look up."
+        return Response(data={"message": message}, status=200)
+    # get the appropriate surveyor with that api key
+    surveyor = Surveyor.objects.filter(api_key=api_key)
+    if len(surveyor) == 0:
+        message = "There is no surveyor with that API key associated."
+        return Response(data={"message": message}, status=200)
+    # now need to make sure that the IMO exists for a ship
+    vessel = MerchantVessel.objects.filter(imoNumber=imo)
+    if len(vessel) == 0:
+        message = "There is no ship with that IMO # associated."
+        return Response(data={"message": message}, status=200)
+    vessel = vessel[0]
+    vessel.api_key = api_key
+    vessel.save()
+    message = "The API key has been saved to the ship."
+    return Response(data={"message": message}, status=200)
+
+@api_view(["GET"])
+def get_surveyors(request):
+    surveyors = []
+    for s in Surveyor.objects.all():
+        surveyors.append({"name": s.name, "api_key": s.api_key})
+    return Response(data={"surveyors": surveyors}, status=200)
+
+@api_view(["POST"])
+def renew_registration(request):
+    data = request.data
+    email = data.get("email")
+    # get the email of the user submitting the app
+    user_with_email = user_models.CustomUser.objects.get(email=email)
+    imo = data.get("imo")
+    try:
+        vessel = Vessel.objects.get(imo=imo)
+    except Vessel.DoesNotExist:
+        print("The submitted IMO number is not associated with a ship.")
+        return HttpResponse(status=400)
+    try:
+        exp_date = date.today() + timedelta(days=365)
+        reg = Registration.objects.filter(id=vessel.id).update(expiration_date=exp_date)
+    except Registration.DoesNotExist:
+        print("There is no registration associated with that vessel.")
+        return HttpResponse(status=400)
+    
+    return Response(data={"expiration_date": exp_date}, status=200)
