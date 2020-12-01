@@ -17,7 +17,7 @@ class BrokerAccountPending extends Component {
                         <div className="columns is-centered">
                             <div className="column is-4 success-page-column">
                                 <section>
-                                <h1 className="title">Account Submission Under Revision</h1>
+                                <h1 className="title">Account is being reviewed</h1>
                                     <span className="icon has-text-success">
                                         <i className="fas fa-3x fa-check-circle"></i>
                                     </span>
