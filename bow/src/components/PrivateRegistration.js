@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { Link, withRouter, Redirect } from 'react-router-dom';
+import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
+import axios from 'axios';
 import { privateRegistration } from '../actions';
 import * as ROUTES from '../constants/routes';
 import '../styles/PrivateRegistration.scss';
@@ -50,7 +53,6 @@ class PrivateRegistrationBase extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handlePagePrevious = this.handlePagePrevious.bind(this);
         this.handlePageNext = this.handlePageNext.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -121,18 +123,42 @@ class PrivateRegistrationBase extends Component {
         });
     }
 
-    onSubmit(e) {
-        e.preventDefault();
+    onSubmit = async (event) => {
+        event.preventDefault();
         let formData = Object.assign({}, this.state);
         delete formData.agreement;
         delete formData.curr;
         delete formData.next;
         delete formData.agreementError;
 
-        this.props.register(formData);
+        /*
+            1. First create new private registration
+        */
+       this.props.register(formData);
+
+
+       /*
+            2. Create stripe payment redirect
+       */
+        const { stripe, elements } = this.props;
+
+        if (!stripe || !elements) {
+            return;
+        }
+
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/payments/create-checkout-session/`)
+
+        const session = await response.data;
+
+        const result = await stripe.redirectToCheckout({ sessionId: session.id })
     }
 
     renderContent(index) {
+        let payload = Object.assign({}, this.state);
+        delete payload.agreement;
+        delete payload.curr;
+        delete payload.next;
+        delete payload.agreementError;
 
         switch (index) {
             case 0:
@@ -353,7 +379,7 @@ class PrivateRegistrationBase extends Component {
                 return (
                     <div className="field">
                         <label className="label">Enter Payment Information</label>
-                        <InjectedCheckoutForm />
+                        <InjectedCheckoutForm payload={payload} />
                     </div>
                 );
             default:
@@ -435,7 +461,7 @@ class PrivateRegistrationBase extends Component {
                         </div>
                     </Fragment>
                     }
-                    {(curr < 4) &&
+                    {(curr < 3) &&
                         <Fragment>
                             <div className="steps-action">
                                 <a
@@ -448,10 +474,10 @@ class PrivateRegistrationBase extends Component {
                             </div>
                         </Fragment>
                     }
-                    {(curr === 4) &&
+                    {(curr === 3) &&
                         <Fragment>
                             <div className="steps-action">
-                                <button className='button is-primary' onClick={this.onSubmit}>Submit</button>
+                                <button className='button is-primary' onClick={this.onSubmit}>Checkout</button>
                             </div>
                         </Fragment>
                     }
@@ -503,9 +529,24 @@ const mapDispatchToProps = (dispatch) => {
     };
 }
 
-const PrivateRegistration = connect(
-    mapStateToProps,
-    mapDispatchToProps
+const PrivateRegistrationContainer = compose(
+    withRouter,
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )
 )(PrivateRegistrationBase);
 
-export default withRouter(PrivateRegistration);
+// export default withRouter(PrivateRegistration);
+
+const PrivateRegistration = () => {
+    return (
+        <ElementsConsumer>
+            {({ elements, stripe }) => (
+                <PrivateRegistrationContainer elements={ elements } stripe={ stripe } />
+            )}
+        </ElementsConsumer>
+    );
+}
+
+export default PrivateRegistration;
