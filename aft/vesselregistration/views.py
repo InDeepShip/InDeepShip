@@ -5,7 +5,7 @@ from vesselregistration import models
 from api import models as api_models
 from users import models as user_models
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from rest_framework.decorators import api_view
 
 # Create your views here.
@@ -45,7 +45,7 @@ def private_registration(request):
     data["propulsion"] = propulsion
     data["owner"] = user_with_email
     data["start_date"] = datetime_date
-    data["expiration_date"] = datetime_date + datetime.timedelta(years=1)
+    data["expiration_date"] = datetime_date + timedelta(days=365)
     vessel_dict = {}
     reg_dict = {}
     for field in api_models.Vessel._meta.get_fields():
@@ -62,7 +62,11 @@ def private_registration(request):
     except api_models.Vessel.DoesNotExist:
         ship = api_models.Vessel(**vessel_dict)
         # init ship from fixed up
-    ship.save()
+    try:
+        ship.save()
+    except Exception as e:
+        print(e)
+
     reg_dict["vessel"] = ship
     new_reg = api_models.Registration(**reg_dict)
     new_reg.save()
