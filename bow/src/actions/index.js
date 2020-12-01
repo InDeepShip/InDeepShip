@@ -104,6 +104,7 @@ export const authSignup = (name, address, email, password1, password2, account) 
 };
 
 export const privateRegistration = (registrationForm) => {
+  registrationForm.name = registrationForm.vessel;
   return dispatch => {
     dispatch(registrationStart());
     axios
