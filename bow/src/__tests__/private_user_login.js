@@ -19,6 +19,7 @@ describe('Private user log-in process', () => {
         const page = await browser.newPage();
         await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
+        await page.waitForSelector("#pwd-reset-btn");
         const [response] = await Promise.all([
             page.waitForNavigation(),
             page.click("#pwd-reset-btn"),
@@ -32,6 +33,7 @@ describe('Private user log-in process', () => {
         const page = await browser.newPage();
         await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
+        await page.waitForSelector("#signup-link-selector");
         const [response] = await Promise.all([
             page.waitForNavigation(),
             page.click("#signup-link-selector"),

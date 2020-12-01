@@ -20,6 +20,8 @@ describe('User password reset process', () => {
         await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/passwordreset`);
         const registeredUser = registeredUserGenerator();
 
+        await page.waitForSelector("#email-selector");
+        await page.waitForSelector('#submit-selector');
         await page.type('#email-selector', registeredUser.email)
         await page.click('#submit-selector');
         await page.waitForSelector('#email-sent-msg-selector');
@@ -41,14 +43,5 @@ describe('User password reset process', () => {
     //     //expect(await page.$eval('#email-sent-msg-selector', e => e.textContent)).not.toBe("Password reset e-mail has been sent.");
     //     await page.close();
     // });
-    
-    test('can reset password with correct confimation mail', async () => {
-        
-    });
-
-    test('cannot reset password with not receiving confimation mail', async () => {
-        
-    });
-    
     
 });
