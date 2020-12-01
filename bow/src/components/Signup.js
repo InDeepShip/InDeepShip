@@ -225,7 +225,7 @@ class SignupBase extends Component {
         <div id="signup-form" className='hero'>
           <div className='hero-body'>
             <div className={containerClasses}>
-              <h1 className="is-size-2">Create account</h1>
+              <h1 className="is-size-2">{`Create ${this.state.account} account`}</h1>
               <div className="field">
                 <label className="label">Name</label>
                 <div className='control'>
