@@ -346,7 +346,7 @@ def get_statuses(request):
         if expiration_date is None:
             status = "Registered"
         else:
-            remaining_time = expiration_date - start_date
+            time_between_insertion = expiration_date - start_date
             if time_between_insertion.days > 30:
                 status = "Registered"
             elif time_between_insertion.days > 0:

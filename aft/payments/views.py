@@ -33,7 +33,7 @@ def create_checkout_session(request):
             'quantity': 1,
             }],
             mode='payment',
-            success_url='http://127.0.0.1:3000/success',
+            success_url='http://127.0.0.1:3000/dashboard',
             cancel_url='http://127.0.0.1:3000/cancel',
         )
     except Exception as e:

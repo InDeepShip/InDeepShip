@@ -16,7 +16,7 @@ class PrivateRegistrationDetails extends Component {
 
     render() {
         return (
-            <div className='container'>
+            <div className='container private-registration-details-container'>
                 <div className='columns private-registration-columns'>
                     <div className='column is-3 menu-container'>
                         <div className='boxed sidebar-box register-menu'>
