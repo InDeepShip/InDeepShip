@@ -11,6 +11,7 @@ class PrivateDashboardBase extends Component {
 
         this.state = {
             vessels: [],
+            registrationCount: 0,
             loading: true
         };
     }
@@ -28,6 +29,7 @@ class PrivateDashboardBase extends Component {
             .then((res) => {
                 this.setState({
                     vessels: res.data.ships,
+                    registrationCount: res.data.ships.length,
                     loading: false
                 });
             })
@@ -136,7 +138,7 @@ class PrivateDashboardBase extends Component {
                         <div className="tile is-ancestor has-text-centered">
                             <div className="tile is-parent">
                                 <article className="tile is-child box">
-                                    <p className="title">0</p>
+                                    <p className="title">{this.state.registrationCount}</p>
                                     <p className="sub-title">Registrations</p>
                                 </article>
                             </div>
