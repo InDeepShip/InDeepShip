@@ -16,7 +16,7 @@ describe('Vessel name check', () => {
 
     it('Can check if a name is available in a port', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/vesselNameLookup`)
+        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/vesselNameLookup`)
 
         await page.type('#vessel-name-input', randomString());
         await page.click('#check-btn');

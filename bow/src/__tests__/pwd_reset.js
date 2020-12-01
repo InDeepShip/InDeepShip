@@ -17,7 +17,7 @@ describe('User password reset process', () => {
  
     test('a registered user can reset password', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/passwordreset`);
+        await page.goto(`${process.env.REACT_APP_PRODUCTION_DEV_ADDRESS}/passwordreset`);
         const registeredUser = registeredUserGenerator();
 
         await page.type('#email-selector', registeredUser.email)
