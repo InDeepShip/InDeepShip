@@ -42,7 +42,7 @@ class Vessel(models.Model):
         max_digits=20, decimal_places=0, default=0)
     hulls = models.DecimalField(max_digits=3, decimal_places=0, default=1)
     purpose = models.CharField(max_length=512, default="")
-    owner = models.ForeignKey(CustomUser, null=False, on_delete=models.CASCADE)
+    owner = models.ForeignKey(CustomUser, null=True, on_delete=models.CASCADE)
 
 
 class ReservedName(models.Model):

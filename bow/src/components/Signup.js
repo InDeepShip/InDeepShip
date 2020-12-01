@@ -119,9 +119,9 @@ class SignupBase extends Component {
           <i class="fas fa-exclamation-triangle"></i>
         </span>
         <div>{err.response.data.password1}</div>
-        <div>{err.response.data.email}</div>         
+        <div>{err.response.data.email}</div>
       </div>
-    ); 
+    );
   }
 
   renderUserOptions() {
@@ -195,11 +195,15 @@ class SignupBase extends Component {
 
   render() {
     const { isError } = this.state;
-    const { error, loading, token } = this.props;
+    const { error, loading, token, status } = this.props;
     const containerClasses = loading ? 'container loading' : 'container';
 
     if (token) {
       return <Redirect to={ROUTES.LANDING} />;
+    }
+
+    if (status === 'pending') {
+      return <Redirect to={ROUTES.BROKER_ACCOUNT_PENDING} />;
     }
 
     if (!this.state.account) {
@@ -335,7 +339,8 @@ const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
-    token: state.auth.token
+    token: state.auth.token,
+    status: state.auth.status
   };
 };
 
