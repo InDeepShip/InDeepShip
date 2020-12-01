@@ -246,7 +246,7 @@ def get_registrations(request):
         return Response(
             data={"message": message},
             status=200)
-    regs = Registration.filter(owner__email=user_email)
+    regs = Registration.objects.filter(owner__email=user_email)
     data = {"registrations": regs}
     return Response(data=data, status=200)
 
