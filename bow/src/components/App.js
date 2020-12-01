@@ -27,6 +27,7 @@ import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import Dashboard from './Dashboard';
 import SuccessPage from './SuccessPage';
 import ErrorPage from './ErrorPage';
+import BrokerAccountPending from './BrokerAccountPending';
 import * as ROUTES from '../constants/routes';
 
 const stripePromise = loadStripe('pk_test_51HrAP1ClBcrzs3YUasdAJPY6kecZuVBFUAqg83Pf3pe4M4d1wcDyksperpVm01cj3oo2yT09sR47SLlbNyQD0pXC00XqFAVtjC');
@@ -58,6 +59,7 @@ class App extends Component {
         <Elements stripe={ stripePromise }>
           <NavBar textboxRef={this.textboxRef} />
           <Switch>
+            <Route path={ROUTES.BROKER_ACCOUNT_PENDING} component={BrokerAccountPending} />
             <Route path={ROUTES.SUCCESS_PAGE} component={SuccessPage} />
             <Route path={ROUTES.ERROR_PAGE} component={ErrorPage} />
             <Route path={ROUTES.ORGANIZATION} component={Organization} />
