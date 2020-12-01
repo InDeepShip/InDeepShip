@@ -1,13 +1,84 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import '../styles/PrivateDashboard.scss';
+import { VESSEL_NAME_LOOKUP } from '../constants/routes';
 
 
 class PrivateDashboardBase extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            vessels: [],
+            loading: true
+        };
+    }
+
+    componentDidMount() {
+        const { email } = this.props.auth.user;
+        const payload = {
+            params: {
+                email: email
+            }
+        };
+
+        axios
+            .get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vesselstatus/`, payload)
+            .then((res) => {
+                this.setState({
+                    vessels: res.data.ships,
+                    loading: false
+                });
+            })
+            .catch((err) => {
+                console.log('Error getting status for vessels');
+            })
+
+    }
+
+    renderVessels() {
+        if (this.state.loading) {
+            return (
+                <span className="loading-icon icon is-large">
+                  <i className="fas fa-2x fa-spinner fa-pulse"></i>
+                </span>
+            );
+
+        } else {
+            const { vessels } = this.state;
+
+            return (
+                <table className="table is-fullwidth is-striped is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Port</th>
+                            <th>IMO</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            vessels.map((vessel, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{vessel.name}</td>
+                                        <td>{vessel.port}</td>
+                                        <td>{vessel.imo}</td>
+                                        <td>{vessel.status}</td>
+                                        <td>
+                                            <a href="#" className="button is-small is-primary">Edit</a>
+                                        </td>
+                                    </tr>
+                                );
+                            })
+                        }
+                    </tbody>
+                </table>
+            );
+        }
     }
 
     render() {
@@ -100,17 +171,7 @@ class PrivateDashboardBase extends Component {
                                 </header>
                                 <div className="card-table">
                                     <div className="content">
-                                        <table className="table is-full-width is-striped">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Hi</td>
-                                                    <td>Some data</td>
-                                                    <td>
-                                                        <a href="#" className="button is-small is-primary">Action</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        { this.renderVessels() }
                                     </div>
                                 </div>
                                 <footer className="card-footer">
