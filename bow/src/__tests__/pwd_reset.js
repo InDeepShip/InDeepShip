@@ -6,8 +6,7 @@ describe('User password reset process', () => {
     let browser;
     beforeEach(async () => {
         browser = await puppeteer.launch({
-            headless: true,
-            slowMo : 100
+
         });
     })
 
@@ -25,7 +24,7 @@ describe('User password reset process', () => {
         await page.click('#submit-selector');
         await page.waitForSelector('#email-sent-msg-selector');
                 
-        expect(await page.$eval('#email-sent-msg-selector', e => e.textContent)).not.toBeNull();
+        await page.waitForFunction('document.querySelector("#email-sent-msg-selector").innerText.length > 0');
         expect(await page.$eval('#email-sent-msg-selector', e => e.textContent)).toBe("Password reset e-mail has been sent.");
         await page.close();
     });

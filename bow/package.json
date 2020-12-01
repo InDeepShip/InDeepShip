@@ -35,7 +35,7 @@
     "start": "react-scripts start",
     "watch": "npm-watch",
     "build": "react-scripts build",
-    "test": "jest --watchAll",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "watch": {
