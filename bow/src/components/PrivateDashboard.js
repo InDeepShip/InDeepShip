@@ -11,6 +11,8 @@ class PrivateDashboardBase extends Component {
     }
 
     render() {
+        const firstName = this.props.auth ? this.props.auth.user.name.split(' ')[0] : "";
+
         return (
             <div id="private-dashboard-selector" className="container">
                 <div className="columns user-columns">
@@ -49,21 +51,11 @@ class PrivateDashboardBase extends Component {
                     </aside>
                 </div>
                 <div className="column is-9">
-                    <nav className="breadcrumb" aria-label="breadcrumbs">
-                        <ul>
-                            <li>
-                                <a href="#">General</a>
-                            </li>
-                            <li>
-                                <a href="#">Dashboard</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <section className="hero is-primary welcome is-small">
+                   <section className="hero is-primary welcome is-small">
                         <div className="hero-body">
                             <div className="container">
                                 <h1 className="title">
-                                    Hello, User
+                                    {`Welcome Back, ${firstName}`}
                                 </h1>
                                 <h2 className="sub-title">Hope you are having a great day!</h2>
                             </div>
@@ -74,13 +66,13 @@ class PrivateDashboardBase extends Component {
                             <div className="tile is-parent">
                                 <article className="tile is-child box">
                                     <p className="title">0</p>
-                                    <p className="sub-title">Notifications</p>
+                                    <p className="sub-title">Registrations</p>
                                 </article>
                             </div>
                             <div className="tile is-parent">
                                 <article className="tile is-child box">
                                     <p className="title">0</p>
-                                    <p className="sub-title">Registrations</p>
+                                    <p className="sub-title">Applications</p>
                                 </article>
                             </div>
                             <div className="tile is-parent">
@@ -92,17 +84,18 @@ class PrivateDashboardBase extends Component {
                             <div className="tile is-parent">
                                 <article className="tile is-child box">
                                     <p className="title">0</p>
-                                    <p className="sub-title">Reward Points</p>
+                                    <p className="sub-title">Notifications</p>
                                 </article>
                             </div>
                         </div>
                     </section>
+                    <section className="">
                     <div className="columns">
-                        <div className="column is-6">
+                        <div className="column is-full">
                             <div className="card events-card user-card">
                                 <header className="card-header">
                                     <p className="card-header-title">
-                                        Events
+                                        Registrations
                                     </p>
                                 </header>
                                 <div className="card-table">
@@ -110,7 +103,7 @@ class PrivateDashboardBase extends Component {
                                         <table className="table is-full-width is-striped">
                                             <tbody>
                                                 <tr>
-                                                    <td width="5%">Hi</td>
+                                                    <td>Hi</td>
                                                     <td>Some data</td>
                                                     <td>
                                                         <a href="#" className="button is-small is-primary">Action</a>
@@ -125,7 +118,11 @@ class PrivateDashboardBase extends Component {
                                 </footer>
                             </div>
                         </div>
-                        <div className="column is-6">
+                    </div>
+                    </section>
+                    <section className="">
+                    <div className="columns">
+                        <div className="column is-full">
                             <div className="card user-card">
                                 <div className="card-header">
                                     <p className="card-header-title">
@@ -168,6 +165,7 @@ class PrivateDashboardBase extends Component {
                             </div>
                         </div>
                     </div>
+                    </section>
                 </div>
                 </div>
             </div>
