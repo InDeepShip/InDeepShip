@@ -16,6 +16,7 @@ class ShipView extends Component {
             api_key: "",
             failed: false,
             key_entered: false,
+            message: "",
             loading: true
         };
     }
@@ -65,7 +66,7 @@ class ShipView extends Component {
                     api_key: "",
                     key_entered: false,
                     failed: true,
-                    // message: response.data.message,
+                    message: error.response.data.message,
                     loading: false,
                 });
             });
@@ -137,12 +138,12 @@ class ShipView extends Component {
     }
 
     warningMessage() {
-        const { failed } = this.state;
+        const { failed, message} = this.state;
 
         if (failed) {
             return (
                 <div className="message is-danger">
-                    <div className="message-body">Invalid or missing API Key</div>
+                    <div className="message-body">{message ? message: "Invalid or missing API Key"}</div>
                 </div>
             )
         }

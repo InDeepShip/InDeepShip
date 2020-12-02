@@ -29,6 +29,8 @@ DEBUG = True
 # ALLOWED_HOSTS = ['206.189.218.111', '127.0.0.1', 'localhost']
 ALLOWED_HOSTS = ["*"]
 
+CORS_ALLOW_HEADERS = default_headers + ('api-key',)
+
 # Application definition
 
 INSTALLED_APPS = [
