@@ -5,14 +5,14 @@ const puppeteer = require('puppeteer');
 describe('Private user log-in process', () => {
     let browser;
 
-    beforeAll(async (done) => {
+    beforeEach(async (done) => {
         browser = await puppeteer.launch({
             headless: false
         });
         done();
     });
 
-    afterAll(async (done) => {
+    afterEach(async (done) => {
         await browser.close();
         done();
     });
