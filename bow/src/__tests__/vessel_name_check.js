@@ -4,12 +4,12 @@ require("dotenv").config()
 
 describe('Vessel name check', () => {
     let browser;
-    beforeEach(async (done) => {
+    beforeAll(async (done) => {
         browser = await puppeteer.launch({});
         done();
     })
 
-    afterEach(async (done) => {
+    afterAll(async (done) => {
         await browser.close();
         done();
     })

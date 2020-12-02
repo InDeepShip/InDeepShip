@@ -5,12 +5,12 @@ const puppeteer = require('puppeteer');
 describe('Private user log-in process', () => {
     let browser;
 
-    beforeEach(async (done) => {
+    beforeAll(async (done) => {
         browser = await puppeteer.launch();
         done();
     });
 
-    afterEach(async (done) => {
+    afterAll(async (done) => {
         await browser.close();
         done();
     });

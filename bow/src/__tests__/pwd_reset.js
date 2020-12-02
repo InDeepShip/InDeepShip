@@ -4,13 +4,12 @@ const puppeteer = require('puppeteer');
 
 describe('User password reset process', () => {
     let browser;
-    beforeEach(async () => {
-        browser = await puppeteer.launch({
-
-        });
+    beforeAll(async (done) => {
+        browser = await puppeteer.launch({});
+        done();
     })
 
-    afterEach(async (done) => {
+    afterAll(async (done) => {
         await browser.close();
         done();
     })

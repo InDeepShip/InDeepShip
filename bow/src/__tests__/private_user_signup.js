@@ -6,12 +6,12 @@ require("dotenv").config()
 describe('Private user sign-up process', () => {
     let browser;
 
-    beforeEach(async (done) => {
+    beforeAll(async (done) => {
         browser = await puppeteer.launch();
         done();
     });
 
-    afterEach(async (done) => {
+    afterAll(async (done) => {
         await browser.close();
         done();
     });
