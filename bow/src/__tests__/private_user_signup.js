@@ -61,7 +61,7 @@ describe('Private user sign-up process', () => {
         await page.waitForSelector("#signup-option-private")
         await page.click("#signup-option-private");
         await page.waitForSelector('#signup-form');
-
+        await page.waitForTimeout(2000)
         await page.type('#name-selector', user.username);
         await page.type('#home-address-selector', user.address);
         await page.type('#email-selector', user.email);

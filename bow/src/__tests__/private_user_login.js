@@ -19,7 +19,7 @@ describe('Private user log-in process', () => {
         const page = await browser.newPage();
         await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
-        await page.waitForSelector("#pwd-reset-btn");
+        await page.waitForSelector("#pwd-reset-btn", {timeout: 40000});
         const [response] = await Promise.all([
             page.waitForNavigation(),
             page.click("#pwd-reset-btn"),
@@ -33,7 +33,7 @@ describe('Private user log-in process', () => {
         const page = await browser.newPage();
         await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
-        await page.waitForSelector("#signup-link-selector");
+        await page.waitForSelector("#signup-link-selector", {timeout: 40000});
         const [response] = await Promise.all([
             page.waitForNavigation(),
             page.click("#signup-link-selector"),
@@ -51,7 +51,7 @@ describe('Private user log-in process', () => {
 
 
         // Act
-        await page.waitForSelector('#login-form');
+        await page.waitForSelector('#login-form', {timeout: 40000});
         await page.type('#email-selector', registeredUser.email);
         await page.type('#pwd-selector', registeredUser.password);
         
@@ -70,7 +70,7 @@ describe('Private user log-in process', () => {
         const nonRegisteredUser = randomUserGenerator();
         await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
 
-        await page.waitForSelector('#login-form');
+        await page.waitForSelector('#login-form', {timeout: 40000});
         await page.type('#email-selector', nonRegisteredUser.email);
         await page.type('#pwd-selector', nonRegisteredUser.pwd1);
         await page.click('#login-submit-btn', {delay: 1000});
