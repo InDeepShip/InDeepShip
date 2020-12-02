@@ -51,13 +51,13 @@ describe('Private user log-in process', () => {
 
 
         // Act
-        await page.waitForSelector('#login-form', {timeout: 40000});
+        await page.waitForSelector('#login-form');
         await page.type('#email-selector', registeredUser.email);
         await page.type('#pwd-selector', registeredUser.password);
         
         await Promise.all([
             page.waitForNavigation(), 
-            page.click('#login-submit-btn', {delay: 1000})
+            page.click('#login-submit-btn', {delay: 4000})
           ]);
 
         // Assert
