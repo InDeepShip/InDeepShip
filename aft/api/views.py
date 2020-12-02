@@ -262,26 +262,22 @@ def get_merchant_vessels(request):
     print(api_key)
     # TODO check formatting
     if api_key == "" or len(api_key) != 36:
-        message = "Invalid or missing API Key"
-        data = {}
+        # message = "Invalid or missing API Key"
+        data = {"message": "Invalid or missing API Key"}
         status = 405
     else:
         results = MerchantVessel.objects.filter(api_key=api_key)
         if len(results) == 0:
-            message = "Not found"
-            data = {}
+            # message = "Not found"
+            data = {"message": "Not found"}
             status = 404
         else:
             def del_api(v): del v["api_key"]; return v
             vessels = [del_api(v) for v in results.values()]
-            message = "Success"
-            data = {"vessels": vessels}
+            # message = "Success"
+            data = {"message":"Success", "vessels": vessels}
             status = 200
-    return Response({
-        "data": data,
-        "status": status,
-        "message": message
-    })
+    return Response(data = data, status = status)
 
 
 @api_view(["GET"])
@@ -294,14 +290,10 @@ def get_all_merchant_vessels(request):
     results = MerchantVessel.objects.filter()
     def del_api(v): del v["api_key"]; return v
     vessels = [del_api(v) for v in results.values()]
-    message = "Success"
-    data = {"vessels": vessels}
+    # message = "Success"
+    data = {"message":"Success", "vessels": vessels}
     status = 200
-    return Response({
-        "data": data,
-        "status": status,
-        "message": message
-    })
+    return Response(data = data, status = status)
 
 
 

@@ -31,7 +31,7 @@ class ShipView extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.setState({ 
+        this.setState({
             key_entered: true,
             failed: false
         });
@@ -41,25 +41,31 @@ class ShipView extends Component {
     getShips() {
         // TODO: filter ships by api key
         console.log(this.state.api_key)
-        const { ships, loading } = this.state;
+        const { ships, loading, api_key } = this.state;
+        console.log(api_key.length)
         this.setState({
             ships,
             loading: true,
         });
 
-        axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/allvessels/`)
+        axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessels/`,
+            { headers: { 'api-key': api_key } }
+        )
             .then((response) => {
+                console.log(response)
                 this.setState({
-                    ships: response.data.data.vessels,
+                    ships: response.data.vessels,
                     loading: false,
                 });
             })
             .catch((error) => {
-                // console.log(error);
+                console.log(error);
                 this.setState({
                     ships,
                     api_key: "",
+                    key_entered: false,
                     failed: true,
+                    // message: response.data.message,
                     loading: false,
                 });
             });
@@ -136,7 +142,7 @@ class ShipView extends Component {
         if (failed) {
             return (
                 <div className="message is-danger">
-                    <div className="message-body">Invalid API key!</div>
+                    <div className="message-body">Invalid or missing API Key</div>
                 </div>
             )
         }
