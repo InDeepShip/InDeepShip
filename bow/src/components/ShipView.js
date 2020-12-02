@@ -14,7 +14,8 @@ class ShipView extends Component {
             // allShips: [],
             ships: [],
             api_key: "",
-            good_key: false,
+            failed: false,
+            key_entered: false,
             loading: true
         };
     }
@@ -30,11 +31,15 @@ class ShipView extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.setState({ good_key: true });
+        this.setState({ 
+            key_entered: true,
+            failed: false
+        });
         this.getShips();
-      }
+    }
 
     getShips() {
+        // TODO: filter ships by api key
         console.log(this.state.api_key)
         const { ships, loading } = this.state;
         this.setState({
@@ -53,6 +58,8 @@ class ShipView extends Component {
                 // console.log(error);
                 this.setState({
                     ships,
+                    api_key: "",
+                    failed: true,
                     loading: false,
                 });
             });
@@ -107,6 +114,7 @@ class ShipView extends Component {
                             hin: ship.hin,
                             callSign: ship.callSign,
                             mmsi: ship.mmsi,
+                            yearOfBuild: ship.yearOfBuild,
                             imoNumber: ship.imoNumber,
                             registeredLength: ship.registeredLength,
                             registration: ship.registration,
@@ -122,15 +130,28 @@ class ShipView extends Component {
         );
     }
 
-    render() {
-        const { loading, ships, good_key } = this.state;
+    warningMessage() {
+        const { failed } = this.state;
 
-        if (!good_key) {
+        if (failed) {
+            return (
+                <div className="message is-danger">
+                    <div className="message-body">Invalid API key!</div>
+                </div>
+            )
+        }
+    }
+
+    render() {
+        const { loading, ships, key_entered } = this.state;
+
+        if (!key_entered) {
             return (
                 <div className='hero is-full-height'>
                     <div className='hero-body'>
                         <section className="section">
                             <div className="container">
+                                {this.warningMessage()}
                                 <div className='field has-addons'>
                                     <div className="control is-expanded">
                                         <input id="api_key-input" className="input" type="text" placeholder="API Key" name="api_key" onChange={this.handleChange}></input>

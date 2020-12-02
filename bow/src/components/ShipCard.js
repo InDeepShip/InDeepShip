@@ -31,6 +31,7 @@ class ShipCard extends PureComponent {
           <p className="is-6"><b>callSign: </b>{ship.callSign}</p>
           <p className="is-6"><b>mmsi: </b>{ship.mmsi}</p>
           <p className="is-6"><b>imoNumber: </b>{ship.imoNumber}</p>
+          <p className="is-6"><b>yearOfBuild: </b>{ship.yearOfBuild}</p>
           <p className="is-6"><b>registeredLength: </b>{ship.registeredLength}</p>
           <div className="is-6"><b>registration: </b>
             <div className="pl-5">
