@@ -11,6 +11,7 @@ export const PASSWORD_RESET_CONFIRM = '/passwordresetconfirm'
 export const PRIVATE_REGISTRATION_DETAILS = '/private-registration-details';
 export const PRIVATE_REGISTRATION = '/private-registration';
 export const DASHBOARD = '/dashboard';
+export const SHIPVIEW = '/shipview';
 export const SUCCESS_PAGE = '/success';
 export const ERROR_PAGE = '/error';
 export const BROKER_ACCOUNT_PENDING = '/broker-account-pending';
