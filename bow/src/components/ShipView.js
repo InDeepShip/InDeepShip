@@ -11,7 +11,7 @@ class ShipView extends Component {
         super(props);
 
         this.state = {
-            allShips: [],
+            // allShips: [],
             ships: [],
             loading: true
         };
@@ -38,23 +38,20 @@ class ShipView extends Component {
     getShips() {
         const { ships, loading } = this.state;
         this.setState({
-            allShips: ships,
             ships,
             loading: true,
         });
 
-        axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessels/`)
+        axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/allvessels/`)
             .then((response) => {
                 this.setState({
-                    allShips: response.data,
-                    ships: response.data,
+                    ships: response.data.data.vessels,
                     loading: false,
-                }, () => console.log(this.state.loading));
+                });
             })
             .catch((error) => {
                 // console.log(error);
                 this.setState({
-                    allShips: ships,
                     ships,
                     loading: false,
                 });
@@ -62,28 +59,63 @@ class ShipView extends Component {
     }
 
 
-    formatShip(mod, eq) {
+    // Used to display ship cards in a specific grid
+    // formatShip(mod, eq) {
+    //     const { ships } = this.state;
+    //     return (
+    //         <React.Fragment>
+    //             {ships.filter((_, index) => (index % mod) === eq).map(ship => (
+    //                 <ShipCard
+    //                     key={ship.officialNumber}
+    //                     ship={{
+    //                         officialNumber: ship.officialNumber,
+    //                         name: ship.name,
+    //                         type: ship.type,
+    //                         keelLayingDate: ship.keelLayingDate,
+    //                         grossTonnage: ship.grossTonnage,
+    //                         hin: ship.hin,
+    //                         callSign: ship.callSign,
+    //                         mmsi: ship.mmsi,
+    //                         imoNumber: ship.imoNumber,
+    //                         registeredLength: ship.registeredLength,
+    //                         registration: ship.registration,
+    //                         builder: ship.builder,
+    //                         managingCompany: ship.managingCompany,
+    //                         engines: ship.engines,
+    //                         // api_key: ship.api_key,
+    //                     }}
+    //                 />
+    //             ))}
+    //         </React.Fragment>
+    //     );
+    // }
+
+    // general displaying of ship cards
+    displayShip(mod, eq) {
         const { ships } = this.state;
         return (
             <React.Fragment>
-                {ships.filter((_, index) => (index % mod) === eq).map(ship => (
+                {ships.map((ship, index) => (
                     <ShipCard
-                        key={ship.imo}
+                        key={ship.officialNumber}
                         ship={{
+                            officialNumber: ship.officialNumber,
                             name: ship.name,
-                            port: ship.port,
-                            imo: ship.imo,
-                            tonnage: ship.tonnage,
-                            propulsion: ship.propulsion_id,
-                            yard_number: ship.yard_number,
-                            vessel_length: ship.vessel_length,
-                            hulls: ship.hulls,
-                            purpose: ship.purpose,
-                            owner: ship.owner
-
-                            // TODO get deadline and input it here
-                            // deadline: new Date(ship.registration.deadline),
+                            type: ship.type,
+                            keelLayingDate: ship.keelLayingDate,
+                            grossTonnage: ship.grossTonnage,
+                            hin: ship.hin,
+                            callSign: ship.callSign,
+                            mmsi: ship.mmsi,
+                            imoNumber: ship.imoNumber,
+                            registeredLength: ship.registeredLength,
+                            registration: ship.registration,
+                            builder: ship.builder,
+                            managingCompany: ship.managingCompany,
+                            engines: ship.engines,
+                            // api_key: ship.api_key,
                         }}
+                        index={index+1}
                     />
                 ))}
             </React.Fragment>
@@ -109,26 +141,27 @@ class ShipView extends Component {
                         </div>
                     </div> */}
                     <div className="columns is-multiline">
-                        <div className="column is-one-third">
+                        {/* <div className="column is-full">
                             {this.formatShip(3, 0)}
-                        </div>
-                        <div className="column is-one-third">
-                            {this.formatShip(3, 1)}
+                        </div> */}
+                        <div className="column is-full">
+                            {/* {this.formatShip(3, 1)} */}
+                            {this.displayShip()}
                             {ships.length ? null : (
                                 <div className="has-text-centered title">
-                                    No ships to see! Try registering a ship
+                                    No ships assigned!
                                 </div>
                             )}
                         </div>
-                        <div className="column is-one-third">
+                        {/* <div className="column is-full">
                             {this.formatShip(3, 2)}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="App" />
                 { ships.length ? (
                     <div className="container is-size-3">
-                        <center>Register some ships to see more!</center>
+                        <center>None left to see!</center>
                     </div>
                 ) : null}
             </section>
