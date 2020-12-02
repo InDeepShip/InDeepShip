@@ -35,7 +35,7 @@ describe('Private user sign-up process', () => {
         const user = { username: "David", address: "1150 high street", email: " aa@mail.com", pwd1: "11111111", pwd2: "11111111" };
 
         // Act
-        await page.waitForSelector("#signup-option-private", {timeout: 40000})
+        await page.waitForSelector("#signup-option-private")
         await page.click("#signup-option-private");
         await page.waitForSelector('#signup-form');
 
@@ -58,7 +58,7 @@ describe('Private user sign-up process', () => {
 
         //const user = { username: "Chris", address: "1150 high street", email: " chris@mail.com", pwd1: "chrischris", pwd2: "chrischris"};
         // Act
-        await page.waitForSelector("#signup-option-private",  {timeout: 40000})
+        await page.waitForSelector("#signup-option-private")
         await page.click("#signup-option-private");
         await page.waitForSelector('#signup-form');
         await page.waitForTimeout(2000)

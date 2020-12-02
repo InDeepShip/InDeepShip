@@ -31,5 +31,5 @@ module.exports = {
   ],
   //coverageDirectory: "<rootDir>/testCoverageReport/",
   preset: "jest-puppeteer",
-  testTimeout: 60000
+  //testTimeout: 60000
 };

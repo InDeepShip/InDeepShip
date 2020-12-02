@@ -19,7 +19,7 @@ describe('User password reset process', () => {
         await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/passwordreset`);
         const registeredUser = registeredUserGenerator();
 
-        await page.waitForSelector("#email-selector", {timeout: 40000});
+        await page.waitForSelector("#email-selector");
         await page.waitForSelector('#submit-selector');
         await page.type('#email-selector', registeredUser.email)
         await page.click('#submit-selector');
