@@ -13,29 +13,29 @@ class ShipView extends Component {
         this.state = {
             // allShips: [],
             ships: [],
+            api_key: "",
+            good_key: false,
             loading: true
         };
     }
 
     componentDidMount() {
         this.setState({ loading: true });
-        this.getShips();
-
-
-        // for offline testing
-        // const { ships } = this.state;
-        // this.setState({
-        //     loading: false,
-        //     allShips: ships,
-        //     ships: [{ "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner": 1 }, { "_id": { "$oid": "5fb72ecd0615b67c4b30691d" }, "id": 135, "name": "neep Eep", "port": 101, "imo": 10, "tonnage": "10", "propulsion": 101, "yard_number": "10", "vessel_length": "100", "hulls": "6", "purpose": "", "owner_id": 1 }]
-        // })
-
-
-
-        // this.props.onTryAutoSignup();
+        // this.getShips();
     }
 
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.setState({ good_key: true });
+        this.getShips();
+      }
+
     getShips() {
+        console.log(this.state.api_key)
         const { ships, loading } = this.state;
         this.setState({
             ships,
@@ -115,7 +115,7 @@ class ShipView extends Component {
                             engines: ship.engines,
                             // api_key: ship.api_key,
                         }}
-                        index={index+1}
+                        index={index + 1}
                     />
                 ))}
             </React.Fragment>
@@ -123,7 +123,29 @@ class ShipView extends Component {
     }
 
     render() {
-        const { loading, ships } = this.state;
+        const { loading, ships, good_key } = this.state;
+
+        if (!good_key) {
+            return (
+                <div className='hero is-full-height'>
+                    <div className='hero-body'>
+                        <section className="section">
+                            <div className="container">
+                                <div className='field has-addons'>
+                                    <div className="control is-expanded">
+                                        <input id="api_key-input" className="input" type="text" placeholder="API Key" name="api_key" onChange={this.handleChange}></input>
+                                    </div>
+                                    <div className="control">
+                                        <a id="api_key-Submit" className="button is-primary" onClick={this.onSubmit}>Submit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            )
+        }
+
         if (loading) {
             return <Spinner fullPage />;
         }
@@ -159,7 +181,7 @@ class ShipView extends Component {
                     </div>
                 </div>
                 <div className="App" />
-                { ships.length ? (
+                {ships.length ? (
                     <div className="container is-size-3">
                         <center>None left to see!</center>
                     </div>

@@ -38,7 +38,7 @@ class NavBar extends Component {
 
   // Close navbar if clicked outside
   handleClickOutside(event) {
-    console.log("click outside!")
+    // console.log("click outside!")
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
       this.close()
     }

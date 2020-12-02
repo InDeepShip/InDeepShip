@@ -32,7 +32,6 @@ class ShipCard extends PureComponent {
           <p className="is-6"><b>mmsi: </b>{ship.mmsi}</p>
           <p className="is-6"><b>imoNumber: </b>{ship.imoNumber}</p>
           <p className="is-6"><b>registeredLength: </b>{ship.registeredLength}</p>
-          {console.log(ship)}
           <div className="is-6"><b>registration: </b>
             <div className="pl-5">
               <p className="is-6"><b>status: </b>{ship.registration.status}</p>
