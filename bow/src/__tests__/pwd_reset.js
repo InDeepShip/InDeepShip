@@ -13,10 +13,10 @@ describe('User password reset process', () => {
         await browser.close();
         done();
     })
- 
+
     test('a registered user can reset password', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/passwordreset`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/passwordreset`);
         const registeredUser = registeredUserGenerator();
 
         await page.waitForSelector("#email-selector");
@@ -24,12 +24,12 @@ describe('User password reset process', () => {
         await page.type('#email-selector', registeredUser.email)
         await page.click('#submit-selector');
         await page.waitForSelector('#email-sent-msg-selector');
-                
+
         await page.waitForFunction('document.querySelector("#email-sent-msg-selector").innerText.length > 0');
         expect(await page.$eval('#email-sent-msg-selector', e => e.textContent)).toBe("Password reset e-mail has been sent.");
         await page.close();
     });
-    
+
     // test('a non-registered user cannot reset password', async () => {
     //     const page = await browser.newPage();
     //     await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/passwordreset`);
@@ -42,5 +42,5 @@ describe('User password reset process', () => {
     //     //expect(await page.$eval('#email-sent-msg-selector', e => e.textContent)).not.toBe("Password reset e-mail has been sent.");
     //     await page.close();
     // });
-    
+
 });

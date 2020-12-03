@@ -19,7 +19,7 @@ describe('Private user log-in process', () => {
 
     test('can click reset password', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
 
         await page.waitForSelector("#pwd-reset-btn");
         const [response] = await Promise.all([
@@ -33,14 +33,14 @@ describe('Private user log-in process', () => {
 
     test('can click signup', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
 
         await page.waitForSelector("#signup-link-selector");
         const [response] = await Promise.all([
             page.waitForNavigation(),
             page.click("#signup-link-selector"),
           ]);
-        
+
         expect(await page.$("#signup-option-private")).not.toBe('null');
         //await page.close();
     });
@@ -55,7 +55,7 @@ describe('Private user log-in process', () => {
     //     await page.type('#pwd-selector', nonRegisteredUser.pwd1);
 
     //     await Promise.all([
-    //         page.waitForNavigation(), 
+    //         page.waitForNavigation(),
     //         page.click('#login-submit-btn', {delay: 1000})
     //       ]);
     //     expect(await page.$('#private-dashboard-selector')).toBeNull();
@@ -65,7 +65,7 @@ describe('Private user log-in process', () => {
     test("a registered private user can log in", async () => {
         // Arrange: initialize code
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/login`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/login`);
         const registeredUser = registeredUserGenerator();
 
 
@@ -73,9 +73,9 @@ describe('Private user log-in process', () => {
         await page.waitForSelector('#login-form');
         await page.type('#email-selector', registeredUser.email);
         await page.type('#pwd-selector', registeredUser.password);
-        
+
         await Promise.all([
-            page.waitForNavigation(), 
+            page.waitForNavigation(),
             page.click('#login-submit-btn', {delay: 1000})
           ]);
 

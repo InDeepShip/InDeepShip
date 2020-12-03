@@ -18,8 +18,8 @@ describe('Private user sign-up process', () => {
 
     test('can click private account options', async () => {
         const page = await browser.newPage();
-        
-        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/signup`);
+
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup`);
         await page.waitForSelector('#signup-option-private', {timeout: 40000});
         await page.click("#signup-option-private");
         await page.waitForSelector('#signup-form');
@@ -30,8 +30,8 @@ describe('Private user sign-up process', () => {
 
     test('cannot sign up a private use if input are invalid', async () => {
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/signup`);
-        
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup`);
+
         const user = { username: "David", address: "1150 high street", email: " aa@mail.com", pwd1: "11111111", pwd2: "11111111" };
 
         // Act
@@ -45,7 +45,7 @@ describe('Private user sign-up process', () => {
         await page.type('#pwd1-selector', user.pwd1);
         await page.type('#pwd2-selector', user.pwd2);
         await page.click('#signup-submit-btn', {delay: 1000});
-        
+
         expect(await page.$('#landing-page-selector')).toBeNull();
         await page.close();
     });
@@ -53,7 +53,7 @@ describe('Private user sign-up process', () => {
     test("can sign up a new private user if input are valid", async () => {
         // Arrange: initialize code
         const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_PRODUCTION_ADDRESS}/signup`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}/signup`);
         const user = randomUserGenerator();
 
         //const user = { username: "Chris", address: "1150 high street", email: " chris@mail.com", pwd1: "chrischris", pwd2: "chrischris"};
@@ -69,7 +69,7 @@ describe('Private user sign-up process', () => {
         await page.type('#pwd2-selector', user.pwd2);
 
         const [response] = await Promise.all([
-            page.waitForNavigation(), 
+            page.waitForNavigation(),
             page.click('#signup-submit-btn', {delay: 1000})
           ]);
 
