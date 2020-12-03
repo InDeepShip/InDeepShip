@@ -1,13 +1,16 @@
 jobs:
   include:
-      - language: python
-        python: 3.8
+      - language: node_js
+        python: 12
         services:
           - docker
           - mongo
         before_install:
           - docker build -t aft aft/
           - docker build -t bow bow/
+        install:
+          - cd bow
+          - npm install
         before_script:
           - sleep 15
           - mongo InDeepShipData_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
@@ -15,6 +18,7 @@ jobs:
           - docker run --name aft_container -d -p 8000:8000 aft:latest
           - docker run --name bow_container -d -t -p 3000:3000 bow:latest
           - sleep 10
+          - npm run test
       - language: node_js
         node_js: 12
         install:
