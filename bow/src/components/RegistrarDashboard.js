@@ -154,7 +154,7 @@ class RegistrarDashboardBase extends Component {
             <div id="private-dashboard-selector" className="container">
                 <div className="columns user-columns">
                     <div className="column is-3">
-                        <aside className="menu is-hidden-mobile">
+                        {/* <aside className="menu is-hidden-mobile">
                             <p className="menu-label">General</p>
                             <ul className="menu-list">
                                 <li>
@@ -185,7 +185,7 @@ class RegistrarDashboardBase extends Component {
                                     <a href="#" className="">Reports</a>
                                 </li>
                             </ul>
-                        </aside>
+                        </aside> */}
                     </div>
                     <div className="column is-9">
                         <section className="hero is-primary welcome is-small">
