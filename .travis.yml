@@ -12,8 +12,8 @@ jobs:
           - sleep 15
           - mongo InDeepShipData_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
         script:
-          - docker run -d -p 8000:8000 aft:latest
-          - docker run -d -t -p 3000:3000 bow:latest
+          - docker run --name aft_container -d -p 8000:8000 aft:latest
+          - docker run --name bow_container -d -t -p 3000:3000 bow:latest
           - sleep 10
       - language: node_js
         node_js: 12
