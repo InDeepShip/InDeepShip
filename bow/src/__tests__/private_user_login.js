@@ -7,7 +7,7 @@ describe('Private user log-in process', () => {
 
     beforeEach(async (done) => {
         browser = await puppeteer.launch({
-            headless: false
+            headless: true
         });
         done();
     });
@@ -28,7 +28,7 @@ describe('Private user log-in process', () => {
           ]);
 
         expect(await page.$("#pwd-reset-page-selector")).not.toBeNull();
-        //await page.close();
+        await page.close();
     });
 
     test('can click signup', async () => {
@@ -42,7 +42,7 @@ describe('Private user log-in process', () => {
           ]);
 
         expect(await page.$("#signup-option-private")).not.toBe('null');
-        //await page.close();
+        await page.close();
     });
 
     // test("a non-registered private user cannot log in", async () => {
