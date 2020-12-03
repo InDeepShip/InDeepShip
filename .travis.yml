@@ -25,7 +25,6 @@ jobs:
           - cd bow
           - npm install
         script:
-          - npm test --detectOpenHandles
           - CI='' npm run build
       - language: python
         python: 3.8
