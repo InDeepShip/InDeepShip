@@ -37,23 +37,23 @@ class App extends Component {
               <div className="columns is-vcentered">
                 <div className="column is-half">
                   <h1 className="title is-size-1 is-size-3-mobile landing-header-text">
-                    Ship Registration Made Easy Since 1815.
+                    Ship Registration Made Easy
                   </h1>
                 </div>
                 <div className="column is-third is-hidden-mobile get-started-column">
-                    <Link className="button is-large" to={ROUTES.LOGIN}>
-                      <span className="icon is-medium">
-                        <i className="fas fa-user-plus"></i>
-                      </span>
-                      <span>Get Started</span>
+                  <Link className="button is-large" to={ROUTES.LOGIN}>
+                    <span className="icon is-medium">
+                      <i className="fas fa-user-plus"></i>
+                    </span>
+                    <span>Get Started</span>
                   </Link>
                 </div>
               </div>
             </div>
           </div>
         </section>
-       {<ServiceCards />}
-       {<PortsCards ports={this.state.ports} />}    
+        {<ServiceCards />}
+        {<PortsCards ports={this.state.ports} />}
       </Fragment>
     );
   }

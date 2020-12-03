@@ -4,6 +4,8 @@ import PrivateDashboard from './PrivateDashboard';
 import RegistrarDashboard from './RegistrarDashboard';
 import Spinner from './Spinner';
 import * as actions from '../actions';
+import * as ROUTES from '../constants/routes';
+import { Redirect } from 'react-router-dom';
 
 class DashboardBase extends Component {
     constructor(props) {
@@ -19,6 +21,11 @@ class DashboardBase extends Component {
     render() {
         if (this.props.auth) {
             const { user } = this.props.auth;
+
+            if (!user) {
+                return <Redirect to={ROUTES.LANDING} />
+            }
+
             if (user.account === 'private') {
                 return <PrivateDashboard />
             }
@@ -47,9 +54,9 @@ const mapStatetoProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
-  };
+    return {
+        onTryAutoSignup: () => dispatch(actions.authCheckState())
+    };
 };
 
 const Dashboard = connect(

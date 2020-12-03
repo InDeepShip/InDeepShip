@@ -275,9 +275,9 @@ def get_merchant_vessels(request):
             def del_api(v): del v["api_key"]; return v
             vessels = [del_api(v) for v in results.values()]
             # message = "Success"
-            data = {"message":"Success", "vessels": vessels}
+            data = {"message": "Success", "vessels": vessels}
             status = 200
-    return Response(data = data, status = status)
+    return Response(data=data, status=status)
 
 
 @api_view(["GET"])
@@ -291,10 +291,9 @@ def get_all_merchant_vessels(request):
     def del_api(v): del v["api_key"]; return v
     vessels = [del_api(v) for v in results.values()]
     # message = "Success"
-    data = {"message":"Success", "vessels": vessels}
+    data = {"message": "Success", "vessels": vessels}
     status = 200
-    return Response(data = data, status = status)
-
+    return Response(data=data, status=status)
 
 
 @api_view(["GET"])
@@ -354,30 +353,31 @@ def get_statuses(request):
 
 @api_view(["POST"])
 def assign_surveyor(request):
-    api_key = request.headers.get("api-key", "")
-    imo = request.POST.get("imo", "")
+    api_key = request.data.get("api_key", "")
+    imo = request.data.get("imo", "")
     # make sure an API key is supplied
     if api_key == "":
         message = "Please supply an API key for surveyor look up."
-        return Response(data={"message": message}, status=200)
+        return Response(data={"message": message}, status=400)
     if imo == "":
         message = "Please supply an IMO # for merchant vessel look up."
-        return Response(data={"message": message}, status=200)
+        return Response(data={"message": message}, status=400)
     # get the appropriate surveyor with that api key
     surveyor = Surveyor.objects.filter(api_key=api_key)
     if len(surveyor) == 0:
         message = "There is no surveyor with that API key associated."
-        return Response(data={"message": message}, status=200)
+        return Response(data={"message": message}, status=500)
     # now need to make sure that the IMO exists for a ship
     vessel = MerchantVessel.objects.filter(imoNumber=imo)
     if len(vessel) == 0:
         message = "There is no ship with that IMO # associated."
-        return Response(data={"message": message}, status=200)
+        return Response(data={"message": message}, status=500)
     vessel = vessel[0]
     vessel.api_key = api_key
     vessel.save()
     message = "The API key has been saved to the ship."
     return Response(data={"message": message}, status=200)
+
 
 @api_view(["GET"])
 def get_surveyors(request):
@@ -385,6 +385,7 @@ def get_surveyors(request):
     for s in Surveyor.objects.all():
         surveyors.append({"name": s.name, "api_key": s.api_key})
     return Response(data={"surveyors": surveyors}, status=200)
+
 
 @api_view(["POST"])
 def renew_registration(request):
@@ -400,9 +401,10 @@ def renew_registration(request):
         return HttpResponse(status=400)
     try:
         exp_date = date.today() + timedelta(days=365)
-        reg = Registration.objects.filter(id=vessel.id).update(expiration_date=exp_date)
+        reg = Registration.objects.filter(
+            id=vessel.id).update(expiration_date=exp_date)
     except Registration.DoesNotExist:
         print("There is no registration associated with that vessel.")
         return HttpResponse(status=400)
-    
+
     return Response(data={"expiration_date": exp_date}, status=200)
