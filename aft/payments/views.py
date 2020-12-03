@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import stripe
 import json
+import os
 
 # Create your views here.
 # payments/views.py
@@ -33,8 +35,8 @@ def create_checkout_session(request):
             'quantity': 1,
             }],
             mode='payment',
-            success_url='http://127.0.0.1:3000/dashboard',
-            cancel_url='http://127.0.0.1:3000/cancel',
+            success_url=os.path.join(settings.SERVER_ADDRESS, 'dashboard'),
+            cancel_url=os.path.join(settings.SERVER_ADDRESS, 'cancel'),
         )
     except Exception as e:
         print(e)
