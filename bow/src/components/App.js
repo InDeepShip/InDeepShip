@@ -25,6 +25,7 @@ import PasswordResetConfirm from './PasswordResetConfirm';
 import PrivateRegistration from './PrivateRegistration';
 import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import Dashboard from './Dashboard';
+import ShipView from './ShipView';
 import SuccessPage from './SuccessPage';
 import ErrorPage from './ErrorPage';
 import BrokerAccountPending from './BrokerAccountPending';
@@ -72,6 +73,7 @@ class App extends Component {
             <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
             <Route exact path={ROUTES.VESSEL_NAME_LOOKUP} component={VesselNameLookup} loggedIn={false} accountSetup={false} />
             <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
+            <Route exact path={ROUTES.SHIPVIEW} component={ShipView} />
             <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
             <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
             <Route exact path={ROUTES.LANDING} component={Landing} />
