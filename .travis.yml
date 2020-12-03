@@ -1,7 +1,7 @@
 jobs:
   include:
       - language: node_js
-        python: 12
+        node_js: 12
         services:
           - docker
           - mongo
