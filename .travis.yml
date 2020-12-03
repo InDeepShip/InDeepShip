@@ -12,33 +12,33 @@ jobs:
         script:
           - docker run -d -t -p 3000:3000 bow:latest
           - sleep 10
-      # - language: node_js
-      #   node_js: 12
-      #   install:
-      #     - cd bow
-      #     - npm install
-      #   script:
-      #     - CI='' npm run build
-      # - language: python
-      #   python: 3.8
-      #   before_install:
-      #     - openssl aes-256-cbc -K $encrypted_5e5c0943bb84_key -iv $encrypted_5e5c0943bb84_iv -in deploy-key.enc -out ./deploy_key -d
-      #     - eval "$(ssh-agent -s)"
-      #     - chmod 600 ./deploy_key
-      #     - echo -e "Host 206.189.218.111\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-      #     - ssh-add ./deploy_key
-      #   install:
-      #     - pip install -r requirements.txt
-      #     - cd aft
-      #   script:
-      #   - python manage.py test
-      #   after_script:
-      #   - cd ..
-      #   - scp -i ./deploy_key install.sh root@206.189.218.111:~/install.sh
-      #   - ssh -i ./deploy_key -t root@206.189.218.111 "./install.sh"
-      #   addons:
-      #     ssh_known_hosts:
-      #       - 206.189.218.111
+      - language: node_js
+        node_js: 12
+        install:
+          - cd bow
+          - npm install
+        script:
+          - CI='' npm run build
+      - language: python
+        python: 3.8
+        before_install:
+          - openssl aes-256-cbc -K $encrypted_5e5c0943bb84_key -iv $encrypted_5e5c0943bb84_iv -in deploy-key.enc -out ./deploy_key -d
+          - eval "$(ssh-agent -s)"
+          - chmod 600 ./deploy_key
+          - echo -e "Host 206.189.218.111\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+          - ssh-add ./deploy_key
+        install:
+          - pip install -r requirements.txt
+          - cd aft
+        script:
+        - python manage.py test
+        after_script:
+        - cd ..
+        - scp -i ./deploy_key install.sh root@206.189.218.111:~/install.sh
+        - ssh -i ./deploy_key -t root@206.189.218.111 "./install.sh"
+        addons:
+          ssh_known_hosts:
+            - 206.189.218.111
         branches:
           only:
             - main
