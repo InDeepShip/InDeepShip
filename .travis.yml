@@ -28,7 +28,7 @@ jobs:
           - echo -e "Host 206.189.218.111\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
           - ssh-add ./deploy_key
         install:
-          - pip install -r requirements.txt
+          - pip install -r aft/requirements.txt
           - cd aft
         script:
         - python manage.py test
