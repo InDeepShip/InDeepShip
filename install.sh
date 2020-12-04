@@ -42,7 +42,7 @@ source ./venv/bin/activate
 pip install -r aft/requirements.txt
 
 pushd aft
-echo 'SERVER_ADDRESS=http://206.189.218.111\nDEBUG=off' > .env
+echo -e 'SERVER_ADDRESS=http://206.189.218.111\nDEBUG=off' > .env
 python manage.py collectstatic --no-input
 popd
 
