@@ -10,16 +10,27 @@ import { connect } from 'react-redux';
 class VesselNameLookup extends Component {
   constructor(props) {
     super(props);
+    // If we didn't get redirected from the Login page, then clear the local storage
+    if (this.props.location.prevPage !== ROUTES.LOGIN){
+      localStorage.clear();
+    }
     const vesselName = localStorage.getItem("vesselName")
+    const name_available =  localStorage.getItem("name_available");
+    const availability = localStorage.getItem("availability")
+    const ports = JSON.parse(localStorage.getItem("ports"))
+    const selectedPort = localStorage.getItem("selectedPort")
+
     this.state = {
-      ports: [],
+      ports: ports !== null ? ports : [],
       selectedPort: "",
-      name_available: false,
+      name_available: name_available !== null ? name_available : false,
       application_sent: false,
-      reserveName: false,
+      reserveNameBool: false,
       vesselName: vesselName !== null ? vesselName : "",
       loading: false,
       displayRespMessage: '',
+      availability: availability !== null ? availability : false,
+      selectedPort: selectedPort !== null ? selectedPort : ""
     }
     this.promptToReserve = this.promptToReserve.bind(this)
     this.submitApplication = this.submitApplication.bind(this)
@@ -41,14 +52,22 @@ class VesselNameLookup extends Component {
           name_available: res.data.available,
           ports: res.data.ports
         });
+        localStorage.setItem("name_available", this.state.name_available);
+        localStorage.setItem("ports", JSON.stringify(this.state.ports));
+        localStorage.setItem("availability", this.state.availability);
         if (this.state.name_available){
           this.setState({ selectedPort: this.state.ports[0] });
+          localStorage.setItem("selectedPort", this.state.ports[0]);
         }
       })
       .catch(err => {
         console.log(err)
       });
 
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
 
 
@@ -84,7 +103,7 @@ class VesselNameLookup extends Component {
   }
 
   reserveName() {
-    this.setState({ reserveName: true });
+    this.setState({ reserveNameBool: true });
   }
 
   availablePorts() {
@@ -111,7 +130,7 @@ class VesselNameLookup extends Component {
       return (
         < div>
         <br />
-          You need to be logged in to reserve a vessel name. < Link to={{ pathname: pathname, prevPage: thisPage }}> Login</Link > or < Link to={{ pathname: pathname_2, prevPage: thisPage }}> Sign Up? </Link > 
+          You need to be logged in to reserve a vessel name. < Link to={{ pathname: pathname, prevPage: thisPage}}  onClick={this.reserveName}> Login</Link > or < Link to={{ pathname: pathname_2, prevPage: thisPage }}> Sign Up? </Link > 
         </div >
       );
     } else {
@@ -125,11 +144,11 @@ class VesselNameLookup extends Component {
           </div>
           <div>
             <br />
-            {this.state.reserveName ? <this.availablePorts /> : null}
+            {this.state.reserveNameBool ? <this.availablePorts /> : null}
           </div>
           <div>
             <br />
-            {this.state.reserveName ? <button className='button is-primary' onClick={this.submitApplication}>Submit Application</button> : null}
+            {this.state.reserveNameBool ? <button className='button is-primary' onClick={this.submitApplication}>Submit Application</button> : null}
             <br />
             <br />
             {this.state.application_sent ? <h1>An application has been successfully submitted!</h1> : null}

@@ -38,7 +38,7 @@ class LoginBase extends Component {
     const containerClasses = loading ? 'container loading' : 'container';
 
     if (token) {
-      return <Redirect to={this.props.location.prevPage} />
+      return <Redirect to={{ pathname: this.props.location.prevPage, prevPage: ROUTES.LOGIN}} />
     }
 
     document.body.classList.add('has-navbar-fixed-top');
