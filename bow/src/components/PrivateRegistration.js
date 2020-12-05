@@ -176,7 +176,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Vessel Name</label>
                             <div className="control">
-                                <input className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onChange={this.handleChange} />
+                                <input id="vessel-name-input" className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className="field">
@@ -374,7 +374,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <div className="control">
                                 <label className="checkbox">
-                                    <input type="checkbox" name='agreement' onChange={this.handleChange} />
+                                    <input id="checkbox-input" type="checkbox" name='agreement' onChange={this.handleChange} />
                                     <span> I agree that all boat use will be personal and NOT commercial</span>
                                 </label>
                                 <p className='help is-danger'>
@@ -474,6 +474,7 @@ class PrivateRegistrationBase extends Component {
                         <Fragment>
                             <div className="steps-action">
                                 <a
+                                    id="next-btn"
                                     href="#"
                                     data-nav="next"
                                     className="button is-light"
@@ -486,7 +487,7 @@ class PrivateRegistrationBase extends Component {
                     {(curr === 3) &&
                         <Fragment>
                             <div className="steps-action">
-                                <button className='button is-primary' onClick={this.onSubmit}>Checkout</button>
+                                <button id="checkout-btn" className='button is-primary' onClick={this.onSubmit}>Checkout</button>
                             </div>
                         </Fragment>
                     }
