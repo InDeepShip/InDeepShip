@@ -18,7 +18,7 @@ class ServiceCards extends Component {
             <section className='service-cards-container'>
                 <div className='columns is-multiline is-centered'>
                     <div className='column service-column'>
-                        <Link to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
+                        <Link id="private-registration-link" to={ROUTES.PRIVATE_REGISTRATION_DETAILS}>
                             <div className="card service-card">
                                 <div className="card-image service-card-image">
                                     <figure className="image is-4by3">

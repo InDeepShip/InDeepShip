@@ -96,7 +96,7 @@ class PrivateRegistrationDetails extends Component {
                                     </p>
                                     <p className="register-paragraph">
                                         <Link to={ROUTES.PRIVATE_REGISTRATION}>
-                                            <button className='button is-normal is-primary'>Registration</button>
+                                            <button id="register-btn" className='button is-normal is-primary'>Registration</button>
                                         </Link>
                                     </p>
                                     <h2 className="subtitle">
