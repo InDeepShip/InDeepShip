@@ -6,6 +6,7 @@ import ShipCard from './ShipCard';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+document.body.classList.remove('has-navbar-fixed-top');
 class ShipView extends Component {
     constructor(props) {
         super(props);
