@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import '../styles/PrivateDashboard.scss';
@@ -71,7 +72,7 @@ class PrivateDashboardBase extends Component {
                                         <td>{vessel.imo}</td>
                                         <td>{vessel.status}</td>
                                         <td>
-                                            <a href="#" className="button is-small is-primary">Edit</a>
+                                            <Link to={`/ship/${vessel.imo}`} className="button is-small is-primary">Edit</Link>
                                         </td>
                                     </tr>
                                 );

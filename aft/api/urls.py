@@ -19,5 +19,6 @@ urlpatterns = [
     path('surveyors/', views.get_surveyors),
     path('assign-surveyor/', views.assign_surveyor),
     path('renew_registration/', views.renew_registration),
+    path('single_registration/', views.get_single_registration),
     path('', views.api_overview)
 ]

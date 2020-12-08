@@ -26,6 +26,7 @@ import PrivateRegistration from './PrivateRegistration';
 import PrivateRegistrationDetails from './PrivateRegistrationDetails';
 import Dashboard from './Dashboard';
 import ShipView from './ShipView';
+import RegistrationView from './RegistrationView';
 import SuccessPage from './SuccessPage';
 import ErrorPage from './ErrorPage';
 import BrokerAccountPending from './BrokerAccountPending';
@@ -77,6 +78,10 @@ class App extends Component {
             <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
             <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
             <Route exact path={ROUTES.LANDING} component={Landing} />
+            <Route
+              path="/ship/:imo"
+              component={RegistrationView}
+            />
             <Route component={PageNotFound} />
             {this.props.auth ? <></> : <Redirect from="/*" to="/" />}
           </Switch>
