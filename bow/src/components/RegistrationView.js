@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Spinner from './Spinner';
+import qs from 'query-string';
 import * as actions from '../actions';
-import ShipCard from './ShipCard';
+import RegistrationCard from './RegistrationCard';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,36 +15,17 @@ class RegistrationView extends Component {
             // allShips: [],
             registrations: [],
             message: "",
+            failed: false,
             loading: true
         };
     }
 
-    // async componentDidMount() {
-    // let imo;
-    // if (this.props.match && this.props.match.params && this.props.match.params.imo) {
-    //     imo = this.props.match.params.imo;
-    // } else {
-    //   const args = qs.parse(this.props.location.search);
-    //   imo = args.imo ? args.imo : '';
-    // }
-    //     // console.log(imo)
-
-    //     const post = await axios.get('/api/research_posts/', {
-    //       params: {
-    //         id,
-    //         fill: true,
-    //       },
-    //     });
-
-    //     this.setState({
-    //       post: post.data,
-    //       hasApplied: applied.data,
-    //       responses: responses
-    //     });    
-    //   }
-
     componentDidMount() {
         this.setState({ loading: true });
+        this.getRegistration();
+    }
+
+    getRegistration() {
         const { email } = this.props.auth.user;
 
         let imo;
@@ -57,24 +39,23 @@ class RegistrationView extends Component {
         const payload = {
             params: {
                 email: email,
-                imo: imo,
+                imo: imo
             }
         };
 
-        const registrations = await axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/single_registration/`,
+        axios.get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/single_registration/`,
             payload
         ).then((response) => {
-            console.log(response)
             this.setState({
-                registrations: registrations.data,
+                registrations: response.data,
                 loading: false,
             });
         })
             .catch((error) => {
-                console.log(error);
                 this.setState({
-                    registrations,
+                    registrations: [],
                     message: error.response.data.message,
+                    failed: true,
                     loading: false,
                 });
             });
@@ -86,14 +67,14 @@ class RegistrationView extends Component {
         return (
             <React.Fragment>
                 {registrations.map((registration, index) => (
-                    <ShipCard
-                        key={registration.vessel.imo}
+                    <RegistrationCard
+                        key={registration.id}
                         registration={{
-                            name: registration.name,
+                            id: registration.id,
                             port: registration.port,
-                            imo: registration.vessel.imo,
+                            vessel: registration.vessel,
                             tonnage: registration.tonnage,
-                            propultion: registration.propultion,
+                            propulsion: registration.propulsion,
                             yard_number: registration.yard_number,
                             vessel_length: registration.vessel_length,
                             hulls: registration.hulls,
@@ -122,29 +103,8 @@ class RegistrationView extends Component {
     }
 
     render() {
-        const { loading, ships, key_entered } = this.state;
+        const { loading, registrations } = this.state;
 
-        if (!key_entered) {
-            return (
-                <div className='hero is-full-height'>
-                    <div className='hero-body'>
-                        <section className="section">
-                            <div className="container">
-                                {this.warningMessage()}
-                                <div className='field has-addons'>
-                                    <div className="control is-expanded">
-                                        <input id="api_key-input" className="input" type="text" placeholder="API Key" name="api_key" onChange={this.handleChange}></input>
-                                    </div>
-                                    <div className="control">
-                                        <a id="api_key-Submit" className="button is-primary" onClick={this.onSubmit}>Submit</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            )
-        }
 
         if (loading) {
             return <Spinner fullPage />;
@@ -153,39 +113,18 @@ class RegistrationView extends Component {
         return (
             <section className="section">
                 <div className="container">
-                    {/* <div className="columns">
-                        <div className="column" style={{ marginBottom: '1em' }}>
-                            <div className="field">
-                                <div className="control">
-                                    <input className={`input is-medium ${!ships.length ? 'is-danger' : ''}`} type="text" placeholder="Register some Ships to see them here!"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="columns is-multiline">
-                        {/* <div className="column is-full">
-                            {this.formatShip(3, 0)}
-                        </div> */}
                         <div className="column is-full">
-                            {/* {this.formatShip(3, 1)} */}
-                            {this.displayShip()}
-                            {ships.length ? null : (
+                            {this.displayRegistration()}
+                            {registrations.length ? null : (
                                 <div className="has-text-centered title">
-                                    No ships assigned!
+                                    No Registrations under that Ship!
                                 </div>
                             )}
                         </div>
-                        {/* <div className="column is-full">
-                            {this.formatShip(3, 2)}
-                        </div> */}
                     </div>
                 </div>
                 <div className="App" />
-                {ships.length ? (
-                    <div className="container is-size-3">
-                        <center>None left to see!</center>
-                    </div>
-                ) : null}
             </section>
         );
     }

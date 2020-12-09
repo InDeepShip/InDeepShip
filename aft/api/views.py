@@ -277,9 +277,22 @@ def get_single_registration(request):
         return Response(
             data={"message": message},
             status=200)
-    regs = Registration.objects.filter(vessel__imo=given_imo, owner__email=user_email)
-    data = {"registrations": regs}
-    return Response(data=data, status=200)
+    results = Registration.objects.filter(vessel__imo=given_imo, owner__email=user_email)
+    if len(results) == 0:
+            data = {"message": "Not found"}
+            status = 404
+    else:
+        regs = []
+        for reg in results.values():
+            # print(reg)
+            reg['vessel'] = Vessel.objects.filter(id=reg['vessel_id']).values()[0]
+            reg['port'] = Port.objects.filter(id=reg['port_id']).values()[0]
+            reg['propulsion'] = Port.objects.filter(id=reg['propulsion_id']).values()[0]
+            reg['owner'] = user_models.CustomUser.objects.filter(id=reg['owner_id']).values()[0]
+            print(reg)
+            regs.append(reg)
+        status = 200
+    return Response(data=regs, status=status)
 
 
 @api_view(["GET"])

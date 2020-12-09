@@ -72,7 +72,7 @@ class PrivateDashboardBase extends Component {
                                         <td>{vessel.imo}</td>
                                         <td>{vessel.status}</td>
                                         <td>
-                                            <Link to={`/ship/${vessel.imo}`} className="button is-small is-primary">Edit</Link>
+                                            <Link to={`/ship/${vessel.imo}`} className="button is-small is-primary">View</Link>
                                         </td>
                                     </tr>
                                 );

@@ -60,7 +60,7 @@ class PortsCards extends Component {
           <div className="columns is-multiline is-centered is-vcentered">
             {this.props.ports.map((port, index) => {
                       return (
-                        <div className="column port-column">
+                        <div className="column port-column" key={index}>
                             <div className="card port-card">
                                 <div className="card-header">
                                     <p className="card-header-title is-centered">
