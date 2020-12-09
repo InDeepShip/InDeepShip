@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { registrationFail } from '../actions';
+import RegistrationPdf from './RegistrationPdf';
 
 
 class RegistrationCard extends PureComponent {
@@ -42,6 +43,11 @@ class RegistrationCard extends PureComponent {
               <p className="is-6"><b>Account Type: </b>{registration.owner.account}</p>
             </div>
             {/* ))} */}
+          </div>
+        </div>
+        <div className="card footer" style={{ padding: '0.2rem' }}>
+          <div className="card-footer-item">
+            <Link className="button is-primary" to={RegistrationPdf}>Download</Link>
           </div>
         </div>
       </div>
