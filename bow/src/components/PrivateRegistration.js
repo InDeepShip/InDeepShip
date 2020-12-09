@@ -9,8 +9,6 @@ import * as ROUTES from '../constants/routes';
 import '../styles/PrivateRegistration.scss';
 import InjectedCheckoutForm from './CheckoutForm';
 
-
-
 class PrivateRegistrationBase extends Component {
     constructor(props) {
         super(props);
@@ -57,7 +55,7 @@ class PrivateRegistrationBase extends Component {
     }
     checkNameAvailability = (e) => {
         const vessel = this.state.vessel;
-    
+
         axios
           .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
             "vesselName": vessel,
@@ -74,7 +72,6 @@ class PrivateRegistrationBase extends Component {
           .catch(err => {
             console.log(err)
           });
-    
       }
 
     componentDidMount() {
@@ -132,6 +129,28 @@ class PrivateRegistrationBase extends Component {
             next: next - 1
         });
     }
+
+    checkIMO = (event) => {
+        const imo = this.state.imo;
+
+        if (imo == '') {
+            return
+        }
+
+        axios
+          .get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
+            "imo": imo,
+          })
+          .then(res => {
+            this.setState({
+                isIMOValid: false
+            });
+          })
+          .catch(err => {
+            console.log(err)
+          });
+    }
+
 
     onSubmit = async (event) => {
         const { curr, next } = this.state;
@@ -207,7 +226,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">IMO (International Maritime Organization) Number</label>
                             <div className='control has-icons-left'>
-                                <input className='input' placeholder="" type="text" name="imo" onChange={this.handleChange} />
+                                <input className='input' placeholder="" type="text" name="imo" onChange={this.handleChange} onBlur={this.checkIMO} />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-hashtag'></i>
                                 </span>
