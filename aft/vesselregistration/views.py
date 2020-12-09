@@ -54,14 +54,8 @@ def private_registration(request):
     for field in api_models.Registration._meta.get_fields():
         if field.name in data:
             reg_dict[field.name] = data[field.name]
-    try:
-        ship = api_models.Vessel.objects.get(imo=data["imo"])
-        for key, value in vessel_dict.items():
-            if hasattr(ship, key):
-                setattr(ship, key, value)
-    except api_models.Vessel.DoesNotExist:
-        ship = api_models.Vessel(**vessel_dict)
-        # init ship from fixed up
+
+    ship = api_models.Vessel(**vessel_dict)
     try:
         ship.save()
     except Exception as e:
