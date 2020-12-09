@@ -4,6 +4,20 @@ import { withRouter, Link } from 'react-router-dom';
 import { registrationFail } from '../actions';
 
 
+// WIP
+
+// Intention of this page:
+// Grab information from the registration card
+// Use this page to create the pdf and either view it or download it
+//    Either view pdf in a new tab (no navbar, etc)
+//    Or, download the pdf
+// 
+// Documentation for react-pdf: https://react-pdf.org/
+// Tutorials I was following:
+//    https://pspdfkit.com/blog/2018/open-pdf-in-react/
+//    https://dev.to/finallynero/generating-pdf-documents-in-react-using-react-pdf-4ka7
+// 
+
 const MyDocument = () => (
   <Document>
     <Page size="A4" style={styles.page}>
