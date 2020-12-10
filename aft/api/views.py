@@ -40,6 +40,22 @@ def api_overview(request):
     }
     return Response(data=api_urls)
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def imo_lookup(request):
+    """
+    Function used to determine if a IMO already exists in the database
+    """
+    data = request.data
+    imo = data['imo']
+
+    try:
+        vessel = Vessel.objects.get(imo=int(imo))
+    except Exception as e:
+        # Some error occurred trying to get query Vessels
+        return Response({ "exists": False }, status=200)
+
+    return Response({ "exists": True }, status=200)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

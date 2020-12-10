@@ -9,8 +9,6 @@ import * as ROUTES from '../constants/routes';
 import '../styles/PrivateRegistration.scss';
 import InjectedCheckoutForm from './CheckoutForm';
 
-
-
 class PrivateRegistrationBase extends Component {
     constructor(props) {
         super(props);
@@ -40,10 +38,14 @@ class PrivateRegistrationBase extends Component {
             curr: 0,
             next: 1,
             propulsion_methods: [],
-            agreementError: null
+            agreementError: null,
+            isIMOValid: undefined,
+            imoError: '',
+            isVesselNameValid: undefined,
+            vesselError: '',
         };
 
-        this.steps = ['Vessel', 'Owner', 'Maker', 'Summary', 'Payment'];
+        this.steps = ['Vessel', 'Owner', 'Builder', 'Summary', 'Payment'];
 
         if (this.props.auth && this.props.auth.token) {
             this.state.name = this.props.auth.user.name;
@@ -59,23 +61,36 @@ class PrivateRegistrationBase extends Component {
         const vessel = this.state.vessel;
 
         axios
-            .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
-                "vesselName": vessel,
-            })
-            .then(res => {
-                this.setState({
-                    ports: res.data.ports
-                });
-                console.log(res.data.ports)
-                if (res.data.available) {
-                    this.setState({ port: this.state.ports[0] });
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            });
+          .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
+            "vesselName": vessel,
+          })
+          .then(res => {
+            const isVesselNameValid = res.data.ports.length === 0 ? false : true;
+            const vesselError = isVesselNameValid ? "" : "Vessel Name not available in any port";
 
-    }
+            this.setState({
+              ports: res.data.ports
+            });
+            console.log(res.data.ports)
+            if (res.data.available){
+                this.setState({
+                    port: this.state.ports[0],
+                    isVesselNameValid: isVesselNameValid,
+                    vesselError: vesselError
+                });
+            } else {
+                this.setState({
+                    port: [],
+                    isVesselNameValid: isVesselNameValid,
+                    vesselError: vesselError
+                });
+
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          });
+      }
 
     componentDidMount() {
         window.scrollTo(0, 0);
@@ -102,6 +117,10 @@ class PrivateRegistrationBase extends Component {
     }
 
     handlePageNext(e) {
+        if (!this.state.isIMOValid || !this.state.isVesselNameValid) {
+            return;
+        }
+
         const { curr, next } = this.state;
 
         // Need to make sure agreement checkbox was selected
@@ -133,6 +152,31 @@ class PrivateRegistrationBase extends Component {
         });
     }
 
+    checkIMO = (event) => {
+        const imo = this.state.imo;
+
+        if (!imo || imo === '') {
+            return
+        }
+
+        axios
+          .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/imo/`, { imo: imo })
+          .then(res => {
+            const { exists } = res.data;
+            const imoError = exists ? "IMO number already taken" : "";
+
+            this.setState({
+                isIMOValid: !exists,
+                imoError: imoError
+            });
+
+          })
+          .catch(err => {
+            console.log(err)
+          });
+    }
+
+
     onSubmit = async (event) => {
         const { curr, next } = this.state;
 
@@ -149,6 +193,10 @@ class PrivateRegistrationBase extends Component {
         delete formData.curr;
         delete formData.next;
         delete formData.agreementError;
+        delete formData.isIMOValid;
+        delete formData.imoError;
+        delete formData.vesselError;
+        delete formData.isVesselNameValid;
 
         /*
             1. First create new private registration
@@ -183,6 +231,21 @@ class PrivateRegistrationBase extends Component {
         delete payload.curr;
         delete payload.next;
         delete payload.agreementError;
+        let imoClass = "";
+        let vesselClass = "";
+
+        if (this.state.isIMOValid === undefined) {
+            imoClass = "";
+        } else {
+            imoClass = this.state.isIMOValid ? "is-success" : "is-danger";
+        }
+
+        if (this.state.isVesselNameValid === undefined) {
+            vesselClass = "";
+        } else {
+            vesselClass = this.state.isVesselNameValid ? "is-success" : "is-danger";
+        }
+
 
         switch (index) {
             case 0:
@@ -191,12 +254,10 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Vessel Name</label>
                             <div className="control">
-                                <input id="vessel-name-input" className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onChange={this.handleChange} />
-                            </div>
-                        </div>
-                        <div className='field'>
-                            <div className='control'>
-                                <button id="check-btn" className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
+                                <input id="vessel-name-input" className={`input ${vesselClass}`} name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onBlur={this.checkNameAvailability} onChange={this.handleChange} />
+                                <p className='help is-danger'>
+                                   { this.state.vesselError }
+                                </p>
                             </div>
                         </div>
                         <div className="field">
@@ -212,10 +273,13 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">IMO (International Maritime Organization) Number</label>
                             <div className='control has-icons-left'>
-                                <input className='input' placeholder="" type="text" name="imo" onChange={this.handleChange} />
+                                <input className={`input ${imoClass}`} placeholder="" type="text" name="imo" onChange={this.handleChange} onBlur={this.checkIMO} />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-hashtag'></i>
                                 </span>
+                                <p className='help is-danger'>
+                                   { this.state.imoError }
+                                </p>
                             </div>
                         </div>
                         <div className="field">
@@ -233,6 +297,31 @@ class PrivateRegistrationBase extends Component {
                                 <input className='input' id='regdate' name='date' type="date" onChange={this.handleChange} />
                             </div>
                         </div>
+                        <div className="field">
+                            <label className="label">Length of Ship</label>
+                            <div className="control">
+                                <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange} />
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Number of Hulls</label>
+                            <div className="control has-icons-left">
+                                <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-hashtag'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Method of Propulsion</label>
+                            <div className="control">
+                                <div className="select is-fullwidth">
+                                    <select name='propulsion' onChange={this.handleChange}>
+                                        {this.renderPropulsion()}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </Fragment>
                 );
             case 1:
@@ -241,13 +330,13 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Owner Name</label>
                             <div className="control">
-                                <input className="input" name='name' type="text" value={this.state.name} onChange={this.handleChange} />
+                                <input className="input" name='name' type="text" value={this.state.name} onChange={this.handleChange} readOnly />
                             </div>
                         </div>
                         <div className="field">
                             <label className="label">Contact Email Address</label>
                             <div className='control has-icons-left'>
-                                <input className='input' value={this.state.email} type="text" name="email" onChange={this.handleChange} />
+                                <input className='input' value={this.state.email} type="text" name="email" onChange={this.handleChange} readOnly />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-envelope'></i>
                                 </span>
@@ -265,7 +354,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Home Address</label>
                             <div className='control has-icons-left'>
-                                <input className='input' value={this.state.address} type="text" name="address" onChange={this.handleChange} />
+                                <input className='input' value={this.state.address} type="text" name="address" onChange={this.handleChange} readOnly />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-home'></i>
                                 </span>
@@ -299,31 +388,6 @@ class PrivateRegistrationBase extends Component {
                             <label className="label">Yard Number</label>
                             <div className="control">
                                 <input className="input" name='yard_number' type="text" placeholder="Yard Number" onChange={this.handleChange} />
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Length of Ship</label>
-                            <div className="control">
-                                <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange} />
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Number of Hulls</label>
-                            <div className="control has-icons-left">
-                                <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange} />
-                                <span className='icon is-small is-left'>
-                                    <i className='fas fa-hashtag'></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Method of Propulsion</label>
-                            <div className="control">
-                                <div className="select is-fullwidth">
-                                    <select name='propulsion' onChange={this.handleChange}>
-                                        {this.renderPropulsion()}
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </Fragment>
@@ -458,7 +522,7 @@ class PrivateRegistrationBase extends Component {
                                 <div className={`step-item ${isActive} ${isComplete}`}>
                                     <div className="step-marker">{index + 1}</div>
                                     <div className="step-details">
-                                        <p className="step-title">{step}</p>
+                                        <p className="step-title circle-title">{step}</p>
                                     </div>
                                 </div>
                             );
