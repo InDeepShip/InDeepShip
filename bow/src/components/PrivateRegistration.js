@@ -248,11 +248,6 @@ class PrivateRegistrationBase extends Component {
                                 </p>
                             </div>
                         </div>
-                        <div className='field'>
-                            <div className='control'>
-                                <button id="check-btn" className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
-                            </div>
-                        </div>
                         <div className="field">
                             <label className="label">Port</label>
                             <div className="control">
