@@ -266,6 +266,50 @@ def get_registrations(request):
     data = {"registrations": regs}
     return Response(data=data, status=200)
 
+@api_view(["GET"])
+def get_single_registration(request):
+    given_imo = request.GET.get("imo", "")
+    user_email = request.GET.get("email", "")
+    if user_email == "":
+        message = "There is no email attached to the request."
+        return Response(
+            data={"message": message},
+            status=200)
+    if given_imo == "":
+        message = "There is no imo attached to the request."
+        return Response(
+            data={"message": message},
+            status=200)
+    try:
+        user = user_models.CustomUser.objects.get(email=user_email)
+        ship = Vessel.objects.get(imo=given_imo)
+    except user_models.CustomUser.DoesNotExist:
+        message = "There is no user in the database with that email."
+        return Response(
+            data={"message": message},
+            status=200)
+    except Vessel.DoesNotExist:
+        message = "There is no ship in the database with that imo."
+        return Response(
+            data={"message": message},
+            status=200)
+    results = Registration.objects.filter(vessel__imo=given_imo, owner__email=user_email)
+    if len(results) == 0:
+            data = {"message": "Not found"}
+            status = 404
+    else:
+        regs = []
+        for reg in results.values():
+            # print(reg)
+            reg['vessel'] = Vessel.objects.filter(id=reg['vessel_id']).values()[0]
+            reg['port'] = Port.objects.filter(id=reg['port_id']).values()[0]
+            reg['propulsion'] = Port.objects.filter(id=reg['propulsion_id']).values()[0]
+            reg['owner'] = user_models.CustomUser.objects.filter(id=reg['owner_id']).values()[0]
+            print(reg)
+            regs.append(reg)
+        status = 200
+    return Response(data=regs, status=status)
+
 
 @api_view(["GET"])
 @authentication_classes([])
@@ -275,7 +319,7 @@ def get_merchant_vessels(request):
     The surveyor api accepts an `api-key` header assigned to a Surveyor. Returns an array of assigned merchant vessel ships.
     '''
     api_key = request.headers.get("api-key", "")
-    print(api_key)
+    # print(api_key)
     # TODO check formatting
     if api_key == "" or len(api_key) != 36:
         # message = "Invalid or missing API Key"

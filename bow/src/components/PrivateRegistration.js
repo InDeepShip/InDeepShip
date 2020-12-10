@@ -203,6 +203,11 @@ class PrivateRegistrationBase extends Component {
         */
         this.props.register(formData);
 
+        /*
+            1.5 Push form data onto localStorage since we lose control on
+            Stripe redirect
+        */
+        localStorage.setItem(this.state['imo'], JSON.stringify(formData));
 
         /*
              2. Create stripe payment redirect

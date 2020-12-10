@@ -25,8 +25,10 @@ import PasswordReset from './PasswordReset';
 import PasswordResetConfirm from './PasswordResetConfirm';
 import PrivateRegistration from './PrivateRegistration';
 import PrivateRegistrationDetails from './PrivateRegistrationDetails';
+import RegistrationPdf from './RegistrationPdf'
 import Dashboard from './Dashboard';
 import ShipView from './ShipView';
+import RegistrationView from './RegistrationView';
 import SuccessPage from './SuccessPage';
 import ErrorPage from './ErrorPage';
 import BrokerAccountPending from './BrokerAccountPending';
@@ -71,6 +73,7 @@ class App extends Component {
           <Route exact path={ROUTES.LOGIN} component={Login} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.VESSEL_NAME_LOOKUP} component={VesselNameLookup} loggedIn={false} accountSetup={false} />
           <Route exact path={ROUTES.PRIVATE_REGISTRATION} component={PrivateRegistration} />
+          <Route exact path={ROUTES.PDF_DOWNLOAD} component={RegistrationPdf} />
           {/* <Route exact path={ROUTES.SHIPVIEW} component={ShipView} /> */}
           <Route exact path={ROUTES.PRIVATE_REGISTRATION_DETAILS} component={PrivateRegistrationDetails} />
           <Route exact path={ROUTES.DASHBOARD} component={Dashboard} />
@@ -107,7 +110,7 @@ class App extends Component {
             <Route exact path={ROUTES.SHIPVIEW} component={ShipView} />
             <Route component={this.DefaultContainer} />
           </Switch>
-          <SurveyorFooter/>
+          <SurveyorFooter />
           <Route
             render={({ history }) => {
               // Auto-update service worker on route change
