@@ -14,17 +14,18 @@ import InjectedCheckoutForm from './CheckoutForm';
 class PrivateRegistrationBase extends Component {
     constructor(props) {
         super(props);
-
-        const vessel = localStorage.getItem("vesselName")
-        const port = localStorage.getItem("selectedPort")
+        // const vessel = localStorage.getItem("vesselName")
+        // const port = localStorage.getItem("selectedPort")
 
         this.state = {
             name: '',
-            vessel: vessel !== null ? vessel : "",
+            // vessel: vessel !== null ? vessel : "",
+            // port: port !== null ? port : "",
+            vessel: null,
+            port: null,
             email: '',
             phone: null,
             address: '',
-            port: port !== null ? port : "",
             imo: null,
             tonnage: '',
             propulsion: '',
@@ -42,7 +43,7 @@ class PrivateRegistrationBase extends Component {
             agreementError: null
         };
 
-        this.steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Summary', 'Payment'];
+        this.steps = ['Vessel', 'Owner', 'Maker', 'Summary', 'Payment'];
 
         if (this.props.auth && this.props.auth.token) {
             this.state.name = this.props.auth.user.name;
@@ -54,20 +55,30 @@ class PrivateRegistrationBase extends Component {
         this.handlePagePrevious = this.handlePagePrevious.bind(this);
         this.handlePageNext = this.handlePageNext.bind(this);
     }
+    checkNameAvailability = (e) => {
+        const vessel = this.state.vessel;
+    
+        axios
+          .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
+            "vesselName": vessel,
+          })
+          .then(res => {
+            this.setState({
+              ports: res.data.ports
+            });
+            console.log(res.data.ports)
+            if (res.data.available){
+              this.setState({ port: this.state.ports[0] });
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          });
+    
+      }
 
     componentDidMount() {
-        fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/ports/`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => response.json())
-            .then(data => {
-                this.setState({
-                    "ports": data["ports"],
-                    port: data.ports[0]
-                })
-            });
+        window.scrollTo(0, 0);
         fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/propulsion_methods/`, {
             method: 'GET',
             headers: {
@@ -112,7 +123,6 @@ class PrivateRegistrationBase extends Component {
                 next: next + 1
             });
         }
-
     }
 
     handlePagePrevious(e) {
@@ -143,12 +153,12 @@ class PrivateRegistrationBase extends Component {
         /*
             1. First create new private registration
         */
-       this.props.register(formData);
+        this.props.register(formData);
 
 
-       /*
-            2. Create stripe payment redirect
-       */
+        /*
+             2. Create stripe payment redirect
+        */
         const { stripe, elements } = this.props;
 
         if (!stripe || !elements) {
@@ -177,6 +187,11 @@ class PrivateRegistrationBase extends Component {
                             <label className="label">Vessel Name</label>
                             <div className="control">
                                 <input id="vessel-name-input" className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onChange={this.handleChange} />
+                            </div>
+                        </div>
+                        <div className='field'>
+                            <div className='control'>
+                                <button id="check-btn" className='button is-primary' onClick={this.checkNameAvailability}>Check Availability</button>
                             </div>
                         </div>
                         <div className="field">
@@ -553,7 +568,7 @@ const PrivateRegistration = () => {
     return (
         <ElementsConsumer>
             {({ elements, stripe }) => (
-                <PrivateRegistrationContainer elements={ elements } stripe={ stripe } />
+                <PrivateRegistrationContainer elements={elements} stripe={stripe} />
             )}
         </ElementsConsumer>
     );

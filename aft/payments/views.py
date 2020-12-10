@@ -14,7 +14,7 @@ stripe.api_key = 'sk_test_51HrAP1ClBcrzs3YUEksESYND5tTkc8xutMcbrIXzppl5ux0liqv6g
 @api_view(['POST'])
 def test_payment(request):
     test_payment_intent = stripe.PaymentIntent.create(
-    amount=1000, currency='pln',
+    amount=10000, currency='pln',
     payment_method_types=['card'],
     receipt_email='test@example.com')
     return Response(status=status.HTTP_200_OK, data=test_payment_intent)
@@ -30,7 +30,7 @@ def create_checkout_session(request):
                 'product_data': {
                 'name': 'Private Registration',
                 },
-                'unit_amount': 1000,
+                'unit_amount': 10000,
             },
             'quantity': 1,
             }],
