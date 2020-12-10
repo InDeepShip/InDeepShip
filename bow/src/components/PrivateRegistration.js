@@ -101,6 +101,10 @@ class PrivateRegistrationBase extends Component {
     }
 
     handlePageNext(e) {
+        if (!this.state.isIMOValid) {
+            return;
+        }
+
         const { curr, next } = this.state;
 
         // Need to make sure agreement checkbox was selected
