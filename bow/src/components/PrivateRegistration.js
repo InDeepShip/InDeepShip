@@ -43,7 +43,7 @@ class PrivateRegistrationBase extends Component {
             imoError: ''
         };
 
-        this.steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Summary', 'Payment'];
+        this.steps = ['Vessel', 'Register', 'Builder', 'Summary', 'Payment'];
 
         if (this.props.auth && this.props.auth.token) {
             this.state.name = this.props.auth.user.name;
@@ -493,7 +493,7 @@ class PrivateRegistrationBase extends Component {
                                 <div className={`step-item ${isActive} ${isComplete}`}>
                                     <div className="step-marker">{index + 1}</div>
                                     <div className="step-details">
-                                        <p className="step-title">{step}</p>
+                                        <p className="step-title circle-title">{step}</p>
                                     </div>
                                 </div>
                             );
