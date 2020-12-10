@@ -57,25 +57,25 @@ class PrivateRegistrationBase extends Component {
     }
     checkNameAvailability = (e) => {
         const vessel = this.state.vessel;
-    
+
         axios
-          .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
-            "vesselName": vessel,
-          })
-          .then(res => {
-            this.setState({
-              ports: res.data.ports
+            .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
+                "vesselName": vessel,
+            })
+            .then(res => {
+                this.setState({
+                    ports: res.data.ports
+                });
+                console.log(res.data.ports)
+                if (res.data.available) {
+                    this.setState({ port: this.state.ports[0] });
+                }
+            })
+            .catch(err => {
+                console.log(err)
             });
-            console.log(res.data.ports)
-            if (res.data.available){
-              this.setState({ port: this.state.ports[0] });
-            }
-          })
-          .catch(err => {
-            console.log(err)
-          });
-    
-      }
+
+    }
 
     componentDidMount() {
         window.scrollTo(0, 0);
@@ -155,6 +155,11 @@ class PrivateRegistrationBase extends Component {
         */
         this.props.register(formData);
 
+        /*
+            1.5 Push form data onto localStorage since we lose control on
+            Stripe redirect
+        */
+        localStorage.setItem(this.state['imo'], JSON.stringify(formData));
 
         /*
              2. Create stripe payment redirect

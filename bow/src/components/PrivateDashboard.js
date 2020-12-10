@@ -72,8 +72,7 @@ class PrivateDashboardBase extends Component {
                                         <td>{vessel.imo}</td>
                                         <td>{vessel.status}</td>
                                         <td>
-                                            {/* <Link to={`/ship/${vessel.imo}`} className="button is-small is-primary">View</Link> */}
-                                            <Link to={`/pdf/`} className="button is-small is-primary">PDF</Link>
+                                            <Link to={{ pathname: `/pdf`, imo: vessel.imo }} className="button is-small is-primary">PDF</Link>
                                         </td>
                                     </tr>
                                 );

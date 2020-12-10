@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { withRouter, Link } from 'react-router-dom';
 import { registrationFail } from '../actions';
+import { connect } from 'react-redux';
 
 
 // WIP
@@ -17,12 +18,41 @@ import { registrationFail } from '../actions';
 //    https://pspdfkit.com/blog/2018/open-pdf-in-react/
 //    https://dev.to/finallynero/generating-pdf-documents-in-react-using-react-pdf-4ka7
 //
+// name: '',
+// // vessel: vessel !== null ? vessel : "",
+// // port: port !== null ? port : "",
+// vessel: null,
+// port: null,
+// email: '',
+// phone: null,
+// address: '',
+// imo: null,
+// tonnage: '',
+// propulsion: '',
+// builder_name: '',
+// builder_address: '',
+// yard_number: '',
+// date: '',
+// vessel_length: '',
+// hulls: null,
+// agreement: false,
+// ports: [],
 
-const MyDocument = () => (
+const MyDocument = ({ registration }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
-        <Text>Section #1</Text>
+        <Text>{registration.name}</Text>
+        <Text>{registration.email}</Text>
+        <Text>{registration.phone}</Text>
+        <Text>{registration.vessel}</Text>
+        <Text>{registration.port}</Text>
+        <Text>{registration.address}</Text>
+        <Text>{registration.builder_name}</Text>
+        <Text>{registration.builder_address}</Text>
+        <Text>{registration.date}</Text>
+        <Text>{registration.hulls}</Text>
+        <Text>{registration.imo}</Text>
       </View>
       <View style={styles.section}>
         <Text>Section #2</Text>
@@ -44,13 +74,21 @@ const styles = StyleSheet.create({
 });
 
 
-class RegistrationPdf extends PureComponent {
+class RegistrationPdfBase extends PureComponent {
   constructor(props) {
     super(props);
+    console.log(props)
+    console.log("IMO", props.location.imo)
+    var formData = localStorage.getItem(props.location.imo)
+    // localStorage.removeItem(props.location.imo)
+    console.log(formData)
+    console.log(JSON.parse(formData))
     this.state = {
       numPages: null,
-      pageNumber: 1
+      pageNumber: 1,
+      formData: JSON.parse(formData)
     };
+    // localStorage.removeItem(props.location.imo)
   }
 
   onDocumentLoadSuccess = ({ numPages }) => {
@@ -65,31 +103,32 @@ class RegistrationPdf extends PureComponent {
 
   render() {
     const { registration, index, pageNumber, numPages } = this.props;
+    const { formData } = this.state;
     return (
       <div>
-        <PDFDownloadLink document={<MyDocument />} fileName="somename.pdf">
+        <PDFDownloadLink document={<MyDocument registration={formData} />} fileName="somename.pdf">
           {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
         </PDFDownloadLink>
       </div>
     );
 
     // return ReactPDF.render(<MyDocument
-    //   key={registration.id}
-    //   registration={{
-    //     id: registration.id,
-    //     port: registration.port,
-    //     vessel: registration.vessel,
-    //     tonnage: registration.tonnage,
-    //     propulsion: registration.propulsion,
-    //     yard_number: registration.yard_number,
-    //     vessel_length: registration.vessel_length,
-    //     hulls: registration.hulls,
-    //     purpose: registration.purpose,
-    //     start_date: registration.start_date,
-    //     expiration_date: registration.expiration_date,
-    //     owner: registration.owner
-    //   }}
-    //   index={index + 1}
+    // key={registration.id}
+    // registration={{
+    //   id: registration.id,
+    //   port: registration.port,
+    //   vessel: registration.vessel,
+    //   tonnage: registration.tonnage,
+    //   propulsion: registration.propulsion,
+    //   yard_number: registration.yard_number,
+    //   vessel_length: registration.vessel_length,
+    //   hulls: registration.hulls,
+    //   purpose: registration.purpose,
+    //   start_date: registration.start_date,
+    //   expiration_date: registration.expiration_date,
+    //   owner: registration.owner
+    // }}
+    // index={index + 1}
     // />, `${__dirname}/example.pdf`);
     // return (
     //   <div key={registration.id}>
@@ -122,5 +161,15 @@ class RegistrationPdf extends PureComponent {
     // );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+};
+
+const RegistrationPdf = connect(
+  mapStateToProps
+)(RegistrationPdfBase);
 
 export default withRouter(RegistrationPdf);
