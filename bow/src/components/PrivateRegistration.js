@@ -38,7 +38,9 @@ class PrivateRegistrationBase extends Component {
             curr: 0,
             next: 1,
             propulsion_methods: [],
-            agreementError: null
+            agreementError: null,
+            isIMOValid: undefined,
+            imoError: ''
         };
 
         this.steps = ['Vessel Info', 'Register Info', 'Maker Info', 'Summary', 'Payment'];
@@ -133,18 +135,21 @@ class PrivateRegistrationBase extends Component {
     checkIMO = (event) => {
         const imo = this.state.imo;
 
-        if (imo == '') {
+        if (!imo || imo === '') {
             return
         }
 
         axios
-          .get(`${process.env.REACT_APP_SERVER_ADDRESS}/api/vessel_lookup/`, {
-            "imo": imo,
-          })
+          .post(`${process.env.REACT_APP_SERVER_ADDRESS}/api/imo/`, { imo: imo })
           .then(res => {
+            const { exists } = res.data;
+            const imoError = exists ? "IMO number already taken" : "";
+
             this.setState({
-                isIMOValid: false
+                isIMOValid: !exists,
+                imoError: imoError
             });
+
           })
           .catch(err => {
             console.log(err)
@@ -168,6 +173,8 @@ class PrivateRegistrationBase extends Component {
         delete formData.curr;
         delete formData.next;
         delete formData.agreementError;
+        delete formData.isIMOValid;
+        delete formData.imoError;
 
         /*
             1. First create new private registration
@@ -197,6 +204,13 @@ class PrivateRegistrationBase extends Component {
         delete payload.curr;
         delete payload.next;
         delete payload.agreementError;
+        let imoClass = "";
+
+        if (this.state.isIMOValid === undefined) {
+            imoClass = "";
+        } else {
+            imoClass = this.state.isIMOValid ? "is-success" : "is-danger";
+        }
 
         switch (index) {
             case 0:
@@ -226,10 +240,13 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">IMO (International Maritime Organization) Number</label>
                             <div className='control has-icons-left'>
-                                <input className='input' placeholder="" type="text" name="imo" onChange={this.handleChange} onBlur={this.checkIMO} />
+                                <input className={`input ${imoClass}`} placeholder="" type="text" name="imo" onChange={this.handleChange} onBlur={this.checkIMO} />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-hashtag'></i>
                                 </span>
+                                <p className='help is-danger'>
+                                   { this.state.imoError }
+                                </p>
                             </div>
                         </div>
                         <div className="field">
