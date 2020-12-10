@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { PDFDownloadLink, Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Image, Font, PDFViewer } from '@react-pdf/renderer';
 import { withRouter, Link } from 'react-router-dom';
 import { registrationFail } from '../actions';
 import { connect } from 'react-redux';
@@ -18,52 +18,6 @@ import { connect } from 'react-redux';
 //    https://pspdfkit.com/blog/2018/open-pdf-in-react/
 //    https://dev.to/finallynero/generating-pdf-documents-in-react-using-react-pdf-4ka7
 //
-// name: '',
-// // vessel: vessel !== null ? vessel : "",
-// // port: port !== null ? port : "",
-// vessel: null,
-// port: null,
-// email: '',
-// phone: null,
-// address: '',
-// imo: null,
-// tonnage: '',
-// propulsion: '',
-// builder_name: '',
-// builder_address: '',
-// yard_number: '',
-// date: '',
-// vessel_length: '',
-// hulls: null,
-// agreement: false,
-// ports: [],
-
-const MyDocument = ({ name, registration }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text>{name}</Text>
-        <Text>{registration.email}</Text>
-        <Text>{registration.phone}</Text>
-        <Text>{registration.vessel}</Text>
-        <Text>{registration.port}</Text>
-        <Text>{registration.address}</Text>
-        <Text>{registration.builder_name}</Text>
-        <Text>{registration.builder_address}</Text>
-        <Text>{registration.date}</Text>
-        <Text>{registration.hulls}</Text>
-        <Text>{registration.imo}</Text>
-        <Text>{registration.tonnage}</Text>
-        <Text>{registration.propulsion}</Text>
-        <Text>{registration.vessel_length}</Text>
-        <Text>{registration.yard_number}</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-);
 
 const styles = StyleSheet.create({
   page: {
@@ -74,8 +28,40 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     flexGrow: 1
-  }
+  },
+  image: {
+    height: 150,
+    marginBottom: 30,
+    marginHorizontal: 100,
+  },
 });
+
+const MyDocument = ({ name, registration }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text>Name: {name}</Text>
+        <Text>Email: {registration.email}</Text>
+        <Text>Phone: {registration.phone}</Text>
+        <Text>Address: {registration.address}</Text>
+        <Text>Vessel: {registration.vessel}</Text>
+        <Text>Port: {registration.port}</Text>
+        <Text>IMO: {registration.imo}</Text>
+        <Text>Builder: {registration.builder_name}</Text>
+        <Text>Builder Address: {registration.builder_address}</Text>
+        <Text>Yard Number: {registration.yard_number}</Text>
+        <Text>Registration Date: {registration.date}</Text>
+        <Text>Hulls: {registration.hulls}</Text>
+        <Text>Gross Tonnage: {registration.tonnage}</Text>
+        <Text>Method of Propulsion: {registration.propulsion}</Text>
+        <Text>Vessel Length: {registration.vessel_length}</Text>
+      </View>
+      <View style={styles.image}>
+        <Image src="../assets/Coat_of_arms_of_the_United_Kingdom_(black_and_white).svg" />
+      </View>
+    </Page>
+  </Document>
+);
 
 
 class RegistrationPdfBase extends PureComponent {
@@ -84,7 +70,6 @@ class RegistrationPdfBase extends PureComponent {
     console.log(props)
     console.log("IMO", props.location.imo)
     var formData = localStorage.getItem(props.location.imo)
-    // localStorage.removeItem(props.location.imo)
     console.log(formData)
     console.log(JSON.parse(formData))
     this.state = {
@@ -110,10 +95,16 @@ class RegistrationPdfBase extends PureComponent {
     const { registration, index, pageNumber, numPages } = this.props;
     const { name, formData } = this.state;
     return (
+      // Download works, pdfviewer for testing
+      // <div>
+      //   <PDFDownloadLink document={<MyDocument name={name} registration={formData} />} fileName="registration.pdf">
+      //     {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+      //   </PDFDownloadLink>
+      // </div>
       <div>
-        <PDFDownloadLink document={<MyDocument name={name} registration={formData} />} fileName="somename.pdf">
-          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-        </PDFDownloadLink>
+        <PDFViewer>
+          <MyDocument name={name} registration={formData} />
+        </PDFViewer>
       </div>
     );
 
