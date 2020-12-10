@@ -12,10 +12,10 @@ fi
 
 
 sudo apt update
-sudo yes | apt install python3-pip python3-dev nginx curl
+sudo  apt install -y python3-pip python3-dev nginx curl
 
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
-sudo yes | apt-get install -y nodejs
+sudo  apt-get install -y nodejs
 
 pushd /var
 
@@ -28,7 +28,7 @@ pushd InDeepShip
 # 1. Need to build Client Code (React Frontend)
 ########################################
 pushd bow
-yes | npm install
+npm i --only=prod
 npm run build
 popd
 
@@ -39,7 +39,7 @@ popd
 # 2. 1 first set up the enviroment
 python3 -m venv --system-site-packages ./venv
 source ./venv/bin/activate
-yes | pip install -r aft/requirements.txt
+pip install -r aft/requirements.txt
 
 pushd aft
 echo -e 'SERVER_ADDRESS=http://206.189.218.111\nDEBUG=off' > .env
