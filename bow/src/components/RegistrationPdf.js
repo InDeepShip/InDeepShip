@@ -38,11 +38,11 @@ import { connect } from 'react-redux';
 // agreement: false,
 // ports: [],
 
-const MyDocument = ({ registration }) => (
+const MyDocument = ({ name, registration }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
-        <Text>{registration.name}</Text>
+        <Text>{name}</Text>
         <Text>{registration.email}</Text>
         <Text>{registration.phone}</Text>
         <Text>{registration.vessel}</Text>
@@ -53,6 +53,10 @@ const MyDocument = ({ registration }) => (
         <Text>{registration.date}</Text>
         <Text>{registration.hulls}</Text>
         <Text>{registration.imo}</Text>
+        <Text>{registration.tonnage}</Text>
+        <Text>{registration.propulsion}</Text>
+        <Text>{registration.vessel_length}</Text>
+        <Text>{registration.yard_number}</Text>
       </View>
       <View style={styles.section}>
         <Text>Section #2</Text>
@@ -86,7 +90,8 @@ class RegistrationPdfBase extends PureComponent {
     this.state = {
       numPages: null,
       pageNumber: 1,
-      formData: JSON.parse(formData)
+      formData: JSON.parse(formData),
+      name: props.auth.user.name
     };
     // localStorage.removeItem(props.location.imo)
   }
@@ -103,10 +108,10 @@ class RegistrationPdfBase extends PureComponent {
 
   render() {
     const { registration, index, pageNumber, numPages } = this.props;
-    const { formData } = this.state;
+    const { name, formData } = this.state;
     return (
       <div>
-        <PDFDownloadLink document={<MyDocument registration={formData} />} fileName="somename.pdf">
+        <PDFDownloadLink document={<MyDocument name={name} registration={formData} />} fileName="somename.pdf">
           {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
         </PDFDownloadLink>
       </div>
