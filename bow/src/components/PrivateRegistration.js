@@ -110,7 +110,7 @@ class PrivateRegistrationBase extends Component {
     }
 
     handlePageNext(e) {
-        if (!this.state.isIMOValid || !this.state.vesselError) {
+        if (!this.state.isIMOValid || !this.state.isVesselNameValid) {
             return;
         }
 
