@@ -73,11 +73,18 @@ class PrivateRegistrationBase extends Component {
             });
             console.log(res.data.ports)
             if (res.data.available){
-              this.setState({
+                this.setState({
                     port: this.state.ports[0],
                     isVesselNameValid: isVesselNameValid,
                     vesselError: vesselError
                 });
+            } else {
+                this.setState({
+                    port: [],
+                    isVesselNameValid: isVesselNameValid,
+                    vesselError: vesselError
+                });
+
             }
           })
           .catch(err => {
