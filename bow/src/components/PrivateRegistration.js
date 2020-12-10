@@ -40,7 +40,9 @@ class PrivateRegistrationBase extends Component {
             propulsion_methods: [],
             agreementError: null,
             isIMOValid: undefined,
-            imoError: ''
+            imoError: '',
+            isVesselNameValid: undefined,
+            vesselError: '',
         };
 
         this.steps = ['Vessel', 'Owner', 'Builder', 'Summary', 'Payment'];
@@ -63,12 +65,19 @@ class PrivateRegistrationBase extends Component {
             "vesselName": vessel,
           })
           .then(res => {
+            const isVesselNameValid = res.data.ports.length === 0 ? false : true;
+            const vesselError = isVesselNameValid ? "" : "Vessel Name not available in any port";
+
             this.setState({
               ports: res.data.ports
             });
             console.log(res.data.ports)
             if (res.data.available){
-              this.setState({ port: this.state.ports[0] });
+              this.setState({
+                    port: this.state.ports[0],
+                    isVesselNameValid: isVesselNameValid,
+                    vesselError: vesselError
+                });
             }
           })
           .catch(err => {
@@ -101,7 +110,7 @@ class PrivateRegistrationBase extends Component {
     }
 
     handlePageNext(e) {
-        if (!this.state.isIMOValid) {
+        if (!this.state.isIMOValid || !this.state.vesselError) {
             return;
         }
 
@@ -179,6 +188,8 @@ class PrivateRegistrationBase extends Component {
         delete formData.agreementError;
         delete formData.isIMOValid;
         delete formData.imoError;
+        delete formData.vesselError;
+        delete formData.isVesselNameValid;
 
         /*
             1. First create new private registration
@@ -209,12 +220,20 @@ class PrivateRegistrationBase extends Component {
         delete payload.next;
         delete payload.agreementError;
         let imoClass = "";
+        let vesselClass = "";
 
         if (this.state.isIMOValid === undefined) {
             imoClass = "";
         } else {
             imoClass = this.state.isIMOValid ? "is-success" : "is-danger";
         }
+
+        if (this.state.isVesselNameValid === undefined) {
+            vesselClass = "";
+        } else {
+            vesselClass = this.state.isVesselNameValid ? "is-success" : "is-danger";
+        }
+
 
         switch (index) {
             case 0:
@@ -223,7 +242,10 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Vessel Name</label>
                             <div className="control">
-                                <input id="vessel-name-input" className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onBlur={this.checkNameAvailability} onChange={this.handleChange} />
+                                <input id="vessel-name-input" className={`input ${vesselClass}`} name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onBlur={this.checkNameAvailability} onChange={this.handleChange} />
+                                <p className='help is-danger'>
+                                   { this.state.vesselError }
+                                </p>
                             </div>
                         </div>
                         <div className='field'>
