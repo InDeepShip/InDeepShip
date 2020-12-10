@@ -95,17 +95,17 @@ class RegistrationPdfBase extends PureComponent {
     const { registration, index, pageNumber, numPages } = this.props;
     const { name, formData } = this.state;
     return (
-      // Download works, pdfviewer for testing
-      // <div>
-      //   <PDFDownloadLink document={<MyDocument name={name} registration={formData} />} fileName="registration.pdf">
-      //     {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-      //   </PDFDownloadLink>
-      // </div>
-      <div>
-        <PDFViewer>
-          <MyDocument name={name} registration={formData} />
-        </PDFViewer>
+      // Download works, pdfviewer is for testing
+      <div align="center">
+        <PDFDownloadLink document={<MyDocument name={name} registration={formData} />} fileName="registration.pdf">
+          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+        </PDFDownloadLink>
       </div>
+      // <div>
+      //   <PDFViewer>
+      //     <MyDocument name={name} registration={formData} />
+      //   </PDFViewer>
+      // </div>
     );
 
     // return ReactPDF.render(<MyDocument
