@@ -208,7 +208,6 @@ class PrivateRegistrationBase extends Component {
             Stripe redirect
         */
         localStorage.setItem(this.state['imo'], JSON.stringify(formData));
-        localStorage.setItem('IMO', JSON.stringify(formData));
 
         /*
              2. Create stripe payment redirect

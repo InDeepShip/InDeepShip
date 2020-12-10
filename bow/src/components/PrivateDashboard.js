@@ -62,8 +62,6 @@ class PrivateDashboardBase extends Component {
             loading: true
         };
 
-        this.state.formData = JSON.parse(localStorage.getItem('IMO'))
-        this.state.name = this.props.auth.user.name;
     }
 
     componentDidMount() {
@@ -90,7 +88,8 @@ class PrivateDashboardBase extends Component {
     }
 
     renderVessels() {
-        const { name, formData } = this.state;
+        const { name } = this.props.auth.user;
+
         if (this.state.loading) {
             return (
                 <span className="loading-icon icon is-large">
@@ -115,19 +114,38 @@ class PrivateDashboardBase extends Component {
                     <tbody>
                         {
                             vessels.map((vessel, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>{vessel.name}</td>
-                                        <td>{vessel.port}</td>
-                                        <td>{vessel.imo}</td>
-                                        <td>{vessel.status}</td>
-                                        <td>
-                                            <PDFDownloadLink className="button is-primary" document={<MyDocument name={name} registration={formData} />} fileName="registration.pdf">
-                                            {({ blob, url, loading, error }) => (loading ? 'Download' : 'Download')}
-                                            </PDFDownloadLink>
-                                        </td>
-                                    </tr>
-                                );
+                                let formData = localStorage.getItem(vessel.imo);
+
+                                if (formData) {
+                                    let jsonData = JSON.parse(formData);
+                                    return (
+                                        <tr key={index}>
+                                            <td>{vessel.name}</td>
+                                            <td>{vessel.port}</td>
+                                            <td>{vessel.imo}</td>
+                                            <td>{vessel.status}</td>
+                                            <td>
+                                                <PDFDownloadLink className="button is-primary" document={<MyDocument name={name} registration={jsonData} />} fileName="registration.pdf">
+                                                {({ blob, url, loading, error }) => (loading ? 'Download' : 'Download')}
+                                                </PDFDownloadLink>
+                                            </td>
+                                        </tr>
+                                    );
+                                } else {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{vessel.name}</td>
+                                            <td>{vessel.port}</td>
+                                            <td>{vessel.imo}</td>
+                                            <td>{vessel.status}</td>
+                                            <td>
+                                                <button className="button is-primary">
+                                                    Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                }
                             })
                         }
                     </tbody>
