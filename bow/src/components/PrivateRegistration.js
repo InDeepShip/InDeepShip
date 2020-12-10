@@ -43,7 +43,7 @@ class PrivateRegistrationBase extends Component {
             imoError: ''
         };
 
-        this.steps = ['Vessel', 'Register', 'Builder', 'Summary', 'Payment'];
+        this.steps = ['Vessel', 'Owner', 'Builder', 'Summary', 'Payment'];
 
         if (this.props.auth && this.props.auth.token) {
             this.state.name = this.props.auth.user.name;
@@ -223,7 +223,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Vessel Name</label>
                             <div className="control">
-                                <input id="vessel-name-input" className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onChange={this.handleChange} />
+                                <input id="vessel-name-input" className="input" name='vessel' type="text" value={this.state.vessel} placeholder="Vessel Name" onBlur={this.checkNameAvailability} onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className='field'>
@@ -268,6 +268,31 @@ class PrivateRegistrationBase extends Component {
                                 <input className='input' id='regdate' name='date' type="date" onChange={this.handleChange} />
                             </div>
                         </div>
+                        <div className="field">
+                            <label className="label">Length of Ship</label>
+                            <div className="control">
+                                <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange} />
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Number of Hulls</label>
+                            <div className="control has-icons-left">
+                                <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange} />
+                                <span className='icon is-small is-left'>
+                                    <i className='fas fa-hashtag'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <label className="label">Method of Propulsion</label>
+                            <div className="control">
+                                <div className="select is-fullwidth">
+                                    <select name='propulsion' onChange={this.handleChange}>
+                                        {this.renderPropulsion()}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </Fragment>
                 );
             case 1:
@@ -276,13 +301,13 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Owner Name</label>
                             <div className="control">
-                                <input className="input" name='name' type="text" value={this.state.name} onChange={this.handleChange} />
+                                <input className="input" name='name' type="text" value={this.state.name} onChange={this.handleChange} readOnly />
                             </div>
                         </div>
                         <div className="field">
                             <label className="label">Contact Email Address</label>
                             <div className='control has-icons-left'>
-                                <input className='input' value={this.state.email} type="text" name="email" onChange={this.handleChange} />
+                                <input className='input' value={this.state.email} type="text" name="email" onChange={this.handleChange} readOnly />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-envelope'></i>
                                 </span>
@@ -300,7 +325,7 @@ class PrivateRegistrationBase extends Component {
                         <div className="field">
                             <label className="label">Home Address</label>
                             <div className='control has-icons-left'>
-                                <input className='input' value={this.state.address} type="text" name="address" onChange={this.handleChange} />
+                                <input className='input' value={this.state.address} type="text" name="address" onChange={this.handleChange} readOnly />
                                 <span className='icon is-small is-left'>
                                     <i className='fas fa-home'></i>
                                 </span>
@@ -334,31 +359,6 @@ class PrivateRegistrationBase extends Component {
                             <label className="label">Yard Number</label>
                             <div className="control">
                                 <input className="input" name='yard_number' type="text" placeholder="Yard Number" onChange={this.handleChange} />
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Length of Ship</label>
-                            <div className="control">
-                                <input className="input" name='vessel_length' type="text" placeholder="Length" onChange={this.handleChange} />
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Number of Hulls</label>
-                            <div className="control has-icons-left">
-                                <input className="input" name='hulls' type="text" placeholder="Hulls" onChange={this.handleChange} />
-                                <span className='icon is-small is-left'>
-                                    <i className='fas fa-hashtag'></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Method of Propulsion</label>
-                            <div className="control">
-                                <div className="select is-fullwidth">
-                                    <select name='propulsion' onChange={this.handleChange}>
-                                        {this.renderPropulsion()}
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </Fragment>
