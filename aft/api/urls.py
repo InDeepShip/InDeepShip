@@ -8,6 +8,7 @@ urlpatterns = [
     path('bugreport/', views.bug_report),
     path('vessel_lookup/', views.vessel_lookup),
     path('ports/', views.ports),
+    path('imo/', views.imo_lookup),
     path('propulsion_methods/', views.propulsion_methods),
     path('reserve-name/', views.reserve_name),
     path('user_vessels/', views.get_user_vessels),
