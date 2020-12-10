@@ -201,12 +201,12 @@ class PrivateRegistrationBase extends Component {
         /*
             1. First create new private registration
         */
-       this.props.register(formData);
+        this.props.register(formData);
 
 
-       /*
-            2. Create stripe payment redirect
-       */
+        /*
+             2. Create stripe payment redirect
+        */
         const { stripe, elements } = this.props;
 
         if (!stripe || !elements) {
@@ -632,7 +632,7 @@ const PrivateRegistration = () => {
     return (
         <ElementsConsumer>
             {({ elements, stripe }) => (
-                <PrivateRegistrationContainer elements={ elements } stripe={ stripe } />
+                <PrivateRegistrationContainer elements={elements} stripe={stripe} />
             )}
         </ElementsConsumer>
     );
