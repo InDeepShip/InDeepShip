@@ -1,9 +1,55 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Image, Font, PDFViewer } from '@react-pdf/renderer';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import '../styles/PrivateDashboard.scss';
 import { VESSEL_NAME_LOOKUP } from '../constants/routes';
+
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#E4E4E4'
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1
+  },
+  image: {
+    height: 150,
+    marginBottom: 30,
+    marginHorizontal: 100,
+  },
+});
+
+const MyDocument = ({ name, registration }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <Text>Name: {name}</Text>
+        <Text>Email: {registration.email}</Text>
+        <Text>Phone: {registration.phone}</Text>
+        <Text>Address: {registration.address}</Text>
+        <Text>Vessel: {registration.vessel}</Text>
+        <Text>Port: {registration.port}</Text>
+        <Text>IMO: {registration.imo}</Text>
+        <Text>Builder: {registration.builder_name}</Text>
+        <Text>Builder Address: {registration.builder_address}</Text>
+        <Text>Yard Number: {registration.yard_number}</Text>
+        <Text>Registration Date: {registration.date}</Text>
+        <Text>Hulls: {registration.hulls}</Text>
+        <Text>Gross Tonnage: {registration.tonnage}</Text>
+        <Text>Method of Propulsion: {registration.propulsion}</Text>
+        <Text>Vessel Length: {registration.vessel_length}</Text>
+      </View>
+      <View style={styles.image}>
+        <Image src="../assets/Coat_of_arms_of_the_United_Kingdom_(black_and_white).svg" />
+      </View>
+    </Page>
+  </Document>
+);
+
 
 
 class PrivateDashboardBase extends Component {
@@ -15,6 +61,9 @@ class PrivateDashboardBase extends Component {
             registrationCount: 0,
             loading: true
         };
+
+        this.state.formData = JSON.parse(localStorage.getItem('IMO'))
+        this.state.name = this.props.auth.user.name;
     }
 
     componentDidMount() {
@@ -41,6 +90,7 @@ class PrivateDashboardBase extends Component {
     }
 
     renderVessels() {
+        const { name, formData } = this.state;
         if (this.state.loading) {
             return (
                 <span className="loading-icon icon is-large">
@@ -59,7 +109,7 @@ class PrivateDashboardBase extends Component {
                             <th>Port</th>
                             <th>IMO</th>
                             <th>Status</th>
-                            <th></th>
+                            <th>Registration PDF</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +122,9 @@ class PrivateDashboardBase extends Component {
                                         <td>{vessel.imo}</td>
                                         <td>{vessel.status}</td>
                                         <td>
-                                            <Link to={{ pathname: `/pdf`, imo: vessel.imo }} className="button is-small is-primary">PDF</Link>
+                                            <PDFDownloadLink className="button is-primary" document={<MyDocument name={name} registration={formData} />} fileName="registration.pdf">
+                                            {({ blob, url, loading, error }) => (loading ? 'Download' : 'Download')}
+                                            </PDFDownloadLink>
                                         </td>
                                     </tr>
                                 );
