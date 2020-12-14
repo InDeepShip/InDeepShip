@@ -131,7 +131,7 @@ const MyDocument = ({ name, registration }) => (
 
             <View>
                 <Text style={styles.text}>This Certificate was issued on        {registration.date}</Text>
-                <Text style={styles.text}>This Certificate expires on               {registration.expiration_date}</Text>
+                <Text style={styles.text}>This Certificate expires on               {registration.date.replace('2020', '2021')}</Text>
                 <Text style={styles.text}>Signed <Image style={styles.signature} src={signature} /></Text>
                 <View style={{marginBottom:12}}/>
                 <Text style={styles.footer}>For and on behalf of the Director General, Department of Transport</Text>
