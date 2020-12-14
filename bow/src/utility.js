@@ -28,9 +28,8 @@ export const randomUserGenerator = (length = 10) => {
 export const registeredUserGenerator = () => {
 
   return {
-    username: "Dave", 
-    address: "1150 high street", 
-    email: "dave@gmail.com", 
-    password: "davedave"
+    username: "Abdo test", 
+    email: "abdotest@gmail.com", 
+    password: "abdotest"
   };
 }

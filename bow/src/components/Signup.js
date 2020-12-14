@@ -10,7 +10,7 @@ import '../styles/SignUp.scss';
 
 // This regex describe the format of a valid email.
 const regExp = RegExp(
-  /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
+  /^[a-zA-Z0-9\-_]+@[a-zA-Z0-9]+\.[A-Za-z]+$/
 );
 
 /*

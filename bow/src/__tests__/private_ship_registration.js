@@ -5,42 +5,50 @@ require("dotenv").config()
 
 describe('Private ship registration', () => {
     let browser;
-
+    let page;
     beforeEach(async (done) => {
         browser = await puppeteer.launch({
-            //headless: false
+            headless: false,
         });
+        page = await browser.newPage();
+        await page.setViewport({
+            width: 1000,
+            height: 1200,
+            deviceScaleFactor: 1,
+          });
         done();
     });
 
     afterEach(async (done) => {
+        await page.close();
         await browser.close();
+        
         done();
     });
 
-    test('private user can be directed to login page from the landing page', async () => {
-        const page = await browser.newPage();
-        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}`);
+    // test('private user can be directed to login page from the landing page', async () => {
+        
+    //     await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}`);
 
-        await page.waitForSelector("#private-registration-link");
-        await Promise.all([
-            page.waitForNavigation(),
-            page.click("#private-registration-link"),
-        ]);
+    //     await page.waitForSelector("#private-registration-link");
+    //     await Promise.all([
+    //         page.waitForNavigation(),
+    //         page.click("#private-registration-link"),
+    //     ]);
 
-        await page.waitForSelector("#register-btn");
-        await Promise.all([
-            page.waitForNavigation(),
-            page.click("#register-btn"),
-        ]);
+    //     await page.waitForSelector("#register-btn");
+    //     await Promise.all([
+    //         page.waitForNavigation(),
+    //         page.click("#register-btn"),
+    //     ]);
 
-        expect(await page.$("#login-form")).not.toBeNull();
-        await page.close();
+    //     expect(await page.$("#login-form")).not.toBeNull();
+        
 
-    });
+    // });
     
     test('private user can login and be redirected to registration form', async () => {
-        const page = await browser.newPage();
+        
         await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}`);
         const registeredUser = registeredUserGenerator();
 
@@ -66,17 +74,12 @@ describe('Private ship registration', () => {
             page.click('#login-submit-btn', {delay: 1000})
         ]);
         expect(await page.$('#stepsDemo')).not.toBeNull();
-        await page.close();
+        
     });
     
     test('private user can login and then complete a ship registration', async () => {
-        const page = await browser.newPage();
+
         await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}`);
-        await page.setViewport({
-            width: 1000,
-            height: 1200,
-            deviceScaleFactor: 1,
-          });
         const registeredUser = registeredUserGenerator();
 
         // Act
@@ -106,14 +109,25 @@ describe('Private ship registration', () => {
         /* Start to fill in forms step by step */
         // step 1
         await page.waitForSelector("#vessel-name-input");
-        await page.type("#vessel-name-input", randomString(8));
+        await page.type("#vessel-name-input", randomString(8), {delay:100});
+        await page.waitForTimeout(1000);
+        await page.type('input[name="imo"]', Math.random().toString(10).substr(2,7), {delay:100});
+        await page.type('input[name="tonnage"]', "20");
+        await page.type("#regdate", "03122020", {delay:100});
+        await page.type('input[name="vessel_length"]', "15");
+        await page.type('input[name="hulls"]', "4");
+
         await page.waitForSelector("#next-btn");
         await page.click("#next-btn");
 
         // step 2
+        await page.type('input[name="phone"]', "1-832-888-7777", {delay:100});
         await page.click("#next-btn");
-
+        
         // step 3
+        await page.type('input[name="builder_name"]', "ShipX");
+        await page.type('input[name="builder_address"]', "1000 Seabright Street", {delay:100});
+        await page.type('input[name="yard_number"]', "100");
         await page.click("#next-btn");
 
         // step 4
@@ -124,7 +138,7 @@ describe('Private ship registration', () => {
         
         const [response] = await Promise.all([
             page.waitForNavigation(),
-            page.click('#checkout-btn', {delay: 2000})
+            page.click('#checkout-btn', {delay: 500})
         ]);
         if (!response) {
             console.log("Failed to redirect to stripe checkout");
@@ -153,7 +167,7 @@ describe('Private ship registration', () => {
         
         // Assert
         expect(await page.$('#private-dashboard-selector')).not.toBeNull();
-        await page.close();
+        await page.waitForTimeout(4000);
           
     });
     
