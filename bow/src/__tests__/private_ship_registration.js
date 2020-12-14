@@ -7,9 +7,7 @@ describe('Private ship registration', () => {
     let browser;
     let page;
     beforeEach(async (done) => {
-        browser = await puppeteer.launch({
-            headless: false,
-        });
+        browser = await puppeteer.launch({});
         page = await browser.newPage();
         await page.setViewport({
             width: 1000,
@@ -22,30 +20,29 @@ describe('Private ship registration', () => {
     afterEach(async (done) => {
         await page.close();
         await browser.close();
-        
         done();
     });
 
-    // test('private user can be directed to login page from the landing page', async () => {
+    test('private user can be directed to login page from the landing page', async () => {
         
-    //     await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}`);
+        await page.goto(`${process.env.REACT_APP_FRONTEND_DEV_ADDRESS}`);
 
-    //     await page.waitForSelector("#private-registration-link");
-    //     await Promise.all([
-    //         page.waitForNavigation(),
-    //         page.click("#private-registration-link"),
-    //     ]);
+        await page.waitForSelector("#private-registration-link");
+        await Promise.all([
+            page.waitForNavigation(),
+            page.click("#private-registration-link"),
+        ]);
 
-    //     await page.waitForSelector("#register-btn");
-    //     await Promise.all([
-    //         page.waitForNavigation(),
-    //         page.click("#register-btn"),
-    //     ]);
+        await page.waitForSelector("#register-btn");
+        await Promise.all([
+            page.waitForNavigation(),
+            page.click("#register-btn"),
+        ]);
 
-    //     expect(await page.$("#login-form")).not.toBeNull();
+        expect(await page.$("#login-form")).not.toBeNull();
         
 
-    // });
+    });
     
     test('private user can login and be redirected to registration form', async () => {
         
