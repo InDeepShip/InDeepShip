@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "@react-pdf/fontkit": "^1.13.0",
     "@react-pdf/renderer": "^1.6.12",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
