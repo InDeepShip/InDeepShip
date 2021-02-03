@@ -24,7 +24,7 @@ upstream api_server {
 server {
 	listen 80;
 	listen [::]:80;
-	server_name 206.189.218.111;
+	server_name 159.89.134.215;
 	# SSL configuration
 	#
 	# listen 443 ssl default_server;

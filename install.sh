@@ -12,7 +12,7 @@ fi
 
 
 sudo apt update
-sudo  apt install -y python3-pip python3-dev nginx curl
+sudo  apt install -y python3-pip python3-dev nginx curl python3-venv
 
 curl -sL https://deb.nodesource.com/setup_12.x | bash -
 sudo  apt-get install -y nodejs
