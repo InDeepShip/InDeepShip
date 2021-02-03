@@ -21,7 +21,7 @@ pushd /var
 
 rm -rf InDeepShip
 git clone git@github.com:InDeepShip/InDeepShip.git
-echo 'REACT_APP_SERVER_ADDRESS="http://206.189.218.111"' > /var/InDeepShip/bow/.env
+echo 'REACT_APP_SERVER_ADDRESS="http://159.89.134.215"' > /var/InDeepShip/bow/.env
 pushd InDeepShip
 
 ########################################
@@ -42,7 +42,7 @@ source ./venv/bin/activate
 pip install -r aft/requirements.txt
 
 pushd aft
-echo -e 'SERVER_ADDRESS=http://206.189.218.111\nDEBUG=off' > .env
+echo -e 'SERVER_ADDRESS=http://159.89.134.215\nDEBUG=off' > .env
 python manage.py collectstatic --no-input
 popd
 

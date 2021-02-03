@@ -150,7 +150,7 @@ def bug_report(request):
     ```
     {
         "message" : "this is a bug report",
-        "currentPage" : "http://206.189.218.111/services"
+        "currentPage" : "http://159.89.134.215/services"
     }
     ```
 

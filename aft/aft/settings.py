@@ -41,7 +41,7 @@ SECRET_KEY = '=dgyvs=_jn(8mn1ouh4l_*=o)q=y88bsn0sjd5_lvpl3bnn&(9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-# ALLOWED_HOSTS = ['206.189.218.111', '127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['159.89.134.215', '127.0.0.1', 'localhost']
 ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOW_HEADERS = default_headers + ('api-key',)
@@ -120,7 +120,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'CLIENT': {
             'name': 'NavisAlbumData',
-            'host': 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.7rnt2.mongodb.net/NavisAlbumData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
+            'host': 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.ugekk.mongodb.net/InDeepShipData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
             'username': 'SirDavid',
             'password': 'fluffygate',
             'authMechanism': 'SCRAM-SHA-1'
