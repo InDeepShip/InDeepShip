@@ -18,7 +18,7 @@ CWD = os.path.dirname(os.path.realpath(__file__))
 """
     Setup Environmental variables
 """
-REMOTE_DATABASE_HOST = 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.7rnt2.mongodb.net/NavisAlbumData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority'
+REMOTE_DATABASE_HOST = 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.ugekk.mongodb.net/NavisAlbumData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority'
 
 env = environ.Env(
     DEBUG=(bool, True),
@@ -120,7 +120,7 @@ DATABASES = {
         'ENGINE': 'djongo',
         'CLIENT': {
             'name': 'NavisAlbumData',
-            'host': 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.ugekk.mongodb.net/InDeepShipData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
+            'host': 'mongodb+srv://SirDavid:fluffygate@indeepshipcluster.ugekk.mongodb.net/NavisAlbumData?ssl=true&ssl_cert_reqs=CERT_NONE&retryWrites=true&w=majority',
             'username': 'SirDavid',
             'password': 'fluffygate',
             'authMechanism': 'SCRAM-SHA-1'
